@@ -1,0 +1,236 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="3">
+	<tr>
+		<td style="text-align:center;font-size:8px">
+			<img src="{{ documentRoot }}/build/images/tcpdf_logo.jpg"  width="114" height="38"/>
+			<br/>{{ configuration.address }}
+			<br/>{{ configuration.zipCode }} {{ configuration.city }}
+			<br/>
+			<br/>
+		</td>
+	</tr>
+</table>
+<br/>
+<br/>
+<!-- TABLE CONTACT -->
+<table width="100%" >
+	<tr>
+		<td width="5%" style="width:10%"></td>
+		<td width="65%" style="width:10%">
+			<b>{% trans %}Purchase Order{% endtrans %}:</b>
+			{% if order.idCompta|length < 2 %}
+	          PO-#{{ order.shop.extention }}000{{ order.idCompta }}-{{ order.year }}
+	        {% elseif order.idCompta|length < 3 %}
+	          #{{ order.shop.extention }}00{{ order.idCompta }}-{{ order.year }}
+	        {% elseif order.idCompta|length < 4 %}
+	          #{{ order.shop.extention }}0{{ order.idCompta }}-{{ order.year }}
+	        {% elseif order.idCompta|length < 5 %}
+	          #{{ order.shop.extention }}{{ order.idCompta }}-{{ order.year }}
+	        {% endif %}<br/>
+			{% if order.customerName is empty %}
+	  			<b>{% trans %}Customer{% endtrans %}:</b> {{ order.customer.firstName }} {{ order.customer.lastName }}
+			{% else %}
+			 	<b>{% trans %}Customer{% endtrans %}:</b> {{ order.customerName }}
+			{% endif %}<br/>
+			<b>{% trans %}Salesperson{% endtrans %}:</b> {{ order.user.firstName }} {{ order.user.lastName }}<br/>
+			<b>{% trans %}Wedding date:{% endtrans %}</b> {{ order.dateCivil|date('d/m/Y') }}
+		</td>
+		<td width="25%" style="width:10%">
+			{% if order.shop.isDirectCustomer %}
+				<b>{{ order.customer.firstName }} {{ order.customer.lastName }}</b><br/>
+				{{ order.customer.address }}<br/>
+				{{ order.customer.postCode }} {{ order.customer.city }}<br/>
+				{{ order.customer.country }}<br/>
+				{{ order.customer.phone }}<br/>
+				{{ order.customer.email }}
+			{% else %}
+				<b>{{ order.shop.name }}</b><br/>
+				{{ order.shop.address }}<br/>
+				{{ order.shop.zipCode }} {{ order.shop.city }}<br/>
+				{{ order.shop.country }}<br/>
+				<em>{% trans %}VAT:{% endtrans %} {{ order.shop.vatNum }}</em>
+			{% endif %}
+		</td>
+		<td width="5%" style="width:10%"></td>
+	</tr>
+</table>
+<!-- // END TABLE CONTACT -->
+<table width="100%" border="0" cellspacing="0" cellpadding="3">
+	<thead>
+		<tr><th></th></tr>
+		<tr><th></th></tr>
+	</thead>
+</table>
+<!-- TABLE WITH PRODUCT LIST -->
+<table width="100%" border="0" cellspacing="0" cellpadding="3">
+	<thead>
+		<tr>
+			
+			{% if order.shop.isVat %}
+			<th style="border-bottom:1px solid #000;text-align:left;" width="35%"><b>{% trans %}Product{% endtrans %}</b></th>
+			<th style="border-bottom:1px solid #000;text-align:left;" width="20%"><b>{% trans %}SKU{% endtrans %}</b></th>
+			<th style="border-bottom:1px solid #000;text-align:left;" width="5%"><b>{% trans %}S.{% endtrans %}</b></th>
+			<th style="border-bottom:1px solid #000;text-align:left;" width="10%"><b>{% trans %}U. P.{% endtrans %}</b></th>
+			<th style="border-bottom:1px solid #000;text-align:left;" width="5%"><b>{% trans %}VAT{% endtrans %}</b></th>
+			<th style="border-bottom:1px solid #000;text-align:left;" width="10%"><b>{% trans %}Price w/ Tax{% endtrans %}</b></th>
+			<th style="border-bottom:1px solid #000;text-align:left;" width="5%"><b>{% trans %}Q.{% endtrans %}</b></th>
+			<th style="border-bottom:1px solid #000;text-align:left;" width="10%"><b>{% trans %}Total{% endtrans %}</b></th>
+			{% else %}
+			<th style="border-bottom:1px solid #000;text-align:left;" width="45%"><b>{% trans %}Product{% endtrans %}</b></th>
+			<th style="border-bottom:1px solid #000;text-align:left;" width="20%"><b>{% trans %}SKU{% endtrans %}</b></th>
+			<th style="border-bottom:1px solid #000;text-align:left;" width="5%"><b>{% trans %}S.{% endtrans %}</b></th>
+			<th style="border-bottom:1px solid #000;text-align:left;" width="15%"><b>{% trans %}U. P.{% endtrans %}</b></th>
+			<th style="border-bottom:1px solid #000;text-align:left;" width="5%"><b>{% trans %}Q.{% endtrans %}</b></th>
+			<th style="border-bottom:1px solid #000;text-align:left;" width="10%"><b>{% trans %}Total{% endtrans %}</b></th>
+			{% endif %}
+			
+		</tr>
+	</thead>
+	<tbody>
+
+{% for modelOrdered in order.modelsOrdered %}
+	<tr>
+		
+		{% if order.shop.isVat %}
+		<td style="border-bottom:1px solid #BBB;" width="30%">{{ modelOrdered.model.name}}{% if(modelOrdered.comment) %}<br><em>{{ modelOrdered.comment }}</em>{% endif %}</td>
+		<td style="border-bottom:1px solid #BBB;" width="20%">{{ modelOrdered.model.sku}}</td>
+		<td style="border-bottom:1px solid #BBB;" width="5%">{{ modelOrdered.size}}</td>
+		<td style="border-bottom:1px solid #BBB;text-align:right;" width="10%">{{ modelOrdered.prixSoldHT}} €</td>
+		<td style="border-bottom:1px solid #BBB;text-align:right;" width="10%">{{ modelOrdered.prixSoldHT * order.shop.amountVat /100 }} €</td>
+		<td style="border-bottom:1px solid #BBB;text-align:right;" width="10%">{{ (modelOrdered.prixSoldHT * order.shop.amountVat /100) + modelOrdered.prixSoldHT }} €</td>
+		<td style="border-bottom:1px solid #BBB;text-align:right;" width="5%">1</td>
+		<td style="border-bottom:1px solid #BBB;text-align:right;" width="10%">{{ (modelOrdered.prixSoldHT * order.shop.amountVat /100) + modelOrdered.prixSoldHT }} €</td>
+		{% else %}
+		<td style="border-bottom:1px solid #BBB;" width="45%">{{ modelOrdered.model.name}}{% if(modelOrdered.comment) %}<br><em>{{ modelOrdered.comment }}</em>{% endif %}</td>
+		<td style="border-bottom:1px solid #BBB;" width="20%">{{ modelOrdered.model.sku}}</td>
+		<td style="border-bottom:1px solid #BBB;" width="5%">{{ modelOrdered.size}}</td>
+		<td style="border-bottom:1px solid #BBB;text-align:right;" width="15%">{{ modelOrdered.prixSoldHT}} €</td>
+		<td style="border-bottom:1px solid #BBB;text-align:right;" width="5%">1</td>
+		<td style="border-bottom:1px solid #BBB;text-align:right;" width="10%">{{ modelOrdered.prixSoldHT }} €</td>
+		{% endif %}
+	</tr>
+{% endfor %}
+	<tr>
+		<td width="55%"></td>
+		<td width="10%"></td>
+		<td width="5%"></td>
+		{% if order.shop.isVat %}
+		<td width="5%"></td>
+		<td width="5%"></td>
+		<td width="5%"></td>
+		<td width="5%"></td>
+		<td width="10%"></td>
+		{% else %}
+		<td width="15%"></td>
+		<td width="5%"></td>
+		<td width="10%"></td>
+		{% endif %}
+	</tr>
+
+	</tbody>
+</table>
+<!-- // END TABLE WITH PRODUCT LIST -->
+
+<br/>
+<!-- TABLE TOTAL -->
+<table width="100%" style="width:100%" border="0" cellspacing="0" cellpadding="3">
+	<thead>
+		<tr style="border-bottom:1px solid #111;">
+			<th style="border-bottom:1px solid #000;text-align:left;border-top:1px solid #000;" width="90%"><b>{% trans %}Total{% endtrans %}</b></th>
+			<th style="border-bottom:1px solid #000;text-align:right;border-top:1px solid #000;" width="10%"><strong>{{ detailsOrder.totalPrice }} €</strong></th>
+		</tr>
+	</thead>
+	{% if order.shop.isVat %}
+	<tbody>
+		<tr>
+			<td style="text-align:left;" width="90%">{% trans %}Total VAT{% endtrans %} ({{ order.shop.amountVat }}%)</td>
+			<td style="text-align:right;" width="10%">{{ detailsOrder.totalVAT }} €</td>
+		</tr>
+		<tr>
+			<td style="border-bottom:1px solid #000;text-align:left;border-top:1px solid #000;" width="90%"><b>{% trans %}Total with Tax{% endtrans %}</b></td>
+			<td style="border-bottom:1px solid #000;text-align:right;border-top:1px solid #000;" width="10%"><b>{{ detailsOrder.totalTTC }} €</b></td>
+		</tr>
+		<tr><td></td><td></td></tr>
+		<tr>
+			<td style="text-align:left;font-size:8px" width="90%"><i>{% trans %}Paiment needed to confirm the order{% endtrans %} (50%)</i></td>
+			<td style="text-align:right;" width="10%"><i>{{ detailsOrder.totalTTC/2 }} €</i></td>
+		</tr>
+	</tbody>
+	{% else %}
+	<tbody>
+		<tr>
+			<td style="text-align:left;font-size:8px" width="90%"><i>{% trans %}Paiment needed to confirm the order{% endtrans %} (50%)</i></td>
+			<td style="text-align:right;" width="10%"><i>{{ detailsOrder.totalPrice/2 }} €</i></td>
+		</tr>
+	</tbody>
+	{% endif %}
+</table>
+
+
+<table style="text-align:left;font-size:7px" border="0" cellspacing="0" cellpadding="3" width="100%" >
+	<tr>
+		<td>
+	{% if locale == 'fr' %}
+		{{ orderCondition | raw }}
+	{% else %}
+		{{ orderConditionEn | raw }}
+	{% endif %}
+		</td>
+	</tr>
+</table>
+<!-- // END TABLE TOTAL -->
+
+<br/><br/>
+{% if paiment is empty %}
+
+{% else %}
+<h4>{% trans %}Paiment{% endtrans %}</h4>
+<!-- TABLE WITH PRODUCT LIST -->
+<table width="100%" border="0" cellspacing="0" cellpadding="3">
+	<thead>
+		<tr style="border-bottom:1px solid #111;">
+			<th style="border-bottom:1px solid #000;text-align:left;" width="85%"><b>{% trans %}Description{% endtrans %}</b></th>
+			<th style="border-bottom:1px solid #000;text-align:left;" width="5%"><b>{% trans %}T.{% endtrans %}</b></th>
+			<th style="border-bottom:1px solid #000;text-align:left;" width="10%"><b>{% trans %}Amount{% endtrans %}</b></th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for paid in paiment %}
+		<tr style="border-bottom:1px solid #111;">
+			<td style="border-bottom:1px solid #BBB;" width="85%">{% trans %}Payment received on the {% endtrans %} {{ paid.datePaiement|date('d/m/Y') }}</td>
+			<td style="border-bottom:1px solid #BBB;" width="5%">{{ paid.typePaiement }}</td>
+			<td style="border-bottom:1px solid #BBB;text-align:right" width="10%">{{ paid.amount }} €</td>
+		</tr>
+	{% endfor %}
+	</tbody>
+</table>
+<!-- // END TABLE WITH PRODUCT LIST -->
+{% endif %}
+<br/><br/>
+<table>
+	<tr>
+		<td width="70%"></td>
+		<td width="30%" style="text-align:center"><img src="{{ documentRoot }}/build/images/tcpdf_sign.jpg" width="226" height="271"/></td>
+	</tr>
+</table>
+
+
+<br pagebreak="true"/>
+<table width="100%" border="0" cellspacing="0" cellpadding="3">
+	<tr>
+		<td style="text-align:center;font-size:8px">
+			<img src="{{ documentRoot }}/build/images/tcpdf_logo.jpg"  width="114" height="38"/>
+			<br/>{{ configuration.address }}
+			<br/>{{ configuration.zipCode }} {{ configuration.city }}
+		</td>
+	</tr>
+</table>
+<br/>
+<br/>
+<!-- TABLE CONTACT -->
+{% if locale == 'fr' %}
+	{{ saleCondition | raw }}
+{% else %}
+	{{ saleConditionEn | raw }}
+{% endif %}
+
+

@@ -1,0 +1,105 @@
+
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+  <div class="x_panel">
+    <div class="x_title">
+      <h2>{{ p1h2 }}</h2>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+      <p class="text-muted font-13 m-b-30">
+        The Buttons extension for DataTables provides a common set of options, API methods and styling to display buttons on a page that will interact with a DataTable. The core library provides the based framework upon which plug-ins can built.
+      </p>
+      
+
+      <div class="" role="tabpanel" data-example-id="togglable-tabs">
+      <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+        {% for stock in stocks %}
+          {%  if stock.info.key == 0 %}
+          <li role="presentation" class="active">
+            <a id="home-tab" href="#tab_content{{stock.info.id}}" role="tab" data-toggle="tab" aria-expanded="true">{{stock.info.name}}</a>
+          </li>
+          {% else %}
+          <li role="presentation">
+            <a id="home-tab" href="#tab_content{{stock.info.id}}" role="tab" data-toggle="tab" aria-expanded="true">{{stock.info.name}}</a>
+          </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+      
+      <div id="myTabContent" class="tab-content">
+     
+        {% for stock in stocks %}
+          {% if stock.info.key == 0 %}
+          <div id="tab_content{{stock.info.id}}" class="tab-pane fade active in" role="tabpanel" aria-labelledby="home-tab">
+          {% else %}
+          <div id="tab_content{{stock.info.id}}" class="tab-pane fade" role="tabpanel" aria-labelledby="home-tab">
+          {% endif %}
+            <h4>{{stock.info.name}} <a href="/admin/{{ locale }}/contact/workroom/{{stock.info.id}}" class="btn btn-xs btn-success pull-right"><i class="fa fa-envelope"></i> Contact {{stock.info.name}}</a></h4>
+            <div class="row">
+              <h5>Matters in stock</h5>
+              <table class="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th>Matière (SKU)</th>
+                    <th>Quantité</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for stockleft in stock.stockData %}
+                  <tr>
+                    <td>{{ stockleft.name }} ({{ stockleft.sku }})</td>
+                    <td>{{ stockleft.qt }}</td>
+                    <td></td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <hr />
+            <div class="row">
+              <h5>Stock Logs</h5>
+              <table class="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th>Matière (SKU)</th>
+                    <th>Quantité</th>
+                    <th>Ajouté le</th>
+                    <th>Opération par</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for stocklog in stock.stock %}
+                  <tr>
+                    <td>{{ stocklog.matter.name }} ({{ stocklog.matter.sku }})</td>
+                    <td>{{ stocklog.quantity }}</td>
+                    <td>{{ stocklog.dateCreation|date("d/m/Y") }}</td>
+                    <td>
+                      {% if stocklog.user is empty %}
+                        {% if stocklog.order.idCompta|length < 2 %}
+                          {% trans %}Order{% endtrans %} #{{ stocklog.order.shop.extention }}000{{ stocklog.order.idCompta }}-{{ stocklog.order.year }}
+                        {% elseif stocklog.order.idCompta|length < 3 %}
+                          {% trans %}Order{% endtrans %} #{{ stocklog.order.shop.extention }}00{{ stocklog.order.idCompta }}-{{ stocklog.order.year }}
+                        {% elseif stocklog.order.idCompta|length < 4 %}
+                          {% trans %}Order{% endtrans %} #{{ stocklog.order.shop.extention }}0{{ stocklog.order.idCompta }}-{{ stocklog.order.year }}
+                        {% elseif stocklog.order.idCompta|length < 5 %}
+                          {% trans %}Order{% endtrans %} #{{ stocklog.order.shop.extention }}{{ stocklog.order.idCompta }}-{{ stocklog.order.year }}
+                        {% endif %}
+                      {% else %}
+                        {{ stocklog.user.firstName }} {{ stocklog.user.lastName }}
+                      {% endif %}
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+              <a href="create/{{stock.info.id}}" class="btn btn-xs btn-success pull-right"><i class="fa fa-plus"></i> Add stock log</a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      </div>
+    </div>
+  </div>
+</div>

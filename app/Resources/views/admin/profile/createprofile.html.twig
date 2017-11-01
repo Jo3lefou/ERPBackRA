@@ -1,0 +1,200 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rime Arodaky {{ title }}{% endblock %}
+
+{% block body %}
+	<div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col menu_fixed">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="/" class="site_title"><span><img src="{{ url('homepage') }}build/images/logo.png" height="39px" style="margin-left: 36px"></span></a>
+            </div>
+
+            <div class="clearfix"></div>
+
+            {{ include('user/bloc/bloc-leftnav-profil.html.twig') }}
+
+            <br />
+
+            {{ include('user/bloc/bloc-leftnav-menu.html.twig') }}
+            {{ include('user/bloc/bloc-leftnav-shortcut.html.twig') }}
+            
+          </div>
+        </div>
+
+
+
+        {{ include('user/bloc/bloc-topnav.html.twig') }}
+        
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="title_left">
+            <h3>{{ h1 }}</h3>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              {{ form_start(form) }}
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>
+                    {% trans %}Your new user{% endtrans %}
+                    <small>{% trans %}Create here your new profile{% endtrans %}</small>
+                  </h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                  <!-- CONTENU -->
+                  <div class="form-horizontal form-label-left">
+                  
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="username">{% trans %}Username{% endtrans %}
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{ form_widget(form.username, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">{% trans %}First Name{% endtrans %} <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{ form_widget(form.firstName, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">{% trans %}Last Name{% endtrans %} <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{ form_widget(form.lastName, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="email" class="control-label col-md-3 col-sm-3 col-xs-12">{% trans %}Email{% endtrans %}</label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{ form_widget(form.email, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                      </div>
+                    </div>
+                    {% if (form.password) is defined %}
+                    <div class="form-group">
+                      <label for="password" class="control-label col-md-3 col-sm-3 col-xs-12">{% trans %}Password{% endtrans %}</label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{ form_widget(form.password, {'attr': {'class': 'form-control col-md-7 col-xs-12'}} ) }}
+                      </div>
+                    </div>
+                    {% endif %}
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">{% trans %}Language{% endtrans %}</label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div id="locale" class="btn-group" data-toggle="buttons">
+                          <label class="btn btn-default {% if user.locale == 'en' %}active{% endif %}" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                            <input type="radio" name="locale" value="en" {% if user.locale == 'en' %}checked{% endif %}> &nbsp; {% trans %}English{% endtrans %} &nbsp;
+                          </label>
+                          <label class="btn btn-default {% if user.locale == 'fr' %}active{% endif %}" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                            <input type="radio" name="locale" value="fr" {% if user.locale == 'fr' %}checked{% endif %}> {% trans %}French{% endtrans %}
+                          </label>
+                          {{ form_widget(form.locale, {'value': user.locale} ) }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="color">{% trans %}Color{% endtrans %}</label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{ form_widget(form.userColor, {'attr': {'class': 'form-control col-md-7 col-xs-12 colorPicker'}}) }}
+                      </div>
+                    </div>
+                  </div>
+                  <!-- // CONTENU -->
+                </div>
+              </div>
+              {% if (form.role) is defined %}
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>
+                    {% trans %}Rights and Access{% endtrans %}
+                    <small>{% trans %}Choose the access right of your user{% endtrans %}</small>
+                  </h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                  <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="role">{% trans %}Rights and Access{% endtrans %}</label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{ form_widget(form.role, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                      </div>
+                    </div>
+                </div>
+              </div>
+              {% endif %}
+              <div class="x_panel">
+                <div class="x_content">
+                  <div class="form-group">
+                      <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                        {{ form_widget(form.save, { 'label': 'Submit', 'attr': {'class': 'btn btn-success'} }) }}
+                        <!--<button class="btn btn-primary" type="button"></button>
+                        <button type="submit" class="btn btn-success">{% trans %}Submit{% endtrans %}</button>-->
+                      </div>
+                    </div>
+                </div>
+              </div>
+              {{ form_end(form) }}
+            </div>
+
+          </div>
+
+        </div>
+        <!-- /page content -->
+
+        {{ include('bloc/bloc-footer.html.twig') }}
+        
+      </div>
+    </div>
+
+{% endblock %}
+
+{% block footer %}
+  <!-- jQuery -->
+    <script src="{{ url('homepage') }}vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="{{ url('homepage') }}vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="{{ url('homepage') }}vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="{{ url('homepage') }}vendors/nprogress/nprogress.js"></script>
+    <!-- Chart.js -->
+    <script src="{{ url('homepage') }}vendors/Chart.js/dist/Chart.min.js"></script>
+    <!-- gauge.js -->
+    <script src="{{ url('homepage') }}vendors/gauge.js/dist/gauge.min.js"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="{{ url('homepage') }}vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <!-- iCheck -->
+    <script src="{{ url('homepage') }}vendors/iCheck/icheck.min.js"></script>
+    <!-- Skycons -->
+    <script src="{{ url('homepage') }}vendors/skycons/skycons.js"></script>
+    <!-- Flot -->
+    <script src="{{ url('homepage') }}vendors/Flot/jquery.flot.js"></script>
+    <script src="{{ url('homepage') }}vendors/Flot/jquery.flot.pie.js"></script>
+    <script src="{{ url('homepage') }}vendors/Flot/jquery.flot.time.js"></script>
+    <script src="{{ url('homepage') }}vendors/Flot/jquery.flot.stack.js"></script>
+    <script src="{{ url('homepage') }}vendors/Flot/jquery.flot.resize.js"></script>
+    <!-- Flot plugins -->
+    <script src="{{ url('homepage') }}vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+    <script src="{{ url('homepage') }}vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+    <script src="{{ url('homepage') }}vendors/flot.curvedlines/curvedLines.js"></script>
+    <!-- DateJS -->
+    <script src="{{ url('homepage') }}vendors/DateJS/build/date.js"></script>
+    <!-- JQVMap -->
+    <script src="{{ url('homepage') }}vendors/jqvmap/dist/jquery.vmap.js"></script>
+    <script src="{{ url('homepage') }}vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="{{ url('homepage') }}vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+    <!-- ColorPicker -->
+    <script src="{{ url('homepage') }}vendors/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="{{ url('homepage') }}vendors/moment/min/moment.min.js"></script>
+    <script src="{{ url('homepage') }}vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="{{ url('homepage') }}build/js/custom.min.js"></script>
+    <script src="{{ url('homepage') }}build/js/rarcustom.js"></script>
+{% endblock %}

@@ -1,0 +1,684 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rime Arodaky {{ title }}{% endblock %}
+
+{% block body %}
+  <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col menu_fixed">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="/" class="site_title"><span><img src="{{ url('homepage') }}build/images/logo.png" height="39px" style="margin-left: 36px"></span></a>
+            </div>
+            <div class="clearfix"></div>
+            {{ include('bloc/bloc-leftnav-profil.html.twig') }}
+            <br />
+            {{ include('bloc/bloc-leftnav-menu.html.twig') }}
+            {{ include('bloc/bloc-leftnav-shortcut.html.twig') }}
+          </div>
+        </div>
+        {{ include('bloc/bloc-topnav.html.twig') }}
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="title_left">
+            <h3>{{ h1 }} {% if order.idCompta|length < 1 %}
+                      DRAFT
+                    {% elseif order.idCompta|length < 2 %}
+                      #{{ order.shop.extention }}000{{ order.idCompta }}-{{ order.year }}
+                    {% elseif order.idCompta|length < 3 %}
+                      #{{ order.shop.extention }}00{{ order.idCompta }}-{{ order.year }}
+                    {% elseif order.idCompta|length < 4 %}
+                      #{{ order.shop.extention }}0{{ order.idCompta }}-{{ order.year }}
+                    {% elseif order.idCompta|length < 5 %}
+                      #{{ order.shop.extention }}{{ order.idCompta }}-{{ order.year }}
+                    {% endif %}</h3>
+          </div>
+          {% for message in app.flashes('success') %}
+              <div class="alert alert-success">
+                  {{ message }}
+              </div>
+          {% endfor %}
+
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Order {% if order.idCompta|length < 1 %}
+                      DRAFT
+                    {% elseif order.idCompta|length < 2 %}
+                      #{{ order.shop.extention }}000{{ order.idCompta }}-{{ order.year }}
+                    {% elseif order.idCompta|length < 3 %}
+                      #{{ order.shop.extention }}00{{ order.idCompta }}-{{ order.year }}
+                    {% elseif order.idCompta|length < 4 %}
+                      #{{ order.shop.extention }}0{{ order.idCompta }}-{{ order.year }}
+                    {% elseif order.idCompta|length < 5 %}
+                      #{{ order.shop.extention }}{{ order.idCompta }}-{{ order.year }}
+                    {% endif %} <small>edited on {{ "now"|date("d/m/Y") }}</small></h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <section class="content invoice">
+                      <!-- title row -->
+                      <div class="row">
+                        <div class="col-xs-12 invoice-header">
+                          <h1>
+                            {% if order.proto == true %}
+                              <i class="fa fa-globe"></i> Prototype Order
+                            {% else %}
+                              {% if order.shop.isDirectCustomer == true %}
+                                <i class="fa fa-globe"></i> Customer Order
+                              {% else %}
+                                <i class="fa fa-globe"></i> Shop Order
+                              {% endif %}
+                            {% endif %}
+                          </h1>
+                        </div>
+                        <!-- /.col -->
+                      </div>
+
+                      <!-- info row -->
+                      <div class="row invoice-info">
+                        {% if order.shop.isDirectCustomer == true %}
+                        <div class="col-sm-4 invoice-col">
+                          For
+                          <address>
+                            <strong>{% if customer.salutation == 1 %}{% trans %}Mr.{% endtrans %}{% elseif customer.salutation == 2 %}{% trans %}Mrs.{% endtrans %}{% else %}{% trans %}Miss.{% endtrans %}{% endif %} {{ customer.firstName }} {{ customer.lastName }}</strong>
+                            <br>{{ customer.address }}
+                            <br>{{ customer.postCode }} {{ customer.city }}
+                            <br>{{ customer.state }}, {{ customer.country }}
+                            <br><i class="fa fa-phone"></i> {{ customer.phone }}
+                            <br><i class="fa fa-envelope"></i> {{ customer.email }}
+                          </address>
+                        </div>
+                        {% endif %}
+                        <!-- /.col -->
+                        <div class="col-sm-4 invoice-col">
+                          Ordered by
+                          <address>
+                            <strong>{{ shop.name }} ({{ shop.extention }})</strong>
+                            <br>{{ shop.address }}
+                            <br>{{ shop.zipCode }} {{ shop.city }}, {{ shop.country }}
+                            <br><i class="fa fa-phone"></i> {{ shop.phone }}
+                            <br><i class="fa fa-envelope"></i> {{ shop.email }}
+                            <br><strong>{% trans %}VAT num{% endtrans %}:</strong> {{ shop.vatNum }}
+                          </address>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-sm-4 invoice-col">
+                          <b>Invoice {% if order.idCompta|length < 2 %}
+                      #INV-{{ order.shop.extention }}000{{ order.idCompta }}-{{ order.year }}
+                    {% elseif order.idCompta|length < 3 %}
+                      #INV-{{ order.shop.extention }}00{{ order.idCompta }}-{{ order.year }}
+                    {% elseif order.idCompta|length < 4 %}
+                      #INV-{{ order.shop.extention }}0{{ order.idCompta }}-{{ order.year }}
+                    {% elseif order.idCompta|length < 5 %}
+                      #INV-{{ order.shop.extention }}{{ order.idCompta }}-{{ order.year }}
+                    {% endif %}</b>
+                          {% if order.shop.isDirectCustomer == false %}
+                          <br> <b>Customer Name:</b> {{ order.customerName }}
+                          {% else %}
+                          <br>
+                          {% endif %}
+                          <br>
+                          <b>Order ID:</b> {% if order.idCompta|length < 1 %}
+                      DRAFT
+                    {% elseif order.idCompta|length < 2 %}
+                      #{{ order.shop.extention }}000{{ order.idCompta }}-{{ order.year }}
+                    {% elseif order.idCompta|length < 3 %}
+                      #{{ order.shop.extention }}00{{ order.idCompta }}-{{ order.year }}
+                    {% elseif order.idCompta|length < 4 %}
+                      #{{ order.shop.extention }}0{{ order.idCompta }}-{{ order.year }}
+                    {% elseif order.idCompta|length < 5 %}
+                      #{{ order.shop.extention }}{{ order.idCompta }}-{{ order.year }}
+                    {% endif %}
+                          <br>
+                          <b>Payment Due:</b> {{ order.dateCivil|date("d/m/Y") }}
+                        </div>
+                        <!-- /.col -->
+                      </div>
+                      <!-- /.row -->
+                      <!-- Table row -->
+                      <div class="row">
+                        <div class="col-xs-12 table">
+                          <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th>Product</th>
+                                <th>Sku</th>
+                                <th>Date max Shipping</th>
+                                <th>Price w/out Taxes</th>
+                                <th>Tax Amount</th>
+                                <th>Price w/ Taxes</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% for modelOrdered in order.modelsOrdered%}
+                              <tr>
+                                <td>{{ modelOrdered.model.name }} ({{ modelOrdered.model.category }})</td>
+                                <td>{{ modelOrdered.model.sku }}</td>
+                                <td>{{ modelOrdered.maxProdShip|date("d/m/Y") }}</td>
+                                <td class="align-right">{{ modelOrdered.prixSoldHT }} €</td>
+                                <td class="align-right">{{ (modelOrdered.prixSoldHT * shop.amountVat)/100 }} €</td>
+                                <td class="align-right">{{ (modelOrdered.prixSoldHT * shop.amountVat)/100 + modelOrdered.prixSoldHT }} €</td>
+                              </tr>
+                              {% endfor %}
+                            </tbody>
+                          </table>
+                        </div>
+                        <!-- /.col -->
+                      </div>
+                      <!-- /.row -->
+                      <div id="cashContainer">
+                        {% if order.payments is empty %}
+                        {% else %}
+                        <hr/>
+                        <!-- Table row -->
+                        <div class="row">
+                          <div class="col-xs-12 table">
+                            <table class="table table-striped" id="cashingTable">
+                              <thead>
+                                <tr>
+                                  <th>Designation</th>
+                                  <th>Payment type</th>
+                                  <th>Date received</th>
+                                  <th>Datecashing</th>
+                                  <th>Amount</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {% for payment in order.payments %}
+                                <tr>
+                                  <td>Payment received </td>
+                                  <td>{{ payment.typePaiement }}</td>
+                                  <td>{{ payment.datePaiement|date('d/m/Y') }}</td>
+                                  <td>{{ payment.dateCashing|date('d/m/Y') }}</td>
+                                  <td>{{ payment.amount }} €</td>
+                                </tr>
+                                {% endfor %}
+                              </tbody>
+                            </table>
+                          </div>
+                          <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                        {% endif %}
+                      </div>
+                      <div class="row">
+                        <!-- accepted payments column -->
+                        <div class="col-xs-6">
+                          <p class="lead">Payment Methods:</p>
+                          <img src="{{ url('homepage') }}build/images/visa.png" alt="Visa">
+                          <img src="{{ url('homepage') }}build/images/mastercard.png" alt="Mastercard">
+                          <img src="{{ url('homepage') }}build/images/american-express.png" alt="American Express">
+                          <img src="{{ url('homepage') }}build/images/paypal.png" alt="Paypal">
+                          <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                            For any cash transfer, please find bellow the bank transfer details.
+                            <br>IBAN : FR 3002 6458 4783 8366 84
+                            <br>Transfer Name : {% if order.idCompta|length < 2 %}
+                      #{{ order.shop.extention }}000{{ order.idCompta }}-{{ order.year }}
+                    {% elseif order.idCompta|length < 3 %}
+                      #{{ order.shop.extention }}00{{ order.idCompta }}-{{ order.year }}
+                    {% elseif order.idCompta|length < 4 %}
+                      #{{ order.shop.extention }}0{{ order.idCompta }}-{{ order.year }}
+                    {% elseif order.idCompta|length < 5 %}
+                      #{{ order.shop.extention }}{{ order.idCompta }}-{{ order.year }}
+                    {% endif %}
+                          </p>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-xs-6">
+                          <p class="lead">Amount Due {{ "now"|date("d/m/Y") }}</p>
+                          <div class="table-responsive">
+                            <table class="table">
+                              <tbody>
+                                
+                                {% if order.shop.isVat %}
+                                <tr>
+                                  <th style="width:50%">Subtotal:</th>
+                                  <td>{{ detailsOrder.totalPrice }} €</td>
+                                </tr>
+                                <tr>
+                                  <th>VAT ({{ order.shop.amountVat }}%)</th>
+                                  <td>{{ detailsOrder.totalVAT }} €</td>
+                                </tr>
+                                <tr>
+                                  <th>Total:</th>
+                                  <td><strong><span id="totalOrder">{{ detailsOrder.totalTTC }}</span> €</strong></td>
+                                </tr>
+                                <tr>
+                                  <th>Total Payment:</th>
+                                  <td><span id="totalPaiement">{{ payment }}</span> €</td>
+                                </tr>
+                                <tr>
+                                  <th>Outstanding payment:</th>
+                                  <td><span id='totalOutstandingPaiement'>{{ detailsOrder.totalTTC - payment }}</span> €</td>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                  <th>Total:</th>
+                                  <td><strong><span id="totalOrder">{{ detailsOrder.totalPrice }}</span> €</strong></td>
+                                </tr>
+                                <tr>
+                                  <th>Total Payment:</th>
+                                  <td><span id="totalPaiement">{{ detailsOrder.totalPrice - payment }}</span> €</td>
+                                </tr>
+                                <tr>
+                                  <th>Outstanding payment:</th>
+                                  <td><span id='totalOutstandingPaiement'>{{ detailsOrder.totalPrice - payment }}</span> €</td>
+                                </tr>
+                                {% endif %}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                        <!-- /.col -->
+                      </div>
+                      <!-- /.row -->
+
+                      <!-- this row will not appear when printing -->
+                      <div class="row no-print">
+                        <div class="col-xs-12">
+                          {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SALE_MANAGER') or is_granted('ROLE_ACCOUNTING_MANAGER')  %}
+                          <button class="btn btn-success pull-right" data-toggle="modal" data-target="#paymentModal"><i class="fa fa-credit-card"></i> Submit Payment</button>
+                          {% endif %}
+                          {% if order.customer is empty %}
+                            <a class="btn btn-primary pull-right" style="margin-right: 5px;" href="/{{ locale }}/rendering/invoice/{{ order.id }}" target="_blank"><i class="fa fa-download"></i> Generate Invoice</a>
+                            <a class="btn btn-warning pull-right" style="margin-right: 5px;" href="/{{ locale }}/rendering/purchase-order/{{ order.id }}" target="_blank"><i class="fa fa-download"></i> Generate Purchase Order</a>
+                          {% else %}
+                            <a class="btn btn-primary pull-right" style="margin-right: 5px;" href="/{{ order.customer.locale }}/rendering/invoice/{{ order.id }}"><i class="fa fa-download" target="_blank"></i> Generate Invoice</a>
+                            <a class="btn btn-warning pull-right" style="margin-right: 5px;" href="/{{ order.customer.locale }}/rendering/purchase-order/{{ order.id }}" target="_blank"><i class="fa fa-download"></i> Generate Purchase Order</a>
+                          {% endif %}
+                          {% if is_granted('ROLE_ADMIN') %}
+                            <a class="btn btn-default pull-right" style="margin-right: 5px;" href="/{{ locale }}/rendering/qrcode/{{ order.id }}" target="_blank"><i class="fa fa-barcode"></i> Generate BarCode Tracker</a>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </div>
+
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PRODUCTION_MANAGER')  or is_granted('ROLE_SALE') or is_granted('ROLE_SALE_MANAGER') %}
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Order Logs <small>for {% if order.idCompta|length < 1 %}
+                      DRAFT
+                    {% elseif order.idCompta|length < 2 %}
+                      #{{ order.shop.extention }}000{{ order.idCompta }}-{{ order.year }}
+                    {% elseif order.idCompta|length < 3 %}
+                      #{{ order.shop.extention }}00{{ order.idCompta }}-{{ order.year }}
+                    {% elseif order.idCompta|length < 4 %}
+                      #{{ order.shop.extention }}0{{ order.idCompta }}-{{ order.year }}
+                    {% elseif order.idCompta|length < 5 %}
+                      #{{ order.shop.extention }}{{ order.idCompta }}-{{ order.year }}
+                    {% endif %}</small></h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <section class="content invoice">
+                      <!-- title row -->
+                      <div class="row">
+                        <table class="table table-striped table-bordered" id="logorders">
+                          <thead>
+                            <tr>
+                              <th>Date</th>
+                              <th>Message</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for Log in order.orderLogs %}
+                            <tr>
+                              <td>
+                                {{ Log.date|date('d/m/Y H:i:s') }}
+                              </td>
+                              <td>
+                                {{ Log.message }}
+                              </td>
+                            </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </div>
+                {% endif %}
+
+            </div>
+
+          </div>
+          <div class="title_left">
+            <h3>{% trans %}Dress ordered for {% endtrans %}
+                    {% if order.idCompta|length < 2 %}
+                      #{{ order.shop.extention }}000{{ order.idCompta }}-{{ order.year }}
+                    {% elseif order.idCompta|length < 3 %}
+                      #{{ order.shop.extention }}00{{ order.idCompta }}-{{ order.year }}
+                    {% elseif order.idCompta|length < 4 %}
+                      #{{ order.shop.extention }}0{{ order.idCompta }}-{{ order.year }}
+                    {% elseif order.idCompta|length < 5 %}
+                      #{{ order.shop.extention }}{{ order.idCompta }}-{{ order.year }}
+                    {% endif %}
+            </h3>
+          </div>
+          <div class="row">
+            {% for modelO in order.modelsOrdered %}
+            <!-- Tiles -->
+            <div class="col-md-4 col-sm-4 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>{{ modelO.model.name }} <small>{{ modelO.model.category }}</small></h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                  <!-- gauge -->
+                  <div class="widget_summary">
+                    <div class="w_left w_25">
+                      {% if modelO.status == 0 %}
+                          <span class="label label-default state st-td">To be done</span>
+                        {% elseif modelO.status == 1 %}
+                          <span class="label label-default state st-es">In stock</span>
+                        {% elseif modelO.status == 2 %}
+                          <span class="label label-default state st-ew">Sent to the workroom</span>
+                        {% elseif modelO.status == 3 %}
+                          <span class="label label-default state st-ecp">Error</span>
+                        {% elseif modelO.status == 4 %}
+                          <span class="label label-default state st-epf">In production</span>
+                        {% elseif modelO.status == 5 %}
+                          <span class="label label-default state st-rs">Done at the workroom</span>
+                        {% elseif modelO.status == 6 %}
+                          <span class="label label-default state st-rse">Error</span>
+                        {% elseif modelO.status == 7 %}
+                          <span class="label label-default state st-cs">Controled</span>
+                        {% elseif modelO.status == 8 %}
+                          <span class="label label-default state st-lc">Delivered</span>
+                        {% elseif modelO.status == 9 %}
+                          <span class="label label-default state st-lc">Finished</span>
+                        {% endif %}
+                    </div>
+                    <div class="w_center w_55">
+                      <div class="progress">
+                        <div class="progress-bar bg-green" role="progressbar" aria-valuenow="{{ modelO.status*100/8 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ modelO.status*100/8 }}%;">
+                          <span class="sr-only">{{ modelO.status*100/8 }}% Complete</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="w_right w_20">
+                      <span>{{ modelO.status*100/8 }}%</span>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+                  <!-- end gauge -->
+                  <table class="tile_info table table-striped datatable-keytable">
+                    <tbody>
+                      <tr>
+                        <td>
+                          <p><i class="fa fa-text-height"></i>{% trans %}Size{% endtrans %}</p>
+                        </td>
+                        <td>{{ modelO.size }}</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p><i class="fa fa-arrows-v"></i>{% trans %}Size Heels{% endtrans %}</p>
+                        </td>
+                        <td>{{ modelO.heels }}</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p><i class="fa fa-clock-o"></i>{% trans %}Min Shipping Workroom{% endtrans %}</p>
+                        </td>
+                        <td>{{ modelO.minProdShip|date('d/m/Y') }}</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p><i class="fa fa-clock-o"></i>{% trans %}Max Shipping Workroom{% endtrans %}</p>
+                        </td>
+                        <td>{{ modelO.maxProdShip|date('d/m/Y') }}</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p><i class="fa fa-truck"></i>{% trans %}Shipping date{% endtrans %}</p>
+                        </td>
+                        <td>{{ modelO.dateShipping|date('d/m/Y') }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SALE_MANAGER') or is_granted('ROLE_ACCOUNTING_MANAGER') or is_granted('ROLE_PRODUCTION_MANAGER') or is_granted('ROLE_SALE') %}
+                  <div class="dashboard-widget-content">
+                    <ul class="list-unstyled timeline widget">
+                      {% for log in modelO.orderLogs %}
+                      <li>
+                        <div class="block">
+                          <div class="block_content">
+                            <h2 class="title">
+                              <a>{{log.message}}</a>
+                            </h2>
+                            <div class="byline">
+                              <span>{{ log.date|date('d/m/Y') }}</span>
+                              {% if log.user is defined and log.user.firstName is defined %}
+                               by {{ log.user.firstName }} {{ log.user.lastName }}
+                              {% endif %}
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            <!-- End of Tiles -->
+            {% endfor %}
+          </div>
+        </div>
+        <!-- /page content -->
+
+        {{ include('bloc/bloc-footer.html.twig') }}
+        
+      </div>
+    </div>
+
+{% endblock %}
+
+{% block footer %}
+    <!-- Modal Payment -->
+    <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">{% trans %}Add Payment{% endtrans %}</h4>
+          </div>
+          <div class="modal-body">
+            <div id="formPayment">
+              <div class="form-horizontal form-label-left">
+                <!-- Debut Form -->
+                <div class="form-group">
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="datePayment">
+                    {% trans %}Date Payment{% endtrans %}
+                    <span class="required">*</span>
+                  </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input type="text" class="form-control" value="" id="datePayment"/>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dateCash">
+                    {% trans %}Date Cashing{% endtrans %}
+                    <span class="required">*</span>
+                  </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input type="text" class="form-control" value="" id="dateCash"/>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="paymentType">
+                    {% trans %}Type Payment{% endtrans %}
+                    <span class="required">*</span>
+                  </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <select class="form-control" id="paymentType">
+                      <option>{% trans %}Choose a payment type{% endtrans %}</option>
+                      <option value="VIR">{% trans %}Virement{% endtrans %}</option>
+                      <option value="CB">{% trans %}Card{% endtrans %}</option>
+                      <option value="CHQ">{% trans %}Check{% endtrans %}</option>
+                      <option value="ESP">{% trans %}Cash{% endtrans %}</option>
+                      <option value="AUT">{% trans %}Other{% endtrans %}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="amount">
+                    {% trans %}Amount{% endtrans %}
+                    <span class="required">*</span>
+                  </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input type="text" class="form-control" value="" id="amount"/>
+                  </div>
+                  <div class="col-md-12">
+                    <i class="fa fa-info"></i> {% trans %}Le point est le spérateur de décimale. ex. 125.50{% endtrans %}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment">
+                    {% trans %}Comment{% endtrans %}
+                  </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <textarea class="form-control" id="comment"></textarea>
+                  </div>
+                </div>
+                <!-- Fin Form -->
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="savePaiment" href="/{{ locale }}/payments/create/{{ order.id }}">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- //Modal Payment -->
+
+    <!-- jQuery -->
+    <script src="{{ url('homepage') }}vendors/jquery/dist/jquery.min.js"></script>
+    <!-- jQueryUI -->
+    <script src="{{ url('homepage') }}vendors/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="{{ url('homepage') }}vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="{{ url('homepage') }}vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="{{ url('homepage') }}vendors/nprogress/nprogress.js"></script>
+    <!-- Chart.js -->
+    <script src="{{ url('homepage') }}vendors/Chart.js/dist/Chart.min.js"></script>
+    <!-- gauge.js -->
+    <script src="{{ url('homepage') }}vendors/gauge.js/dist/gauge.min.js"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="{{ url('homepage') }}vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <!-- iCheck -->
+    <script src="{{ url('homepage') }}vendors/iCheck/icheck.min.js"></script>
+    <!-- Skycons -->
+    <script src="{{ url('homepage') }}vendors/skycons/skycons.js"></script>
+    <!-- Flot -->
+    <script src="{{ url('homepage') }}vendors/Flot/jquery.flot.js"></script>
+    <script src="{{ url('homepage') }}vendors/Flot/jquery.flot.pie.js"></script>
+    <script src="{{ url('homepage') }}vendors/Flot/jquery.flot.time.js"></script>
+    <script src="{{ url('homepage') }}vendors/Flot/jquery.flot.stack.js"></script>
+    <script src="{{ url('homepage') }}vendors/Flot/jquery.flot.resize.js"></script>
+    <!-- Flot plugins -->
+    <script src="{{ url('homepage') }}vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+    <script src="{{ url('homepage') }}vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+    <script src="{{ url('homepage') }}vendors/flot.curvedlines/curvedLines.js"></script>
+    <!-- DateJS -->
+    <script src="{{ url('homepage') }}vendors/DateJS/build/date.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="{{ url('homepage') }}vendors/moment/min/moment.min.js"></script>
+    <script src="{{ url('homepage') }}vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap-datetimepicker -->    
+    <script src="{{ url('homepage') }}vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- Collection -->
+    <script src="{{ url('homepage') }}vendors/collection/collection.js"></script>
+    <!-- Switchery -->
+    <script src="{{ url('homepage') }}vendors/switchery/dist/switchery.js"></script>
+    <!-- JQVMap -->
+    <script src="{{ url('homepage') }}vendors/jqvmap/dist/jquery.vmap.js"></script>
+    <script src="{{ url('homepage') }}vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="{{ url('homepage') }}vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+    <!-- ColorPicker -->
+    <script src="{{ url('homepage') }}vendors/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="{{ url('homepage') }}vendors/moment/min/moment.min.js"></script>
+    <script src="{{ url('homepage') }}vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="{{ url('homepage') }}build/js/custom.min.js"></script>
+    <script src="{{ url('homepage') }}build/js/rarcustom.js"></script>
+    <script>
+      
+
+      $('#datePayment').datetimepicker({
+          format: 'DD.MM.YYYY'
+      });
+      $('#dateCash').datetimepicker({
+          format: 'DD.MM.YYYY'
+      });
+
+      $('button#savePaiment').on('click', function(e){
+        console.log(e);
+        e.preventDefault();
+        var amount = $('#formPayment #amount').val();
+        var datePaiement = $('#formPayment #datePayment').val();
+        var typePaiement = $('#formPayment #paymentType').val();
+        var dateCashing = $('#formPayment #dateCash').val();
+        var comment = $('#formPayment #comment').val();
+        var href = $(this).attr('href');
+        $('#loading-bar').fadeIn();
+        $.ajax( {
+            type:"GET",
+            url: href,
+            dataType: "json",
+            data: { amount: amount, datePaiement: datePaiement, typePaiement:typePaiement, dateCashing:dateCashing, comment:comment },
+            success: function( data ) {
+              if(data.error == ''){
+                $('#paymentModal').modal('hide');
+                $('#formPayment #amount').val('');
+                $('#formPayment #datePayment').val('');
+                $('#formPayment #paymentType').val('');
+                $('#formPayment #dateCash').val('');
+                $('#formPayment #comment').val('');
+
+                $('#logorders tbody').append('<tr><td>'+data.logTime+'</td><td>'+data.log+'</td></tr>');
+
+                var totalOrder = $('#totalOrder').html();
+                var totalPaiement = $('#totalPaiement').html();
+
+                var cashNb = $('#cashingTable').length;
+                var content = '<tr><td>Payment received </td><td>'+data.type+'</td><td>'+data.datePaid+'</td><td>'+data.dateCash+'</td><td>'+data.amount+' €</td></tr>';
+                var tableBegin = '<hr/><div class="row"><div class="col-xs-12 table"><table class="table table-striped" id="cashingTable"><thead><tr><th>Designation</th><th>Payment type</th><th>Date received</th><th>Datecashing</th><th>Amount</th></tr></thead><tbody>';  
+                var tableEnd = '</tbody></table></div></div>';
+
+                var newtotalPaiement = parseInt(totalPaiement)+parseInt(data.amount);
+                var newOutstandingPaiement = parseInt(totalOrder)-parseInt(newtotalPaiement);
+                if(cashNb){
+                  $('#cashingTable tbody').append(content);
+                }else{
+                  $('#cashContainer').append(tableBegin+content+tableEnd);
+                }
+                $('#totalPaiement').html(newtotalPaiement);
+                $('#totalOutstandingPaiement').html(newOutstandingPaiement);
+
+              }else{
+
+              }
+            },
+            complete: function(){
+              $('#loading-bar').fadeOut();
+            }
+        })
+      })
+    </script>
+{% endblock %}

@@ -1,0 +1,243 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rime Arodaky {{ title }}{% endblock %}
+
+{% block body %}
+  <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col menu_fixed">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="/" class="site_title"><span><img src="{{ url('homepage') }}build/images/logo.png" height="39px" style="margin-left: 36px"></span></a>
+            </div>
+
+            <div class="clearfix"></div>
+
+            {{ include('bloc/bloc-leftnav-profil.html.twig') }}
+
+            <br />
+
+            {{ include('bloc/bloc-leftnav-menu.html.twig') }}
+            {{ include('bloc/bloc-leftnav-shortcut.html.twig') }}
+            
+          </div>
+        </div>
+
+
+
+        {{ include('bloc/bloc-topnav.html.twig') }}
+        
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="title_left">
+            <h3>{{ h1 }}</h3>
+          </div>
+          {% for message in app.flashes('success') %}
+              <div class="alert alert-success">
+                  {{ message }}
+              </div>
+          {% endfor %}
+
+          
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              {{ form_start(form) }}
+
+              
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>
+                    {{ p1h2 }}
+                    <small>{{ p1h3 }}</small>
+                  </h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                  <!-- CONTENU -->
+                  <div class="form-horizontal form-label-left">
+                  
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="shop_name">{{ form.name.vars.label }} <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{ form_widget(form.name, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="shop_extention">{{ form.address.vars.label }}
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{ form_widget(form.address, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="shop_address">{{ form.postCode.vars.label }}
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{ form_widget(form.postCode, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="shop_zipCode">{{ form.city.vars.label }}
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{ form_widget(form.city, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="shop-city" class="control-label col-md-3 col-sm-3 col-xs-12">{{ form.state.vars.label }}</label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{ form_widget(form.state, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="shop_country" class="control-label col-md-3 col-sm-3 col-xs-12">{{ form.country.vars.label }}</label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{ form_widget(form.country, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="shop_email" class="control-label col-md-3 col-sm-3 col-xs-12">{{ form.email.vars.label }} <span class="required">*</span></label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{ form_widget(form.email, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="shop_phone" class="control-label col-md-3 col-sm-3 col-xs-12">{{ form.phone.vars.label }}</label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{ form_widget(form.phone, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                      </div>
+                    </div>
+                  </div>
+                  <!-- // CONTENU -->
+                </div>
+              </div>
+              {% if is_granted('ROLE_ADMIN') %}
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>
+                    {{ p2h2 }}
+                    <small>{{ p2h3 }}</small>
+                  </h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                  <div class="form-horizontal form-label-left">
+                    <div class="form-group">
+                      <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="checkbox">
+                          <label>
+                              {{ form_widget(form.isActive, {'attr': {'class': 'js-switch'}}) }}
+                              {{ form.isActive.vars.label }}
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+              {% if is_granted('ROLE_ADMIN') %}
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>
+                    {{ p3h2 }}
+                    <small>{{ p3h3 }}</small>
+                  </h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                  <div class="form-horizontal form-label-left">
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="role">{% trans %}Select user(s) linked to that shop{% endtrans %}</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          
+                          {% for user in form.users %}
+
+                            <div class="checkbox col-md-3">
+                              <label>{{ form_widget(user, {'attr': {'class': 'js-switch'}}) }} {{ user.vars.label }}</label>
+                            </div>
+
+                          {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <hr/>
+                </div>
+              </div>
+              {% endif %}
+              <div class="x_panel">
+                <div class="x_content">
+                  <div class="form-group">
+                      <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                        {{ form_widget(form.save, { 'label': 'Submit', 'attr': {'class': 'btn btn-success'} }) }}
+                        <!--<button class="btn btn-primary" type="button"></button>
+                        <button type="submit" class="btn btn-success">{% trans %}Submit{% endtrans %}</button>-->
+                      </div>
+                    </div>
+                </div>
+              </div>
+              {{ form_end(form) }}
+            </div>
+
+          </div>
+
+        </div>
+        <!-- /page content -->
+
+        {{ include('bloc/bloc-footer.html.twig') }}
+        
+      </div>
+    </div>
+
+{% endblock %}
+
+{% block footer %}
+  <!-- jQuery -->
+    <script src="{{ url('homepage') }}vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="{{ url('homepage') }}vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="{{ url('homepage') }}vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="{{ url('homepage') }}vendors/nprogress/nprogress.js"></script>
+    <!-- Chart.js -->
+    <script src="{{ url('homepage') }}vendors/Chart.js/dist/Chart.min.js"></script>
+    <!-- gauge.js -->
+    <script src="{{ url('homepage') }}vendors/gauge.js/dist/gauge.min.js"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="{{ url('homepage') }}vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <!-- iCheck -->
+    <script src="{{ url('homepage') }}vendors/iCheck/icheck.min.js"></script>
+    <!-- Skycons -->
+    <script src="{{ url('homepage') }}vendors/skycons/skycons.js"></script>
+    <!-- Flot -->
+    <script src="{{ url('homepage') }}vendors/Flot/jquery.flot.js"></script>
+    <script src="{{ url('homepage') }}vendors/Flot/jquery.flot.pie.js"></script>
+    <script src="{{ url('homepage') }}vendors/Flot/jquery.flot.time.js"></script>
+    <script src="{{ url('homepage') }}vendors/Flot/jquery.flot.stack.js"></script>
+    <script src="{{ url('homepage') }}vendors/Flot/jquery.flot.resize.js"></script>
+    <!-- Flot plugins -->
+    <script src="{{ url('homepage') }}vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+    <script src="{{ url('homepage') }}vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+    <script src="{{ url('homepage') }}vendors/flot.curvedlines/curvedLines.js"></script>
+    <!-- DateJS -->
+    <script src="{{ url('homepage') }}vendors/DateJS/build/date.js"></script>
+    <!-- Switchery -->
+    <script src="{{ url('homepage') }}vendors/switchery/dist/switchery.js"></script>
+    <!-- JQVMap -->
+    <script src="{{ url('homepage') }}vendors/jqvmap/dist/jquery.vmap.js"></script>
+    <script src="{{ url('homepage') }}vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="{{ url('homepage') }}vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+    <!-- ColorPicker -->
+    <script src="{{ url('homepage') }}vendors/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="{{ url('homepage') }}vendors/moment/min/moment.min.js"></script>
+    <script src="{{ url('homepage') }}vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="{{ url('homepage') }}build/js/custom.min.js"></script>
+    <script src="{{ url('homepage') }}build/js/rarcustom.js"></script>
+{% endblock %}

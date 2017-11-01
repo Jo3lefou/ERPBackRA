@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}Test Application{% endblock %}</title>
+
+    <!-- Bootstrap -->
+    <link href="{{ url('homepage') }}vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="{{ url('homepage') }}vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="{{ url('homepage') }}vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- Animate.css -->
+    <link href="{{ url('homepage') }}vendors/animate.css/animate.min.css" rel="stylesheet">
+    <!-- Switchery.css -->
+    <link href="{{ url('homepage') }}vendors/switchery/switchery.css" rel="stylesheet">
+    <!-- Bootstrap Colorpicker -->
+    <link href="{{ url('homepage') }}vendors/mjolnic-bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+    <!-- JqueryUI -->
+    <link href="{{ url('homepage') }}build/css/jquery-ui.min.css" rel="stylesheet">
+    <link href="{{ url('homepage') }}build/css/jquery-ui.structure.min.css" rel="stylesheet">
+    <link href="{{ url('homepage') }}build/css/jquery-ui.theme.min.css" rel="stylesheet">
+    <!-- Datatables -->
+    <link href="{{ url('homepage') }}vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url('homepage') }}vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url('homepage') }}vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url('homepage') }}vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url('homepage') }}vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="{{ url('homepage') }}build/css/custom.min.css" rel="stylesheet">
+    <link href="{{ url('homepage') }}build/css/custom.ra.min.css" rel="stylesheet">
+  </head>
+
+  <body class="{{ bodyClass }}">
+    <div id="loading-bar">
+        <div class="alert alert-success">Action in progress, please wait.</div>
+    </div>
+    <div id="loading-alert">
+        <div class="alert alert-success" style="display:none;">
+            <p></p>
+        </div>
+        <div class="alert alert-danger" style="display:none;"> 
+            <p></p>
+        </div>
+    </div>
+    {% block nav %}{% endblock %}
+    {% block body %}{% endblock %}
+    {% block footer %}{% endblock %}
+  </body>
+</html>

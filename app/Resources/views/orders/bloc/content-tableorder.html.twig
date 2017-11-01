@@ -1,0 +1,290 @@
+
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+  <div class="x_panel">
+    <div class="x_title">
+      <h2>{{ p1h2 }}</h2>
+      <div class="col-md-2 pull-right"><a href="/{{ locale }}/orders/create/" class="btn btn-success btn-xs"><i class="fa fa-plus"></i> {% trans %}Create a new order{% endtrans %}</a></div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+      <p class="text-muted font-13 m-b-30">
+        
+      </p>
+      <div class="" role="tabpanel" data-example-id="togglable-tabs">
+        
+        <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+          <li class="{% if status == 'all' %}active{% endif %}"><a href='/{{ user.locale }}/orders/view/all'>{% trans %}Published orders{% endtrans %}</a></li>
+          <li class="{% if status == 'finished' %}active{% endif %}"><a href='/{{ user.locale }}/orders/view/all/finished'>{% trans %}Finished orders{% endtrans %}</a></li>
+          <li class="{% if status == 'history' %}active{% endif %}"><a href='/{{ user.locale }}/orders/view/all/history'>{% trans %}History{% endtrans %}</a></li>
+          <li class="{% if status == 'draft' %}active{% endif %}"><a href='/{{ user.locale }}/orders/view/all/draft'>{% trans %}Draft orders{% endtrans %}</a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+          <div id="tab_content1" class="tab-pane fade active in" role="tabpanel" aria-labelledby="home-tab">
+        
+            <div class="bordered">
+              <span>{% trans %}Caption box : {% endtrans %}</span>
+              <em class="state st-td">{% trans %}To be done{% endtrans %}</em>
+              <em class="state st-ew">{% trans %}Sent to provider{% endtrans %}</em>
+              <em class="state st-ecp">{% trans %}In Production{% endtrans %}</em>
+              <em class="state st-epf">{% trans %}Sent by workroom{% endtrans %}</em>
+              <em class="state st-rs">{% trans %}Received by Rime Arodaky{% endtrans %}</em>
+              <em class="state st-rse">{% trans %}Received with error{% endtrans %}</em>
+              <em class="state st-es">{% trans %}In stock{% endtrans %}</em>
+              <em class="state st-cs">{% trans %}Controled{% endtrans %}</em>
+              <em class="state st-lc">{% trans %}Shipped{% endtrans %}</em>
+              <em class="state st-lc">{% trans %}Finished{% endtrans %}</em>
+            </div>
+            {% if status != 'history' %}
+            {% if is_granted('ROLE_ADMIN') %}
+            
+            <div class="bordered">
+              <span>{% trans %}Display/Hide : {% endtrans %}</span>
+              <a class="toggle-vis" data-column="0">{% trans %}ID{% endtrans %}</a>
+              <a class="toggle-vis" data-column="1">{% trans %}Shop{% endtrans %}</a>
+              <a class="toggle-vis" data-column="2">{% trans %}Name{% endtrans %}</a>
+              <a class="toggle-vis" data-column="3">{% trans %}Order date{% endtrans %}</a>
+              <a class="toggle-vis" data-column="4">{% trans %}Validation date{% endtrans %}</a>
+              <a class="toggle-vis" data-column="5">{% trans %}Wedding date{% endtrans %}</a>
+              <a class="toggle-vis" data-column="6">{% trans %}Product(s){% endtrans %}</a>
+              <a class="toggle-vis" data-column="7">{% trans %}Ship. Min{% endtrans %}</a>
+              <a class="toggle-vis" data-column="8">{% trans %}Ship. Max{% endtrans %}</a>
+              <a class="toggle-vis" data-column="9">{% trans %}Created By{% endtrans %}</a>
+              <a class="toggle-vis" data-column="10">{% trans %}Comments{% endtrans %}</a>
+              <a class="toggle-vis" data-column="11">{% trans %}Status{% endtrans %}</a>
+            </div>
+            {% else %}
+            <div class="bordered">
+              <span>{% trans %}Display/Hide : {% endtrans %}</span>
+              <a class="toggle-vis" data-column="0">{% trans %}ID{% endtrans %}</a>
+              <a class="toggle-vis" data-column="1">{% trans %}Shop{% endtrans %}</a>
+              <a class="toggle-vis" data-column="2">{% trans %}Name{% endtrans %}</a>
+              <a class="toggle-vis" data-column="3">{% trans %}Order date{% endtrans %}</a>
+              <a class="toggle-vis" data-column="4">{% trans %}Validation date{% endtrans %}</a>
+              <a class="toggle-vis" data-column="5">{% trans %}Wedding date{% endtrans %}</a>
+              <a class="toggle-vis" data-column="6">{% trans %}Product(s){% endtrans %}</a>
+              <a class="toggle-vis" data-column="7">{% trans %}Ship. Min{% endtrans %}</a>
+              <a class="toggle-vis" data-column="8">{% trans %}Ship. Max{% endtrans %}</a>
+              <a class="toggle-vis" data-column="9">{% trans %}Comments{% endtrans %}</a>
+              <a class="toggle-vis" data-column="10">{% trans %}Status{% endtrans %}</a>
+            </div>
+            {% endif %}
+            {% endif %}
+            {% if status == 'history' %}
+              <table class="table table-striped datatable-keytable" width="100%">
+            {% else %}
+              <table id="datatable-order" class="table table-striped datatable-keytable" data-order='[[ 3, "desc" ]]' data-page-length='100'  width="100%">
+            {% endif %}
+            
+              <thead>
+                <tr>
+                  <th>{% trans %}ID{% endtrans %}</th>
+                  <th>{% trans %}Shop{% endtrans %}</th>
+                  <th>{% trans %}Name{% endtrans %}</th>
+                  <th>{% trans %}Order{% endtrans %}</th>
+                  <th>{% trans %}Valid.{% endtrans %}</th>
+                  <th>{% trans %}Wedding{% endtrans %}</th>
+                  <th>{% trans %}Product(s){% endtrans %}</th>
+                  <th>{% trans %}Ship. Min{% endtrans %}</th>
+                  <th>{% trans %}Ship. Max{% endtrans %}</th>
+                  {% if is_granted('ROLE_ADMIN') %}<th>{% trans %}Created By{% endtrans %}</th>{% endif %}
+                  <th><i class='fa fa-comment'></i></th>
+                  <th>{% trans %}Status{% endtrans %}</th>
+                  <th>{% trans %}Action{% endtrans %}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for order in orders %}
+                {% if order.state == 0 %}
+                <tr id="order-{{ order.id }}" class="st-dft">
+                {% elseif order.state == 1 %}
+                <tr id="order-{{ order.id }}" class="st-pnd">
+                {% elseif order.state == 2 %}
+                <tr id="order-{{ order.id }}" class="st-vlt">
+                {% elseif order.state == 3 %}
+                <tr id="order-{{ order.id }}" class="st-err">
+                {% elseif order.state == 4 %}
+                <tr id="order-{{ order.id }}" class="st-ccl">
+                {% elseif order.state == 5 %}
+                <tr id="order-{{ order.id }}" class="st-ctl">
+                {% elseif order.state == 6 %}
+                <tr id="order-{{ order.id }}" class="st-dlv">
+                {% elseif order.state == 7 %}
+                <tr id="order-{{ order.id }}" class="st-sis">
+                {% endif %}
+                
+                  <td>
+                    {% if order.idCompta|length < 1 %}
+                      DRAFT
+                    {% elseif order.idCompta|length < 2 %}
+                      {{ order.shop.extention }}000{{ order.idCompta }}-{{ order.year }}
+                    {% elseif order.idCompta|length < 3 %}
+                      {{ order.shop.extention }}00{{ order.idCompta }}-{{ order.year }}
+                    {% elseif order.idCompta|length < 4 %}
+                      {{ order.shop.extention }}0{{ order.idCompta }}-{{ order.year }}
+                    {% elseif order.idCompta|length < 5 %}
+                      {{ order.shop.extention }}{{ order.idCompta }}-{{ order.year }}
+                    {% endif %}
+                    </td>
+                  <td>{{ order.shop.name }}</td>
+                  <td>
+                    {% if order.customerName is empty %}
+                      {{ order.customer.firstName }} {{ order.customer.lastName }}
+                    {% else %}
+                      {{ order.customerName }}
+                    {% endif %}
+                  </td>
+                  <td>{{ order.dateOrder|date("d/m/Y") }}</td>
+                  <td class="validationdate">{% if order.dateValidation %}{{ order.dateValidation|date("d/m/Y") }}{% else %}{% trans %}Not validated{% endtrans %}{% endif%}</td>
+                  <td>{{ order.dateCivil|date("d/m/Y") }}</td>
+                  <td class="update-model-ordered">
+                    {% for modelOrdered in order.modelsOrdered %}
+                      {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROVIDER') or is_granted('ROLE_PRODUCTION_MANAGER')  %}
+                        <div class="btn-group">
+
+                          {% if modelOrdered.status == 0 %}
+                            <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-td" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ modelOrdered.id }}">
+                          {% elseif modelOrdered.status == 1 %}
+                            <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-es" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ modelOrdered.id }}">
+                          {% elseif modelOrdered.status == 2 %}
+                            <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-ew" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ modelOrdered.id }}">
+                          {% elseif modelOrdered.status == 3 %}
+                            <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-ecp" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ modelOrdered.id }}">
+                          {% elseif modelOrdered.status == 4 %}
+                            <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-epf" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ modelOrdered.id }}">
+                          {% elseif modelOrdered.status == 5 %}
+                            <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-rs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ modelOrdered.id }}">
+                          {% elseif modelOrdered.status == 6 %}
+                            <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-rse" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ modelOrdered.id }}">
+                          {% elseif modelOrdered.status == 7 %}
+                            <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-cs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ modelOrdered.id }}">
+                          {% elseif modelOrdered.status == 8 %}
+                            <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-lc" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ modelOrdered.id }}">
+                          {% elseif modelOrdered.status == 9 %}
+                            <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-lc" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ modelOrdered.id }}">
+                          {% endif %}
+                            {{ modelOrdered.model.name }} ({{ modelOrdered.size }}) <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu">
+                            <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ modelOrdered.id }}" rel="0">{% trans %}To be done{% endtrans %}</a></li>
+                            <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ modelOrdered.id }}" rel="1">{% trans %}In Stock{% endtrans %}</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ modelOrdered.id }}" rel="2">{% trans %}Sent to workroom{% endtrans %}</a></li>
+                            <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ modelOrdered.id }}" rel="3">{% trans %}In production{% endtrans %}</a></li>
+                            <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ modelOrdered.id }}" rel="4">{% trans %}Sent by fullfilment house{% endtrans %}</a></li>
+                            <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ modelOrdered.id }}" rel="5">{% trans %}Received by Rime Arodaky{% endtrans %}</a></li>
+                            <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ modelOrdered.id }}" rel="6">{% trans %}Received with error{% endtrans %}</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ modelOrdered.id }}" rel="7">{% trans %}Controled{% endtrans %}</a></li>
+                            <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ modelOrdered.id }}" rel="9">{% trans %}Finished{% endtrans %}</a></li>
+                            <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ modelOrdered.id }}" rel="8">{% trans %}Delivered{% endtrans %}</a></li>
+                          </ul>
+                        </div>
+                      {% else %}
+                        {% if modelOrdered.status == 0 %}
+                          <span class="label label-default state st-td">{{ modelOrdered.model.name }} ({{ modelOrdered.size }}) </span>
+                        {% elseif modelOrdered.status == 1 %}
+                          <span class="label label-default state st-es">{{ modelOrdered.model.name }} ({{ modelOrdered.size }}) </span>
+                        {% elseif modelOrdered.status == 2 %}
+                          <span class="label label-default state st-ew">{{ modelOrdered.model.name }} ({{ modelOrdered.size }}) </span>
+                        {% elseif modelOrdered.status == 3 %}
+                          <span class="label label-default state st-ecp">{{ modelOrdered.model.name }} ({{ modelOrdered.size }}) </span>
+                        {% elseif modelOrdered.status == 4 %}
+                          <span class="label label-default state st-epf">{{ modelOrdered.model.name }} ({{ modelOrdered.size }}) </span>
+                        {% elseif modelOrdered.status == 5 %}
+                          <span class="label label-default state st-rs">{{ modelOrdered.model.name }} ({{ modelOrdered.size }}) </span>
+                        {% elseif modelOrdered.status == 6 %}
+                          <span class="label label-default state st-rse">{{ modelOrdered.model.name }} ({{ modelOrdered.size }}) </span>
+                        {% elseif modelOrdered.status == 7 %}
+                          <span class="label label-default state st-cs">{{ modelOrdered.model.name }} ({{ modelOrdered.size }}) </span>
+                        {% elseif modelOrdered.status == 8 %}
+                          <span class="label label-default state st-lc">{{ modelOrdered.model.name }} ({{ modelOrdered.size }}) </span>
+                        {% elseif modelOrdered.status == 9 %}
+                          <span class="label label-default state st-lc">{{ modelOrdered.model.name }} ({{ modelOrdered.size }}) </span>
+                        {% endif %}
+                      {% endif %}
+                      
+                    {% endfor %}
+                  </td>
+                  <td>{{ order.dateMinShip|date("d/m/Y") }}</td>
+                  <td>{{ order.dateMaxShip|date("d/m/Y") }}</td>
+                  {% if is_granted('ROLE_ADMIN') %}
+                    <td>{{ order.user.firstName }} {{ order.user.lastName }}</td>
+                  {% endif %}
+                  <td>{{ order.notes|length }}</td>
+                  <td class="update-order">
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROVIDER') or is_granted('ROLE_PRODUCTION_MANAGER')  %}
+                        <div class="btn-group">
+                          {% if order.state == 0 %}
+                            <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-dft" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="o-{{ order.id }}">{% trans %}Draft{% endtrans %} <span class="caret"></span>
+                          {% elseif order.state == 1 %}
+                            <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-pnd" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="o-{{ order.id }}">{% trans %}Pending{% endtrans %} <span class="caret"></span>
+                          {% elseif order.state == 2 %}
+                            <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-vlt" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="o-{{ order.id }}">{% trans %}Validated{% endtrans %} <span class="caret"></span>
+                          {% elseif order.state == 3 %}
+                            <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-err" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="o-{{ order.id }}">{% trans %}Error{% endtrans %} <span class="caret"></span>
+                          {% elseif order.state == 4 %}
+                            <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-ccl" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="o-{{ order.id }}">{% trans %}Canceled{% endtrans %} <span class="caret"></span>
+                          {% elseif order.state == 5 %}
+                            <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-ctl" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="o-{{ order.id }}">{% trans %}Controled{% endtrans %} <span class="caret"></span>
+                          {% elseif order.state == 6 %}
+                            <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-dlv" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="o-{{ order.id }}">{% trans %}Delivered{% endtrans %} <span class="caret"></span>
+                          {% elseif order.state == 7 %}
+                            <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-sis" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="o-{{ order.id }}">{% trans %}Stored in stock{% endtrans %} <span class="caret"></span>
+                          {% endif %}
+                          </button>
+                          <ul class="dropdown-menu">
+                            <li><a href="/{{ locale }}/orders/update/update-order/{{ order.id }}" rel="0">{% trans %}Draft{% endtrans %}</a></li>
+                            <li><a href="/{{ locale }}/orders/update/update-order/{{ order.id }}" rel="1">{% trans %}Pending{% endtrans %}</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/{{ locale }}/orders/update/update-order/{{ order.id }}" rel="2">{% trans %}Validated{% endtrans %}</a></li>
+                            <li><a href="/{{ locale }}/orders/update/update-order/{{ order.id }}" rel="3">{% trans %}Error{% endtrans %}</a></li>
+                            <li><a href="/{{ locale }}/orders/update/update-order/{{ order.id }}" rel="4">{% trans %}Canceled{% endtrans %}</a></li>
+                            <li><a href="/{{ locale }}/orders/update/update-order/{{ order.id }}" rel="5">{% trans %}Controled{% endtrans %}</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/{{ locale }}/orders/update/update-order/{{ order.id }}" rel="6">{% trans %}Delivered{% endtrans %}</a></li>
+                            <li><a href="/{{ locale }}/orders/update/update-order/{{ order.id }}" rel="7">{% trans %}Stored in stock{% endtrans %}</a></li>
+                          </ul>
+                        </div>
+                      {% else %}
+                        {% if order.state == 0 %}
+                          <span class="state st-dft">{% trans %}Draft{% endtrans %}</span>
+                        {% elseif order.state == 1 %}
+                          <span class="state st-pnd">{% trans %}Pending{% endtrans %}</span>
+                        {% elseif order.state == 2 %}
+                          <span class="state st-vlt">{% trans %}Validated{% endtrans %}</span>
+                        {% elseif order.state == 3 %}
+                          <span class="state st-err">{% trans %}Error{% endtrans %}</span>
+                        {% elseif order.state == 4 %}
+                          <span class="state st-ccl">{% trans %}Canceled{% endtrans %}</span>
+                        {% elseif order.state == 5 %}
+                          <span class="state st-ctl">{% trans %}Controled{% endtrans %}</span>
+                        {% elseif order.state == 6 %}
+                          <span class="state st-dlv">{% trans %}Delivered{% endtrans %}</span>
+                        {% elseif order.state == 7 %}
+                          <spanclass="state st-sis">{% trans %}Stored in stock{% endtrans %}</span>
+                        {% endif %}
+                      {% endif %}
+                  </td>
+                  <td>
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROVIDER') or is_granted('ROLE_PRODUCTION_MANAGER')  %}
+                      <a href="/{{ locale }}/orders/edit/{{ order.id }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i> {% trans %}Edit{% endtrans %}</a>
+                      <a href="/{{ locale }}/orders/single/{{ order.id }}" class="btn btn-success btn-xs"><i class="fa fa-eye"></i> {% trans %}View{% endtrans %}</a>
+                    {% else %}
+                      {% if order.state == 0 or order.state == 3 %}
+                        <a href="/{{ locale }}/orders/edit/{{ order.id }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i> {% trans %}Edit{% endtrans %}</a>
+                      {% else %}
+                        <a href="/{{ locale }}/orders/single/{{ order.id }}" class="btn btn-success btn-xs"><i class="fa fa-eye"></i> {% trans %}View{% endtrans %}</a>
+                      {% endif %}
+                    {% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

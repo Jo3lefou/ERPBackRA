@@ -1,0 +1,102 @@
+<!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              {% if is_granted('ROLE_USER') %}
+              <div class="menu_section">
+                <h3>{% trans %}General{% endtrans %}</h3>
+                <ul class="nav side-menu">
+                   <li><a href="/{{ locale }}/orders/view"><i class="fa fa-edit"></i> {% trans %}All Orders{% endtrans %}</a></li>
+                </ul>
+              </div>
+              {% endif %}
+              {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SALE_MANAGER') or is_granted('ROLE_PROVIDER') or is_granted('ROLE_SALE') or is_granted('ROLE_PRODUCTION_MANAGER') %}
+              <div class="menu_section">
+                <h3>{% trans %}General{% endtrans %}</h3>
+                <ul class="nav side-menu">
+                  <li><a><i class="fa fa-home"></i> {% trans %}Orders{% endtrans %} <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="/{{ locale }}/order-dashboard">{% trans %}Dashboard{% endtrans %}</a></li>
+                      <li><a href="/{{ locale }}/orders/view">{% trans %}All Orders{% endtrans %}</a></li>
+                      {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PRODUCTION_MANAGER') %}
+                      <li><a href="/{{ locale }}/orders/view/eshop">{% trans %}Eshop Orders{% endtrans %}</a></li>
+                      <li><a href="/{{ locale }}/orders/view/showroom">{% trans %}Showroom Orders{% endtrans %}</a></li>
+                      <li><a href="/{{ locale }}/orders/view/shop">{% trans %}Shop Orders{% endtrans %}</a></li>
+                      <li><a href="/{{ locale }}/orders/view/stock">{% trans %}Stock Orders{% endtrans %}</a></li>
+                      {% endif %}
+                    </ul>
+                  </li>
+                  {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PRODUCTION_MANAGER') %}
+                  <li><a><i class="fa fa-edit"></i> {% trans %}Production{% endtrans %} <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="/{{ locale }}/production/view/all/all/all">{% trans %}All production{% endtrans %}</a></li>
+                      <li><a href="/{{ locale }}/form_validation.html">{% trans %}Eshop production{% endtrans %}</a></li>
+                      <li><a href="/{{ locale }}/production/view/shops/all/all">{% trans %}Shop production{% endtrans %}</a></li>
+                      <li><a href="/{{ locale }}/form_upload.html">{% trans %}Stock production{% endtrans %}</a></li>
+                    </ul>
+                  </li>
+                  {% endif %}
+                  {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ACCOUNTING_MANAGER') %}
+                  <li><a><i class="fa fa-edit"></i> {% trans %}Sales{% endtrans %} <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="form.html">{% trans %}Dashboard{% endtrans %}</a></li>
+                      <li><a href="form_advanced.html">{% trans %}Calendar{% endtrans %}</a></li>
+                      <li><a>{% trans %}Sales Assistante{% endtrans %}<span class="fa fa-chevron-down"></span></a>
+                          <ul class="nav child_menu">
+                            <li class="sub_menu"><a href="/{{ locale }}/level2.html">{% trans %}Sales{% endtrans %}</a>
+                            </li>
+                            <li><a href="/{{ locale }}/">{% trans %}Calendar{% endtrans %} 1</a>
+                            </li>
+                            <li><a href="/{{ locale }}/">{% trans %}Calendar{% endtrans %} 2</a>
+                            </li>
+                          </ul>
+                        </li>
+                      <li><a href="{{ locale }}/form_validation.html">{% trans %}Customers{% endtrans %}</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-edit"></i>{% trans %}Accounting{% endtrans %} <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="/{{ locale }}/form.html">{% trans %}Dashboard{% endtrans %}</a></li>
+                      <li><a href="/{{ locale }}/form_advanced.html">{% trans %}Follow revenu{% endtrans %}</a></li>
+                      <li><a href="/{{ locale }}/form_wizards.html">{% trans %}Accounting{% endtrans %}</a></li>
+                      <li><a href="/{{ locale }}/form_validation.html">{% trans %}Management{% endtrans %}</a></li>
+                    </ul>
+                  </li>
+                  {% endif %}
+                </ul>
+              </div>
+              {% endif %}
+              {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PRODUCTION_MANAGER') %}
+              <div class="menu_section">
+                <h3>{% trans %}Configuration{% endtrans %}</h3>
+                <ul class="nav side-menu">
+                  <li><a><i class="fa fa-bug"></i> {% trans %}Shop{% endtrans %} <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="/admin/{{ locale }}/models/">{% trans %}Models{% endtrans %}</a></li>
+                      <li><a href="/admin/{{ locale }}/matters/">{% trans %}Matter{% endtrans %}</a></li>
+                      <li><a href="/admin/{{ locale }}/stocks/">{% trans %}Workroom Stock{% endtrans %}</a></li>
+                    </ul>
+                  </li>
+                  {% if is_granted('ROLE_ADMIN') %}
+                  <li><a><i class="fa fa-windows"></i> {% trans %}Plateform{% endtrans %} <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="/{{ locale }}/profile">{% trans %}Your profile{% endtrans %}</a></li>
+                      <li><a href="/admin/{{ locale }}/users">{% trans %}Users{% endtrans %}</a></li>
+                      <li><a href="/admin/{{ locale }}/shops">{% trans %}Shops{% endtrans %}</a></li>
+                      <li><a href="/admin/{{ locale }}/matterproviders">{% trans %}Providers{% endtrans %}</a></li>
+                      <li><a href="/admin/{{ locale }}/workrooms">{% trans %}Workroom{% endtrans %}</a></li>
+                      <li><a href="/admin/{{ locale }}/settings">{% trans %}RA Settings{% endtrans %}</a></li>
+                    </ul>
+                  </li>
+                  {% endif %}
+                </ul>
+              </div>
+              {% endif %}
+              {% if is_granted('ROLE_SALE') or is_granted('ROLE_SALE_MANAGER') or is_granted('ROLE_PROVIDER') or is_granted('ROLE_USER') or is_granted('ROLE_PRODUCTION_MANAGER') %}
+                <div class="menu_section">
+                  <h3>{% trans %}Your profile{% endtrans %}</h3>
+                  <ul class="nav side-menu">
+                     <li><a href="/{{ locale }}/profile"><i class="fa fa-user"></i> {% trans %}Your profile{% endtrans %}</a></li>
+                  </ul>
+                </div>
+              {% endif %}
+            </div>
+            <!-- /sidebar menu -->

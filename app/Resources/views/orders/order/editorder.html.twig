@@ -1,0 +1,267 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rime Arodaky {{ title }}{% endblock %}
+
+{% block body %}
+  <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col menu_fixed">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="/" class="site_title"><span><img src="{{ url('homepage') }}build/images/logo.png" height="39px" style="margin-left: 36px"></span></a>
+            </div>
+            <div class="clearfix"></div>
+            {{ include('bloc/bloc-leftnav-profil.html.twig') }}
+            <br />
+            {{ include('bloc/bloc-leftnav-menu.html.twig') }}
+            {{ include('bloc/bloc-leftnav-shortcut.html.twig') }}
+          </div>
+        </div>
+        {{ include('bloc/bloc-topnav.html.twig') }}
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="title_left">
+            <h3>{{ h1 }}</h3>
+          </div>
+          {% for message in app.flashes('success') %}
+              <div class="alert alert-success">
+                  {{ message }}
+              </div>
+          {% endfor %}
+
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              {% if customerAllow == 1 %}
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>
+                        {% trans %}Order header{% endtrans %}
+                        <small>{% trans %}Who's order for ?{% endtrans %}</small>
+                      </h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="panel panel-default">
+                          <div class="panel-heading">{% trans %}Customer infos{% endtrans %}</div>
+                          <div class="panel-body">
+                            <h4>{% if customer.salutation == 1 %}{% trans %}Mr.{% endtrans %}{% elseif customer.salutation == 2 %}{% trans %}Mrs.{% endtrans %}{% else %}{% trans %}Miss.{% endtrans %}{% endif %} {{ customer.firstName }} {{ customer.lastName }}</h4>
+                            <p>{{ customer.address }}<br/>
+                              {{ customer.postCode }} {{ customer.city }}<br/>
+                              {{ customer.state }}, {{ customer.country }}</p>
+                            <p>{{ customer.phone }}<br/>
+                            {{ customer.email }}</p>
+                            <p><strong>{% trans %}Subscriber{% endtrans %}:</strong> {% if customer.optin == 1 %}{% trans %}Yes{% endtrans %}{% else %}{% trans %}No{% endtrans %}{% endif %}<br/>
+                            <strong>{% trans %}Language{% endtrans %}:</strong> {% if customer.locale == 'fr' %}{% trans %}French{% endtrans %}{% elseif customer.locale == 'en' %}{% trans %}English{% endtrans %}{% else %}{% trans %}None define{% endtrans %}{% endif %}</p>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="panel panel-default">
+                          <div class="panel-heading">{% trans %}Shop infos{% endtrans %}</div>
+                          <div class="panel-body">
+                            <h4>{{ shop.name }} ({{ shop.extention }})</h4>
+                            <p>{{ shop.address }}<br/>
+                                {{ shop.zipCode }} {{ shop.city }}<br/>
+                                {{ shop.country }}</p>
+                            <p>{{ shop.phone }}<br/>
+                                {{ shop.email }}</p>
+                            <p><strong>{% trans %}VAT num{% endtrans %}:</strong> {{ shop.vatNum }}<br/>
+                            <strong>{% trans %}Language{% endtrans %}:</strong> {% if shop.locale == 'fr' %}{% trans %}French{% endtrans %}{% elseif shop.locale == 'en' %}{% trans %}English{% endtrans %}{% else %}{% trans %}None define{% endtrans %}{% endif %}</p>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              {% else %}
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>
+                        {% trans %}Customer infos{% endtrans %}
+                        <small>{% trans %}Who's order for ?{% endtrans %}</small>
+                      </h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    {{ order.customerName }}
+                  </div>
+                </div>
+              {% endif %}
+
+              <!-- Review -->
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>
+                    {% trans %}Notes about this order{% endtrans %}
+                  </h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                  {% if notes is empty %}
+                    <div class="alert alert-info">Not any review has been added to this order.</div>
+                  {% else %}
+                    {% for note in notes %}
+                    <div class="note">
+                      <div class="author">
+                        <p class="img-note"><span class="image">
+                        {% if (note.user.imagePath) %}
+                        <img src="{{ asset('uploads/pic/profile/' ~ note.user.imagePath) | imagine_filter('my_thumb') }}" alt="{{ note.user.firstName }}" class="img-circle profile_img"/>
+                        {% else %}
+                        <img src="{{ url('homepage') }}build/images/profilpic.png" alt="..." class="img-circle profile_img">
+                        {% endif %}
+                        </span></p>
+                        <p class="txt-note">
+                          <strong>{{ note.user.firstName }} {{ note.user.lastName }}</strong><br/>
+                          <em>{{ note.dateCreation|date('d/m/Y H:m') }}</em>
+                        </p>
+                      </div>
+                      <div class="bubblechat">
+                          <p>{{ note.comment }}</p>
+                      </div>
+                    </div>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+
+              {{ form_start(form) }}
+              {% form_theme form 'orders/bloc/modelEditOrderedBloc.html.twig' %}
+              {{ form(form) }}
+              
+              {{ form_end(form) }}
+            </div>
+
+          </div>
+
+        </div>
+        <!-- /page content -->
+
+        {{ include('bloc/bloc-footer.html.twig') }}
+        
+      </div>
+    </div>
+
+{% endblock %}
+
+{% block footer %}
+    <!-- jQuery -->
+    <script src="{{ url('homepage') }}vendors/jquery/dist/jquery.min.js"></script>
+    <!-- jQueryUI -->
+    <script src="{{ url('homepage') }}vendors/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="{{ url('homepage') }}vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="{{ url('homepage') }}vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="{{ url('homepage') }}vendors/nprogress/nprogress.js"></script>
+    <!-- Chart.js -->
+    <script src="{{ url('homepage') }}vendors/Chart.js/dist/Chart.min.js"></script>
+    <!-- gauge.js -->
+    <script src="{{ url('homepage') }}vendors/gauge.js/dist/gauge.min.js"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="{{ url('homepage') }}vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <!-- iCheck -->
+    <script src="{{ url('homepage') }}vendors/iCheck/icheck.min.js"></script>
+    <!-- Skycons -->
+    <script src="{{ url('homepage') }}vendors/skycons/skycons.js"></script>
+    <!-- Flot -->
+    <script src="{{ url('homepage') }}vendors/Flot/jquery.flot.js"></script>
+    <script src="{{ url('homepage') }}vendors/Flot/jquery.flot.pie.js"></script>
+    <script src="{{ url('homepage') }}vendors/Flot/jquery.flot.time.js"></script>
+    <script src="{{ url('homepage') }}vendors/Flot/jquery.flot.stack.js"></script>
+    <script src="{{ url('homepage') }}vendors/Flot/jquery.flot.resize.js"></script>
+    <!-- Flot plugins -->
+    <script src="{{ url('homepage') }}vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+    <script src="{{ url('homepage') }}vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+    <script src="{{ url('homepage') }}vendors/flot.curvedlines/curvedLines.js"></script>
+    <!-- DateJS -->
+    <script src="{{ url('homepage') }}vendors/DateJS/build/date.js"></script>
+    <!-- Collection -->
+    <script src="{{ url('homepage') }}vendors/collection/collection.js"></script>
+    <!-- Switchery -->
+    <script src="{{ url('homepage') }}vendors/switchery/dist/switchery.js"></script>
+    <!-- JQVMap -->
+    <script src="{{ url('homepage') }}vendors/jqvmap/dist/jquery.vmap.js"></script>
+    <script src="{{ url('homepage') }}vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="{{ url('homepage') }}vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+    <!-- ColorPicker -->
+    <script src="{{ url('homepage') }}vendors/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="{{ url('homepage') }}vendors/moment/min/moment.min.js"></script>
+    <script src="{{ url('homepage') }}vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="{{ url('homepage') }}build/js/custom.min.js"></script>
+    <script src="{{ url('homepage') }}build/js/rarcustom.js"></script>
+    <script type="text/javascript">
+
+        function searchSize(){
+          $('#OrderType_modelsOrdered select.model').on('change', function(){
+              var val = $(this).val();
+              var rel = $(this).attr('rel');
+              $('select.'+rel+'_size').html('');
+              $.ajax({
+                  url:'{{ (path('app_size_route')) }}',
+                  type: "POST",
+                  dataType: "json",
+                  data: {"val": val, "rel": rel },
+                  async: true,
+                  success: function (data){
+                      $('body').find('select.'+rel+'_size').append('<option></option>');
+                      $.each(data, function(index, s) {
+                          $('body').find('select.'+rel+'_size').append('<option value="'+s.nameSize+'">'+s.nameSize+'</option>')
+                      });
+                  }
+              });
+              $('select.'+rel+'_size').on('change', function(){
+                  var val = $(this).val();
+                  $('#'+rel+'_size').attr('value', val);
+              });
+              return false;
+          });
+        }
+
+        $('.size-collection').collection({
+            allow_duplicate: true,
+            allow_up: false,
+            allow_down: false,
+            add: '<a href="#" class="btn btn-default" title="Add element"><span class="glyphicon glyphicon-plus-sign"></span></a>',
+            // here is the magic!
+            elements_selector: 'tr.item',
+            elements_parent_selector: '%id% tbody',
+            after_add: function(collection, element) {
+                searchSize();
+                return true;
+             }
+        });
+
+        searchSize();
+
+        $( function() {
+            function log( message ) {
+                $( "<div>" ).text( message ).prependTo( "#log" );
+                $( "#log" ).scrollTop( 0 );
+            }
+         
+            $( "#customer-input" ).autocomplete({
+              source: function( request, response ) {
+                $.ajax( {
+                  type:"GET",
+                  url: "{{ (path('app_customer_route')) }}",
+                  dataType: "json",
+                  data: { value: request.term },
+                  success: function( data ) {
+                    response( data );
+                  }
+                } );
+              },
+              minLength: 3,
+              select: function( event, ui ) {
+                $( "#OrderType_customer_idCustomer" ).val( ui.item.id );
+              }
+            })
+          } );
+
+    </script>
+{% endblock %}

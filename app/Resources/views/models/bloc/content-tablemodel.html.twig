@@ -1,0 +1,89 @@
+
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+  <div class="x_panel">
+    <div class="x_title">
+      <h2>{{ p1h2 }}</h2>
+      <div class="col-md-2 pull-right"><a href="/admin/{{ locale }}/models/create/" class="btn btn-success btn-xs"><i class="fa fa-plus"></i> {% trans %}Create a new model{% endtrans %}</a></div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+      <p class="text-muted font-13 m-b-30">
+        The Buttons extension for DataTables provides a common set of options, API methods and styling to display buttons on a page that will interact with a DataTable. The core library provides the based framework upon which plug-ins can built.
+      </p>
+      <table id="datatable-buttons" class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>{% trans %}Model Name{% endtrans %}</th>
+            <th>{% trans %}ID Co.{% endtrans %}</th>
+            <th>{% trans %}SKU{% endtrans %}</th>
+            <th>{% trans %}Public Price{% endtrans %}</th>
+            <th>{% trans %}Shop Price{% endtrans %}?</th>
+            <th>{% trans %}A{% endtrans %}</th>
+            <th>{% trans %}S{% endtrans %}</th>
+            <th>{% trans %}C{% endtrans %}</th>
+            <th>{% trans %}Type{% endtrans %}</th>
+            <th>{% trans %}Min Ship{% endtrans %}</th>
+            <th>{% trans %}Max Ship{% endtrans %}</th>
+            <th>{% trans %}Sizes{% endtrans %}</th>
+            <th>{% trans %}Action{% endtrans %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for model in models %}
+          <tr>
+            <td>{{ model.name }}</td>
+            <td>{{ model.collectionId }}</td>
+            <td>{{ model.sku }}</td>
+            <td>{{ model.prixHT }} € <sup>HT</sup></td>
+            <td>{{ model.prixShop }} € <sup>HT</sup></td>
+            <td>
+              {% if model.isActive == 1 %}
+                <span class="green"><i class="fa fa-check"></i></span>
+              {% else %}
+                <span class="red"><i class="fa  fa-close"></i></span>
+              {% endif %}
+            </td>
+            <td>
+              {% if model.isShop == 1 %}
+                <span class="green"><i class="fa fa-check"></i></span>
+              {% else %}
+                <span class="red"><i class="fa  fa-close"></i></span>
+              {% endif %}</td>
+            <td>
+              {% if model.isContract == 1 %}
+                <span class="green"><i class="fa fa-check"></i></span>
+              {% else %}
+                <span class="red"><i class="fa  fa-close"></i></span>
+              {% endif %}
+            </td>
+            <td>
+                {% if model.type == 1 %}
+                    Ready-Made Model
+                {% elseif model.type == 2 %}
+                    Ceremony
+                {% elseif model.type == 3 %}
+                    Both
+                {% elseif model.type == 4 %}
+                    Other
+                {% endif %}
+            </td>
+            <td>{{ model.minShipWeek }}</td>
+            <td>{{ model.maxShipWeek }}</td>
+            <td>
+                {% for size in model.sizes %}
+                  {% if size.isActive == 1 %}
+                    <span class="green">{{ size.nameSize }}</span>
+                  {% else %}
+                    <span class="red">{{ size.nameSize }}</span>
+                  {% endif %}
+                {% endfor %}
+            </td>
+            <td><a href="edit/{{ model.id }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>&nbsp;<a href="edit/{{ model.id }}" class="btn btn-danger btn-xs"><i class="fa  fa-trash"></i></a>&nbsp;<a href="edit/{{ model.id }}" class="btn btn-warning btn-xs"><i class="fa fa-lock"></i></a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

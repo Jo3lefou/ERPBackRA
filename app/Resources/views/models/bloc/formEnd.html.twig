@@ -1,0 +1,34 @@
+<div class="x_panel">
+    <div class="x_title">
+      <h2>
+        {% trans %}Workroom{% endtrans %}
+        <small>{% trans %}Choose the default workroom for this model{% endtrans %}</small>
+      </h2>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <!-- CONTENU -->
+        <div class="form-horizontal form-label-left">
+            <!-- workroom -->
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ModelType_maxShipWeek">{% trans %}Default workroom{% endtrans %}
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                {{ form_widget(form.workroom, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+              </div>
+            </div>
+            <!--/ workroom -->
+        </div>
+      <!-- // CONTENU -->
+    </div>
+</div>
+
+<div class="x_panel">
+    <div class="x_content">
+      <div class="form-group">
+          <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+            {{ form_widget(form.save, { 'label': 'Submit', 'attr': {'class': 'btn btn-success'} }) }}
+          </div>
+        </div>
+    </div>
+</div>

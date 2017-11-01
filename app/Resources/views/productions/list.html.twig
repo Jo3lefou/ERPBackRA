@@ -1,0 +1,127 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rime Arodaky {{ title }}{% endblock %}
+
+{% block body %}
+  <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col menu_fixed">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="/" class="site_title"><span><img src="{{ url('homepage') }}build/images/logo.png" height="39px" style="margin-left: 36px"></span></a>
+            </div>
+
+            <div class="clearfix"></div>
+
+            {{ include('bloc/bloc-leftnav-profil.html.twig') }}
+
+            <br />
+
+            {{ include('bloc/bloc-leftnav-menu.html.twig') }}
+            {{ include('bloc/bloc-leftnav-shortcut.html.twig') }}
+            
+          </div>
+        </div>
+
+        {{ include('bloc/bloc-topnav.html.twig') }}
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+          {% for message in app.flashes('success') %}
+              <div class="alert alert-success">
+                  {{ message }}
+              </div>
+          {% endfor %}
+
+          <div class="row">
+            
+            {{ include('productions/bloc/content-tableproduction.html.twig') }}
+
+          </div>
+
+        </div>
+        <!-- /page content -->
+
+        {{ include('bloc/bloc-footer.html.twig') }}
+        
+      </div>
+    </div>
+
+{% endblock %}
+
+{% block footer %}
+  <!-- jQuery -->
+    <script src="{{ url('homepage') }}vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="{{ url('homepage') }}vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="{{ url('homepage') }}vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="{{ url('homepage') }}vendors/nprogress/nprogress.js"></script>
+    <!-- Chart.js -->
+    <script src="{{ url('homepage') }}vendors/Chart.js/dist/Chart.min.js"></script>
+    <!-- gauge.js -->
+    <script src="{{ url('homepage') }}vendors/gauge.js/dist/gauge.min.js"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="{{ url('homepage') }}vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <!-- iCheck -->
+    <script src="{{ url('homepage') }}vendors/iCheck/icheck.min.js"></script>
+    <!-- Skycons -->
+    <script src="{{ url('homepage') }}vendors/skycons/skycons.js"></script>
+    <!-- Flot -->
+    <script src="{{ url('homepage') }}vendors/Flot/jquery.flot.js"></script>
+    <script src="{{ url('homepage') }}vendors/Flot/jquery.flot.pie.js"></script>
+    <script src="{{ url('homepage') }}vendors/Flot/jquery.flot.time.js"></script>
+    <script src="{{ url('homepage') }}vendors/Flot/jquery.flot.stack.js"></script>
+    <script src="{{ url('homepage') }}vendors/Flot/jquery.flot.resize.js"></script>
+    <!-- Flot plugins -->
+    <script src="{{ url('homepage') }}vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+    <script src="{{ url('homepage') }}vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+    <script src="{{ url('homepage') }}vendors/flot.curvedlines/curvedLines.js"></script>
+    <!-- DateJS -->
+    <script src="{{ url('homepage') }}vendors/DateJS/build/date.js"></script>
+    <!-- JQVMap -->
+    <script src="{{ url('homepage') }}vendors/jqvmap/dist/jquery.vmap.js"></script>
+    <script src="{{ url('homepage') }}vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="{{ url('homepage') }}vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+    <!-- Switchery -->
+    <script src="{{ url('homepage') }}vendors/switchery/dist/switchery.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="{{ url('homepage') }}vendors/moment/min/moment.min.js"></script>
+    <script src="{{ url('homepage') }}vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- dataTable -->
+    <script src="{{ url('homepage') }}vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="{{ url('homepage') }}vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="{{ url('homepage') }}vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="{{ url('homepage') }}vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="{{ url('homepage') }}vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="{{ url('homepage') }}vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="{{ url('homepage') }}vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="{{ url('homepage') }}vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="{{ url('homepage') }}vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="{{ url('homepage') }}vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="{{ url('homepage') }}vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="{{ url('homepage') }}vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="{{ url('homepage') }}build/js/custom.min.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="{{ url('homepage') }}build/js/rarcustom.js"></script>
+    <script>
+
+      var table = $('#datatable-order').DataTable( {
+          ordering: true,
+          select: true,
+          fixedHeader: true,
+      });
+      $('a.toggle-vis').on( 'click', function (e) {
+          e.preventDefault();
+          // Get the column API object
+          var column = table.column( $(this).attr('data-column') );
+          $(this).toggleClass('off');
+          // Toggle the visibility
+          column.visible( ! column.visible() );
+      });
+    </script>
+    
+{% endblock %}

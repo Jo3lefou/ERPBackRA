@@ -1,0 +1,373 @@
+{% block ModelType_widget %}
+
+<!--- GENERAL INFO -->
+
+<div class="x_panel">
+    <div class="x_title">
+      <h2>
+        {% trans %}Model{% endtrans %}
+        <small>{% trans %}Model informations{% endtrans %}</small>
+      </h2>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <!-- CONTENU -->
+        <div class="form-horizontal form-label-left">
+            <!-- Dress Name-->
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ModelType_name">{% trans %}Dress name{% endtrans %}
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                {{ form_widget(form.name, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+              </div>
+            </div>
+            <!--/ Dress Name-->
+            <!-- Collection ID -->
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ModelType_collectionId">{% trans %}Collection Identifier{% endtrans %}
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                {{ form_widget(form.collectionId, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+              </div>
+            </div>
+            <!--/ Collection ID-->
+            <!-- SKU-->
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ModelType_sku">{% trans %}SKU Code{% endtrans %}
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                {{ form_widget(form.sku, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+              </div>
+            </div>
+            <!--/ SKU -->
+            <!-- SKU-->
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ModelType_sku">{% trans %}Model Type{% endtrans %}
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                {{ form_widget(form.type, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+              </div>
+            </div>
+            <!--/ SKU -->
+            <!-- CATEGORIES -->
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ModelType_sku">{% trans %}Category{% endtrans %}
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                {{ form_widget(form.category, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+              </div>
+            </div>
+            <!--/ CATEGORIES -->
+            
+        </div>
+      <!-- // CONTENU -->
+    </div>
+  </div>
+
+<!--- PRICE -->
+
+<div class="x_panel">
+    <div class="x_title">
+      <h2>
+        {% trans %}Model Price{% endtrans %}
+        <small>{% trans %}Set up the price of your model{% endtrans %}</small>
+      </h2>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <!-- CONTENU -->
+        <div class="form-horizontal form-label-left">
+            <!-- prixHT -->
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ModelType_prixHT">{% trans %}Price without VAT{% endtrans %}
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                {{ form_widget(form.prixHT, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+              </div>
+            </div>
+            <!--/ prixHT -->
+            <!-- prixShop -->
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ModelType_prixShop">{% trans %}Price Shop{% endtrans %}
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                {{ form_widget(form.prixShop, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+              </div>
+            </div>
+            <!--/ prixShop -->
+        </div>
+      <!-- // CONTENU -->
+    </div>
+  </div>
+
+<!--- Activation-->
+
+<div class="x_panel">
+    <div class="x_title">
+      <h2>
+        {% trans %}Model Activation{% endtrans %}
+        <small>{% trans %}Activate the model for selling{% endtrans %}</small>
+      </h2>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <!-- CONTENU -->
+        <div class="form-horizontal form-label-left">
+            <!-- isActive-->
+            <div class="form-group">
+              <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="checkbox">
+                  <label>
+                      {{ form_widget(form.isActive, {'attr': {'class': 'js-switch'}}) }}
+                    {% trans %}Is this dress available?{% endtrans %}
+                  </label>
+                </div>
+              </div>
+            </div>
+            <!--/ isActive-->
+            <!-- isShop-->
+            <div class="form-group">
+              <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="checkbox">
+                  <label>
+                      {{ form_widget(form.isShop, {'attr': {'class': 'js-switch'}}) }}
+                    {% trans %}Is this dress available for Shop?{% endtrans %}
+                  </label>
+                </div>
+              </div>
+            </div>
+            <!--/ isShop-->
+            <!-- isContract-->
+            <div class="form-group">
+              <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="checkbox">
+                  <label>
+                      {{ form_widget(form.isContract, {'attr': {'class': 'js-switch'}}) }}
+                      {% trans %}Is this dress available for Shop under contract?{% endtrans %}
+                  </label>
+                </div>
+              </div>
+            </div>
+            <!--/ isContract-->
+        </div>
+      <!-- // CONTENU -->
+    </div>
+</div>
+
+<!--- SHIPPING -->
+
+
+<div class="x_panel">
+    <div class="x_title">
+      <h2>
+        {% trans %}Shipping{% endtrans %}
+        <small>{% trans %}Shipping configuration{% endtrans %}</small>
+      </h2>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <!-- CONTENU -->
+        <div class="form-horizontal form-label-left">
+            <!-- minShipWeek -->
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ModelType_minShipWeek">{% trans %}Minimum number of week for having the dress at controle point ?{% endtrans %}
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                {{ form_widget(form.minShipWeek, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+              </div>
+            </div>
+            <!--/ minShipWeek -->
+            <!-- maxShipWeek -->
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ModelType_maxShipWeek">{% trans %}Maximum number of week for having the dress at controle point ?{% endtrans %}
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                {{ form_widget(form.maxShipWeek, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+              </div>
+            </div>
+            <!--/ minShipWeek -->
+        </div>
+      <!-- // CONTENU -->
+    </div>
+</div>
+
+<!--- SIZING -->
+
+<div class="x_panel">
+    <div class="x_title">
+      <h2>
+        {% trans %}Sizes{% endtrans %}
+        <small>{% trans %}Enter the size and supplement if needed{% endtrans %}</small>
+      </h2>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <!-- CONTENU -->
+        <div class="form-horizontal form-label-left">
+            {{ form_widget(form.sizes) }}
+        </div>
+      <!-- // CONTENU -->
+    </div>
+</div>
+
+<!--- SIZING -->
+
+<!--- MATTERS -->
+
+<div class="x_panel">
+    <div class="x_title">
+      <h2>
+        {% trans %}Matters{% endtrans %}
+        <small>{% trans %}Enter the matters and the quantity needed{% endtrans %}</small>
+      </h2>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <!-- CONTENU -->
+        <div class="form-horizontal form-label-left">
+            {{ form_widget(form.matterAttributed) }}
+        </div>
+      <!-- // CONTENU -->
+    </div>
+</div>
+
+<!--- MATTERS -->
+
+{{ include('models/bloc/formEnd.html.twig') }}
+
+{% endblock %}
+
+
+{# By default, collection uses the form_widget block to create its markup, but we want a table #}
+{% block collection_widget %}
+    {% spaceless %}
+
+    {#
+     # This is almost a copy/paste of jquery.collection.html.twig, we can't use it as it also
+     # use form_widget. Note that we also use form_widget(prototype) instead of form_row(prototype)
+     # to avoid generating extra markup.
+     #}
+    {% if prototype is defined %}
+        {% set attr = attr|merge({'data-prototype': form_widget(prototype)}) %}
+        {% set attr = attr|merge({'data-prototype-name': prototype.vars.name}) %}
+    {% endif %}
+    {% set attr = attr|merge({'data-allow-add': allow_add ? 1 : 0}) %}
+    {% set attr = attr|merge({'data-allow-remove': allow_delete ? 1 : 0 }) %}
+    {% set attr = attr|merge({'data-name-prefix': full_name}) %}
+
+    <fieldset class="well">
+        <label>{{ form_label(form) }}</label>
+
+        {{ form_errors(form) }}
+        {% if form.vars.id == "ModelType_sizes" %}
+        <table {{ block('widget_attributes') }}>
+            <thead>
+                <th>{% trans %}Size Name{% endtrans %}</th>
+                <th>{% trans %}Internal Code Size Name{% endtrans %}</th>
+                <th>{% trans %}Sup. Price HT{% endtrans %}</th>
+                <th>{% trans %}Sup. Price Shop{% endtrans %}</th>
+                <th>&nbsp;</th>
+            </thead>
+            <tbody>
+
+                {% for item in form %}
+                    {{ form_widget(item) }}
+                {% endfor %}
+
+            </tbody>
+        </table>
+        {% else %}
+        <table {{ block('widget_attributes') }}>
+            <thead>
+                <th>{% trans %}Matter Name{% endtrans %}</th>
+                <th>{% trans %}Quantity needed{% endtrans %}</th>
+            </thead>
+            <tbody>
+                {% for item in form %}
+                    {{ form_widget(item) }}
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        {# Don't forget to add the collection attributes in your markup #}
+        
+    </fieldset>
+
+    {% endspaceless %}
+{% endblock %}
+
+{% block SizeType_widget %}
+
+    {# widget_attributes will generate class="item" from the ModelType.entry_options configuration #}
+    <tr {{ block('widget_attributes') }}>
+        <td>
+          <div class="form-group">
+              {{ form_widget(form.nameSize, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+          </div>
+        </td>
+        <td>
+          <div class="form-group">
+              {{ form_widget(form.codeSize, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+          </div>
+        </td>
+        <td>
+          <div class="form-group">
+            <label>
+                {{ form_widget(form.supPriceHT, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+            </label>
+          </div>
+        </td>
+        <td>
+          <div class="form-group">
+            <label>
+                {{ form_widget(form.supPriceShop, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+            </label>
+          </div>
+        </td>
+        <td>
+          <div class="form-group">
+              <div class="checkbox">
+                <label>
+                    {{ form_widget(form.isActive, {'attr': {'class': 'js-switch'}}) }}
+                </label>
+              </div>
+          </div>
+        </td>
+        <td class="text-center">
+            <a href="#" class="collection-remove btn btn-default" title="Delete element"><span class="glyphicon glyphicon-trash"></span></a>
+            <a href="#" class="collection-add btn btn-default" title="Add element"><span class="glyphicon glyphicon-plus-sign"></span></a>
+            <a href="#" class="collection-duplicate btn btn-default" title="Duplicate element"><span class="glyphicon glyphicon-th-large"></span></a>
+        </td>
+    </tr>
+
+{% endblock %}
+
+{% block MatterAttributedType_widget %}
+
+    {# widget_attributes will generate class="item" from the ModelType.entry_options configuration #}
+    <tr {{ block('widget_attributes') }}>
+        <td>
+          <div class="form-group">
+              {{ form_widget(form.matter, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+          </div>
+        </td>
+        <td>
+          <div class="form-group">
+              {{ form_widget(form.quantity, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+          </div>
+        </td>
+        <td class="text-center">
+            <a href="#" class="collection-remove btn btn-default" title="Delete element"><span class="glyphicon glyphicon-trash"></span></a>
+            <a href="#" class="collection-add btn btn-default" title="Add element"><span class="glyphicon glyphicon-plus-sign"></span></a>
+            <a href="#" class="collection-duplicate btn btn-default" title="Duplicate element"><span class="glyphicon glyphicon-th-large"></span></a>
+        </td>
+    </tr>
+
+{% endblock %}
+
+{% block SizeType_label %}
+
+{% endblock %}

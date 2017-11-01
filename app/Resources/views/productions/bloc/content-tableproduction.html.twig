@@ -1,0 +1,342 @@
+
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+  <div class="x_panel">
+    <div class="x_title">
+      <h2>
+        {{ p1h2 }}
+        <small>{{ p1h3 }}</small>
+      </h2>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+
+
+      <div class="" role="tabpanel" data-example-id="togglable-tabs">
+        
+        <ul id="" class="nav nav-tabs bar_tabs myBigTab" role="tablist">
+          <li class="{% if idshop == 'all' %}active{% endif %}"><a href='/{{ user.locale }}/production/view/all/{{ idworkroom }}/{{ status }}'>{% trans %}All{% endtrans %}</a></li>
+          <li class="{% if idshop == 'shops' %}active{% endif %}"><a href='/{{ user.locale }}/production/view/shops/{{ idworkroom }}/{{ status }}'>{% trans %}All reseller{% endtrans %}</a></li>
+          {% for shop in shops %}
+            <li class="{% if idshop == shop.id %}active{% endif %}"><a href='/{{ user.locale }}/production/view/{{ shop.id }}/{{ idworkroom }}/{{ status }}'>{{ shop.name }}</a></li>
+          {% endfor %}
+        </ul>
+        <div id="" class="tab-content myFulTabContent">
+
+          <div id="tab_content1" class="tab-pane fade active in" role="tabpanel" aria-labelledby="home-tab">
+            <div class="" role="tabpanel" data-example-id="togglable-tabs myFulTabContent">
+              
+              <ul id="" class="nav nav-tabs bar_tabs myBigTab" role="tablist">
+                <li class="{% if idworkroom == 'all' %}active{% endif %}"><a href='/{{ user.locale }}/production/view/{{ idshop }}/all/{{ status }}'>{% trans %}All{% endtrans %}</a></li>
+                {% for workroom in workrooms %}
+                  <li class="{% if idworkroom == workroom.id %}active{% endif %}"><a href='/{{ user.locale }}/production/view/{{ idshop }}/{{ workroom.id }}/{{ status }}'>{{ workroom.name }}</a></li>
+                {% endfor %}
+              </ul>
+              <div id="" class="tab-content myFulTabContent">
+
+                <div id="tab_content1" class="tab-pane fade active in" role="tabpanel" aria-labelledby="home-tab">
+                  <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                    
+                    <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                      <li class="{% if status == 'all' %}active{% endif %}"><a href='/{{ user.locale }}/production/view/{{ idshop }}/{{ idworkroom }}/all'>{% trans %}Current{% endtrans %}</a></li>
+                      <li class="{% if status == 'finished' %}active{% endif %}"><a href='/{{ user.locale }}/production/view/{{ idshop }}/{{ idworkroom }}/finished'>{% trans %}Finished orders{% endtrans %}</a></li>
+                      <li class="{% if status == 'history' %}active{% endif %}"><a href='/{{ user.locale }}/production/view/{{ idshop }}/{{ idworkroom }}/history'>{% trans %}History{% endtrans %}</a></li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                      <div id="tab_content1" class="tab-pane fade active in" role="tabpanel" aria-labelledby="home-tab">
+                    
+                        <div class="bordered">
+                          <span>{% trans %}Caption box : {% endtrans %}</span>
+                          <em class="state st-td">{% trans %}To be done{% endtrans %}</em>
+                          <em class="state st-ew">{% trans %}Sent to provider{% endtrans %}</em>
+                          <em class="state st-ecp">{% trans %}In Production{% endtrans %}</em>
+                          <em class="state st-epf">{% trans %}Sent by workroom{% endtrans %}</em>
+                          <em class="state st-rs">{% trans %}Received by Rime Arodaky{% endtrans %}</em>
+                          <em class="state st-rse">{% trans %}Received with error{% endtrans %}</em>
+                          <em class="state st-es">{% trans %}In stock{% endtrans %}</em>
+                          <em class="state st-cs">{% trans %}Controled{% endtrans %}</em>
+                          <em class="state st-lc">{% trans %}Shipped{% endtrans %}</em>
+                          <em class="state st-lc">{% trans %}Finished{% endtrans %}</em>
+                        </div>
+                        {% if status != 'history' %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                        
+                        <div class="bordered">
+                          <span>{% trans %}Display/Hide : {% endtrans %}</span>
+                          <a class="toggle-vis" data-column="0">{% trans %}Order{% endtrans %}</a>
+                          <a class="toggle-vis" data-column="1">{% trans %}SKU{% endtrans %}</a>
+                          <a class="toggle-vis" data-column="2">{% trans %}Name{% endtrans %}</a>
+                          <a class="toggle-vis" data-column="3">{% trans %}Size{% endtrans %}</a>
+                          <a class="toggle-vis" data-column="4">{% trans %}Status{% endtrans %}</a>
+                          <a class="toggle-vis" data-column="5">{% trans %}Min. Ship Date{% endtrans %}</a>
+                          <a class="toggle-vis" data-column="6">{% trans %}Max. Ship Date{% endtrans %}</a>
+                          <a class="toggle-vis" data-column="7">{% trans %}Max. Ship Order Date{% endtrans %}</a>
+                          <a class="toggle-vis" data-column="8">{% trans %}Workroom{% endtrans %}</a>
+                        </div>
+                        {% else %}
+                        <div class="bordered">
+                          <span>{% trans %}Display/Hide : {% endtrans %}</span>
+                          <a class="toggle-vis" data-column="0">{% trans %}Order{% endtrans %}</a>
+                          <a class="toggle-vis" data-column="1">{% trans %}SKU{% endtrans %}</a>
+                          <a class="toggle-vis" data-column="2">{% trans %}Name{% endtrans %}</a>
+                          <a class="toggle-vis" data-column="3">{% trans %}Size{% endtrans %}</a>
+                          <a class="toggle-vis" data-column="4">{% trans %}Status{% endtrans %}</a>
+                          <a class="toggle-vis" data-column="5">{% trans %}Min. Ship Date{% endtrans %}</a>
+                          <a class="toggle-vis" data-column="6">{% trans %}Max. Ship Date{% endtrans %}</a>
+                          <a class="toggle-vis" data-column="7">{% trans %}Max. Ship Order Date{% endtrans %}</a>
+                          <a class="toggle-vis" data-column="8">{% trans %}Workroom{% endtrans %}</a>
+                        </div>
+                        {% endif %}
+                        {% endif %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <div class="row" style="margin-top:10px; margin-bottom:10px;overflow:hidden">
+                          <div class="col-md-4 pull-right">
+                            <div class="col-md-4 align-right">
+                              <label for="gp-action" style="line-height: 32px;">Actions :</label>
+                            </div>
+                            <div class="col-md-8 pull-right">
+                              <select id="gp-action" class="form-control">
+                                <option disabled>Change Workroom</option>
+                                {% for workroom in workrooms %}
+                                  <option value="{{workroom.id }}" rel="workroom">{{ workroom.name }}</option>
+                                {% endfor %}
+                                <option>Not Active</option>
+                                <option disabled>Change Status</option>
+                                <option value="0" rel="state">{% trans %}To be done{% endtrans %}</option>
+                                <option value="2" rel="state">{% trans %}Sent to provider{% endtrans %}</option>
+                                <option value="3" rel="state">{% trans %}In Production{% endtrans %}</option>
+                                <option value="4" rel="state">{% trans %}Sent by workroom{% endtrans %}</option>
+                                <option value="5" rel="state">{% trans %}Received by Rime Arodaky{% endtrans %}</option>
+                                <option value="6" rel="state">{% trans %}Received with error{% endtrans %}</option>
+                                <option value="1" rel="state">{% trans %}In stock{% endtrans %}</option>
+                                <option value="7" rel="state">{% trans %}Controled{% endtrans %}</option>
+                                <option value="8" rel="state">{% trans %}Shipped{% endtrans %}</option>
+                                <option value="9" rel="state">{% trans %}Finished{% endtrans %}</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        {% endif %}
+                        <table id="datatable-order" class="table table-striped datatable-keytable" data-order='[[ 3, "desc" ]]' data-page-length='100'  width="100%">
+                          <thead>
+                            <tr>
+                              <th>{% trans %}Order{% endtrans %}</th>
+                              <th>{% trans %}SKU{% endtrans %}</th>
+                              <th>{% trans %}Name{% endtrans %}</th>
+                              <th>{% trans %}Size{% endtrans %}</th>
+                              <th>{% trans %}Status{% endtrans %}</th>
+                              <th>{% trans %}Min. Ship Date{% endtrans %}</th>
+                              <th>{% trans %}Max. Ship Date{% endtrans %}</th>
+                              <th>{% trans %}Max. Ship Order Date{% endtrans %}</th>
+                              <th>{% trans %}Workroom{% endtrans %}</th>
+                              <th>{% trans %}Action{% endtrans %}</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for production in productions %}
+                              {% if production.status == 0 %}
+                            <tr id="production-{{ production.id }}" class="st-td">
+                            {% elseif production.status == 1 %}
+                            <tr id="production-{{ production.id }}" class="st-es">
+                            {% elseif production.status == 2 %}
+                            <tr id="production-{{ production.id }}" class="st-ew">
+                            {% elseif production.status == 3 %}
+                            <tr id="production-{{ production.id }}" class="st-ecp">
+                            {% elseif production.status == 4 %}
+                            <tr id="production-{{ production.id }}" class="st-epf">
+                            {% elseif production.status == 5 %}
+                            <tr id="production-{{ production.id }}" class="st-rs">
+                            {% elseif production.status == 6 %}
+                            <tr id="production-{{ production.id }}" class="st-rse">
+                            {% elseif production.status == 7 %}
+                            <tr id="production-{{ production.id }}" class="st-cs">
+                            {% elseif production.status == 8 %}
+                            <tr id="production-{{ production.id }}" class="st-lc">
+                            {% elseif production.status == 9 %}
+                            <tr id="production-{{ production.id }}" class="st-lc">
+                            {% endif %}
+                                <td>
+                          {% if production.order.idCompta|length < 2 %}
+                            {{ production.order.shop.extention }}000{{ production.order.idCompta }}-{{ production.order.year }}
+                          {% elseif production.order.idCompta|length < 3 %}
+                            {{ production.order.shop.extention }}00{{ production.order.idCompta }}-{{ production.order.year }}
+                          {% elseif production.order.idCompta|length < 4 %}
+                            {{ production.order.shop.extention }}0{{ production.order.idCompta }}-{{ production.order.year }}
+                          {% elseif production.order.idCompta|length < 5 %}
+                            {{ production.order.shop.extension }}{{ production.order.idCompta }}-{{ production.order.year }}
+                          {% endif %}
+                                <td>{{ production.model.sku }}</td>
+                                <td>{{ production.model.name }}</td>
+                                <td>{{ production.size }}</td>
+                                <td>
+                                  {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PRODUCTION_MANAGER') %}
+                                  <div class="btn-group">
+                                  {% if production.status == 0 %}
+                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-td" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ production.id }}">{% trans %}To be done{% endtrans %}<span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="1" data-action='text-change'>{% trans %}In Stock{% endtrans %}</a></li>
+                                      <li role="separator" class="divider"></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="2" data-action='text-change'>{% trans %}Sent to the workroom{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="3" data-action='text-change'>{% trans %}In production{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="4" data-action='text-change'>{% trans %}Sent by fullfilment house{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="5" data-action='text-change'>{% trans %}Received by Rime Arodaky{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="6" data-action='text-change'>{% trans %}Received with error{% endtrans %}</a></li>
+                                      <li role="separator" class="divider"></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="7" data-action='text-change'>{% trans %}Controled{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="8" data-action='text-change'>{% trans %}Finished{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="9" data-action='text-change'>{% trans %}Delivered{% endtrans %}</a></li>
+                                    </ul>
+                                  {% elseif production.status == 1 %}
+                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-es" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ production.id }}">{% trans %}In Stock{% endtrans %}<span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                      <li role="separator" class="divider"></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="2" data-action='text-change'>{% trans %}Sent to the workroom{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="3" data-action='text-change'>{% trans %}In production{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="4" data-action='text-change'>{% trans %}Sent by fullfilment house{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="5" data-action='text-change'>{% trans %}Received by Rime Arodaky{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="6" data-action='text-change'>{% trans %}Received with error{% endtrans %}</a></li>
+                                      <li role="separator" class="divider"></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="7" data-action='text-change'>{% trans %}Controled{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="8" data-action='text-change'>{% trans %}Finished{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="9" data-action='text-change'>{% trans %}Delivered{% endtrans %}</a></li>
+                                    </ul>
+                                  {% elseif production.status == 2 %}
+                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-ew" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ production.id }}">{% trans %}Sent to the workroom{% endtrans %}<span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="3" data-action='text-change'>{% trans %}In production{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="4" data-action='text-change'>{% trans %}Sent by fullfilment house{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="5" data-action='text-change'>{% trans %}Received by Rime Arodaky{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="6" data-action='text-change'>{% trans %}Received with error{% endtrans %}</a></li>
+                                      <li role="separator" class="divider"></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="7" data-action='text-change'>{% trans %}Controled{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="8" data-action='text-change'>{% trans %}Finished{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="9" data-action='text-change'>{% trans %}Delivered{% endtrans %}</a></li>
+                                    </ul>
+                                  {% elseif production.status == 3 %}
+                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-ecp" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ production.id }}">{% trans %}In production{% endtrans %}<span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="2" data-action='text-change'>{% trans %}Sent to the workroom{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="4" data-action='text-change'>{% trans %}Sent by fullfilment house{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="5" data-action='text-change'>{% trans %}Received by Rime Arodaky{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="6" data-action='text-change'>{% trans %}Received with error{% endtrans %}</a></li>
+                                      <li role="separator" class="divider"></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="7" data-action='text-change'>{% trans %}Controled{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="8" data-action='text-change'>{% trans %}Finished{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="9" data-action='text-change'>{% trans %}Delivered{% endtrans %}</a></li>
+                                    </ul>
+                                  {% elseif production.status == 4 %}
+                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-epf" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ production.id }}">{% trans %}Sent by fullfilment house{% endtrans %}<span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="2" data-action='text-change'>{% trans %}Sent to the workroom{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="3" data-action='text-change'>{% trans %}In production{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="5" data-action='text-change'>{% trans %}Received by Rime Arodaky{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="6" data-action='text-change'>{% trans %}Received with error{% endtrans %}</a></li>
+                                      <li role="separator" class="divider"></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="7" data-action='text-change'>{% trans %}Controled{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="8" data-action='text-change'>{% trans %}Finished{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="9" data-action='text-change'>{% trans %}Delivered{% endtrans %}</a></li>
+                                    </ul>
+                                  {% elseif production.status == 5 %}
+                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-rs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ production.id }}">{% trans %}Received by Rime Arodaky{% endtrans %}<span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="6" data-action='text-change'>{% trans %}Received with error{% endtrans %}</a></li>
+                                      <li role="separator" class="divider"></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="7" data-action='text-change'>{% trans %}Controled{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="8" data-action='text-change'>{% trans %}Finished{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="9" data-action='text-change'>{% trans %}Delivered{% endtrans %}</a></li>
+                                    </ul>
+                                  {% elseif production.status == 6 %}
+                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-rse" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ production.id }}">{% trans %}Received with error{% endtrans %}<span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="0" data-action='text-change'>{% trans %}To be done{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="2" data-action='text-change'>{% trans %}Sent to the workroom{% endtrans %}</a></li>
+                                      <li role="separator" class="divider"></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="7" data-action='text-change'>{% trans %}Controled{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="8" data-action='text-change'>{% trans %}Finished{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="9" data-action='text-change'>{% trans %}Delivered{% endtrans %}</a></li>
+                                    </ul>
+                                  {% elseif production.status == 7 %}
+                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-cs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ production.id }}">{% trans %}Controled{% endtrans %}<span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="8" data-action='text-change'>{% trans %}Finished{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="9" data-action='text-change'>{% trans %}Delivered{% endtrans %}</a></li>
+                                    </ul>
+                                  {% elseif production.status == 8 %}
+                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-lc" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ production.id }}">{% trans %}Finished{% endtrans %}<span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="8" data-action='text-change'>{% trans %}Finished{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="9" data-action='text-change'>{% trans %}Delivered{% endtrans %}</a></li>
+                                    </ul>
+                                  {% elseif production.status == 9 %}
+                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-lc" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ production.id }}">{% trans %}Delivered{% endtrans %}<span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="8" data-action='text-change'>{% trans %}Finished{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="9" data-action='text-change'>{% trans %}Delivered{% endtrans %}</a></li>
+                                    </ul>
+                                  {% endif %}
+                                  </div>
+                                  {% else %}
+                                    {% if production.status == 0 %}
+                                    <em class="state st-td">{% trans %}To do{% endtrans %}</em>
+                                    {% elseif production.status == 1 %}
+                                    <em class="state st-ecp">{% trans %}In stock{% endtrans %}</em>
+                                    {% elseif production.status == 2 %}
+                                    <em class="state st-es">{% trans %}In Production{% endtrans %}</em>
+                                    {% elseif production.status == 3 %}
+                                    <em class="state st-epf">{% trans %}Sent by workroom{% endtrans %}</em>
+                                    {% elseif production.status == 4 %}
+                                    <em class="state st-rs">{% trans %}Received{% endtrans %}</em>
+                                    {% elseif production.status == 5 %}
+                                    <em class="state st-rse">{% trans %}Received with error{% endtrans %}</em>
+                                    {% elseif production.status == 6 %}
+                                    <em class="state st-cs">{% trans %}Controled{% endtrans %}</em>
+                                    {% elseif production.status == 7 %}
+                                    <em class="state st-lc">{% trans %}Shipped{% endtrans %}</em>
+                                    {% elseif production.status == 8 %}
+                                    <em class="state st-lc">{% trans %}Finished{% endtrans %}</em>
+                                    {% endif %}
+                                  {% endif %}
+                                </td>
+                                <td>{{ production.minProdShip|date('Y/m/d') }}</td>
+
+                                <td>
+                                  {% if production.maxProdShip|date("U") < "+0 days"|date("U") %}
+                                      <span class='marker red'>{{ production.maxProdShip|date('Y/m/d') }}</span>
+                                  {% elseif production.maxProdShip|date("U") < "+15 days"|date("U") %}
+                                      <span class='marker orange'>{{ production.maxProdShip|date('Y/m/d') }}</span>
+                                  {% else %}
+                                      {{ production.maxProdShip|date('Y/m/d') }}
+                                  {% endif %}
+                                  </td>
+                                <td>{{ production.order.dateMaxShip|date('Y/m/d') }}</td>
+                                <td>
+                                  <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mow-{{ production.id }}">{% if(production.workroom) %}{{ production.workroom.name }}{% else %}{% trans %}None Define{% endtrans %}{% endif %} <span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                      {% for workroom in workrooms %}
+                                        <li><a href="/{{ locale }}/orders/update/update-workroom/{{ production.id }}" rel="{{ workroom.id }}" data-action='text-change'>{{ workroom.name }}</a></li>
+                                      {% endfor %}
+                                    </ul>
+                                  </div>
+                                </td>
+                                <td>
+                                  <input type="checkbox" value="{{ production.id }}" class="js-switch">
+
+                                </td>
+                              </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
