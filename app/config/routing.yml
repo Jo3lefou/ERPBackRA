@@ -1,0 +1,17 @@
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation
+# logout
+logout:
+   path: /logout
+
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.yaml"
+
+app_size_route:
+   path:     /size_request
+   defaults: { _controller: AppBundle:sizeRequest:index }
+
+app_customer_route:
+   path:     /customer_request
+   defaults: { _controller: AppBundle:customerRequest:index }

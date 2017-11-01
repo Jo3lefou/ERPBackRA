@@ -1,5 +1,2 @@
 # exclude
-/app/config/
 /var/cache/
-/app/AppKernel.php
-/app/config/parameters.yml
