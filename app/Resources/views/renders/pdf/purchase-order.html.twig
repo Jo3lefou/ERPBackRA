@@ -94,11 +94,11 @@
 		<td style="border-bottom:1px solid #BBB;" width="30%">{{ modelOrdered.model.name}}{% if(modelOrdered.comment) %}<br><em>{{ modelOrdered.comment }}</em>{% endif %}</td>
 		<td style="border-bottom:1px solid #BBB;" width="20%">{{ modelOrdered.model.sku}}</td>
 		<td style="border-bottom:1px solid #BBB;" width="5%">{{ modelOrdered.size}}</td>
-		<td style="border-bottom:1px solid #BBB;text-align:right;" width="10%">{{ modelOrdered.prixSoldHT}} €</td>
-		<td style="border-bottom:1px solid #BBB;text-align:right;" width="10%">{{ modelOrdered.prixSoldHT * order.shop.amountVat /100 }} €</td>
-		<td style="border-bottom:1px solid #BBB;text-align:right;" width="10%">{{ (modelOrdered.prixSoldHT * order.shop.amountVat /100) + modelOrdered.prixSoldHT }} €</td>
+		<td style="border-bottom:1px solid #BBB;text-align:right;" width="10%">{{ modelOrdered.prixSoldHT/(1+(order.shop.amountVat/ 100)) }} €</td>
+		<td style="border-bottom:1px solid #BBB;text-align:right;" width="10%">{{ modelOrdered.prixSoldHT/(1+(order.shop.amountVat/ 100))*(order.shop.amountVat/100) }} €</td>
+		<td style="border-bottom:1px solid #BBB;text-align:right;" width="10%">{{ modelOrdered.prixSoldHT }} €</td>
 		<td style="border-bottom:1px solid #BBB;text-align:right;" width="5%">1</td>
-		<td style="border-bottom:1px solid #BBB;text-align:right;" width="10%">{{ (modelOrdered.prixSoldHT * order.shop.amountVat /100) + modelOrdered.prixSoldHT }} €</td>
+		<td style="border-bottom:1px solid #BBB;text-align:right;" width="10%">{{ modelOrdered.prixSoldHT }} €</td>
 		{% else %}
 		<td style="border-bottom:1px solid #BBB;" width="45%">{{ modelOrdered.model.name}}{% if(modelOrdered.comment) %}<br><em>{{ modelOrdered.comment }}</em>{% endif %}</td>
 		<td style="border-bottom:1px solid #BBB;" width="20%">{{ modelOrdered.model.sku}}</td>
@@ -136,7 +136,7 @@
 	<thead>
 		<tr style="border-bottom:1px solid #111;">
 			<th style="border-bottom:1px solid #000;text-align:left;border-top:1px solid #000;" width="90%"><b>{% trans %}Total{% endtrans %}</b></th>
-			<th style="border-bottom:1px solid #000;text-align:right;border-top:1px solid #000;" width="10%"><strong>{{ detailsOrder.totalPrice }} €</strong></th>
+			<th style="border-bottom:1px solid #000;text-align:right;border-top:1px solid #000;" width="10%"><strong>{{ detailsOrder.totalHT }} €</strong></th>
 		</tr>
 	</thead>
 	{% if order.shop.isVat %}
@@ -147,12 +147,12 @@
 		</tr>
 		<tr>
 			<td style="border-bottom:1px solid #000;text-align:left;border-top:1px solid #000;" width="90%"><b>{% trans %}Total with Tax{% endtrans %}</b></td>
-			<td style="border-bottom:1px solid #000;text-align:right;border-top:1px solid #000;" width="10%"><b>{{ detailsOrder.totalTTC }} €</b></td>
+			<td style="border-bottom:1px solid #000;text-align:right;border-top:1px solid #000;" width="10%"><b>{{ detailsOrder.totalPrice }} €</b></td>
 		</tr>
 		<tr><td></td><td></td></tr>
 		<tr>
 			<td style="text-align:left;font-size:8px" width="90%"><i>{% trans %}Paiment needed to confirm the order{% endtrans %} (50%)</i></td>
-			<td style="text-align:right;" width="10%"><i>{{ detailsOrder.totalTTC/2 }} €</i></td>
+			<td style="text-align:right;" width="10%"><i>{{ detailsOrder.totalPrice/2 }} €</i></td>
 		</tr>
 	</tbody>
 	{% else %}
@@ -178,6 +178,13 @@
 	</tr>
 </table>
 <!-- // END TABLE TOTAL -->
+<br/><br/>
+<table>
+	<tr>
+		<td width="70%"></td>
+		<td width="30%" style="text-align:center"><img src="{{ documentRoot }}/build/images/tcpdf_sign.jpg" width="226" height="271"/></td>
+	</tr>
+</table>
 
 <br/><br/>
 {% if paiment is empty %}
@@ -205,32 +212,25 @@
 </table>
 <!-- // END TABLE WITH PRODUCT LIST -->
 {% endif %}
-<br/><br/>
-<table>
-	<tr>
-		<td width="70%"></td>
-		<td width="30%" style="text-align:center"><img src="{{ documentRoot }}/build/images/tcpdf_sign.jpg" width="226" height="271"/></td>
-	</tr>
-</table>
 
-
-<br pagebreak="true"/>
-<table width="100%" border="0" cellspacing="0" cellpadding="3">
-	<tr>
-		<td style="text-align:center;font-size:8px">
-			<img src="{{ documentRoot }}/build/images/tcpdf_logo.jpg"  width="114" height="38"/>
-			<br/>{{ configuration.address }}
-			<br/>{{ configuration.zipCode }} {{ configuration.city }}
-		</td>
-	</tr>
-</table>
-<br/>
-<br/>
-<!-- TABLE CONTACT -->
-{% if locale == 'fr' %}
-	{{ saleCondition | raw }}
-{% else %}
-	{{ saleConditionEn | raw }}
+{% if order.shop.isDirectCustomer %}
+	<br pagebreak="true"/>
+	<table width="100%" border="0" cellspacing="0" cellpadding="3">
+		<tr>
+			<td style="text-align:center;font-size:8px">
+				<img src="{{ documentRoot }}/build/images/tcpdf_logo.jpg"  width="114" height="38"/>
+				<br/>{{ configuration.address }}
+				<br/>{{ configuration.zipCode }} {{ configuration.city }}
+			</td>
+		</tr>
+	</table>
+	<br/>
+	<br/>
+	<!-- TABLE CONTACT -->
+	{% if locale == 'fr' %}
+		{{ saleCondition | raw }}
+	{% else %}
+		{{ saleConditionEn | raw }}
+	{% endif %}
 {% endif %}
-
 

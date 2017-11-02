@@ -56,11 +56,13 @@ class PdfController extends Controller
         $totalPrice = '';
         $totalVAT = '';
         $totalwVAT = '';
+        $totalwoVAT = '';
         if($vatStatus == 1){
             foreach ($modelsOrdered as $key => $modelOrdered) {
                 $totalPrice = $totalPrice + $modelOrdered->getPrixSoldHT();
-                $totalVAT = $totalVAT + ($modelOrdered->getPrixSoldHT()*$amountVAT)/100;
                 $totalwVAT = $totalVAT+$totalPrice;
+                $totalwoVAT = $totalPrice/(1+($amountVAT/100));
+                $totalVAT = $totalwoVAT*($amountVAT/ 100);
             }
         }else{
             foreach ($modelsOrdered as $key => $modelOrdered) {
@@ -70,7 +72,7 @@ class PdfController extends Controller
         $detailsOrder = array(
             'totalPrice' => $totalPrice,
             'totalVAT' => $totalVAT,
-            'totalTTC' => $totalwVAT
+            'totalHT' => $totalwoVAT
         );
 
 

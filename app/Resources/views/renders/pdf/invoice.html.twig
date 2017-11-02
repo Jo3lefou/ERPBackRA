@@ -90,11 +90,11 @@
 		<td style="border-bottom:1px solid #BBB;" width="30%">{{ modelOrdered.model.name}}{% if(modelOrdered.comment) %}<br><em>{{ modelOrdered.comment }}</em>{% endif %}</td>
 		<td style="border-bottom:1px solid #BBB;" width="20%">{{ modelOrdered.model.sku}}</td>
 		<td style="border-bottom:1px solid #BBB;" width="5%">{{ modelOrdered.size}}</td>
-		<td style="border-bottom:1px solid #BBB;text-align:right;" width="10%">{{ modelOrdered.prixSoldHT}} €</td>
-		<td style="border-bottom:1px solid #BBB;text-align:right;" width="10%">{{ modelOrdered.prixSoldHT * order.shop.amountVat /100 }} €</td>
-		<td style="border-bottom:1px solid #BBB;text-align:right;" width="10%">{{ (modelOrdered.prixSoldHT * order.shop.amountVat /100) + modelOrdered.prixSoldHT }} €</td>
+		<td style="border-bottom:1px solid #BBB;text-align:right;" width="10%">{{ modelOrdered.prixSoldHT/(1+(order.shop.amountVat/ 100)) }} €</td>
+		<td style="border-bottom:1px solid #BBB;text-align:right;" width="10%">{{ modelOrdered.prixSoldHT/(1+(order.shop.amountVat/ 100))*(order.shop.amountVat/100) }} €</td>
+		<td style="border-bottom:1px solid #BBB;text-align:right;" width="10%">{{ modelOrdered.prixSoldHT }} €</td>
 		<td style="border-bottom:1px solid #BBB;text-align:right;" width="5%">1</td>
-		<td style="border-bottom:1px solid #BBB;text-align:right;" width="10%">{{ (modelOrdered.prixSoldHT * order.shop.amountVat /100) + modelOrdered.prixSoldHT }} €</td>
+		<td style="border-bottom:1px solid #BBB;text-align:right;" width="10%">{{ modelOrdered.prixSoldHT }} €</td>
 		{% else %}
 		<td style="border-bottom:1px solid #BBB;" width="45%">{{ modelOrdered.model.name}}{% if(modelOrdered.comment) %}<br><em>{{ modelOrdered.comment }}</em>{% endif %}</td>
 		<td style="border-bottom:1px solid #BBB;" width="20%">{{ modelOrdered.model.sku}}</td>
@@ -126,13 +126,12 @@
 </table>
 <!-- // END TABLE WITH PRODUCT LIST -->
 
-<br/>
 <!-- TABLE TOTAL -->
 <table width="100%" style="width:100%" border="0" cellspacing="0" cellpadding="3">
 	<thead>
 		<tr style="border-bottom:1px solid #111;">
 			<th style="border-bottom:1px solid #000;text-align:left;border-top:1px solid #000;" width="90%"><b>{% trans %}Total{% endtrans %}</b></th>
-			<th style="border-bottom:1px solid #000;text-align:right;border-top:1px solid #000;" width="10%"><strong>{{ detailsOrder.totalPrice }} €</strong></th>
+			<th style="border-bottom:1px solid #000;text-align:right;border-top:1px solid #000;" width="10%"><strong>{{ detailsOrder.totalHT }} €</strong></th>
 		</tr>
 	</thead>
 	{% if order.shop.isVat %}
@@ -143,18 +142,18 @@
 		</tr>
 		<tr>
 			<td style="border-bottom:1px solid #000;text-align:left;border-top:1px solid #000;" width="90%"><b>{% trans %}Total with Tax{% endtrans %}</b></td>
-			<td style="border-bottom:1px solid #000;text-align:right;border-top:1px solid #000;" width="10%"><b>{{ detailsOrder.totalTTC }} €</b></td>
+			<td style="border-bottom:1px solid #000;text-align:right;border-top:1px solid #000;" width="10%"><b>{{ detailsOrder.totalPrice }} €</b></td>
 		</tr>
 	</tbody>
 	{% endif %}
 </table>
 <!-- // END TABLE TOTAL -->
 
-<br/><br/>
+<br/>
 {% if paiment is empty %}
 
 {% else %}
-<h4>{% trans %}Paiment{% endtrans %}</h4>
+<h4>{% trans %}Paiments{% endtrans %}</h4>
 <!-- TABLE WITH PRODUCT LIST -->
 <table width="100%" border="0" cellspacing="0" cellpadding="3">
 	<thead>
@@ -175,15 +174,13 @@
 	</tbody>
 </table>
 <!-- // END TABLE WITH PRODUCT LIST -->
-<br/><br/>
-<h4>{% trans %}Outstanding Paiment{% endtrans %}</h4>
 <!-- TABLE WITH PRODUCT LIST -->
 <table width="100%" border="0" cellspacing="0" cellpadding="3">
 	<thead>
 		<tr style="border-bottom:1px solid #111;">
 			<th style="border-bottom:1px solid #000;text-align:left;border-top:1px solid #000;" width="90%"><b>{% trans %}Outstanding Paiment{% endtrans %}</b></th>
 			{% if order.shop.isVat %}
-				<th style="border-bottom:1px solid #000;text-align:right;border-top:1px solid #000;" width="10%"><b>{{ detailsOrder.totalTTC - totalPaiement }} €</b></th>
+				<th style="border-bottom:1px solid #000;text-align:right;border-top:1px solid #000;" width="10%"><b>{{ detailsOrder.totalPrice - totalPaiement }} €</b></th>
 			{% else %}
 				<th style="border-bottom:1px solid #000;text-align:right;border-top:1px solid #000;" width="10%"><b>{{ detailsOrder.totalPrice - totalPaiement }} €</b></th>
 			{% endif %}
@@ -192,7 +189,7 @@
 </table>
 <!-- // END TABLE WITH PRODUCT LIST -->
 {% endif %}
-<br/><br/>
+<br/>
 <table>
 	<tr>
 		<td width="70%"></td>
