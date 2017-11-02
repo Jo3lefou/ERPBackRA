@@ -69,17 +69,21 @@ class ViewOrderController extends Controller
             $totalPrice = '';
             $totalVAT = '';
             $totalwVAT = '';
+            $totalwoVAT = '';
+
             foreach ($modelsOrdered as $key => $modelOrdered) {
+                // = [Montant HT]
             	$totalPrice = $totalPrice + $modelOrdered->getPrixSoldHT();
             	if($vatStatus == 1){
-            		$totalVAT = $totalVAT + ($modelOrdered->getPrixSoldHT()*$amountVAT)/100;
             		$totalwVAT = $totalVAT+$totalPrice;
+                    $totalwoVAT = $totalPrice/(1+($amountVAT/100));
+                    $totalVAT = $totalwoVAT*($amountVAT/ 100);
             	}
             }
             $detailsOrder = array(
             	'totalPrice' => $totalPrice,
             	'totalVAT' => $totalVAT,
-            	'totalTTC' => $totalwVAT
+                'totalHT' => $totalwoVAT,
             );
 
 

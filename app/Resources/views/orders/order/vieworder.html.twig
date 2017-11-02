@@ -149,9 +149,9 @@
                                 <th>Product</th>
                                 <th>Sku</th>
                                 <th>Date max Shipping</th>
-                                <th>Price w/out Taxes</th>
-                                <th>Tax Amount</th>
-                                <th>Price w/ Taxes</th>
+                                <th>Price {% if order.shop.isVat %}w/out Taxes{% endif %}</th>
+                                {% if order.shop.isVat %}<th>Tax Amount</th>{% endif %}
+                                {% if order.shop.isVat %}<th>Price w/ Taxes</th>{% endif %}
                               </tr>
                             </thead>
                             <tbody>
@@ -160,9 +160,9 @@
                                 <td>{{ modelOrdered.model.name }} ({{ modelOrdered.model.category }})</td>
                                 <td>{{ modelOrdered.model.sku }}</td>
                                 <td>{{ modelOrdered.maxProdShip|date("d/m/Y") }}</td>
-                                <td class="align-right">{{ modelOrdered.prixSoldHT }} €</td>
-                                <td class="align-right">{{ (modelOrdered.prixSoldHT * shop.amountVat)/100 }} €</td>
-                                <td class="align-right">{{ (modelOrdered.prixSoldHT * shop.amountVat)/100 + modelOrdered.prixSoldHT }} €</td>
+                                <td class="align-right">{{ modelOrdered.prixSoldHT/(1+(shop.amountVat/ 100)) }} €</td>
+                                {% if order.shop.isVat %}<td class="align-right">{{ modelOrdered.prixSoldHT/(1+(shop.amountVat/ 100))*(shop.amountVat/100) }} €</td>{% endif %}
+                                {% if order.shop.isVat %}<td class="align-right">{{ modelOrdered.prixSoldHT }} €</td>{% endif %}
                               </tr>
                               {% endfor %}
                             </tbody>
@@ -238,7 +238,7 @@
                                 {% if order.shop.isVat %}
                                 <tr>
                                   <th style="width:50%">Subtotal:</th>
-                                  <td>{{ detailsOrder.totalPrice }} €</td>
+                                  <td>{{ detailsOrder.totalHT }} €</td>
                                 </tr>
                                 <tr>
                                   <th>VAT ({{ order.shop.amountVat }}%)</th>
@@ -246,7 +246,7 @@
                                 </tr>
                                 <tr>
                                   <th>Total:</th>
-                                  <td><strong><span id="totalOrder">{{ detailsOrder.totalTTC }}</span> €</strong></td>
+                                  <td><strong><span id="totalOrder">{{ detailsOrder.totalPrice }}</span> €</strong></td>
                                 </tr>
                                 <tr>
                                   <th>Total Payment:</th>
@@ -254,7 +254,7 @@
                                 </tr>
                                 <tr>
                                   <th>Outstanding payment:</th>
-                                  <td><span id='totalOutstandingPaiement'>{{ detailsOrder.totalTTC - payment }}</span> €</td>
+                                  <td><span id='totalOutstandingPaiement'>{{ detailsOrder.totalPrice - payment }}</span> €</td>
                                 </tr>
                                 {% else %}
                                 <tr>
@@ -263,7 +263,7 @@
                                 </tr>
                                 <tr>
                                   <th>Total Payment:</th>
-                                  <td><span id="totalPaiement">{{ detailsOrder.totalPrice - payment }}</span> €</td>
+                                  <td><span id="totalPaiement">{{ payment }}</span> €</td>
                                 </tr>
                                 <tr>
                                   <th>Outstanding payment:</th>
