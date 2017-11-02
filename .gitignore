@@ -1,4 +1,6 @@
 # exclude
 /var/cache/
+/var/logs/
+/var/sessions/
 /app/AppKernel.php
 /app/config/parameters.yml

@@ -9,6 +9,12 @@ parameters:
     locale: en
     files_directory: '%kernel.project_dir%/web/uploads/pic/profile'
 
+web_profiler:
+    toolbar:              false
+    position:             bottom
+    intercept_redirects:  false
+    excluded_ajax_paths:  ^/bundles|^/_wdt
+
 framework:
     #esi: ~
     translator: { fallbacks: ['en'] }

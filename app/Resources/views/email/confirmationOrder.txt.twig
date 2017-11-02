@@ -1,0 +1,11 @@
+--- Rime Arodaky notification ---
+
+The order {% if order.idCompta|length < 1 %}DRAFT created on {{ order.dateOrder}}{% elseif order.idCompta|length < 2 %}{{ shop.extention }}000{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 3 %}{{ shop.extention }}00{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 4 %}{{ shop.extention }}0{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 5 %}{{ shop.extention }}{{ order.idCompta }}-{{ order.year }}{% endif %} {% if locale == 'en' %}{{ statusEn }}{% else %}{{ statusFr }}{% endif %}.
+
+To follow the status of your order, please connect to the RimeArodaky Platform.
+
+Best regards,
+
+The (d)Rime Team
+www.rime-arodaky.com
+

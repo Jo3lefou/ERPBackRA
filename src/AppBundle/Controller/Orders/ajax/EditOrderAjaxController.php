@@ -27,7 +27,7 @@ class EditOrderAjaxController extends Controller
 	/**
      * @Route("/{_locale}/orders/update/{type}/{id}", name="updateorder")
      */
-	public function indexAction($type, $id, Request $request)
+	public function indexAction($type, $id, Request $request, \Swift_Mailer $mailer)
 	{
 		if( $request->get('value') || $request->get('value') == 0 ){
 
@@ -130,19 +130,20 @@ class EditOrderAjaxController extends Controller
 					if( $oldState < 2 || $dateValidation == '' ){
 						$entity->setDateValidation($time);
 						$dateValidation = date('d/m/Y');
+
 					}
 					// Changement d'etat
 					$entity->setState($newValue);
 				}
 				switch($newValue){
-					case 0: $class = 'btn btn-default dropdown-toggle btn-xs state st-dft'; $lineClass ='st-dft'; $stateWord ='draft'; break;
-              		case 1: $class = 'btn btn-default dropdown-toggle btn-xs state st-pnd'; $lineClass ='st-pnd'; $stateWord ='pending'; break;
-             		case 2: $class = 'btn btn-default dropdown-toggle btn-xs state st-vlt'; $lineClass ='st-vlt'; $stateWord ='validated'; break;
-             		case 3: $class = 'btn btn-default dropdown-toggle btn-xs state st-err'; $lineClass ='st-err'; $stateWord ='error'; break;
-              		case 4: $class = 'btn btn-default dropdown-toggle btn-xs state st-ccl'; $lineClass ='st-ccl'; $stateWord ='canceled'; break;
-              		case 5: $class = 'btn btn-default dropdown-toggle btn-xs state st-ctl'; $lineClass ='st-ctl'; $stateWord ='controled'; break;
-              		case 6: $class = 'btn btn-default dropdown-toggle btn-xs state st-dlv'; $lineClass ='st-dlv'; $stateWord ='delivered'; break;
-              		case 7: $class = 'btn btn-default dropdown-toggle btn-xs state st-sis'; $lineClass ='st-sis'; $stateWord ='stored in stock'; break;
+					case 0: $class = 'btn btn-default dropdown-toggle btn-xs state st-dft'; $lineClass ='st-dft'; $stateWord ='draft'; $emailstateEn = 'is still in the DRAFT status'; $emailstateFr = 'est toujours en brouillon'; break;
+              		case 1: $class = 'btn btn-default dropdown-toggle btn-xs state st-pnd'; $lineClass ='st-pnd'; $stateWord ='pending'; $emailstateEn = 'is now pending, still waiting for approbation'; $emailstateFr = 'est en attente de validation'; break;
+             		case 2: $class = 'btn btn-default dropdown-toggle btn-xs state st-vlt'; $lineClass ='st-vlt'; $stateWord ='validated'; $emailstateEn = 'has been validated'; $emailstateFr = 'a bien été validé'; break;
+             		case 3: $class = 'btn btn-default dropdown-toggle btn-xs state st-err'; $lineClass ='st-err'; $stateWord ='error'; $emailstateEn = 'is in error, please verify your order'; $emailstateFr = 'est en erreur, merci de vérifier votre commande'; break;
+              		case 4: $class = 'btn btn-default dropdown-toggle btn-xs state st-ccl'; $lineClass ='st-ccl'; $stateWord ='canceled'; $emailstateEn = 'has been canceled'; $emailstateFr = 'a été annulé'; break;
+              		case 5: $class = 'btn btn-default dropdown-toggle btn-xs state st-ctl'; $lineClass ='st-ctl'; $stateWord ='controled'; $emailstateEn = 'has been controled and should be soon available for shipping'; $emailstateFr = 'a été controllé. Vous devriez bientôt la recevoir'; break;
+              		case 6: $class = 'btn btn-default dropdown-toggle btn-xs state st-dlv'; $lineClass ='st-dlv'; $stateWord ='delivered'; $emailstateEn = 'has been sent to you. You should receive it soon'; $emailstateFr = 'a été expédié. Vous recevrez bientôt votre commande'; break;
+              		case 7: $class = 'btn btn-default dropdown-toggle btn-xs state st-sis'; $lineClass ='st-sis'; $stateWord ='stored in stock'; $emailstateEn = 'has been store in the stock, pending for shiping'; $emailstateFr = 'a été placé en stock, dans l\'attente d\'être expédié'; break;
               	}
                 $newOrderLog = new RarOrderLog();
                 $newOrderLog->setDate($time);
@@ -150,6 +151,20 @@ class EditOrderAjaxController extends Controller
                 $newOrderLog->setOrder($entity);
                 $em->persist($newOrderLog);
                 $em->flush();
+
+                // Get Info for the email.
+                $shop = $entity->getShop();
+                $shopEmail = $shop->getEmail();
+                $shopLocale = $shop->getLocale();
+                // We send a notification to tell the shop that the order is now confirmed.
+                $message = (new \Swift_Message('Hello Email'))
+                    ->setFrom('showroom@rime-arodaky.com')
+                    ->setTo($shopEmail)
+                    ->setBody(
+                        $this->renderView( 'email/confirmationOrder.txt.twig',
+                        array('locale' => $shopLocale, 'order' => $entity, 'shop' => $shop, 'statusEn' => $emailstateEn, 'statusFr' => $emailstateFr ) )
+                    );
+                $mailer->send($message);
 
 			}elseif($type == 'update-workroom'){
                 // On Load les éléments
@@ -163,6 +178,7 @@ class EditOrderAjaxController extends Controller
                 $status = $entity->getStatus();
 
                 if($status < 2){
+
                     // Attribution des nouvaux 
                     $dateValidation = date_create(date('d/m/Y'));
                     $entity->setDateModification($time);
