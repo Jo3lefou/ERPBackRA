@@ -82,6 +82,8 @@ class EditOrderController extends Controller
             $shop = $entity->getShop();
             $shopStatus = $shop->getIsDirectCustomer();
             $vatStatus = $shop->getIsVat();
+            $contractStatus = $shop->getIsContract();
+            $contractAmount = $shop->getAmountContract();
             $amountVAT = $shop->getAmountVat();
             $shopID = $shop->getId();
             $status = $entity->getState();
@@ -259,6 +261,15 @@ class EditOrderController extends Controller
                                 $price = $tvaAmount+$priceSold;
                             }else{
                                 $price = $model->getModel()->getPrixHT();
+                            }
+                        // ** Si la boutique achete RA a un prix contractualisé
+                        }elseif($contractStatus ==1){
+                            if($vatStatus == 1){
+                                $priceSold = $model->getModel()->getPrixHT();
+                                $tvaAmount = ($priceSold+$pricesSize[0]['supHt'])*$amountVAT/100;
+                                $price = ($tvaAmount+$priceSold)*($contractAmount/100);
+                            }else{
+                                $price = ($model->getModel()->getPrixHT()+$pricesSize[0]['supShop'])*($contractAmount/100);
                             }
                         }else{
                             if($vatStatus == 1){

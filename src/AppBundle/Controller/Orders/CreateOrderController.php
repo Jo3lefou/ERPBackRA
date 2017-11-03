@@ -135,6 +135,8 @@ class CreateOrderController extends Controller
                 $shop = $newOrder->getShop();
                 $shopStatus = $shop->getIsDirectCustomer();
                 $vatStatus = $shop->getIsVat();
+                $contractStatus = $shop->getIsContract();
+                $contractAmount = $shop->getAmountContract();
                 $amountVAT = $shop->getAmountVat();
                 $shopID = $shop->getId();
                 // ** Order status
@@ -210,6 +212,15 @@ class CreateOrderController extends Controller
                             $price = $tvaAmount+$priceSold;
                         }else{
                             $price = $model->getModel()->getPrixHT()+$pricesSize[0]['supHt'];
+                        }
+                    // ** Si la boutique achete RA a un prix contractualisé
+                    }elseif($contractStatus ==1){
+                        if($vatStatus == 1){
+                            $priceSold = $model->getModel()->getPrixHT();
+                            $tvaAmount = ($priceSold+$pricesSize[0]['supHt'])*$amountVAT/100;
+                            $price = ($tvaAmount+$priceSold)*($contractAmount/100);
+                        }else{
+                            $price = ($model->getModel()->getPrixHT()+$pricesSize[0]['supShop'])*($contractAmount/100);
                         }
                     // ** Si la boutique achete RA au prix Wholesale (ex. Revendeur)
                     }else{
