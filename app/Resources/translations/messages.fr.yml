@@ -30,6 +30,7 @@ Create a new user: Création d'un nouvel utilisateur
 Create here your matter provider: Créer ici votre nouveau fournisseur de matières
 Create here your new order: Créer une nouvelle commande ici
 Create here your new user: Créer ici votre nouvel utilisateur
+Create here your new profile: Créer votre nouveau profil ici
 Customer infos: Infos client
 Customers: Clients
 Dashboard: Tableau de bord
@@ -150,3 +151,162 @@ Yes: Oui
 Your new user: Votre nouvel utilisateur
 Your profile: Votre profil
 Zip Code: Code Postal
+A: A
+Action: Action
+Activate the model for selling: Activer le modèle pour la vente
+Add Payment: Ajouter un paiement
+Address<: Adresse<
+All: Tout
+All reseller: Tous les retailers
+Amount: Montant
+Anglais: Anglais
+Any review ?: Un commentaire ?
+Anything else to add ?: Quelque chose à ajouter ?
+C: C
+Caption box: Légende
+Card: Carte Bleu/Visa
+Cash: Espèce
+Category: Catégorie
+Check: Chèque
+Choose a payment type: Choisissez un type de Paiement
+Choose the default workroom for this model: Choisisser l'atelier par défaut pour ce modèle
+Collection Identifier: Identifiant de la collection
+Color<: Couleur<
+Comments: Commentaire
+Composition: Composition
+Create a new matter: Créer une nouvelle matière
+Create a new model: Créer un nouveau modèle
+Create a new order: Créer une nouvelle commande
+Create a new workroom: Créer un nouvel atelier
+Created By: Créé par
+Current: Actuel
+Customer: Client
+Customer Name: Nom du client
+Date Cashing: Date d'encaissement
+Date Payment: Date de Paiment
+Default workroom: Atelier par défaut
+Delete: Supprimer
+Desactivate: Désactiver
+Description: Description
+Direct Customer Price: Prix retail
+Display comment: Afficher les commentaires
+Display/Hide: Afficher/Cacher
+Do you wish this user to be allowed to create some new customer: Voulez-vous que cet utilisateur soit autorisé à créer de nouveau client ?
+Draft orders: Commande brouillon
+Dress name: Nom de la robe
+Dress ordered for: Robe commander pour
+Enter the matters and the quantity needed: Entrez les matières et la quantité nécessaire
+Enter the size and supplement if needed: Entrez les tailles et leurs supléments si besoin
+Extention: Extension
+Finished orders: Commandes terminées
+Français: Français
+History: Historique
+ID: ID
+ID Co.: ID Co.
+If it is under VAT Tax, what is the amount (%) ?: Si il est soumis à la TVA, quel est le montant ?
+if Yes, what is the amount?: Si oui, quel est le montant ?
+If you want to comment or review this order...:  Si vous voulez commenter cette commande...
+Internal Code Size Name: Code interne de la taille
+Is this dress available for Shop under contract?:  Est-ce que cette robe est disponible pour les boutiques sous contrat ?
+Is this dress available for Shop?: Est-ce que cette robe est disponible pour les boutiques ?
+Is this dress available?: Est-ce que cette robe est disponible ?
+Is this shop active: Est-il actif ?
+is under Rime Arodaky Contract?: Est-il assujéti à un contrat ?
+is under VAT Tax ?: Est-il assujéti à la TVA ?
+Langue: Langue
+Le point est le spérateur de décimale. ex. 125.50: Le point est le spérateur de décimale. ex. 125.50
+Matter Name: Nom de la matière
+Matter Provider: Fournisseur de matières
+Matters: Matières
+Max Ship: Temps de livraison maximum
+Max Shipping Workroom: Date de livraison maximum Atelier
+Max. Ship Date: Date de livraison maximum
+Max. Ship Order Date: Date de livraison maximum
+Maximum number of week for having the dress at controle point ?: Nombre de semaine maximum pour avoir la robe au point de contrôle
+Maximum Time Limit for Shipping: Temps maxinum pour la livraison
+Min Ship: Temps de livraison minimum
+Min Shipping Workroom: Date de livraison minimum Atelier
+Min. Ship Date: Date de livraison minimum
+Minimum number of week for having the dress at controle point ?: Nombre de semaine minimum pour avoir la robe au point de contrôle
+Minimum Time Limit for Shipping: Temps mininum pour la livraison
+Model Activation: activation du modèle
+Model informations: informations du modèle
+Model Name: Nom du modèle
+Model Price: Prix du modèle
+Model Type: Type de modèle
+Name : Nom
+None define: Undéfini
+None Define: Undéfini
+Not active : Pas actif
+Not validated: Pas validé
+Notes about this order: Notes à propos de cette commande
+Order Condition in English: Condition de commande en anglais
+Order Condition in French : Condition de commande en français
+Order date: Date de commande
+Other: Autre
+Outstanding Paiment: Reste à payer
+Paiment: Paiement
+Paiment needed to confirm the order: Paiement nécessaire pour valider la commande
+Paiments: Paiements
+Payment received on the: Paiement recu le
+Pending: En attente
+Price Shop: Prix boutique
+Price w/ Tax: Prix TTC
+Price without VAT: Prix HT
+Product: Produit
+Product(s): Produit(s)
+Provider: Fournisseur
+Public Price: Prix public
+Published orders: Commandes publiés
+Purchase Order: Bon de commande
+Q.:Q.
+Quantity needed: Besoin en quantité
+Received: Reçu
+Rights on customer: Droits sur le client
+S:T
+S.:T.
+Sales Condition in English: Condition de ventes en Anglais
+Sales Condition in French: Condition de ventes en Français
+Salesperson: Conseillère
+Select user(s) linked to that shop: Sélectionnez le(s) utilisateur(s) lié à cette boutique
+Select workroom(s) linked to that user: Sélectionnez le(s) atelier(s) lié à cet utilisateur
+Sent to provider: Envoyé en atelier
+Sent to the workroom: Envoyé en atelier
+Sent to workroom: Envoyé en atelier
+Set up the price of your model: Configurez le prix de vos models
+Ship. Max: Liv. Max
+Ship. Min: Liv. Min
+Shipping: Livraison
+Shipping configuration: Configuration de la livraison
+Shipping date: Date de livraison
+Shop Name: Nom de la boutique
+Shop Price: Prix boutique
+Size Heels: Hauteur talons
+Size Name: Nom de la taille
+Sizes: Tailles
+Sku: Sku
+SKU: SKU
+SKU Code:Code SKU
+Stored in stock: Stocké
+Sup. Price HT: Supplément (HT)
+Sup. Price Shop: Supplément Boutique
+T.: T.
+This customer has already an account: Ce client possède déjà un compte client
+To do: A faire
+Total: Total
+Total VAT: Total TVA
+Total with Tax: Total TTC
+Type: Type
+Type Payment: Type Payment
+U. P.: Prix U.
+Valid.:Valid.
+Validation date: Date de validation
+VAT: TVA
+VAT number: Num TVA
+View: Vue
+Virement: Virement
+Votre avatar: Votre avatar
+Wedding: Mariage
+Wedding date: Date du mariage
+Wedding date: Date du mariage
+Width: Largeur
