@@ -259,12 +259,9 @@ Provider: Fournisseur
 Public Price: Prix public
 Published orders: Commandes publiés
 Purchase Order: Bon de commande
-Q.:Q.
 Quantity needed: Besoin en quantité
 Received: Reçu
 Rights on customer: Droits sur le client
-S:T
-S.:T.
 Sales Condition in English: Condition de ventes en Anglais
 Sales Condition in French: Condition de ventes en Français
 Salesperson: Conseillère
@@ -286,11 +283,10 @@ Size Name: Nom de la taille
 Sizes: Tailles
 Sku: Sku
 SKU: SKU
-SKU Code:Code SKU
+SKU Code: Code SKU
 Stored in stock: Stocké
 Sup. Price HT: Supplément (HT)
 Sup. Price Shop: Supplément Boutique
-T.: T.
 This customer has already an account: Ce client possède déjà un compte client
 To do: A faire
 Total: Total
@@ -298,8 +294,8 @@ Total VAT: Total TVA
 Total with Tax: Total TTC
 Type: Type
 Type Payment: Type Payment
-U. P.: Prix U.
-Valid.:Valid.
+"U. P.": "Prix U."
+"Valid.": "Valid."
 Validation date: Date de validation
 VAT: TVA
 VAT number: Num TVA

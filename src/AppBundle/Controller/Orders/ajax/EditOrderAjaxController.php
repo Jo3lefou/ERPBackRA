@@ -58,7 +58,7 @@ class EditOrderAjaxController extends Controller
                     case 9: $class = 'btn btn-default dropdown-toggle btn-xs state st-lc'; $stateWord ='finished'; break;
             	}
             	$lineClass = "";
-            	if($newValue >= 4 && $oldStatus < 4){
+            	if($newValue >= 2 && $oldStatus < 2){
             		// Ici on vient creée une ligne de stock négative pour chaque matière commandée.
             		// On prend le modèle
             		$model = $entity->getModel();
