@@ -130,7 +130,6 @@ class EditOrderAjaxController extends Controller
 					if( $oldState < 2 || $dateValidation == '' ){
 						$entity->setDateValidation($time);
 						$dateValidation = date('d/m/Y');
-
 					}
 					// Changement d'etat
 					$entity->setState($newValue);

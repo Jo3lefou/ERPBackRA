@@ -101,4 +101,8 @@ $(document).ready(function(){
 		$('#OrderType_customer_locale').val(val);
 	});
 
+
+
+
+
 });

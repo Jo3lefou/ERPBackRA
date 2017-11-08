@@ -62,29 +62,31 @@
                         {% if is_granted('ROLE_ADMIN') %}
                         
                         <div class="bordered">
-                          <span>{% trans %}Display/Hide : {% endtrans %}</span>
+                          <span>{% trans %}Display/Hide{% endtrans %}:</span>
                           <a class="toggle-vis" data-column="0">{% trans %}Order{% endtrans %}</a>
-                          <a class="toggle-vis" data-column="1">{% trans %}SKU{% endtrans %}</a>
-                          <a class="toggle-vis" data-column="2">{% trans %}Name{% endtrans %}</a>
-                          <a class="toggle-vis" data-column="3">{% trans %}Size{% endtrans %}</a>
-                          <a class="toggle-vis" data-column="4">{% trans %}Status{% endtrans %}</a>
-                          <a class="toggle-vis" data-column="5">{% trans %}Min. Ship Date{% endtrans %}</a>
-                          <a class="toggle-vis" data-column="6">{% trans %}Max. Ship Date{% endtrans %}</a>
-                          <a class="toggle-vis" data-column="7">{% trans %}Max. Ship Order Date{% endtrans %}</a>
-                          <a class="toggle-vis" data-column="8">{% trans %}Workroom{% endtrans %}</a>
+                          <a class="toggle-vis" data-column="1">{% trans %}Wed. Date{% endtrans %}</a>
+                          <a class="toggle-vis" data-column="2">{% trans %}SKU{% endtrans %}</a>
+                          <a class="toggle-vis" data-column="3">{% trans %}Name{% endtrans %}</a>
+                          <a class="toggle-vis" data-column="4">{% trans %}Size{% endtrans %}</a>
+                          <a class="toggle-vis" data-column="5">{% trans %}Status{% endtrans %}</a>
+                          <a class="toggle-vis" data-column="6">{% trans %}Min. Ship Date{% endtrans %}</a>
+                          <a class="toggle-vis" data-column="7">{% trans %}Max. Ship Date{% endtrans %}</a>
+                          <a class="toggle-vis" data-column="8">{% trans %}Max. Ship Order Date{% endtrans %}</a>
+                          <a class="toggle-vis" data-column="9">{% trans %}Workroom{% endtrans %}</a>
                         </div>
                         {% else %}
                         <div class="bordered">
-                          <span>{% trans %}Display/Hide : {% endtrans %}</span>
+                          <span>{% trans %}Display/Hide{% endtrans %}:</span>
                           <a class="toggle-vis" data-column="0">{% trans %}Order{% endtrans %}</a>
-                          <a class="toggle-vis" data-column="1">{% trans %}SKU{% endtrans %}</a>
-                          <a class="toggle-vis" data-column="2">{% trans %}Name{% endtrans %}</a>
-                          <a class="toggle-vis" data-column="3">{% trans %}Size{% endtrans %}</a>
-                          <a class="toggle-vis" data-column="4">{% trans %}Status{% endtrans %}</a>
-                          <a class="toggle-vis" data-column="5">{% trans %}Min. Ship Date{% endtrans %}</a>
-                          <a class="toggle-vis" data-column="6">{% trans %}Max. Ship Date{% endtrans %}</a>
-                          <a class="toggle-vis" data-column="7">{% trans %}Max. Ship Order Date{% endtrans %}</a>
-                          <a class="toggle-vis" data-column="8">{% trans %}Workroom{% endtrans %}</a>
+                          <a class="toggle-vis" data-column="1">{% trans %}Wed. Date{% endtrans %}</a>
+                          <a class="toggle-vis" data-column="2">{% trans %}SKU{% endtrans %}</a>
+                          <a class="toggle-vis" data-column="3">{% trans %}Name{% endtrans %}</a>
+                          <a class="toggle-vis" data-column="4">{% trans %}Size{% endtrans %}</a>
+                          <a class="toggle-vis" data-column="5">{% trans %}Status{% endtrans %}</a>
+                          <a class="toggle-vis" data-column="6">{% trans %}Min. Ship Date{% endtrans %}</a>
+                          <a class="toggle-vis" data-column="7">{% trans %}Max. Ship Date{% endtrans %}</a>
+                          <a class="toggle-vis" data-column="8">{% trans %}Max. Ship Order Date{% endtrans %}</a>
+                          <a class="toggle-vis" data-column="9">{% trans %}Workroom{% endtrans %}</a>
                         </div>
                         {% endif %}
                         {% endif %}
@@ -112,7 +114,11 @@
                                 <option value="7" rel="state">{% trans %}Controled{% endtrans %}</option>
                                 <option value="8" rel="state">{% trans %}Shipped{% endtrans %}</option>
                                 <option value="9" rel="state">{% trans %}Finished{% endtrans %}</option>
+                                <option disabled>Notification</option>
+                                <option value="log" rel="notify">{% trans %}Send production log{% endtrans %}</option>
+                                <option value="order" rel="notify">{% trans %}Send production order{% endtrans %}</option>
                               </select>
+                              <button id="gp-action-valid" class="btn btn-success">OK</button>
                             </div>
                           </div>
                         </div>
@@ -121,6 +127,7 @@
                           <thead>
                             <tr>
                               <th>{% trans %}Order{% endtrans %}</th>
+                              <th>{% trans %}Wed. date{% endtrans %}</th>
                               <th>{% trans %}SKU{% endtrans %}</th>
                               <th>{% trans %}Name{% endtrans %}</th>
                               <th>{% trans %}Size{% endtrans %}</th>
@@ -130,6 +137,7 @@
                               <th>{% trans %}Max. Ship Order Date{% endtrans %}</th>
                               <th>{% trans %}Workroom{% endtrans %}</th>
                               <th>{% trans %}Action{% endtrans %}</th>
+                              <th></th>
                             </tr>
                           </thead>
                           <tbody>
@@ -164,7 +172,37 @@
                             {{ production.order.shop.extention }}0{{ production.order.idCompta }}-{{ production.order.year }}
                           {% elseif production.order.idCompta|length < 5 %}
                             {{ production.order.shop.extension }}{{ production.order.idCompta }}-{{ production.order.year }}
+                          {% endif %}</td>
+                          <!-- DATE -->
+                          {% if production.order.dateCivil|date("U") < "+0 days"|date("U") %}
+                            <td style="background-color:#aa0a1b;color:#FFF">{{ production.order.dateCivil|date("Y/m/d") }}</td>
+                          {% elseif production.order.dateCivil|date("U") > "+0 days"|date("U") and production.order.dateCivil|date("U") < "+20 days"|date("U") %}
+                            <td style="background-color:#aa0a1b;color:#FFF">{{ production.order.dateCivil|date("Y/m/d") }}</td>
+                          {% elseif production.order.dateCivil|date("U") > "+20 days"|date("U") and production.order.dateCivil|date("U") < "+30 days"|date("U") %}
+                            <td style="background-color:#b32030;color:#FFF">{{ production.order.dateCivil|date("Y/m/d") }}</td>
+                          {% elseif production.order.dateCivil|date("U") > "+30 days"|date("U") and production.order.dateCivil|date("U") < "+40 days"|date("U") %}
+                            <td style="background-color:#c03e4e">{{ production.order.dateCivil|date("Y/m/d") }}</td>
+                          {% elseif production.order.dateCivil|date("U") > "+40 days"|date("U") and production.order.dateCivil|date("U") < "+50 days"|date("U") %}
+                            <td style="background-color:#dc7f8e">{{ production.order.dateCivil|date("Y/m/d") }}</td>
+                          {% elseif production.order.dateCivil|date("U") > "+50 days"|date("U") and production.order.dateCivil|date("U") < "+60 days"|date("U") %}
+                            <td style="background-color:#f3bbc8">{{ production.order.dateCivil|date("Y/m/d") }}</td>
+                          {% elseif production.order.dateCivil|date("U") > "+60 days"|date("U") and production.order.dateCivil|date("U") < "+70 days"|date("U") %}
+                            <td style="background-color:#f8e6ee">{{ production.order.dateCivil|date("Y/m/d") }}</td>
+                          {% elseif production.order.dateCivil|date("U") > "+70 days"|date("U") and production.order.dateCivil|date("U") < "+80 days"|date("U") %}
+                            <td style="background-color:#f7f9fb">{{ production.order.dateCivil|date("Y/m/d") }}</td>
+                          {% elseif production.order.dateCivil|date("U") > "+80 days"|date("U") and production.order.dateCivil|date("U") < "+90 days"|date("U") %}
+                            <td style="background-color:#def4ed">{{ production.order.dateCivil|date("Y/m/d") }}</td>
+                          {% elseif production.order.dateCivil|date("U") > "+90 days"|date("U") and production.order.dateCivil|date("U") < "+100 days"|date("U") %}
+                            <td style="background-color:#b5dfca">{{ production.order.dateCivil|date("Y/m/d") }}</td>
+                          {% elseif production.order.dateCivil|date("U") > "+100 days"|date("U") and production.order.dateCivil|date("U") < "+110 days"|date("U") %}
+                            <td style="background-color:#7dba97">{{ production.order.dateCivil|date("Y/m/d") }}</td>
+                          {% elseif production.order.dateCivil|date("U") > "+110 days"|date("U") and production.order.dateCivil|date("U") < "+120 days"|date("U") %}
+                            <td style="background-color:#3d8b57;color:#FFF">{{ production.order.dateCivil|date("Y/m/d") }}</td>
+                          {% else %}
+                            <td style="background-color:#106a2a;color:#FFF">{{ production.order.dateCivil|date("Y/m/d") }}</td>
                           {% endif %}
+
+                          <!-- END DATE -->
                                 <td>{{ production.model.sku }}</td>
                                 <td>{{ production.model.name }}</td>
                                 <td>{{ production.size }}</td>
@@ -297,17 +335,12 @@
                                     {% endif %}
                                   {% endif %}
                                 </td>
-                                <td>{{ production.minProdShip|date('Y/m/d') }}</td>
-
                                 <td>
-                                  {% if production.maxProdShip|date("U") < "+0 days"|date("U") %}
-                                      <span class='marker red'>{{ production.maxProdShip|date('Y/m/d') }}</span>
-                                  {% elseif production.maxProdShip|date("U") < "+15 days"|date("U") %}
-                                      <span class='marker orange'>{{ production.maxProdShip|date('Y/m/d') }}</span>
-                                  {% else %}
-                                      {{ production.maxProdShip|date('Y/m/d') }}
-                                  {% endif %}
-                                  </td>
+                                  <input type="text" class="dateTableEditor" value="{{ production.minProdShip|date('Y/m/d') }}" />
+                                </td>
+                                <td>
+                                  <input type="text" class="dateTableEditor" value="{{ production.maxProdShip|date('Y/m/d') }}" />
+                                </td>
                                 <td>{{ production.order.dateMaxShip|date('Y/m/d') }}</td>
                                 <td>
                                   <div class="btn-group">
@@ -320,8 +353,20 @@
                                   </div>
                                 </td>
                                 <td>
-                                  <input type="checkbox" value="{{ production.id }}" class="js-switch">
-
+                                  <input type="checkbox" value="{{ production.id }}" class="js-switch checkboxOrder" name="elemCheck[]">
+                                </td>
+                                <td>
+                                  <a href="" class="btn btn-xs btn-primary"><i class="fa  fa-sticky-note-o"></i></a>
+                                  <span class="notifCheck">{% if production.prodBasket == null %}
+                                    <i class="fa fa-close red"></i>
+                                  {% else %}
+                                    {% if production.prodBasket.status == 1 %}
+                                      <i class="fa fa-info green"></i>
+                                    {% elseif production.prodBasket.status == 2 %}
+                                      <i class="fa fa-check green"></i>
+                                    {% endif %}
+                                  {% endif %}
+                                  </span>
                                 </td>
                               </tr>
                             {% endfor %}

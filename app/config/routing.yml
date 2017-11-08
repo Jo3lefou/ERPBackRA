@@ -15,3 +15,7 @@ app_size_route:
 app_customer_route:
    path:     /customer_request
    defaults: { _controller: AppBundle:customerRequest:index }
+
+app_production_route:
+   path:     /production_request
+   defaults: { _controller: AppBundle:productionRequest:index }

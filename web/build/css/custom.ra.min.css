@@ -310,3 +310,14 @@ ul.nav.nav-tabs.bar_tabs.myBigTab{
 	line-height: inherit;
 }
 
+/* Date in Table */
+
+.dateTableEditor{
+	background-color:transparent;
+	background: transparent;
+	border: 1px solid transparent;
+	width: 81px;
+}
+.dateTableEditor:hover{
+	border: 1px solid #BBB;
+}

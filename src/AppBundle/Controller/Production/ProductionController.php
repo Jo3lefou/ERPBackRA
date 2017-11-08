@@ -77,6 +77,8 @@ class ProductionController extends Controller
                 }
             }
         }
+        // Suppression des commandes qui ne sont pas validé ou controlé.
+        $condition .= ' AND s.state = 2'; 
         
         $query = $repository->createQueryBuilder('p')
             ->leftJoin('p.order', 's')

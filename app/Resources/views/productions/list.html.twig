@@ -89,6 +89,8 @@
     <!-- bootstrap-daterangepicker -->
     <script src="{{ url('homepage') }}vendors/moment/min/moment.min.js"></script>
     <script src="{{ url('homepage') }}vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap-datetimepicker -->    
+    <script src="{{ url('homepage') }}/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
     <!-- dataTable -->
     <script src="{{ url('homepage') }}vendors/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="{{ url('homepage') }}vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
@@ -108,7 +110,9 @@
     <!-- Custom Theme Scripts -->
     <script src="{{ url('homepage') }}build/js/rarcustom.js"></script>
     <script>
-
+      function isEmpty(el){
+        return !$.trim(el);
+      }
       var table = $('#datatable-order').DataTable( {
           ordering: true,
           select: true,
@@ -122,6 +126,70 @@
           // Toggle the visibility
           column.visible( ! column.visible() );
       });
+
+      $( "button#gp-action-valid").on('click', function(){
+        var myCheckboxes = new Array();
+        $("input.checkboxOrder:checked").each(function() {
+           myCheckboxes.push($(this).val());
+        });
+        //alert(myCheckboxes);
+        var value = $("select#gp-action").find('option:selected').val();
+        var action = $("select#gp-action").find('option:selected').attr('rel');
+        $('#loading-bar').fadeIn();
+        $.ajax( {
+          type:"GET",
+          url: "{{ (path('app_production_route')) }}",
+          dataType: "json",
+          data: { value: value, action: action, elem: myCheckboxes },
+          success: function( data ) {
+            //console.log(data);
+            if(isEmpty(data.error)){
+              var message = data.valid;
+              $('#loading-alert .alert-success p').html(message);
+              $('#loading-alert').fadeIn().find('.alert-success').fadeIn();
+              dismissAlert();
+              if(action == 'workroom'){
+                $.each(data.arrayresponse, function(i, item){
+                  var id = data.arrayresponse[i].id;
+                  var name = data.arrayresponse[i].name;
+                  $('tr#production-'+id+' #mow-'+id).html(name+' <span class="caret"></span>');
+                });
+              }
+              if(action == 'notify' && value == 'log'){
+                $.each(data.arrayresponse, function(i, item){
+                  var id = data.arrayresponse[i].id;
+                  $('tr#production-'+id+' span.notifCheck').html('<i class="fa fa-info green"></i>');
+                });
+              }
+              if(action == 'state'){
+                $.each(data.arrayresponse, function(i, item){
+                  var id = data.arrayresponse[i].id;
+                  var state = data.arrayresponse[i].state;
+                  var btclass = data.arrayresponse[i].class;
+                  var tdclass = data.arrayresponse[i].lineClass;
+                  $('tr#production-'+id).removeClass().addClass(tdclass).find('#mo-'+id).html(state+'<span class="caret"></span>').removeClass().addClass(btclass);
+                });
+              }
+              
+            }else{
+              var message = data.error;
+              $('#loading-alert .alert-danger p').html(message);
+              $('#loading-alert').fadeIn().find('.alert-danger').fadeIn();
+              dismissAlert();
+            }
+            
+          },
+          complete: function(){
+              $('#loading-bar').fadeOut();
+            }
+        } );     
+      });
+
+      // On change Modify send an Ajax Request
+      $('.dateTableEditor').datetimepicker({
+        format: 'YYYY/MM/DD'
+      });;
+
     </script>
     
 {% endblock %}

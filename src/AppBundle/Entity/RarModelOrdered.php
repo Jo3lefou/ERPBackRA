@@ -106,6 +106,11 @@ class RarModelOrdered
     private $orderLogs;
 
     /**
+     * @ORM\OneToOne(targetEntity="RarProdBasket", mappedBy="modelOrdered",cascade={"persist"}, fetch="EAGER")
+     */
+    private $prodBasket;
+
+    /**
      * @ORM\ManyToOne(targetEntity="RarModel", inversedBy="modelsOrdered",cascade={"persist"}, fetch="EAGER")
      * @ORM\JoinColumn(name="model_id", referencedColumnName="id")
      */
@@ -450,6 +455,24 @@ class RarModelOrdered
     public function getWorkroom()
     {
         return $this->workroom;
+    }
+
+    
+    /**
+     * Set ProdBasket
+     *
+     * @param \AppBundle\Entity\RarProdBasket $prodBasket
+     *
+     * @return ProdBasket
+     */
+    public function setProdBasket(RarProdBasket $prodBasket = null)
+    {
+        $this->prodBasket = $prodBasket;
+    }
+
+    public function getProdBasket()
+    {
+        return $this->prodBasket;
     }
 
     //orderLogs
