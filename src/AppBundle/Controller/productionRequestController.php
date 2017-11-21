@@ -24,6 +24,8 @@ use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Doctrine\ORM\Query\ResultSetMapping;
+use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
 class productionRequestController extends Controller
 {
@@ -197,6 +199,61 @@ class productionRequestController extends Controller
 					// Générer un bon de commande pdf pour chaque et l'attacher à un email qu'on envoie à la boutique Cc. le manager de Prod et Cc. l'utilisateur qui demande l'action.
 					// si value = 2
 					$valid = 'All Workrooms have been notified. You rock !';
+				}elseif($action == "min-prod" || $action == "max-prod"){
+					$entity = $em->getRepository('AppBundle:RarModelOrdered')->find($elem);
+					$order = $entity->getOrder();
+					$model = $entity->getModel();
+					$nameModel = $model->getName().' ('.$entity->getSize().')';
+
+					// action
+					$serializer = new Serializer(array(new DateTimeNormalizer()));
+					if($action == "min-prod"){
+						$entity->setMinProdShip(\DateTime::createFromFormat('Y/m/d', $value));
+						$logText = 'Minimum production shipping date has been changed to '.$value.' for model '.$nameModel;
+					}elseif($action == "max-prod"){
+						$entity->setMaxProdShip(\DateTime::createFromFormat('Y/m/d', $value));
+						$logText = 'Maximum production shipping date has been changed to '.$value.' for model '.$nameModel;
+					}
+					$em->persist($entity);
+	                $em->flush();
+
+	                $colorBgDate = '';
+	                $today = date('Y/m/d');
+
+	                if( strtotime(date("Y/m/d", strtotime($value))) <= strtotime(date("Y/m/d", strtotime($today) ) ) ){
+	                	$colorBgDate = '#035fdb';
+	                }elseif( strtotime(date("Y/m/d", strtotime($value))) > strtotime(date("Y/m/d", strtotime($today)) ) && strtotime(date("Y/m/d", strtotime($value)) < strtotime(date("Y/m/d", strtotime($today)) . " +5 day") ) ){
+						$colorBgDate = '#026dff';
+	                }elseif( strtotime(date("Y/m/d", strtotime($value))) > strtotime(date("Y/m/d", strtotime($today)) . " +5 day") && strtotime(date("Y/m/d", strtotime($value))) < strtotime(date("Y/m/d", strtotime($today)) . " +10 day") ){
+	                	$colorBgDate = '#1f7dfe';
+	                }elseif( strtotime(date("Y/m/d", strtotime($value))) > strtotime(date("Y/m/d", strtotime($today)) . " +10 day") && strtotime(date("Y/m/d", strtotime($value))) < strtotime(date("Y/m/d", strtotime($today)) . " +15 day") ){
+	                	$colorBgDate = '#4d99fe';
+	                }elseif( strtotime(date("Y/m/d", strtotime($value))) > strtotime(date("Y/m/d", strtotime($today)) . " +15 day") && strtotime(date("Y/m/d", strtotime($value))) < strtotime(date("Y/m/d", strtotime($today)) . " +20 day") ){
+	                	$colorBgDate = '#71aeff';
+	                }elseif( strtotime(date("Y/m/d", strtotime($value))) > strtotime(date("Y/m/d", strtotime($today)) . " +20 day") && strtotime(date("Y/m/d", strtotime($value))) < strtotime(date("Y/m/d", strtotime($today)) . " +25 day") ){
+	                	$colorBgDate = '#93c1ff';
+	                }elseif( strtotime(date("Y/m/d", strtotime($value))) > strtotime(date("Y/m/d", strtotime($today)) . " +25 day") && strtotime(date("Y/m/d", strtotime($value))) < strtotime(date("Y/m/d", strtotime($today)) . " +30 day") ){
+	                	$colorBgDate = '#b2d3fe';
+	                }elseif( strtotime(date("Y/m/d", strtotime($value))) > strtotime(date("Y/m/d", strtotime($today)) . " +30 day") && strtotime(date("Y/m/d", strtotime($value))) < strtotime(date("Y/m/d", strtotime($today)) . " +35 day") ){
+	                	$colorBgDate = '#d3e5fd';
+	                }elseif( strtotime(date("Y/m/d", strtotime($value))) > strtotime(date("Y/m/d", strtotime($today)) . " +35 day") ){
+	                	$colorBgDate = '#ffffff';
+	                }
+					// Log sur le produit
+	        		$newOrderLog = new RarOrderLog();
+	                $newOrderLog->setDate($time);
+	                $newOrderLog->setOrder($order);
+	                $newOrderLog->setMessage($logText);
+	                $newOrderLog->setModelOrdered($entity);
+	                $em->persist($newOrderLog);
+	                $em->flush();
+
+	                $arrayresponse['id'] = $elem;
+	                $arrayresponse['color'] = $colorBgDate;
+	                $arrayresponse['debug'] = strtotime(date("Y/m/d", strtotime($value)). " +5 day");
+	                $arrayresponse['debug2'] = strtotime(date("Y/m/d", strtotime($value)));
+
+					$valid = 'Yahooo ! Date has been changed succefully !';
 				}else{
 					$error = 'This action does not exist.';
 				}

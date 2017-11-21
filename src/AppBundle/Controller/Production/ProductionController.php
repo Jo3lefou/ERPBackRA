@@ -67,11 +67,15 @@ class ProductionController extends Controller
         if( $idshop == 'all' || $idshop == 'shops' ){
             if($numItems > 1){
                 $condition .= ' AND (';
+            }else{
+                $condition .= ' AND ';
             }
             foreach ($shoplist as $key => $shop) {
                 $condition .= 's.shop = '.$shop->getId();
                 if(++$i === $numItems) {
-                    $condition .= ')';
+                    if($numItems > 1){
+                        $condition .= ')';
+                    }
                 }else{
                     $condition .= ' OR ';
                 }

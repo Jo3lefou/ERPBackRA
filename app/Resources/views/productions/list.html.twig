@@ -188,7 +188,36 @@
       // On change Modify send an Ajax Request
       $('.dateTableEditor').datetimepicker({
         format: 'YYYY/MM/DD'
-      });;
+      });
+      $(".dateTableEditor").on("dp.change", function(e) {
+        var id = $(this).attr('rel');
+        var action = $(this).attr('data-action');
+        var formatedValue = e.date.format(e.date._f);
+        $.ajax( {
+          type:"GET",
+          url: "{{ (path('app_production_route')) }}",
+          dataType: "json",
+          data: { value: formatedValue, action: action, elem: id },
+          success: function( data ) {
+            if(isEmpty(data.error)){
+              var message = data.valid;
+              $('#loading-alert .alert-success p').html(message);
+              $('#loading-alert').fadeIn().find('.alert-success').fadeIn();
+              dismissAlert();
+              // Changer couleur
+              
+            }else{
+              var message = data.error;
+              $('#loading-alert .alert-danger p').html(message);
+              $('#loading-alert').fadeIn().find('.alert-danger').fadeIn();
+              dismissAlert();
+            }
+          },
+          complete: function(){
+            $('#loading-bar').fadeOut();
+          }
+        });
+      });
 
     </script>
     

@@ -46,7 +46,7 @@
                       <div id="tab_content1" class="tab-pane fade active in" role="tabpanel" aria-labelledby="home-tab">
                     
                         <div class="bordered">
-                          <span>{% trans %}Caption box : {% endtrans %}</span>
+                          <span>{% trans %}Caption box{% endtrans %} :</span>
                           <em class="state st-td">{% trans %}To be done{% endtrans %}</em>
                           <em class="state st-ew">{% trans %}Sent to provider{% endtrans %}</em>
                           <em class="state st-ecp">{% trans %}In Production{% endtrans %}</em>
@@ -98,6 +98,7 @@
                             </div>
                             <div class="col-md-8 pull-right">
                               <select id="gp-action" class="form-control">
+                                <option></option>
                                 <option disabled>Change Workroom</option>
                                 {% for workroom in workrooms %}
                                   <option value="{{workroom.id }}" rel="workroom">{{ workroom.name }}</option>
@@ -134,7 +135,7 @@
                               <th>{% trans %}Status{% endtrans %}</th>
                               <th>{% trans %}Min. Ship Date{% endtrans %}</th>
                               <th>{% trans %}Max. Ship Date{% endtrans %}</th>
-                              <th>{% trans %}Max. Ship Order Date{% endtrans %}</th>
+                              <th>{% trans %}Min. Ship Order Date{% endtrans %}</th>
                               <th>{% trans %}Workroom{% endtrans %}</th>
                               <th>{% trans %}Action{% endtrans %}</th>
                               <th></th>
@@ -335,13 +336,70 @@
                                     {% endif %}
                                   {% endif %}
                                 </td>
-                                <td>
-                                  <input type="text" class="dateTableEditor" value="{{ production.minProdShip|date('Y/m/d') }}" />
+                                {% if production.minProdShip|date("U") <= "+0 days"|date("U") %}
+                                <td style="background-color:#035fdb;" class="min-prod">
+                                {% elseif production.minProdShip|date("U") > "+0 days"|date("U") and production.minProdShip|date("U") < "+5 days"|date("U") %}
+                                <td style="background-color:#026dff" class="min-prod">
+                                {% elseif production.minProdShip|date("U") > "+5 days"|date("U") and production.minProdShip|date("U") < "+10 days"|date("U") %}
+                                <td style="background-color:#1f7dfe" class="min-prod">
+                                {% elseif production.minProdShip|date("U") > "+10 days"|date("U") and production.minProdShip|date("U") < "+15 days"|date("U") %}
+                                <td style="background-color:#4d99fe" class="min-prod">
+                                {% elseif production.minProdShip|date("U") > "+15 days"|date("U") and production.minProdShip|date("U") < "+20 days"|date("U") %}
+                                <td style="background-color:#71aeff" class="min-prod">
+                                {% elseif production.minProdShip|date("U") > "+20 days"|date("U") and production.minProdShip|date("U") < "+25 days"|date("U") %}
+                                <td style="background-color:#93c1ff" class="min-prod">
+                                {% elseif production.minProdShip|date("U") > "+25 days"|date("U") and production.minProdShip|date("U") < "+30 days"|date("U") %}
+                                <td style="background-color:#b2d3fe" class="min-prod">
+                                {% elseif production.minProdShip|date("U") > "+30 days"|date("U") and production.minProdShip|date("U") < "+35 days"|date("U") %}
+                                <td style="background-color:#d3e5fd" class="min-prod">
+                                {% elseif production.minProdShip|date("U") > "+35 days"|date("U") %}
+                                <td style="background-color:#ffffff" class="min-prod">
+                                {% endif %}
+
+                                  <input type="text" class="dateTableEditor" value="{{ production.minProdShip|date('Y/m/d') }}" rel="{{ production.id }}" data-action="min-prod"/>
                                 </td>
-                                <td>
-                                  <input type="text" class="dateTableEditor" value="{{ production.maxProdShip|date('Y/m/d') }}" />
+                                {% if production.maxProdShip|date("U") <= "+0 days"|date("U") %}
+                                <td style="background-color:#035fdb;" class="max-prod">
+                                {% elseif production.maxProdShip|date("U") > "+0 days"|date("U") and production.maxProdShip|date("U") < "+5 days"|date("U") %}
+                                <td style="background-color:#026dff" class="max-prod">
+                                {% elseif production.maxProdShip|date("U") > "+5 days"|date("U") and production.maxProdShip|date("U") < "+10 days"|date("U") %}
+                                <td style="background-color:#1f7dfe" class="max-prod">
+                                {% elseif production.maxProdShip|date("U") > "+10 days"|date("U") and production.maxProdShip|date("U") < "+15 days"|date("U") %}
+                                <td style="background-color:#4d99fe" class="max-prod">
+                                {% elseif production.maxProdShip|date("U") > "+15 days"|date("U") and production.maxProdShip|date("U") < "+20 days"|date("U") %}
+                                <td style="background-color:#71aeff" class="max-prod">
+                                {% elseif production.maxProdShip|date("U") > "+20 days"|date("U") and production.maxProdShip|date("U") < "+25 days"|date("U") %}
+                                <td style="background-color:#93c1ff" class="max-prod">
+                                {% elseif production.maxProdShip|date("U") > "+25 days"|date("U") and production.maxProdShip|date("U") < "+30 days"|date("U") %}
+                                <td style="background-color:#b2d3fe" class="max-prod">
+                                {% elseif production.maxProdShip|date("U") > "+30 days"|date("U") and production.maxProdShip|date("U") < "+35 days"|date("U") %}
+                                <td style="background-color:#d3e5fd" class="max-prod">
+                                {% elseif production.maxProdShip|date("U") > "+35 days"|date("U") %}
+                                <td style="background-color:#ffffff" class="max-prod">
+                                {% endif %}
+                                  <input type="text" class="dateTableEditor" value="{{ production.maxProdShip|date('Y/m/d') }}" rel="{{ production.id }}" data-action="max-prod"/>
                                 </td>
-                                <td>{{ production.order.dateMaxShip|date('Y/m/d') }}</td>
+                                {% if production.order.dateMinShip|date("U") <= "+0 days"|date("U") %}
+                                <td style="background-color:#035fdb;">
+                                {% elseif production.order.dateMinShip|date("U") > "+0 days"|date("U") and production.order.dateMinShip|date("U") < "+5 days"|date("U") %}
+                                <td style="background-color:#026dff">
+                                {% elseif production.order.dateMinShip|date("U") > "+5 days"|date("U") and production.order.dateMinShip|date("U") < "+10 days"|date("U") %}
+                                <td style="background-color:#1f7dfe">
+                                {% elseif production.order.dateMinShip|date("U") > "+10 days"|date("U") and production.order.dateMinShip|date("U") < "+15 days"|date("U") %}
+                                <td style="background-color:#4d99fe">
+                                {% elseif production.order.dateMinShip|date("U") > "+15 days"|date("U") and production.order.dateMinShip|date("U") < "+20 days"|date("U") %}
+                                <td style="background-color:#71aeff">
+                                {% elseif production.order.dateMinShip|date("U") > "+20 days"|date("U") and production.order.dateMinShip|date("U") < "+25 days"|date("U") %}
+                                <td style="background-color:#93c1ff">
+                                {% elseif production.order.dateMinShip|date("U") > "+25 days"|date("U") and production.order.dateMinShip|date("U") < "+30 days"|date("U") %}
+                                <td style="background-color:#b2d3fe">
+                                {% elseif production.order.dateMinShip|date("U") > "+30 days"|date("U") and production.order.dateMinShip|date("U") < "+35 days"|date("U") %}
+                                <td style="background-color:#d3e5fd">
+                                {% elseif production.order.dateMinShip|date("U") > "+35 days"|date("U") %}
+                                <td style="background-color:#ffffff">
+                                {% endif %}
+                                  {{ production.order.dateMinShip|date('Y/m/d') }}
+                                </td>
                                 <td>
                                   <div class="btn-group">
                                     <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mow-{{ production.id }}">{% if(production.workroom) %}{{ production.workroom.name }}{% else %}{% trans %}None Define{% endtrans %}{% endif %} <span class="caret"></span></button>
