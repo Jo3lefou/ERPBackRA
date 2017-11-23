@@ -1,8 +1,6 @@
 # exclude
 app/config/parameters.yml
-var/cache/*
-var/logs/*
-var/sessions/*
+var/*
 app/AppKernel.php
 app/config/*
 app/.htaccess
