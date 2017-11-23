@@ -1,6 +1,13 @@
 # exclude
-/var/cache/
-/var/logs/
-/var/sessions/
-/app/AppKernel.php
-/app/config/parameters.yml
+app/config/parameters.yml
+var/cache/*
+var/logs/*
+var/sessions/*
+app/AppKernel.php
+app/config/*
+app/.htaccess
+app/AppCache.php
+bin/*
+tests/*
+vendor/*
+web/config.php
