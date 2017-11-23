@@ -1,5 +1,0 @@
-AppBundle\Entity\User:
-    properties:
-        urlPic:
-            - urlPic:
-                maxSize: 6000000
