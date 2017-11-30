@@ -205,7 +205,7 @@
               $('#loading-alert').fadeIn().find('.alert-success').fadeIn();
               dismissAlert();
               // Changer couleur
-              
+              $('tr#production-'+id+' td.'+action).css({'background-color':data.arrayresponse.color})
             }else{
               var message = data.error;
               $('#loading-alert .alert-danger p').html(message);

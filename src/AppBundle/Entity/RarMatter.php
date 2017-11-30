@@ -58,6 +58,13 @@ class RarMatter
     private $maxShip;
 
     /**
+     * @var float
+     *
+     * @ORM\Column(name="priceU", type="float")
+     */
+    private $priceU;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="composition", type="text", nullable=true)
