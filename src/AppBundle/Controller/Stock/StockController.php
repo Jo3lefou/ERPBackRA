@@ -43,13 +43,11 @@ class StockController extends Controller
                 ->groupBy('sl.matter');
             $sumStock = $querySumStock->getQuery()->getResult();
 
-
             // Stock Réel
             $stocks[$workroom->getId()]['stockData'] = $sumStock;
         }
 
         if($user){
-            //var_dump($users);
             return $this->render('stocks/list.html.twig', array(
                 'name' => $name,
                 'locale' => $locale,

@@ -14,9 +14,9 @@
       <div class="" role="tabpanel" data-example-id="togglable-tabs">
         
         <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-          <li class="{% if status == 'all' %}active{% endif %}"><a href='/{{ user.locale }}/orders/view/all'>{% trans %}Published orders{% endtrans %}</a></li>
-          <li class="{% if status == 'finished' %}active{% endif %}"><a href='/{{ user.locale }}/orders/view/all/finished'>{% trans %}Finished orders{% endtrans %}</a></li>
-          <li class="{% if status == 'history' %}active{% endif %}"><a href='/{{ user.locale }}/orders/view/all/history'>{% trans %}History{% endtrans %}</a></li>
+          <li class="{% if status == 'all' %}active{% endif %}"><a href='all'>{% trans %}Published orders{% endtrans %}</a></li>
+          <li class="{% if status == 'finished' %}active{% endif %}"><a href='finished'>{% trans %}Finished orders{% endtrans %}</a></li>
+          <li class="{% if status == 'history' %}active{% endif %}"><a href='history'>{% trans %}History{% endtrans %}</a></li>
           <li class="{% if status == 'draft' %}active{% endif %}"><a href='/{{ user.locale }}/orders/view/all/draft'>{% trans %}Draft orders{% endtrans %}</a></li>
         </ul>
         <div id="myTabContent" class="tab-content">

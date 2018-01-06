@@ -142,6 +142,14 @@ class RarOrder
     private $statusPaiement;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="type", type="integer", nullable=true)
+     * #0 = Normal, 1 = Stock, 3 = Prototype
+     */
+    private $type;
+
+    /**
      * @ORM\OneToMany(targetEntity="RarModelOrdered", mappedBy="order",cascade={"persist"}, fetch="EAGER")
      */
     private $modelsOrdered;
@@ -591,6 +599,30 @@ class RarOrder
     public function getOrderSold()
     {
         return $this->orderSold;
+    }
+
+    /**
+     * Set type
+     *
+     * @param integer $type
+     *
+     * @return RarModelOrdered
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return int
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**

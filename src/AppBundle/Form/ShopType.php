@@ -52,6 +52,9 @@ class ShopType extends AbstractType
             ->add('isContract', CheckboxType::class, [
                 'required'   => false, //important!
             ])
+            ->add('isEshop', CheckboxType::class, [
+                'required'   => false, //important!
+            ])
             ->add('amountContract', NumberType::class, [
                 'required'   => false, //important!
             ])

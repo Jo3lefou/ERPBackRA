@@ -15,12 +15,12 @@
                   <li><a><i class="fa fa-home"></i> {% trans %}Orders{% endtrans %} <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="/{{ locale }}/order-dashboard">{% trans %}Dashboard{% endtrans %}</a></li>
-                      <li><a href="/{{ locale }}/orders/view">{% trans %}All Orders{% endtrans %}</a></li>
+                      <li><a href="/{{ locale }}/orders/view/all/all">{% trans %}All Orders{% endtrans %}</a></li>
                       {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PRODUCTION_MANAGER') %}
-                      <li><a href="/{{ locale }}/orders/view/eshop">{% trans %}Eshop Orders{% endtrans %}</a></li>
-                      <li><a href="/{{ locale }}/orders/view/showroom">{% trans %}Showroom Orders{% endtrans %}</a></li>
-                      <li><a href="/{{ locale }}/orders/view/shop">{% trans %}Shop Orders{% endtrans %}</a></li>
-                      <li><a href="/{{ locale }}/orders/view/stock">{% trans %}Stock Orders{% endtrans %}</a></li>
+                      <li><a href="/{{ locale }}/orders/view/eshop/all">{% trans %}Eshop Orders{% endtrans %}</a></li>
+                      <li><a href="/{{ locale }}/orders/view/showroom/all">{% trans %}Showroom Orders{% endtrans %}</a></li>
+                      <li><a href="/{{ locale }}/orders/view/shop/all">{% trans %}Shop Orders{% endtrans %}</a></li>
+                      <li><a href="/{{ locale }}/orders/view/stock/all">{% trans %}Stock Orders{% endtrans %}</a></li>
                       {% endif %}
                     </ul>
                   </li>

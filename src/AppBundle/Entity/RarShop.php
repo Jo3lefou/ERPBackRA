@@ -110,6 +110,13 @@ class RarShop
     /**
      * @var bool
      *
+     * @ORM\Column(name="is_eshop", type="boolean")
+     */
+    private $isEshop;
+
+    /**
+     * @var bool
+     *
      * @ORM\Column(name="is_directcustomer", type="boolean")
      */
     private $isDirectCustomer;
@@ -495,6 +502,30 @@ class RarShop
     public function getIsActive()
     {
         return $this->isActive;
+    }
+
+    /**
+     * Set isEshop
+     *
+     * @param boolean $isActive
+     *
+     * @return RarShop
+     */
+    public function setIsEshop($isEshop)
+    {
+        $this->isEshop = $isEshop;
+
+        return $this;
+    }
+
+    /**
+     * Get isEshop
+     *
+     * @return bool
+     */
+    public function getIsEshop()
+    {
+        return $this->isEshop;
     }
 
 

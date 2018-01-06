@@ -36,8 +36,22 @@ class OrderController extends Controller
         $i = 0;
         $condition = '';
 
+        if($type == 'all'){
+
+        }elseif($type == 'eshop'){
+            $condition .= ' d.isEshop = 1 AND ';
+        }elseif($type == 'showroom'){
+            $condition .= ' d.isDirectCustomer = 1 AND ';
+        }elseif($type == 'shop'){
+            $condition .= ' d.isDirectCustomer = 0 AND ';
+        }elseif($type == 'stock'){
+            $condition .= ' c.type = 1 AND ';
+        }elseif($type == 'proto'){
+            $condition .= ' c.type = 2 AND ';
+        }
+
         if($status == 'all'){
-            $condition .= 'c.state IN (1,2,3,4,5) AND (';
+            $condition .= ' c.state IN (1,2,3,4,5) AND (';
         }elseif($status == 'draft'){
             $condition .= ' c.state = 0 AND (';
         }elseif($status == 'finished'){
@@ -56,6 +70,7 @@ class OrderController extends Controller
         }
 
         $query = $repository->createQueryBuilder('c')
+            ->leftJoin('c.shop', 'd')
             ->where($condition)
             ->orderBy('c.dateOrder', 'DESC')
             ->getQuery();
