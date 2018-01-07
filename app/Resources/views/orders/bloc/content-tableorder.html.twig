@@ -133,7 +133,7 @@
                     </td>
                   <td>{{ order.shop.name }}</td>
                   <td>
-                    {% if order.customerName is empty && order.customer.firstName is empty && order.customer.lastName is empty %}
+                    {% if order.customerName is empty AND order.customer.firstName is empty AND order.customer.lastName is empty %}
                       {{ order.shop.name }} (Stock)
                     {% elseif order.customerName is empty
                       {{ order.customer.firstName }} {{ order.customer.lastName }}
