@@ -4,6 +4,9 @@
   <div class="x_panel">
     <div class="x_title">
       <h2>{{ p1h2 }}</h2>
+      {% if type == stock %}
+      {% else %}
+      {% endif %}
       <div class="col-md-2 pull-right"><a href="/{{ locale }}/orders/create/" class="btn btn-success btn-xs"><i class="fa fa-plus"></i> {% trans %}Create a new order{% endtrans %}</a></div>
       <div class="clearfix"></div>
     </div>

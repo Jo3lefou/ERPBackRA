@@ -41,7 +41,7 @@ class OrderController extends Controller
         }elseif($type == 'eshop'){
             $condition .= ' d.isEshop = 1 AND ';
         }elseif($type == 'showroom'){
-            $condition .= ' d.isDirectCustomer = 1 AND ';
+            $condition .= ' d.isDirectCustomer = 1 AND d.isEshop = 0 AND ';
         }elseif($type == 'shop'){
             $condition .= ' d.isDirectCustomer = 0 AND ';
         }elseif($type == 'stock'){
@@ -101,7 +101,8 @@ class OrderController extends Controller
                     'bodyClass' => 'nav-md',
                     'user' => $user,
                     'orders' => $orders,
-                    'status' => $status
+                    'status' => $status,
+                    'type' => $type
                 )
             );
         }else{
