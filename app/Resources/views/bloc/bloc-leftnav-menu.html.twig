@@ -22,6 +22,7 @@
                       <li><a href="/{{ locale }}/orders/view/shop/all">{% trans %}Shop Orders{% endtrans %}</a></li>
                       <li><a href="/{{ locale }}/orders/view/stock/all">{% trans %}Stock Orders{% endtrans %}</a></li>
                       {% endif %}
+                      <li><a href="/{{ locale }}/orders/view/proto/all">{% trans %}Prototype Orders{% endtrans %}</a></li>
                     </ul>
                   </li>
                   {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PRODUCTION_MANAGER') %}

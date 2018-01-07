@@ -1,0 +1,210 @@
+{% block OrderType_widget %}
+
+<!--- GENERAL INFO -->
+
+<div class="x_panel">
+  <div class="x_title">
+    <h2>
+        Order infos
+        <small>Define your order</small>
+      </h2>
+    <div class="clearfix"></div>
+  </div>
+  <div class="x_content">
+    <!-- CONTENU -->
+    <div class="form-horizontal form-label-left">
+
+      <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="shop_name">{{ form.dateMinShip.vars.label }}
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          {{ form_widget(form.dateMinShip, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="shop_name">{{ form.dateMaxShip.vars.label }} <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          {{ form_widget(form.dateMaxShip, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="shop_name">{{ form.comment.vars.label }}
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          {{ form_widget(form.comment, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+        </div>
+      </div>
+    </div>
+    <!-- // CONTENU -->
+  </div>
+</div>
+
+<!--- SIZING -->
+
+<div class="x_panel">
+    <div class="x_title">
+      <h2>
+        Models and Sizes
+        <small>Select the models you want to buy</small>
+      </h2>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <!-- CONTENU -->
+        <div class="form-horizontal form-label-left">
+            {{ form_widget(form.modelsOrdered) }}
+        </div>
+      <!-- // CONTENU -->
+    </div>
+</div>
+
+<!--- SHOP -->
+
+<div class="x_panel">
+    <div class="x_title">
+      <h2>
+        Shop
+        <small>choose the shop who is doing this order</small>
+      </h2>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <!-- CONTENU -->
+        <div class="form-horizontal form-label-left">
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="shop_name">{{ form.shop.vars.label }} <span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              {{ form_widget(form.shop, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+            </div>
+          </div>
+        </div>
+      <!-- // CONTENU -->
+    </div>
+</div>
+
+<!--- STATUS -->
+
+<div class="x_panel">
+  <div class="x_title">
+    <h2>
+        Title
+        <small>subTitle</small>
+      </h2>
+    <div class="clearfix"></div>
+  </div>
+  <div class="x_content">
+    <div class="form-horizontal form-label-left">
+      <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="shop_name">{{ form.state.vars.label }}
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          {{ form_widget(form.state, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+        </div>
+      </div>
+  </div>
+</div>
+</div>
+
+<!--- SAVE -->
+
+<div class="x_panel">
+  <div class="x_content">
+    <div class="form-group">
+        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+          {{ form_widget(form.save, { 'label': 'Submit', 'attr': {'class': 'btn btn-success'} }) }}
+          <!--<button class="btn btn-primary" type="button"></button>
+          <button type="submit" class="btn btn-success">{% trans %}Submit{% endtrans %}</button>-->
+        </div>
+      </div>
+  </div>
+</div>
+{% endblock %}
+
+{# By default, collection uses the form_widget block to create its markup, but we want a table #}
+{% block collection_widget %}
+    {% spaceless %}
+
+    {#
+     # This is almost a copy/paste of jquery.collection.html.twig, we can't use it as it also
+     # use form_widget. Note that we also use form_widget(prototype) instead of form_row(prototype)
+     # to avoid generating extra markup.
+     #}
+    {% if prototype is defined %}
+        {% set attr = attr|merge({'data-prototype': form_widget(prototype)}) %}
+        {% set attr = attr|merge({'data-prototype-name': prototype.vars.name}) %}
+    {% endif %}
+
+    {% set attr = attr|merge({'data-allow-add': allow_add ? 1 : 0}) %}
+    {% set attr = attr|merge({'data-allow-remove': allow_delete ? 1 : 0 }) %}
+    {% set attr = attr|merge({'data-name-prefix': full_name}) %}
+
+    <fieldset class="well">
+        <label>{{ form_label(form) }}</label>
+
+        {{ form_errors(form) }}
+
+        {# Don't forget to add the collection attributes in your markup #}
+        <table {{ block('widget_attributes') }}>
+            <thead>
+                <th>model</th>
+                <th>size</th>
+                <th>heels</th>
+                <th>comment</th>
+                <th>&nbsp;</th>
+            </thead>
+            <tbody>
+
+                {% for item in form %}
+                    {{ form_widget(item) }}
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </fieldset>
+
+    {% endspaceless %}
+{% endblock %}
+
+
+{% block ModelOrderedType_widget %}
+
+    {# widget_attributes will generate class="item" from the ModelType.entry_options configuration #}
+    <tr {{ block('widget_attributes') }}>
+        <td>
+            <div class="form-group select-model">
+                {{ form_widget(form.model, {'attr': {'class': 'form-control col-md-7 col-xs-12 model', 'rel': form.vars.id}}) }}
+            </div>
+        </td>
+        <td>
+            <div class="form-group">
+                <select class="form-control col-md-7 col-xs-12 {{ form.vars.id }}_size size"></select>
+                {{ form_widget(form.size, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+            </div>
+        </td>
+        <td>
+            <div class="form-group">
+                {{ form_widget(form.heels, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+            </div>
+        </td>
+        <td>
+            <div class="form-group">
+                {{ form_widget(form.comment, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+            </div>
+        </td>
+        <td class="text-center">
+            <a href="#" class="collection-remove btn btn-default" title="Delete element"><span class="glyphicon glyphicon-trash"></span></a>
+            <a href="#" class="collection-add btn btn-default" title="Add element"><span class="glyphicon glyphicon-plus-sign"></span></a>
+            <a href="#" class="collection-duplicate btn btn-default" title="Duplicate element"><span class="glyphicon glyphicon-th-large"></span></a>
+        </td>
+    </tr>
+{% endblock %}
+
+{% block ModelOrderedType_label %}
+
+{% endblock %}
+
+

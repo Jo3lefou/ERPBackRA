@@ -90,7 +90,7 @@ class OrderController extends Controller
                     'name' => $name,
                     'locale' => $locale,
                     'h1' => $this->get('translator')->trans('Create a new order'),
-                    'p1h2' => $this->get('translator')->trans('Your new order'),
+                    'p1h2' => $this->get('translator')->trans('Orders list'),
                     'p1h3' => $this->get('translator')->trans('Create here your new order'),
                     'p2h2' => $this->get('translator')->trans(''),
                     'p2h3' => $this->get('translator')->trans(''),
