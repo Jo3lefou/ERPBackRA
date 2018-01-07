@@ -60,14 +60,14 @@ class RarOrder
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateCivil", type="datetime")
+     * @ORM\Column(name="dateCivil", type="datetime", nullable=true)
      */
     private $dateCivil;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="dateChurch", type="datetime")
+     * @ORM\Column(name="dateChurch", type="datetime", nullable=true)
      */
     private $dateChurch;
 
