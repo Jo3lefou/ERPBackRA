@@ -137,7 +137,7 @@
                       {{ order.shop.name }} (Stock)
                     {% elseif order.type == 2 %}
                       {{ order.shop.name }} (Proto)
-                    {% elseif order.customerName is empty
+                    {% elseif order.customerName is empty %}
                       {{ order.customer.firstName }} {{ order.customer.lastName }}
                     {% else %}
                       {{ order.customerName }}
