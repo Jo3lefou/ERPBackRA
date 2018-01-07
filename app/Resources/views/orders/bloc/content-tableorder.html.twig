@@ -129,11 +129,13 @@
                       {{ order.shop.extention }}0{{ order.idCompta }}-{{ order.year }}
                     {% elseif order.idCompta|length < 5 %}
                       {{ order.shop.extention }}{{ order.idCompta }}-{{ order.year }}
-                    {% endif %}
+                    {% endif %}{% if order.type == "1" %}-S{% endif %}
                     </td>
                   <td>{{ order.shop.name }}</td>
                   <td>
-                    {% if order.customerName is empty %}
+                    {% if order.customerName is empty && order.customer.firstName is empty && order.customer.lastName is empty %}
+                      {{ order.shop.name }} (Stock)
+                    {% elseif order.customerName is empty
                       {{ order.customer.firstName }} {{ order.customer.lastName }}
                     {% else %}
                       {{ order.customerName }}
