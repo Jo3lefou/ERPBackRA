@@ -145,7 +145,7 @@ class RarOrder
      * @var int
      *
      * @ORM\Column(name="type", type="integer", nullable=true)
-     * #0 = Normal, 1 = Stock, 3 = Prototype
+     * #0 = Normal, 1 = Stock, 2 = Prototype
      */
     private $type;
 
