@@ -178,7 +178,7 @@ class CreateOrderController extends Controller
                 // ** Save Order
                 //----------------------------------
                 // Notification Commande Classique
-                $newOrder->type(0);
+                $newOrder->setType(0);
                 $em->persist($newOrder);
                 $em->flush();
 

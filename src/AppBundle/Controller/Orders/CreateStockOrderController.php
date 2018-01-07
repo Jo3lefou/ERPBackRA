@@ -138,7 +138,7 @@ class CreateStockOrderController extends Controller
                 // ** Save Order
                 //----------------------------------
                 // Notification Stock
-                $newOrder->type(1);
+                $newOrder->setType(1);
                 $em->persist($newOrder);
                 $em->flush();
 
