@@ -27,6 +27,7 @@ Controled: Controllé
 Country: Pays
 Create a new matter provider: Créer un nouveau fournisseur de matières
 Create a new shop: Création d'une nouvelle boutique
+Create a new stock order: Créer une nouvelle commande de stock
 Create a new user: Création d'un nouvel utilisateur
 Create here your matter provider: Créer ici votre nouveau fournisseur de matières
 Create here your new order: Créer une nouvelle commande ici
@@ -258,6 +259,7 @@ Price w/ Tax: Prix TTC
 Price without VAT: Prix HT
 Product: Produit
 Product(s): Produit(s)
+Prototype Orders: Commandes Prototype
 Provider: Fournisseur
 Public Price: Prix public
 Published orders: Commandes publiés
