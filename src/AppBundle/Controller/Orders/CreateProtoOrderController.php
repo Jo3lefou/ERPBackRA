@@ -224,9 +224,9 @@ class CreateProtoOrderController extends Controller
             return $this->render('orders/order/stocksorder.html.twig', array(
                     'name' => $name,
                     'locale' => $locale,
-                    'h1' => $this->get('translator')->trans('Create a new stock order'),
+                    'h1' => $this->get('translator')->trans('Create a new prototype order'),
                     'p1h2' => $this->get('translator')->trans('Orders'),
-                    'p1h3' => $this->get('translator')->trans('Create here your new stock order'),
+                    'p1h3' => $this->get('translator')->trans('Create here your new prototype order'),
                     'p2h2' => $this->get('translator')->trans(''),
                     'p2h3' => $this->get('translator')->trans(''),
                     'p3h2' => $this->get('translator')->trans(''),
