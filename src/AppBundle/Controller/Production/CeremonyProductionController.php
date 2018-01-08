@@ -89,6 +89,7 @@ class CeremonyProductionController extends Controller
         $query = $repository->createQueryBuilder('p')
             ->leftJoin('p.order', 's')
             ->leftJoin('s.shop', 'd')
+            ->leftJoin('p.model', 'm')
             ->where($condition)
             ->orderBy('p.dateCreation', 'ASC')
             ->getQuery();
