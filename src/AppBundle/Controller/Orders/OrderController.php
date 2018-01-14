@@ -80,7 +80,12 @@ class OrderController extends Controller
             $query->setParameter('date', new \DateTime('-2 month'));
         }
 
-        $orders = $query->getResult();
+        if($query->getResult()){
+            $orders = $query->getResult();
+        }else{
+            $orders = '';
+        }
+        
         
         
         //print_r($orders);
