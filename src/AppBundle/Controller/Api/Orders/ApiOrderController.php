@@ -68,8 +68,9 @@ class ApiOrderController extends Controller
                     $newOrder->setUser($user);
 
                     //Repository 
-                    /*$customerrepository = $this->getDoctrine()->getRepository(RarCustomer::class);
-                    $alreadyuser = $customerrepository->findOneBy( "email" => $params['Email'] );
+                    $customerrepository = $this->getDoctrine()->getRepository(RarCustomer::class);
+                    $alreadyuser = $customerrepository->findOneBy( [ "email" => $params['Email'] ] );
+
                     if($alreadyuser != null){
                         $newCustomer = $alreadyuser;
                     }else{
@@ -89,7 +90,7 @@ class ApiOrderController extends Controller
                         $em->flush();
                     }
                     // On set le Customer
-                    $newOrder->setCustomer($newCustomer);*/
+                    $newOrder->setCustomer($newCustomer);
                     // On set le Type
                     $newOrder->setType(0);
                     // Conception Numero de Commande
