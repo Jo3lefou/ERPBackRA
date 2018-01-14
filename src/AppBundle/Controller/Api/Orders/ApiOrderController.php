@@ -126,13 +126,14 @@ class ApiOrderController extends Controller
                     $newOrder->setDateOrder($time);
                     $newOrder->setDateMinShip(date_add($time, date_interval_create_from_date_string('2 weeks')));
                     $newOrder->setDateMaxShip(date_add($time, date_interval_create_from_date_string('4 weeks')));
+                    $newOrder->setDateValidation($time);
 
                     // On sauve la commande : 
                     $em->persist($newOrder);
                     $em->flush();
 
 
-                    $message = 'Merci '.$firstName.' '.$name;
+                    $message = 'Merci Joffrey !';
 
                     // OLD VERSION
                     foreach ($params['Products'] as $key => $product) {
@@ -146,15 +147,21 @@ class ApiOrderController extends Controller
                             ->setParameter(1, $product['SKU'])
                             ->getQuery()
                             ->getResult();
+                        // Workroom 
+                        $workroom = $resultPdt->getWorkroom
                         $newModelOrdered = new RarModelOrdered();
-
-                         
-
-
+                        $newModelOrdered->setModel($resultPdt);
+                        $newModelOrdered->setWorkroom($workroom);
+                        $newModelOrdered->setOrder($newOrder);
+                        $newModelOrdered->setSize($product['Size']);
+                        $newModelOrdered->setStatus('1');
+                        $newModelOrdered->setPrixSoldHT($product['Price']);
+                        $newModelOrdered->setMinProdShip(date_add($time, date_interval_create_from_date_string('1 weeks')));
+                        $newModelOrdered->setMaxProdShip(date_add($time, date_interval_create_from_date_string('3 weeks')));
+                        $newModelOrdered->setDateCreation($time);
+                        $em->persist($newModelOrdered);
+                        $em->flush();
                     }
-
-
-
 
 
                 }else{
