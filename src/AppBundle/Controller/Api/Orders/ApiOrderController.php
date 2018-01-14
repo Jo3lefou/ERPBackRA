@@ -64,6 +64,7 @@ class ApiOrderController extends Controller
                     $amountVAT = $shop->getAmountVat();
 
                     // On set le user
+                    // On setera le user en fonction de la clef token donnée dans le call json
                     $userrepository = $this->getDoctrine()->getRepository(User::class);
                     $user = $userrepository->findOneById(15);
                     $newOrder->setUser($user);
