@@ -124,8 +124,8 @@ class ApiOrderController extends Controller
                     // ** Set Date Creation
                     $time = date_create(date('Y/m/d H:i:s'));
                     $newOrder->setDateOrder($time);
-                    $newOrder->setDateMinShip(date_create(strtotime('+2 weeks')));
-                    $newOrder->setDateMaxShip(date_create(strtotime('+4 weeks')));
+                    $newOrder->setDateMinShip(date_add($time, date_interval_create_from_date_string('2 weeks')));
+                    $newOrder->setDateMaxShip(date_add($time, date_interval_create_from_date_string('4 weeks')));
 
                     // On sauve la commande : 
                     $em->persist($newOrder);
