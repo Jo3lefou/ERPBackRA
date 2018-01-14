@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Api\Orders;
 
 use AppBundle\Entity\RarOrder;
+use AppBundle\Entity\User;
 use AppBundle\Entity\RarCustomer;
 use AppBundle\Entity\RarModelOrdered;
 use AppBundle\Entity\RarShop;
