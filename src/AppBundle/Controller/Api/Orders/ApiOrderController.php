@@ -80,6 +80,7 @@ class ApiOrderController extends Controller
                         $newCustomer = new RarCustomer();
                         $newCustomer->setDateModification(date_create(date('Y/m/d H:i:s')));
                         $newCustomer->setDateCreation(date_create(date('Y/m/d H:i:s')));
+                        $newCustomer->setSalutation($params['salutation']);
                         $newCustomer->setFirstName($params['firstName']);
                         $newCustomer->setLastName($params['Name']);
                         $newCustomer->setAddress($params['Address']);
