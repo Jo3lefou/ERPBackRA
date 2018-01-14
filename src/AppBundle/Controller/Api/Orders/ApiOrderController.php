@@ -89,6 +89,7 @@ class ApiOrderController extends Controller
                         $newCustomer->setCountry($params['Country']);
                         $newCustomer->setPhone($params['Phone']);
                         $newCustomer->setEmail($params['Email']);
+                        $newCustomer->setOptin($params['optin']);
                         $em->persist($newCustomer);
                         $em->flush();
                     }
