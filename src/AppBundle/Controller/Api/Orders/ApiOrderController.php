@@ -7,6 +7,7 @@ use AppBundle\Entity\User;
 use AppBundle\Entity\RarCustomer;
 use AppBundle\Entity\RarModelOrdered;
 use AppBundle\Entity\RarShop;
+use AppBundle\Entity\RarModel;
 
 use AppBundle\Services\MessageGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
