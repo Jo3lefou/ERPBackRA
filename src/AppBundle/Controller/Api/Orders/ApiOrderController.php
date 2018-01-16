@@ -147,7 +147,7 @@ class ApiOrderController extends Controller
                             ->where("p.sku = ?1")
                             ->setParameter(1, $product['SKU'])
                             ->getQuery()
-                            ->getResult();
+                            ->getOneOrNullResult();
                         // Workroom 
                         $workroom = $resultPdt->getWorkroom();
                         $newModelOrdered = new RarModelOrdered();
