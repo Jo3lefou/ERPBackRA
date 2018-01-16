@@ -149,7 +149,7 @@ class ApiOrderController extends Controller
                             ->getQuery()
                             ->getResult();
                         // Workroom 
-                        $workroom = $resultPdt->getWorkroom;
+                        $workroom = $resultPdt->getWorkroom();
                         $newModelOrdered = new RarModelOrdered();
                         $newModelOrdered->setModel($resultPdt);
                         $newModelOrdered->setWorkroom($workroom);
