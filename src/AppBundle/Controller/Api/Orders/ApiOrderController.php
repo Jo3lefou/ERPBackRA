@@ -135,7 +135,7 @@ class ApiOrderController extends Controller
                     $em->flush();
 
 
-                    //$message = 'Merci Joffrey !';
+                    $message = 'Done';
 
                     // OLD VERSION
                     foreach ($params['Products'] as $key => $product) {
