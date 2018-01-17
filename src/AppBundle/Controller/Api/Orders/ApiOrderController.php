@@ -128,18 +128,19 @@ class ApiOrderController extends Controller
                     $newOrder->setDateMinShip(date_add($time, date_interval_create_from_date_string('2 weeks')));
                     $newOrder->setDateMaxShip(date_add($time, date_interval_create_from_date_string('4 weeks')));
                     $newOrder->setDateValidation($time);
+                    $newOrder->setIdEshop($params['orderShop']);
 
                     // On sauve la commande : 
                     $em->persist($newOrder);
                     $em->flush();
 
 
-                    $message = 'Merci Joffrey !';
+                    //$message = 'Merci Joffrey !';
 
                     // OLD VERSION
                     foreach ($params['Products'] as $key => $product) {
 
-                        $message .= '<br/>Produit : '.$product['Nom'].' ('.$product['SKU'].') à '.$product['Price'].' €';
+                        //$message .= '<br/>Produit : '.$product['Nom'].' ('.$product['SKU'].') à '.$product['Price'].' €';
 
                         // On recherche le Produit :
                         $productrepository = $this->getDoctrine()->getRepository(RarModel::class);
