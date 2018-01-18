@@ -173,17 +173,5 @@ class ApiOrderController extends Controller
                 $message = 'Content empty';
             }
             return new Response($message, 400);
-            /*
-            $em->persist($configuration);
-            $em->flush();
-            $response = array('response' => 'ok');
-
-            $encoders = array(new XmlEncoder(), new JsonEncoder());
-			$normalizers = array(new ObjectNormalizer());
-	    	$serializer = new Serializer($normalizers, $encoders);
-			return new Response($serializer->serialize($response, 'json'));
-            */
-		//}
-        //return new Response('This is not ajax! 2', 400);
 	}
 }
