@@ -134,7 +134,7 @@ class ApiOrderController extends Controller
                     $newTime4w = date_add($timetoadd4w, date_interval_create_from_date_string('4 weeks'));
 
                     $newOrder->setDateMinShip($newTime2w);
-                    $newOrder->setDateMaxShip(date_add($newTime4w);
+                    $newOrder->setDateMaxShip($newTime4w);
                     $newOrder->setIdEshop($params['orderShop']);
 
                     // On sauve la commande : 
