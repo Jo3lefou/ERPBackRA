@@ -48,6 +48,8 @@ class ApiUpdateOrderController extends Controller
 
                     if($params['action'] == 'complete'){
                         $order->setState('6');
+                        $order->setDateShipped(date_create(date('Y/m/d H:i:s')));
+                        
                     }
 
                     $em->persist($order);
