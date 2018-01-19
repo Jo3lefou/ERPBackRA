@@ -88,6 +88,8 @@ class EditShopController extends Controller
                     'p2h3' => $this->get('translator')->trans('Manage contract and VAT'),
                     'p3h2' => $this->get('translator')->trans('Manage the users of the shop ').' '.$entityName,
                     'p3h3' => $this->get('translator')->trans('Select users who will manage the shop'),
+                    'p4h2' => $this->get('translator')->trans('Manage rights of the shop ').' '.$entityName,
+                    'p4h3' => $this->get('translator')->trans('API et connector'),
                     'title' => ' | '.$this->get('translator')->trans('Edit shop').' '.$entityName,
                     'h1title' => 'Votre profile',
                     'bodyClass' => 'nav-md',

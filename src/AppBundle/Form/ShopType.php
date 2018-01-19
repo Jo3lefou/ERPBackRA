@@ -68,6 +68,7 @@ class ShopType extends AbstractType
             ))
             ->add('locale', HiddenType::class)
             ->add('vatNum', TextType::class)
+            ->add('token', TextType::class)
             ->add('save', SubmitType::class)
             ->getForm();
         ;

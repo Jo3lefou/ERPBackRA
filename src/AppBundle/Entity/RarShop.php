@@ -26,6 +26,13 @@ class RarShop
     /**
      * @var string
      *
+     * @ORM\Column(name="token", type="string", length=255, nullable=true)
+     */
+    private $token;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
@@ -165,6 +172,30 @@ class RarShop
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get token
+     *
+     * @return int
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * Set token
+     *
+     * @param string $token
+     *
+     * @return Token
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+
+        return $this;
     }
 
     /**

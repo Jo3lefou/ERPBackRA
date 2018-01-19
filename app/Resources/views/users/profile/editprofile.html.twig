@@ -145,18 +145,6 @@
                       </div>
                     </div>
                     {% endif %}
-                    {% if is_granted('ROLE_ADMIN') %}
-                    <div class="form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="token">{% trans %}Token{% endtrans %}
-                      </label>
-                      <div class="col-md-4 col-sm-4 col-xs-12">
-                        {{ form_widget(form.token, {'attr': {'class': 'form-control col-md-7 col-xs-12 showToken'}}) }}
-                      </div>
-                      <div class="col-md-2 col-sm-2 col-xs-12">
-                        <a id="generateToken" class="btn btn-info">Generate New Token</a>
-                        </div>
-                    </div>
-                    {% endif %}
                   </div>
                   <!-- // CONTENU -->
                 </div>
@@ -185,6 +173,16 @@
                             <div class="checkbox">
                               <label>{{ form_widget(form.customerAllow, {'attr': {'class': 'js-switch'}}) }} {% trans %}Do you wish this user to be allowed to create some new customer{% endtrans %} ?</label>
                             </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="token">{% trans %}Token{% endtrans %}
+                        </label>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                          {{ form_widget(form.token, {'attr': {'class': 'form-control col-md-7 col-xs-12 showToken'}}) }}
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-xs-12">
+                          <a id="generateToken" class="btn btn-info" href="#">Generate New Token</a>
                         </div>
                       </div>
                     </div>
@@ -328,25 +326,6 @@
             allow_up: false,
             allow_down: false,
             add: '<a href="#" class="btn btn-default" title="Add element"><span class="glyphicon glyphicon-plus-sign"></span></a>',
-        });
-
-        // set the length of the string
-        var stringLength = 40;
-
-        // list containing characters for the random string
-        var stringArray = ['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','!','?'];
-
-        $("a#generateToken").on('click', function (e){
-          e.preventDefault();
-          var rndString = "";
-          // build a string with random characters
-          for (var i = 1; i < stringLength; i++) { 
-            var rndNum = Math.ceil(Math.random() * stringArray.length) - 1;
-            rndString = rndString + stringArray[rndNum];
-          };
-
-          $("input#user_token").val(rndString);
-          return false;
         });
 
     </script>
