@@ -57,7 +57,7 @@ class OrderController extends Controller
         }elseif($status == 'finished'){
             $condition .= ' c.state IN (6,7,8) AND c.dateShipped <= :date AND (';
         }elseif($status == 'history'){
-            $condition .= ' c.state IN (6,7,8) AND ('; // AND c.dateShipped >= :date AND (
+            $condition .= ' c.state IN (6,7,8) AND c.dateShipped >= :date AND ('; 
         }
 
         foreach ($shoplist as $key => $shop) {
@@ -75,7 +75,7 @@ class OrderController extends Controller
             ->orderBy('c.dateOrder', 'DESC')
             ->getQuery();
         if($status == 'history'){
-            //$query->setParameter('date', new \DateTime('-2 month'));
+            $query->setParameter('date', new \DateTime('-2 month'));
         }elseif($status == 'finished'){
             $query->setParameter('date', new \DateTime('-2 month'));
         }
