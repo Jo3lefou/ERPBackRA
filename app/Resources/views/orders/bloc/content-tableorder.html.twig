@@ -86,7 +86,11 @@
               <thead>
                 <tr>
                   <th>{% trans %}ID{% endtrans %}</th>
+                  {% if type == 'eshop' %}
+                  <th>{% trans %}ID eshop{% endtrans %}</th>
+                  {% else %}
                   <th>{% trans %}Shop{% endtrans %}</th>
+                  {% endif %}
                   <th>{% trans %}Name{% endtrans %}</th>
                   <th>{% trans %}Order{% endtrans %}</th>
                   <th>{% trans %}Valid.{% endtrans %}</th>
@@ -133,7 +137,12 @@
                       {{ order.shop.extention }}{{ order.idCompta }}-{{ order.year }}
                     {% endif %}{% if order.type == "1" %}-S{% elseif order.type == 2 %}-P{% endif %}
                     </td>
+                  {% if type == 'eshop' %}
+                  <td>{{ order.order.idEshop }}</td>
+                  {% else %}
                   <td>{{ order.shop.name }}</td>
+                  {% endif %}
+                  
                   <td>
                     {% if order.type == 1 %}
                       {{ order.shop.name }} (Stock)
