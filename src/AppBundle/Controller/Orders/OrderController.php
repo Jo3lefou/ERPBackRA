@@ -57,7 +57,7 @@ class OrderController extends Controller
         }elseif($status == 'finished'){
             $condition .= ' c.state IN (6,7,8) AND c.dateShipped <= :date AND (';
         }elseif($status == 'history'){
-            $condition .= ' c.state IN (6,7,8)'; // AND c.dateShipped >= :date AND (
+            $condition .= ' c.state IN (6,7,8) AND ('; // AND c.dateShipped >= :date AND (
         }
 
         foreach ($shoplist as $key => $shop) {
