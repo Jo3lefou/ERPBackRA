@@ -344,7 +344,8 @@
             var rndNum = Math.ceil(Math.random() * stringArray.length) - 1;
             rndString = rndString + stringArray[rndNum];
           };
-          $("input.showToken").val('rndString');
+
+          $("input#user_token").val(rndString);
           return false;
         });
 
