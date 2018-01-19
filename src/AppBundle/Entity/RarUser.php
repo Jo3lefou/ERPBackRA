@@ -30,6 +30,13 @@ class RarUser
     private $userType;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="token", type="string", length=255, unique=true)
+     */
+    private $token;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="user_belong", type="integer", nullable=true)
