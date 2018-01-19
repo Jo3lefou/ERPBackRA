@@ -138,7 +138,7 @@
                     {% endif %}{% if order.type == "1" %}-S{% elseif order.type == 2 %}-P{% endif %}
                     </td>
                   {% if type == 'eshop' %}
-                  <td>{{ order.order.idEshop }}</td>
+                  <td>{{ order.idEshop }}</td>
                   {% else %}
                   <td>{{ order.shop.name }}</td>
                   {% endif %}
