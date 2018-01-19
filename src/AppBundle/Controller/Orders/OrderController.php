@@ -75,7 +75,7 @@ class OrderController extends Controller
             ->orderBy('c.dateOrder', 'DESC')
             ->getQuery();
         if($status == 'history'){
-            $query->setParameter('date', new \DateTime('-2 month'));
+            //$query->setParameter('date', new \DateTime('-2 month'));
         }elseif($status == 'finished'){
             $query->setParameter('date', new \DateTime('-2 month'));
         }
