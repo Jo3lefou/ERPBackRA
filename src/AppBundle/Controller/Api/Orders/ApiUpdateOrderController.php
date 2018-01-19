@@ -27,7 +27,7 @@ class ApiUpdateOrderController extends Controller
      * @Route("/api/order/update", name="apiupdateorder")
      */
 	public function indexAction(Request $request){
-        
+
             $params = array();
             $content = $request->getContent();
 
@@ -42,11 +42,11 @@ class ApiUpdateOrderController extends Controller
                     $orderrepository = $this->getDoctrine()->getRepository(RarOrder::class);
                     $order = $orderrepository->findOneBy( [ "idEshop" => $params['fk_shop'] ] );
 
-                    if($params['token'] == 'canceled'){
+                    if($params['action'] == 'canceled'){
                         $order->setState('3');
                     }
 
-                    if($params['token'] == 'complete'){
+                    if($params['action'] == 'complete'){
                         $order->setState('6');
                     }
 
