@@ -324,7 +324,7 @@ class User implements UserInterface, \Serializable
      *
      * @return Token
      */
-    public function setUsername($token)
+    public function setToken($token)
     {
         $this->token = $token;
 
