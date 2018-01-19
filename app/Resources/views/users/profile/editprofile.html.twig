@@ -145,6 +145,15 @@
                       </div>
                     </div>
                     {% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="token">{% trans %}Token{% endtrans %}
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{ form_widget(form.token, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                      </div>
+                    </div>
+                    {% endif %}
                   </div>
                   <!-- // CONTENU -->
                 </div>

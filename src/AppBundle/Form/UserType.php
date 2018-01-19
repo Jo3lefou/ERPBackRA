@@ -33,6 +33,7 @@ class UserType extends AbstractType
             ->add('mobile', TextType::class)
             ->add('state', TextType::class)
             ->add('country', TextType::class)
+            ->add('token', TextType::class)
             ->add('imageFile', FileType::class, [
                 'data_class' => null,
                 'required'   => false, //important!
