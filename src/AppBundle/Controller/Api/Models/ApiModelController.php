@@ -52,6 +52,7 @@ class ApiModelController extends Controller
                         $alreadymodel->setPrixHT($params['prixHT']);
                         $alreadymodel->setPrixShop("0");
                         $alreadymodel->setUrlImg($params['url_img']);
+                        $alreadymodel->setFkEshop($params['fkEshop']);
                         $em->persist($alreadymodel);
                         $em->flush();
                         $message = 'Update done';
