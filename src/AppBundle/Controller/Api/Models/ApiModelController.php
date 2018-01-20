@@ -55,6 +55,7 @@ class ApiModelController extends Controller
                         $em->persist($alreadymodel);
                         $em->flush();
                         $message = 'Update done';
+                        $message .= '<br/> La robe '.$params['name'].'a bien été uploadée.';
                     }else{
                         $newModel = new RarModel();
                         $newModel->setCollectionId($params['collectionId']);
@@ -74,6 +75,7 @@ class ApiModelController extends Controller
                         $em->persist($newModel);
                         $em->flush();
                         $message = 'Creation done';
+                        $message .= '<br/> La robe '.$params['name'].'a bien été créée.';
                     }
                     
 
