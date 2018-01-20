@@ -55,7 +55,7 @@ class ApiOrderController extends Controller
                     // On set la boutique
                     // On chercher la boutique par Token plus tard ;)
                     $shoprepository = $this->getDoctrine()->getRepository(RarShop::class);
-                    $shop = $shoprepository->findOneById([ "token" => $params['tokenUser'] ]);
+                    $shop = $shoprepository->findOneById([ "token" => $params['tokenShop'] ]);
                     $newOrder->setShop($shop);
                     // Donnée boutique
                     $shopStatus = $shop->getIsDirectCustomer();
@@ -67,7 +67,7 @@ class ApiOrderController extends Controller
                     // On set le user
                     // On setera le user en fonction de la clef token donnée dans le call json
                     $userrepository = $this->getDoctrine()->getRepository(User::class);
-                    $user = $userrepository->findOneBy([ "token" => $params['tokenShop'] ]);
+                    $user = $userrepository->findOneBy([ "token" => $params['tokenUser'] ]);
                     $newOrder->setUser($user);
 
                     //Repository 

@@ -45,7 +45,7 @@ class ApiUpdateOrderController extends Controller
                     $order = $orderrepository->findOneBy( [ "idEshop" => $params['fk_shop'] ] );
                     // On récupère l'utilisateur
                     $userrepository = $this->getDoctrine()->getRepository(User::class);
-                    $user = $userrepository->findOneBy([ "token" => $params['tokenShop'] ]);
+                    $user = $userrepository->findOneBy([ "token" => $params['tokenUser'] ]);
                     $firstName = $user->getFirstName();
                     $lastName = $user->getLastName();
                     $fullName = $firstName.' '.$lastName;
