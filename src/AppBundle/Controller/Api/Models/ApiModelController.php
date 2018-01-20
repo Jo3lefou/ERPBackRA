@@ -73,6 +73,7 @@ class ApiModelController extends Controller
                         $em->persist($newModel);
                         $em->flush();
                     }
+                    $message = 'Done';
 
                 }else{
                     $message = 'Access forbiden';
