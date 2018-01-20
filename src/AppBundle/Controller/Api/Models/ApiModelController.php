@@ -53,8 +53,8 @@ class ApiModelController extends Controller
                         $alreadymodel->setPrixShop("0");
                         $alreadymodel->setUrlImg($params['url_img']);
                         $alreadymodel->setFkEshop($params['fkEshop']);
-                        $em->persist($alreadymodel);
-                        $em->flush();
+                        //$em->persist($alreadymodel);
+                        //$em->flush();
                         $message = 'Update done';
                         $message .= '<br/> La robe '.$params['name'].'a bien été uploadée.';
                     }else{
@@ -73,8 +73,8 @@ class ApiModelController extends Controller
                         $newModel->setPrixHT($params['prixHT']);
                         $newModel->setPrixShop("0");
                         $newModel->setUrlImg($params['url_img']);
-                        $em->persist($newModel);
-                        $em->flush();
+                        //$em->persist($newModel);
+                        //$em->flush();
                         $message = 'Creation done';
                         $message .= '<br/> La robe '.$params['name'].'a bien été créée.';
                     }
