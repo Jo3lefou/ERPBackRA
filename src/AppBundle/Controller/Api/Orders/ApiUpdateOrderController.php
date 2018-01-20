@@ -67,6 +67,7 @@ class ApiUpdateOrderController extends Controller
                     // Notification
                     $newOrderLog = new RarOrderLog();
                     $newOrderLog->setDate($time);
+                    $newOrderLog->setUser($user);
                     $newOrderLog->setMessage('Order #'.$params['fk_shop'].' status updated to "'.$stateWord.'" par '.$fullName.'.');
                     $newOrderLog->setOrder($order);
                     $em->persist($newOrderLog);
