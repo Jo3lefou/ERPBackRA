@@ -55,7 +55,7 @@ class ApiOrderController extends Controller
                     // On set la boutique
                     // On chercher la boutique par Token plus tard ;)
                     $shoprepository = $this->getDoctrine()->getRepository(RarShop::class);
-                    $shop = $shoprepository->findOneById([ "token" => $params['tokenShop'] ]);
+                    $shop = $shoprepository->findOneBy([ "token" => $params['tokenShop'] ]);
                     $newOrder->setShop($shop);
                     // Donnée boutique
                     $shopStatus = $shop->getIsDirectCustomer();
