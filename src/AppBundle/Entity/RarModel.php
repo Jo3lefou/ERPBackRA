@@ -490,6 +490,30 @@ class RarModel
         return $this->maxShipWeek;
     }
 
+    /**
+     * Set fkEshop
+     *
+     * @param integer $fkEshop
+     *
+     * @return RarModel
+     */
+    public function setFkEshop($fkEshop)
+    {
+        $this->fkEshop = $fkEshop;
+
+        return $this;
+    }
+
+    /**
+     * Get fkEshop
+     *
+     * @return int
+     */
+    public function getFkEshop()
+    {
+        return $this->fkEshop;
+    }
+
     /// GETTER AND SETTER
     /**
      * Constructor
