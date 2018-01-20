@@ -172,6 +172,15 @@ class ApiOrderController extends Controller
                         $em->flush();
                     }
 
+                    // Notification
+                    $newOrderLog = new RarOrderLog();
+                    $newOrderLog->setDate($time);
+                    $newOrderLog->setUser($user);
+                    $newOrderLog->setMessage('Order #'.$params['fk_shop'].' status updated to "'.$stateWord.'" par '.$fullName.' via API.');
+                    $newOrderLog->setOrder($order);
+                    $em->persist($newOrderLog);
+                    $em->flush();
+
 
                 }else{
                     $message = 'Access forbiden';
