@@ -115,6 +115,13 @@ class RarModel
     private $maxShipWeek;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="fkEshop", type="integer", nullable=true)
+     */
+    private $fkEshop;
+
+    /**
      * @ORM\OneToMany(targetEntity="RarSize", mappedBy="model", cascade="persist")
      */
     protected $sizes;

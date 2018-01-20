@@ -5,6 +5,7 @@ namespace AppBundle\Controller\Api\Orders;
 use AppBundle\Entity\RarOrder;
 use AppBundle\Entity\User;
 use AppBundle\Entity\RarModelOrdered;
+use AppBundle\Entity\RarOrderLog;
 
 use AppBundle\Services\MessageGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -30,29 +31,45 @@ class ApiUpdateOrderController extends Controller
 
             $params = array();
             $content = $request->getContent();
+            $time = date_create(date('Y/m/d H:i:s'));
 
             if (!empty($content)){
                 // On décode :
                 $params = json_decode($content, true); // 2nd param to get as array
                 // On check les droits
-                if($params['token'] == 'mKFsznxnUryr3sNpGeQWFcIIc9Q73GZR'){
+                if($params['tokenUse'] != ''){
 
                     // Initialisation du manager doctrine
                     $em = $this->getDoctrine()->getManager();
                     $orderrepository = $this->getDoctrine()->getRepository(RarOrder::class);
                     $order = $orderrepository->findOneBy( [ "idEshop" => $params['fk_shop'] ] );
+                    // On récupère l'utilisateur
+                    $userrepository = $this->getDoctrine()->getRepository(User::class);
+                    $user = $userrepository->findOneBy([ "token" => $param['tokenShop'] ]);
+                    $firstName = $user->getFirstName();
+                    $lastName = $user->getLastName();
+                    $fullName = $firstName.' '.$lastName;
 
                     if($params['action'] == 'canceled'){
                         $order->setState('3');
+                        $stateWord = 'canceled';
                     }
 
                     if($params['action'] == 'complete'){
                         $order->setState('6');
                         $order->setDateShipped(date_create(date('Y/m/d H:i:s')));
-                        
+                        $stateWord = 'finished';
                     }
 
                     $em->persist($order);
+                    $em->flush();
+
+                    // Notification
+                    $newOrderLog = new RarOrderLog();
+                    $newOrderLog->setDate($time);
+                    $newOrderLog->setMessage('Order #'.$params['fk_shop'].' status updated to "'.$stateWord.'" par '.$fullName.'.');
+                    $newOrderLog->setOrder($order);
+                    $em->persist($newOrderLog);
                     $em->flush();
 
                     $message = 'Done';
