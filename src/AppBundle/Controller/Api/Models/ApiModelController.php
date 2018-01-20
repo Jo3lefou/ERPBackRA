@@ -27,7 +27,7 @@ class ApiModelController extends Controller
 {
 
 	/**
-     * @Route("/api/model/create", name="apiordercreate")
+     * @Route("/api/model/create", name="apimodelcreate")
      */
 	public function indexAction(Request $request)
 	{
