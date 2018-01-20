@@ -54,6 +54,7 @@ class ApiModelController extends Controller
                         $alreadymodel->setUrlImg($params['url_img']);
                         $em->persist($alreadymodel);
                         $em->flush();
+                        $message = 'Update done';
                     }else{
                         $newModel = new RarModel();
                         $newModel->setCollectionId($params['collectionId']);
@@ -72,8 +73,9 @@ class ApiModelController extends Controller
                         $newModel->setUrlImg($params['url_img']);
                         $em->persist($newModel);
                         $em->flush();
+                        $message = 'Creation done';
                     }
-                    $message = 'Done';
+                    
 
                 }else{
                     $message = 'Access forbiden';
