@@ -42,6 +42,37 @@ class ApiModelController extends Controller
                     // Initialisation du manager doctrine
                     $em = $this->getDoctrine()->getManager();
                     
+                    //Repository 
+                    $modelrepository = $this->getDoctrine()->getRepository(RarModel::class);
+                    $alreadymodel = $modelrepository->findOneBy( [ "fkEshop" => $params['fkEshop'] ] );
+
+                    if($alreadymodel != null){
+                        $alreadymodel->setSku($params['sku']);
+                        $alreadymodel->setName($params['name']);
+                        $alreadymodel->setPrixHT($params['prixHT']);
+                        $alreadymodel->setPrixShop("0");
+                        $alreadymodel->setUrlImg($params['url_img']);
+                        $em->persist($alreadymodel);
+                        $em->flush();
+                    }else{
+                        $newModel = new RarModel();
+                        $newModel->setCollectionId($params['collectionId']);
+                        $newModel->setIsActive($params['is_active']);
+                        $newModel->setIsShop($params['is_shop']);
+                        $newModel->setIsContract($params['is_contract']);
+                        $newModel->setType($params['type']);
+                        $newModel->setCategory($params['category']);
+                        $newModel->setMinShipWeek($params['min_ship_week']);
+                        $newModel->setMaxShipWeek($params['max_ship_week']);
+                        $newModel->setFkEshop($params['fkEshop']);
+                        $newModel->setSku($params['sku']);
+                        $newModel->setName($params['name']);
+                        $newModel->setPrixHT($params['prixHT']);
+                        $newModel->setPrixShop("0");
+                        $newModel->setUrlImg($params['url_img']);
+                        $em->persist($newModel);
+                        $em->flush();
+                    }
 
                 }else{
                     $message = 'Access forbiden';
