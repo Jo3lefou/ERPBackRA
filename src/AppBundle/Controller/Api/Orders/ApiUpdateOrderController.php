@@ -37,7 +37,7 @@ class ApiUpdateOrderController extends Controller
                 // On décode :
                 $params = json_decode($content, true); // 2nd param to get as array
                 // On check les droits
-                if($params['tokenUse'] != ''){
+                if($params['tokenUser'] != ''){
 
                     // Initialisation du manager doctrine
                     $em = $this->getDoctrine()->getManager();
@@ -45,7 +45,7 @@ class ApiUpdateOrderController extends Controller
                     $order = $orderrepository->findOneBy( [ "idEshop" => $params['fk_shop'] ] );
                     // On récupère l'utilisateur
                     $userrepository = $this->getDoctrine()->getRepository(User::class);
-                    $user = $userrepository->findOneBy([ "token" => $param['tokenShop'] ]);
+                    $user = $userrepository->findOneBy([ "token" => $params['tokenShop'] ]);
                     $firstName = $user->getFirstName();
                     $lastName = $user->getLastName();
                     $fullName = $firstName.' '.$lastName;
