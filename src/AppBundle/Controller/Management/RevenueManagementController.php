@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Management;
 
 use AppBundle\Entity\RarModelOrdered;
+use AppBundle\Entity\Rarshop;
 
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
@@ -40,18 +41,37 @@ class RevenueManagementController extends Controller
 
     	if($user){
     		if($action == 'view'){
+
+    			$revenueDisplay = array();
     			$repositoryRevenue = $this->getDoctrine()->getRepository(RarModelOrdered::class);
-		        $querySumPerShop = $repositoryRevenue->createQueryBuilder('r')
-		            ->select("SUM(r.prixSoldHT) as amount, s.name, s.extention, MONTH(o.dateMaxShip) AS Omonth, YEAR(o.dateMaxShip) AS Oyear")
-		            ->leftJoin('r.order', 'o')
-		            ->leftJoin('o.shop', 's')
-		            ->where('o.state NOT IN (:status)')
-		            ->andWhere('o.dateMaxShip < :date')
-		            ->setParameters(['status' => array(0, 1, 4), 'date' => '30/08/2018'])
-		            ->groupBy('s.id')
-		            ->addGroupBy('Oyear')
-		            ->addGroupBy('Omonth');
-		        $sumRevenuePerShop = $querySumPerShop->getQuery()->getResult();
+    			$repoShop = $this->getDoctrine()->getRepository(RarShop::class);
+        		$shops = $repoShop->findBy( array( 'isActive' => 1 ) );
+        		foreach ($shops as $key => $shop) {
+
+	    			
+			        $querySumPerShop = $repositoryRevenue->createQueryBuilder('r')
+			            ->select("SUM(r.prixSoldHT) as amount, s.name as shopname, s.extention, MONTH(o.dateMaxShip) AS Omonth, YEAR(o.dateMaxShip) AS Oyear")
+			            ->leftJoin('r.order', 'o')
+			            ->leftJoin('o.shop', 's')
+			            ->where('o.state NOT IN (:status)')
+			            ->andWhere('o.dateMaxShip < :date')
+			            ->setParameters(['status' => array(0, 1, 4), 'date' => '30/08/2018'])
+			            ->groupBy('s.id')
+			            ->addGroupBy('Oyear')
+			            ->addGroupBy('Omonth');
+			        $sumRevenuePerShop = $querySumPerShop->getQuery()->getResult();
+
+		        	// Stock Réel
+		        	$revenueDisplay[$sumRevenuePerShop[$key]['shopname']][$key]['IDShop'] = $shop->getId();
+		        	$revenueDisplay[$sumRevenuePerShop[$key]['shopname']][$key]['Name'] = $sumRevenuePerShop[$key]['shopname'];
+		        	$revenueDisplay[$sumRevenuePerShop[$key]['shopname']][$key]['Period'] = $sumRevenuePerShop[$key]['Oyear'].'-'.$sumRevenuePerShop[$key]['Omonth'];
+		        	$revenueDisplay[$sumRevenuePerShop[$key]['shopname']][$key]['Year'] = $sumRevenuePerShop[$key]['Oyear'];
+		            $revenueDisplay[$sumRevenuePerShop[$key]['shopname']][$key]['Month'] = $sumRevenuePerShop[$key]['Omonth'];
+		            $revenueDisplay[$sumRevenuePerShop[$key]['shopname']][$key]['Amount'] = $sumRevenuePerShop[$key]['amount'];
+		            $revenueDisplay[$sumRevenuePerShop[$key]['shopname']][$key]['value'] = $sumRevenuePerShop[$key]['amount'];
+		        }
+
+
 
 	            return $this->render('management/revenue.html.twig', array(
 	                'name' => $name,
@@ -61,7 +81,7 @@ class RevenueManagementController extends Controller
 	                'p1h2' => $this->get('translator')->trans('Manage the revenue'),
 	                'bodyClass' => 'nav-md',
 	                'user' => $user,
-	                'revenue' => $sumRevenuePerShop,
+	                'revenue' => $revenueDisplay,
 	            ));
 	        }elseif($action == 'extractRevenuPerMonth.csv'){
 	        	$repositoryRevenue = $this->getDoctrine()->getRepository(RarModelOrdered::class);

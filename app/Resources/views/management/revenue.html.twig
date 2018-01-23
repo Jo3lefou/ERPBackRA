@@ -98,6 +98,9 @@
     <script src="{{ url('homepage') }}vendors/Chart.js/dist/Chart.min.js"></script>
     <!-- gauge.js -->
     <script src="{{ url('homepage') }}vendors/gauge.js/dist/gauge.min.js"></script>
+    <!--morris.js -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
     <!-- bootstrap-progressbar -->
     <script src="{{ url('homepage') }}vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
     <!-- iCheck -->
@@ -126,4 +129,25 @@
 
     <!-- Custom Theme Scripts -->
     <script src="{{ url('homepage') }}build/js/custom.min.js"></script>
+
+    <script>
+    {% for key, shopRevenue in revenue %}
+      new Morris.Line({
+        // ID of the element in which to draw the chart.
+        {% for shopRevenueDetails in shopRevenue %}
+          {% if loop.index == 1 %}element: 'shopRevenue{{ shopRevenueDetails.IDShop }}',{% endif %}
+        {% endfor %}
+        // Chart data records -- each entry in this array corresponds to a point on
+        // the chart.
+        data: {{ shopRevenue|json_encode(constant('JSON_PRETTY_PRINT'))|raw }},
+        // The name of the data record attribute that contains x-values.
+        xkey: 'Period',
+        // A list of names of data record attributes that contain y-values.
+        ykeys: ['value'],
+        // Labels for the ykeys -- will be displayed when you hover over the
+        // chart.
+        labels: ['Name']
+      });
+    {% endfor %}
+    </script>
 {% endblock %}
