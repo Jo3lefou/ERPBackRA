@@ -51,25 +51,30 @@ class BaseController extends Controller
 	                ->getQuery()
 	                ->getOneOrNullResult();
 
+	    $em2 = $this->getDoctrine()->getManager();
+	    $qb2 = $em2->createQueryBuilder();
 	    // Nb Order Pending
-	    $nbOrderPending = $qb->select('COUNT(r)')
+	    $nbOrderPending = $qb2->select('COUNT(r)')
 	                ->from('AppBundle:RarOrder' , 'r')
 	                ->where('r.state = :rstate')
 	                ->setParameters(['rstate' => '1'])
 	                ->getQuery()
 	                ->getOneOrNullResult();
 
+	    $em3 = $this->getDoctrine()->getManager();
+	    $qb3 = $em3->createQueryBuilder();
 	    // Nb Customer
-	    $nbCustomerTotal = $qb->select('COUNT(c)')
+	    $nbCustomerTotal = $qb3->select('COUNT(c)')
 	                ->from('AppBundle:RarCustomer' , 'c')
 	                ->getQuery()
 	                ->getOneOrNullResult();
 
-
+	    $em4 = $this->getDoctrine()->getManager();
+	    $qb4 = $em4->createQueryBuilder();
 		// Nb Order to deliver this month
 	    $dateAsString = $serializer->normalize( new \DateTime('+ 1 month'), null, array(DateTimeNormalizer::FORMAT_KEY => 'd/m/Y'));
 
-	    $nbOrderToDeliverThisMonth = $qb->select('COUNT(o)')
+	    $nbOrderToDeliverThisMonth = $qb4->select('COUNT(o)')
 	                ->from('AppBundle:RarOrder' , 'o')
 	                ->where('o.state NOT IN (:ostatus)')
 	                ->andWhere('o.dateMaxShip < :odate')
@@ -77,12 +82,28 @@ class BaseController extends Controller
 	                ->getQuery()
 	                ->getOneOrNullResult();
 
+	    // Best Shops Query
+        $repositoryBestShops = $this->getDoctrine()->getRepository(RarModelOrdered::class);
+		$queryBestShops = $repositoryRevenue->createQueryBuilder('r')
+            ->select("SUM(r.prixSoldHT) as Total, s.name")
+            ->leftJoin('r.order', 'o')
+            ->leftJoin('o.shop', 's')
+            ->where('o.state NOT IN (:status)')
+            ->andWhere('s.isActive = 1')
+            ->andWhere('o.year = '.$dateYear)
+            ->andWhere('s.isDirectCustomer = 0')
+            ->setParameters(['status' => array(0, 1, 4)])
+            ->groupBy('s.id')
+            ->orderBy('Total', 'DESC');
+        $sumBestShops = $queryBestShops->getQuery()->getResult();
+
 		// My data query
 		$stat['sumRevenue'] = $sumRevenue;
 		$stat['nbOrderPending'] = $nbOrderPending;
 		$stat['nbOrderToDeliverThisMonth'] = $nbOrderToDeliverThisMonth;
 		$stat['nbOrderTotal'] = $nbOrderTotal;
 		$stat['nbCustomerTotal'] = $nbCustomerTotal;
+		$stat['sumBestShops']= $sumBestShops;
 
 		// bloc rendered
 		return $this->render('bloc/bloc-stat.html.twig', array('stat' => $stat));
