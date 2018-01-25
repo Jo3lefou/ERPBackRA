@@ -23,12 +23,12 @@ class RevenueManagementController extends Controller
 {
 	/**
      *
-     * @Route("/{_locale}/management/revenue/{action}", name="revenuemanagement")
+     * @Route("/{_locale}/management/revenue/{action}/{shop}", name="revenuemanagement")
      *
      * Security("has_role('ROLE_ADMIN')")
      *
      */
-    public function indexAction($action = 'view', UserInterface $user)
+    public function indexAction($action = 'view', $shop = 'all', UserInterface $user)
     {
     	$user = $this->get('security.token_storage')->getToken()->getUser();
         $firstName = $this->getUser()->getLastName();
@@ -71,8 +71,6 @@ class RevenueManagementController extends Controller
 		            $revenueDisplay[$sumRevenuePerShop[$key]['shopname']][$key]['value'] = $sumRevenuePerShop[$key]['amount'];
 		        }
 
-
-
 	            return $this->render('management/revenue.html.twig', array(
 	                'name' => $name,
 	                'locale' => $locale,
@@ -84,27 +82,54 @@ class RevenueManagementController extends Controller
 	                'revenue' => $revenueDisplay,
 	            ));
 	        }elseif($action == 'extractRevenuPerMonth.csv'){
-	        	$repositoryRevenue = $this->getDoctrine()->getRepository(RarModelOrdered::class);
-		        $querySumPerShop = $repositoryRevenue->createQueryBuilder('r')
-		            ->select("s.extention as Extension, s.name as Shop_Name, MONTH(o.dateMaxShip) AS Month, YEAR(o.dateMaxShip) AS Year, SUM(r.prixSoldHT) as Amount")
-		            ->leftJoin('r.order', 'o')
-		            ->leftJoin('o.shop', 's')
-		            ->where('o.state NOT IN (:status)')
-		            ->andWhere('o.dateMaxShip < :date')
-		            ->setParameters(['status' => array(0, 1, 4), 'date' => '30/08/2018'])
-		            ->groupBy('s.id')
-		            ->addGroupBy('Year')
-		            ->addGroupBy('Month');
-		        $sumRevenuePerShop = $querySumPerShop->getQuery()->getResult();
 
-	        	$serializer = new Serializer([new ObjectNormalizer()], [new CsvEncoder()]);
+	        	if($shop == 'all'){
+	        		$repositoryRevenue = $this->getDoctrine()->getRepository(RarModelOrdered::class);
+			        $querySumPerShop = $repositoryRevenue->createQueryBuilder('r')
+			            ->select("s.extention as Extension, s.name as Shop_Name, MONTH(o.dateMaxShip) AS Month, YEAR(o.dateMaxShip) AS Year, SUM(r.prixSoldHT) as Amount")
+			            ->leftJoin('r.order', 'o')
+			            ->leftJoin('o.shop', 's')
+			            ->where('o.state NOT IN (:status)')
+			            ->andWhere('o.dateMaxShip < :date')
+			            ->setParameters(['status' => array(0, 1, 4), 'date' => '30/08/2018'])
+			            ->groupBy('s.id')
+			            ->addGroupBy('Year')
+			            ->addGroupBy('Month');
+			        $sumRevenuePerShop = $querySumPerShop->getQuery()->getResult();
 
-	        	$file = $serializer->encode($sumRevenuePerShop, 'csv');
+		        	$serializer = new Serializer([new ObjectNormalizer()], [new CsvEncoder()]);
 
-	        	$response = new Response($file);
-	        	$response->headers->set('Content-Type', 'text/csv');
+		        	$file = $serializer->encode($sumRevenuePerShop, 'csv');
 
-		        return $response;
+		        	$response = new Response($file);
+		        	$response->headers->set('Content-Type', 'text/csv');
+
+			        return $response;
+	        	}else{
+	        		$repositoryRevenue = $this->getDoctrine()->getRepository(RarModelOrdered::class);
+			        $querySumPerShop = $repositoryRevenue->createQueryBuilder('r')
+			            ->select("s.extention as Extension, s.name as Shop_Name, MONTH(o.dateMaxShip) AS Month, YEAR(o.dateMaxShip) AS Year, SUM(r.prixSoldHT) as Amount")
+			            ->leftJoin('r.order', 'o')
+			            ->leftJoin('o.shop', 's')
+			            ->where('o.state NOT IN (:status)')
+			            ->andWhere('o.dateMaxShip < :date')
+			            ->andWhere('s.id < :shopID')
+			            ->setParameters(['status' => array(0, 1, 4), 'date' => '30/08/2018', 'shopID' => $shop])
+			            ->groupBy('s.id')
+			            ->addGroupBy('Year')
+			            ->addGroupBy('Month');
+			        $sumRevenuePerShop = $querySumPerShop->getQuery()->getResult();
+
+		        	$serializer = new Serializer([new ObjectNormalizer()], [new CsvEncoder()]);
+
+		        	$file = $serializer->encode($sumRevenuePerShop, 'csv');
+
+		        	$response = new Response($file);
+		        	$response->headers->set('Content-Type', 'text/csv');
+
+			        return $response;
+	        	}
+	        	
 	        	//return $file;
 	        	// instantiation, when using it inside the Symfony framework
 				//$serializer = $container->get('serializer');

@@ -3,13 +3,11 @@
 	<div class="x_panel">
 		<div class="x_title">
 			{% for shopRevenueDetails in shopRevenue %}
-			{% if loop.index == 1 %}<h2>{{ shopRevenueDetails.Name }} <small>Extension</small></h2>{% endif %}
+			{% if loop.index == 1 %}
+				<h2>{{ shopRevenueDetails.Name }} <small>Extension</small></h2>
+				<p class="pull-right" style="margin-bottom: 0px; margin-top: 4px;"><a class="btn btn-xs btn-default" href="/{{locale}}/management/revenue/extract/{{ shopRevenueDetails.IDShop }}"><i class="fa fa-download"></i> Download csv</a></p>
+			{% endif %}
 			{% endfor %}
-			<ul class="nav navbar-right panel_toolbox">
-				<li>
-					<a class="btn btn-xs btn-default"><i class="fa fa-download"></i> Download csv</a>
-				</li>
-			</ul>
 			<div class="clearfix"></div>
 		</div>
 		<div class="x_content2">
