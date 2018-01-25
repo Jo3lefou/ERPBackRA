@@ -37,9 +37,9 @@ class BaseController extends Controller
         $em = $this->getDoctrine()->getManager();
 	    $qb = $em->createQueryBuilder();
 	    // Nb Order Pending
-	    $nbOrderPending = $qb->select('COUNT(o)')
-	                ->from('AppBundle:RarOrder' , 'o')
-	                ->where('o.state = 1')
+	    $nbOrderPending = $qb->select('COUNT(r)')
+	                ->from('AppBundle:RarOrder' , 'r')
+	                ->where('r.state = 1')
 	                ->getQuery()
 	                ->getOneOrNullResult();
 		// Nb Order to deliver this month
@@ -48,7 +48,7 @@ class BaseController extends Controller
 
 	    $nbOrderToDeliverThisMonth = $qb->select('COUNT(o)')
 	                ->from('AppBundle:RarOrder' , 'o')
-	                ->where('o.state = NOT IN (:status)')
+	                ->where('o.state NOT IN (:status)')
 	                ->andWhere('o.dateMaxShip < :date')
 	                ->setParameters(['status' => array(0, 1, 4, 6), 'date' => $dateAsString])
 	                ->getQuery()
@@ -57,6 +57,7 @@ class BaseController extends Controller
 		// My data query
 		$stat['sumRevenue'] = $sumRevenue;
 		$stat['nbOrderPending'] = $nbOrderPending;
+		$stat['nbOrderToDeliverThisMonth'] = $nbOrderToDeliverThisMonth;
 
 		// bloc rendered
 		return $this->render('bloc/bloc-stat.html.twig', array('stat' => $stat));
