@@ -34,9 +34,12 @@
                   {{ message }}
               </div>
           {% endfor %}
+          
+          {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SALE_MANAGER') or is_granted('ROLE_PROVIDER') or is_granted('ROLE_SALE') or is_granted('ROLE_PRODUCTION_MANAGER') %}
           <!-- top tiles -->
           {{ render(controller('AppBundle:Base:getStatData', {} )) }}
           <!-- /top tiles -->
+          
 
           <div class="row">
             

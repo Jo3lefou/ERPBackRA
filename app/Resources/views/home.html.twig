@@ -28,10 +28,13 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
+          
+          {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SALE_MANAGER') or is_granted('ROLE_PROVIDER') or is_granted('ROLE_SALE') or is_granted('ROLE_PRODUCTION_MANAGER') %}
           <!-- top tiles -->
           {{ render(controller('AppBundle:Base:getStatData', {} )) }}
           <!-- /top tiles -->
-
+          
+          {% endif %}
           <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="dashboard_graph">
