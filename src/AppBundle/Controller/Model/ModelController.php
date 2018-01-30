@@ -42,7 +42,7 @@ class ModelController extends Controller
 
                 $term = $request->query->get('term');
                 $em = $this->get('doctrine.orm.entity_manager');
-                $dql = "SELECT a FROM AppBundle:RarModel a WHERE name LIKE %".$term."% ORDER BY a.name";
+                $dql = "SELECT a FROM AppBundle:RarModel a WHERE name LIKE '%".addcslashes($term)."%' ORDER BY a.name";
                 $query = $em->createQuery($dql);
                 $paginator  = $this->get('knp_paginator');
                 $pagination = $paginator->paginate( $query, $request->query->getInt('page', 1), $number );
