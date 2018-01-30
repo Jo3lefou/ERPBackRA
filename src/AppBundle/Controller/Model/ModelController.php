@@ -28,6 +28,8 @@ class ModelController extends Controller
         $repository = $this->getDoctrine()->getRepository(RarModel::class);
         //$models = $repository->findAll();
 
+        $pagination = array();
+
         if($display == 'view'){
             $em = $this->get('doctrine.orm.entity_manager');
             $dql = "SELECT a FROM AppBundle:RarModel a ORDER BY a.name";
@@ -49,7 +51,6 @@ class ModelController extends Controller
             
             }
         }
-        
 
 
         if($user){
