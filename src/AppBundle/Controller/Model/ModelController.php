@@ -38,9 +38,11 @@ class ModelController extends Controller
             $pagination = $paginator->paginate( $query, $request->query->getInt('page', 1), $number );
         }elseif($display == 'search'){
 
-            $request = Request::createFromGlobals();
+            //$request = Request::createFromGlobals();
 
             if ($request->isMethod('POST')) {
+
+                $request = new Request($_POST);
 
                 $term = $request->query->get('term');
                 $em = $this->get('doctrine.orm.entity_manager');
