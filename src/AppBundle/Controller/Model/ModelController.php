@@ -27,7 +27,7 @@ class ModelController extends Controller
 
         $repository = $this->getDoctrine()->getRepository(RarModel::class);
         //$models = $repository->findAll();
-
+        $searchTerm = "";
         $pagination = array();
 
         if($display == 'view'){
@@ -48,7 +48,7 @@ class ModelController extends Controller
                 $query = $em->createQuery($dql);
                 $paginator  = $this->get('knp_paginator');
                 $pagination = $paginator->paginate( $query, $request->query->getInt('page', 1), $number );
-            
+                $searchTerm = $term;
             }
         }
 
@@ -66,6 +66,7 @@ class ModelController extends Controller
                 'user' => $user,
                 'pagination' => $pagination,
                 'nbitem' => $number,
+                'searchterm' => $searchTerm
             ));
 
         }else{
