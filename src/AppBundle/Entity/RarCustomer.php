@@ -121,7 +121,7 @@ class RarCustomer
     private $dateModification;
 
     /**
-     * @ORM\OneToMany(targetEntity="RarOrder", mappedBy="customer",cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="RarOrder", mappedBy="customer",cascade={"persist"}, fetch="EAGER")
      */
     private $orders;
 
@@ -518,7 +518,7 @@ class RarCustomer
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getmodelsOrdered()
+    public function getOrders()
     {
         return $this->orders;
     }

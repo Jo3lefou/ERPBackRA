@@ -6,16 +6,18 @@ use AppBundle\Entity\RarModel;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class ModelController extends Controller
 {
     /**
-     * @Route("/admin/{_locale}/models/", name="models")
+     * @Route("/admin/{_locale}/models/{display}/{number}/", name="models")
      *
      * Security("has_role('ROLE_ADMIN')")
      *
      */
-    public function indexAction()
+    public function indexAction($display= 'view', $number = '25', Request $request)
     {
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $firstName = $this->getUser()->getLastName();
@@ -24,7 +26,25 @@ class ModelController extends Controller
         $name = $firstName.' '.$lastName;
 
         $repository = $this->getDoctrine()->getRepository(RarModel::class);
-        $models = $repository->findAll();
+        //$models = $repository->findAll();
+
+        if($display == 'view'){
+            $em = $this->get('doctrine.orm.entity_manager');
+            $dql = "SELECT a FROM AppBundle:RarModel a ORDER BY a.name";
+            $query = $em->createQuery($dql);
+            $paginator  = $this->get('knp_paginator');
+            $pagination = $paginator->paginate( $query, $request->query->getInt('page', 1), $number );
+        }elseif($display == 'search'){
+            if ($request->isMethod('POST')) {
+                $em = $this->get('doctrine.orm.entity_manager');
+                $dql = "SELECT a FROM AppBundle:RarModel a ORDER BY a.name";
+                $query = $em->createQuery($dql);
+                $paginator  = $this->get('knp_paginator');
+                $pagination = $paginator->paginate( $query, $request->query->getInt('page', 1), $number );
+            }
+        }
+        
+
 
         if($user){
             //var_dump($users);
@@ -35,8 +55,9 @@ class ModelController extends Controller
                 'h1title' => 'Welcome User',
                 'p1h2' => $this->get('translator')->trans('Find all models'),
                 'bodyClass' => 'nav-md',
-                'models' => $models,
+                //'models' => $models,
                 'user' => $user,
+                'pagination' => $pagination
             ));
 
         }else{
