@@ -50,6 +50,8 @@ class ModelController extends Controller
                     $pagination = $paginator->paginate( $query, $request->query->getInt('page', 1), $number );
                     $searchTerm = $term;
                 }
+            }else{
+                return $this->redirect('/admin/'.$locale.'/models/view/'.$number);
             }
         }else{
             return $this->redirect('/admin/'.$locale.'/models/view/'.$number);
