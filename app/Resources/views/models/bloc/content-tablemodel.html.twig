@@ -37,6 +37,7 @@
       <table id="datatable-buttons" class="table table-striped table-bordered">
         <thead>
           <tr>
+            {% if searchterm is empty %}
             <th>{{ knp_pagination_sortable(pagination, 'Name', 'a.name') }}</th>
             <th>{{ knp_pagination_sortable(pagination, 'ID Co.', 'a.collectionId') }}</th>
             <th>{{ knp_pagination_sortable(pagination, 'SKU', 'a.sku') }}</th>
@@ -50,6 +51,21 @@
             <th>{{ knp_pagination_sortable(pagination, 'max Ship', 'a.maxShipWeek') }}</th>
             <th>{{ knp_pagination_sortable(pagination, 'sizes', 'a.sizes') }}</th>
             <th>{% trans %}Action{% endtrans %}</th>
+            {% else %}
+            <th>{% trans %}Name{% endtrans %} 'a.name') }}</th>
+            <th>{% trans %}Col. ID{% endtrans %} 'a.collectionId') }}</th>
+            <th>{% trans %}SKU{% endtrans %} 'a.sku') }}</th>
+            <th>{% trans %}Price{% endtrans %} 'a.prixHT') }}</th>
+            <th>{% trans %}Shop Price{% endtrans %} 'a.prixShop') }}</th>
+            <th>{% trans %}A{% endtrans %} 'a.isActive') }}</th>
+            <th>{% trans %}S{% endtrans %} 'a.isShop') }}</th>
+            <th>{% trans %}C{% endtrans %} 'a.isContract') }}</th>
+            <th>{% trans %}Type{% endtrans %} 'a.type') }}</th>
+            <th>{% trans %}Min Ship{% endtrans %} 'a.minShipWeek') }}</th>
+            <th>{% trans %}Max Ship{% endtrans %} 'a.maxShipWeek') }}</th>
+            <th>{% trans %}Sizes{% endtrans %} 'a.sizes') }}</th>
+            <th>{% trans %}Action{% endtrans %}</th>
+            {% endif %}
           </tr>
         </thead>
         <tbody>
