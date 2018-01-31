@@ -34,6 +34,9 @@
       <p class="text-muted font-13 m-b-30">
         The Buttons extension for DataTables provides a common set of options, API methods and styling to display buttons on a page that will interact with a DataTable. The core library provides the based framework upon which plug-ins can built.
       </p>
+      {% if pagination.getTotalItemCount = 0 %}
+      <div class="alert alert-info"><strong>Oups!</strong> Nothing has been found with the terms '{{searchterm}}'...</div>
+      {% else %}
       <table id="datatable-buttons" class="table table-striped table-bordered">
         <thead>
           <tr>
@@ -112,6 +115,7 @@
       <div class="navigation">
           {{ knp_pagination_render(pagination) }}
       </div>
+      {% endif %}
     </div>
   </div>
 </div>
