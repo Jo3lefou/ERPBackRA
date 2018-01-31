@@ -85,7 +85,12 @@
                         <div class="col-sm-4 invoice-col">
                           For
                           <address>
-                            <strong>{% if customer.salutation == 1 %}{% trans %}Mr.{% endtrans %}{% elseif customer.salutation == 2 %}{% trans %}Mrs.{% endtrans %}{% else %}{% trans %}Miss.{% endtrans %}{% endif %} {{ customer.firstName }} {{ customer.lastName }}</strong>
+                            <strong>
+                              {% if customer.salutation is empty %}
+                              {% else %}
+                              {% if customer.salutation == 1 %}{% trans %}Mr.{% endtrans %}{% elseif customer.salutation == 2 %}{% trans %}Mrs.{% endtrans %}{% else %}{% trans %}Miss.{% endtrans %}{% endif %} {{ customer.firstName }} {{ customer.lastName }}
+                              {% endif %}
+                            </strong>
                             <br>{{ customer.address }}
                             <br>{{ customer.postCode }} {{ customer.city }}
                             <br>{{ customer.state }}, {{ customer.country }}
