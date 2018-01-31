@@ -14,7 +14,7 @@
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-home"></i> {% trans %}Orders{% endtrans %} <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="/{{ locale }}/order-dashboard">{% trans %}Dashboard{% endtrans %}</a></li>
+                      <!--<li><a href="/{{ locale }}/order-dashboard">{% trans %}Dashboard{% endtrans %}</a></li>-->
                       <li><a href="/{{ locale }}/orders/view/all/all">{% trans %}All Orders{% endtrans %}</a></li>
                       {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PRODUCTION_MANAGER') %}
                       <li><a href="/{{ locale }}/orders/view/eshop/all">{% trans %}Eshop Orders{% endtrans %}</a></li>
@@ -37,16 +37,16 @@
                   {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ACCOUNTING_MANAGER') or is_granted('ROLE_SALE_MANAGER') or is_granted('ROLE_SALE')  %}
                   <li><a><i class="fa fa-edit"></i> {% trans %}Sales{% endtrans %} <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="form.html">{% trans %}Dashboard{% endtrans %}</a></li>
-                      <li><a href="form_advanced.html">{% trans %}Calendar{% endtrans %}</a></li>
+                      <!--<li><a href="form.html">{% trans %}Dashboard{% endtrans %}</a></li>-->
+                      <!--<li><a href="form_advanced.html">{% trans %}Calendar{% endtrans %}</a></li>-->
                       <li><a>{% trans %}Sales Assistante{% endtrans %}<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="/{{ locale }}/level2.html">{% trans %}Sales{% endtrans %}</a>
-                            </li>
-                            <li><a href="/{{ locale }}/">{% trans %}Calendar{% endtrans %} 1</a>
-                            </li>
-                            <li><a href="/{{ locale }}/">{% trans %}Calendar{% endtrans %} 2</a>
-                            </li>
+                            <!--<li class="sub_menu"><a href="/{{ locale }}/level2.html">{% trans %}Sales{% endtrans %}</a>
+                            </li>-->
+                            <!--<li><a href="/{{ locale }}/">{% trans %}Calendar{% endtrans %} 1</a>
+                            </li>-->
+                            <!--<li><a href="/{{ locale }}/">{% trans %}Calendar{% endtrans %} 2</a>
+                            </li>-->
                           </ul>
                         </li>
                       <li><a href="/{{ locale }}/customers/view/25">{% trans %}Customers{% endtrans %}</a></li>
@@ -55,10 +55,10 @@
                   {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ACCOUNTING_MANAGER') %}
                   <li><a><i class="fa fa-edit"></i>{% trans %}Accounting{% endtrans %} <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="/{{ locale }}/management/dashboard">{% trans %}Dashboard{% endtrans %}</a></li>
+                      <!--<li><a href="/{{ locale }}/management/dashboard">{% trans %}Dashboard{% endtrans %}</a></li>-->
                       <li><a href="/{{ locale }}/management/revenue">{% trans %}Follow revenu{% endtrans %}</a></li>
-                      <li><a href="/{{ locale }}/management/accounting">{% trans %}Accounting{% endtrans %}</a></li>
-                      <li><a href="/{{ locale }}/management/invoicing">{% trans %}Management{% endtrans %}</a></li>
+                      <!--<li><a href="/{{ locale }}/management/accounting">{% trans %}Accounting{% endtrans %}</a></li>-->
+                      <!--<li><a href="/{{ locale }}/management/invoicing">{% trans %}Management{% endtrans %}</a></li>-->
                     </ul>
                   </li>
                   {% endif %}
