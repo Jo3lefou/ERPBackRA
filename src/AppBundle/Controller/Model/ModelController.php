@@ -68,7 +68,6 @@ class ModelController extends Controller
                 'pagination' => $pagination,
                 'nbitem' => $number,
                 'searchterm' => $searchTerm,
-                'dump' => $dql
             ));
 
         }else{
