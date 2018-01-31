@@ -39,7 +39,7 @@ class CustomerController extends Controller
             $dql = "SELECT a FROM AppBundle:RarCustomer a";
             $query = $em->createQuery($dql);
             $paginator  = $this->get('knp_paginator');
-            $pagination = $paginator->paginate( $query, $request->query->getInt('page', 1), 1 );
+            $pagination = $paginator->paginate( $query, $request->query->getInt('page', 1), $number );
         }elseif($display == 'search'){
             if ($request->isMethod('POST')) {
                 $request = new Request($_POST);
