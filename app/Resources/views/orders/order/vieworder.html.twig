@@ -124,7 +124,7 @@
                       #INV-{{ order.shop.extention }}0{{ order.idCompta }}-{{ order.year }}
                     {% elseif order.idCompta|length < 5 %}
                       #INV-{{ order.shop.extention }}{{ order.idCompta }}-{{ order.year }}
-                    {% endif %}</b>
+                    {% endif %}{% if order.type == "1" %}-S{% elseif order.type == 2 %}-P{% endif %}</b>
                           {% if order.shop.isDirectCustomer == false %}
                           <br> <b>Customer Name:</b> {{ order.customerName }}
                           {% else %}
@@ -141,7 +141,7 @@
                       #{{ order.shop.extention }}0{{ order.idCompta }}-{{ order.year }}
                     {% elseif order.idCompta|length < 5 %}
                       #{{ order.shop.extention }}{{ order.idCompta }}-{{ order.year }}
-                    {% endif %}
+                    {% endif %}{% if order.type == "1" %}-S{% elseif order.type == 2 %}-P{% endif %}
                           <br>
                           <b>Payment Due:</b> {{ order.dateCivil|date("d/m/Y") }}
                         </div>
@@ -233,7 +233,7 @@
                       #{{ order.shop.extention }}0{{ order.idCompta }}-{{ order.year }}
                     {% elseif order.idCompta|length < 5 %}
                       #{{ order.shop.extention }}{{ order.idCompta }}-{{ order.year }}
-                    {% endif %}
+                    {% endif %}{% if order.type == "1" %}-S{% elseif order.type == 2 %}-P{% endif %}
                           </p>
                         </div>
                         <!-- /.col -->
