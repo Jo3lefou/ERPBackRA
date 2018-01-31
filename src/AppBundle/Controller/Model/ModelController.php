@@ -28,9 +28,6 @@ class ModelController extends Controller
         $repository = $this->getDoctrine()->getRepository(RarModel::class);
         //$models = $repository->findAll();
         $searchTerm = "";
-        $pagination = array();
-
-
 
         if($display == 'view'){
             $em = $this->get('doctrine.orm.entity_manager');
