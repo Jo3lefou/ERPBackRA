@@ -17,7 +17,7 @@ class CustomerController extends Controller
 {
     /**
      *
-     * @Route("/{_locale}/customers/view/{display}/{number}/", name="customers")
+     * @Route("/{_locale}/customers/{display}/{number}/", name="customers")
      *
      * Security("has_role('ROLE_ADMIN') or has_role('ROLE_PRODUCTION_MANAGER') or has_role('ROLE_SALE_MANAGER') or has_role('ROLE_SALE') or has_role('ROLE_ACCOUNTING_MANAGER')")
      */
