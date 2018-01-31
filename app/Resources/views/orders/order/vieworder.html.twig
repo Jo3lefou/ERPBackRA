@@ -55,7 +55,7 @@
                       #{{ order.shop.extention }}0{{ order.idCompta }}-{{ order.year }}
                     {% elseif order.idCompta|length < 5 %}
                       #{{ order.shop.extention }}{{ order.idCompta }}-{{ order.year }}
-                    {% endif %} <small>edited on {{ "now"|date("d/m/Y") }}</small></h2>
+                    {% endif %}{% if order.type == "1" %}-S{% elseif order.type == 2 %}-P{% endif %} <small>edited on {{ "now"|date("d/m/Y") }}</small></h2>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -65,8 +65,10 @@
                       <div class="row">
                         <div class="col-xs-12 invoice-header">
                           <h1>
-                            {% if order.proto == true %}
+                            {% if order.type == 2 %}
                               <i class="fa fa-globe"></i> Prototype Order
+                            {% elseif order.type == 1 %}
+                              <i class="fa fa-globe"></i> Stock Order
                             {% else %}
                               {% if order.shop.isDirectCustomer == true %}
                                 <i class="fa fa-globe"></i> Customer Order
@@ -81,7 +83,7 @@
 
                       <!-- info row -->
                       <div class="row invoice-info">
-                        {% if order.shop.isDirectCustomer == true and order.proto == true %}
+                        {% if order.shop.isDirectCustomer == true or order.type == 1 or order.type == 2 %}
                         <div class="col-sm-4 invoice-col">
                           For
                           <address>
@@ -97,6 +99,8 @@
                             <br><i class="fa fa-envelope"></i> {{ customer.email }}
                           </address>
                         </div>
+                        {% else %}
+                        <div class="col-sm-4 invoice-col"></div>
                         {% endif %}
                         <!-- /.col -->
                         <div class="col-sm-4 invoice-col">
