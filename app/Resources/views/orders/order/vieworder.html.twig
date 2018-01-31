@@ -168,9 +168,9 @@
                                 <td>{{ modelOrdered.model.name }} ({{ modelOrdered.model.category }})</td>
                                 <td>{{ modelOrdered.model.sku }}</td>
                                 <td>{{ modelOrdered.maxProdShip|date("d/m/Y") }}</td>
-                                <td class="align-right">{{ modelOrdered.prixSoldHT/(1+(shop.amountVat/ 100))|round(1, 'ceil') }} €</td>
-                                {% if order.shop.isVat %}<td class="align-right">{{ modelOrdered.prixSoldHT/(1+(shop.amountVat/ 100))*(shop.amountVat/100)|round(1, 'ceil') }} €</td>{% endif %}
-                                {% if order.shop.isVat %}<td class="align-right">{{ modelOrdered.prixSoldHT|round(1, 'ceil') }} €</td>{% endif %}
+                                <td class="align-right">{{ (modelOrdered.prixSoldHT/(1+(shop.amountVat/ 100)))|round(1, 'common') }} €</td>
+                                {% if order.shop.isVat %}<td class="align-right">{{ (modelOrdered.prixSoldHT/(1+(shop.amountVat/ 100))*(shop.amountVat/100))|round(1, 'common') }} €</td>{% endif %}
+                                {% if order.shop.isVat %}<td class="align-right">{{ modelOrdered.prixSoldHT|round(1, 'common') }} €</td>{% endif %}
                               </tr>
                               {% endfor %}
                             </tbody>
@@ -246,11 +246,11 @@
                                 {% if order.shop.isVat %}
                                 <tr>
                                   <th style="width:50%">Subtotal:</th>
-                                  <td>{{ detailsOrder.totalHT }} €</td>
+                                  <td>{{ detailsOrder.totalHT|round(1, 'common') }} €</td>
                                 </tr>
                                 <tr>
                                   <th>VAT ({{ order.shop.amountVat }}%)</th>
-                                  <td>{{ detailsOrder.totalVAT }} €</td>
+                                  <td>{{ detailsOrder.totalVAT|round(1, 'common') }} €</td>
                                 </tr>
                                 <tr>
                                   <th>Total:</th>
@@ -262,7 +262,7 @@
                                 </tr>
                                 <tr>
                                   <th>Outstanding payment:</th>
-                                  <td><span id='totalOutstandingPaiement'>{{ detailsOrder.totalPrice - payment }}</span> €</td>
+                                  <td><span id='totalOutstandingPaiement'>{{ (detailsOrder.totalPrice - payment)|round(1, 'common') }}</span> €</td>
                                 </tr>
                                 {% else %}
                                 <tr>
@@ -275,7 +275,7 @@
                                 </tr>
                                 <tr>
                                   <th>Outstanding payment:</th>
-                                  <td><span id='totalOutstandingPaiement'>{{ detailsOrder.totalPrice - payment|round(2, 'floor') }}</span> €</td>
+                                  <td><span id='totalOutstandingPaiement'>{{ (detailsOrder.totalPrice - payment)|round(1, 'common') }}</span> €</td>
                                 </tr>
                                 {% endif %}
                               </tbody>
