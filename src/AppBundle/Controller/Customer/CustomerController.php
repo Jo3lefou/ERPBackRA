@@ -19,6 +19,7 @@ class CustomerController extends Controller
      *
      * @Route("/{_locale}/customers/view/", name="customers")
      *
+     * Security("has_role('ROLE_ADMIN') or has_role('ROLE_PRODUCTION_MANAGER') or has_role('ROLE_SALE_MANAGER') or has_role('ROLE_SALE') or has_role('ROLE_ACCOUNTING_MANAGER')")
      */
     public function indexAction(UserInterface $user, Request $request)
     {

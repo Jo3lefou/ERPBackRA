@@ -31,11 +31,10 @@
                       <li><a href="/{{ locale }}/production/view/all/all/all">{% trans %}All production{% endtrans %}</a></li>
                       <li><a href="/{{ locale }}/papproduction/view/all/all/all">{% trans %}RtW production{% endtrans %}</a></li>
                       <li><a href="/{{ locale }}/ceremonyproduction/view/all/all/all">{% trans %}Ceremony production{% endtrans %}</a></li>
-                      <!--<li><a href="/{{ locale }}/form_upload.html">{% trans %}Stock production{% endtrans %}</a></li>-->
                     </ul>
                   </li>
                   {% endif %}
-                  {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ACCOUNTING_MANAGER') %}
+                  {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ACCOUNTING_MANAGER') or is_granted('ROLE_SALE_MANAGER') or is_granted('ROLE_SALE')  %}
                   <li><a><i class="fa fa-edit"></i> {% trans %}Sales{% endtrans %} <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="form.html">{% trans %}Dashboard{% endtrans %}</a></li>
@@ -50,9 +49,10 @@
                             </li>
                           </ul>
                         </li>
-                      <li><a href="{{ locale }}/form_validation.html">{% trans %}Customers{% endtrans %}</a></li>
+                      <li><a href="{{ locale }}/customers/view/25">{% trans %}Customers{% endtrans %}</a></li>
                     </ul>
                   </li>
+                  {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ACCOUNTING_MANAGER') %}
                   <li><a><i class="fa fa-edit"></i>{% trans %}Accounting{% endtrans %} <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="/{{ locale }}/management/dashboard">{% trans %}Dashboard{% endtrans %}</a></li>
@@ -61,6 +61,7 @@
                       <li><a href="/{{ locale }}/management/invoicing">{% trans %}Management{% endtrans %}</a></li>
                     </ul>
                   </li>
+                  {% endif %}
                   {% endif %}
                 </ul>
               </div>

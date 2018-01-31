@@ -8,10 +8,10 @@
 
     <div class="title_right">
       <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-        <div class="input-group">
+        <div class="input-group pull-right" style="margin:0px">
           <form class="form-inline" method='post' action='/admin/{{locale}}/models/search/{{nbitem}}/'>
-            <div class="form-group">
-              <label class="sr-only" for="exampleInputAmount">Search</label>
+            <div class="form-group" style="margin:0px">
+              <label class="sr-only" for="term">Search</label>
               <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-search"></i></div>
                 <input type="text" class="form-control" placeholder="{{searchterm}}" name="term" id="term" style="border: 1px solid #ccc;">
@@ -26,14 +26,15 @@
   </div>
   <div class="x_panel">
     <div class="x_title">
-      <h2>{{ p1h2 }}</h2>
+      <h2>{% trans %}Find the {% endtrans %}{{ pagination.getTotalItemCount }} {% trans %}models{% endtrans %}</h2>
       <div class="col-md-2 pull-right"><a href="/admin/{{ locale }}/models/create/" class="btn btn-success btn-xs"><i class="fa fa-plus"></i> {% trans %}Create a new model{% endtrans %}</a></div>
       <div class="clearfix"></div>
     </div>
     <div class="x_content">
-      <p class="text-muted font-13 m-b-30">
-        The Buttons extension for DataTables provides a common set of options, API methods and styling to display buttons on a page that will interact with a DataTable. The core library provides the based framework upon which plug-ins can built.
-      </p>
+        {% if searchterm is empty %}
+        {% else %}
+          <p class="text-muted font-13 m-b-30">{% trans %}We have found{% endtrans %} {{ pagination.getTotalItemCount }} {% trans %}models corresponding to your search{% endtrans %}: {{searchterm}}</p>
+        {% endif %}
       {% if pagination.getTotalItemCount == 0 %}
       <div class="alert alert-info"><strong>Oups!</strong> Nothing has been found with the terms '{{searchterm}}'...<a class="btn btn-default" href="/admin/{{locale}}/models/view/{{nbitem}}">Watch all models</a></div>
       {% else %}
