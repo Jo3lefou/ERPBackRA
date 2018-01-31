@@ -100,7 +100,7 @@
                           </address>
                         </div>
                         {% else %}
-                        <div class="col-sm-4 invoice-col"></div>
+                        <div class="col-sm-4 invoice-col"><address></address></div>
                         {% endif %}
                         <!-- /.col -->
                         <div class="col-sm-4 invoice-col">
@@ -168,9 +168,9 @@
                                 <td>{{ modelOrdered.model.name }} ({{ modelOrdered.model.category }})</td>
                                 <td>{{ modelOrdered.model.sku }}</td>
                                 <td>{{ modelOrdered.maxProdShip|date("d/m/Y") }}</td>
-                                <td class="align-right">{{ modelOrdered.prixSoldHT/(1+(shop.amountVat/ 100)) }} €</td>
-                                {% if order.shop.isVat %}<td class="align-right">{{ modelOrdered.prixSoldHT/(1+(shop.amountVat/ 100))*(shop.amountVat/100) }} €</td>{% endif %}
-                                {% if order.shop.isVat %}<td class="align-right">{{ modelOrdered.prixSoldHT }} €</td>{% endif %}
+                                <td class="align-right">{{ modelOrdered.prixSoldHT/(1+(shop.amountVat/ 100))|round(2, 'floor') }} €</td>
+                                {% if order.shop.isVat %}<td class="align-right">{{ modelOrdered.prixSoldHT/(1+(shop.amountVat/ 100))*(shop.amountVat/100)|round(2, 'floor') }} €</td>{% endif %}
+                                {% if order.shop.isVat %}<td class="align-right">{{ modelOrdered.prixSoldHT|round(2, 'floor') }} €</td>{% endif %}
                               </tr>
                               {% endfor %}
                             </tbody>
@@ -267,7 +267,7 @@
                                 {% else %}
                                 <tr>
                                   <th>Total:</th>
-                                  <td><strong><span id="totalOrder">{{ detailsOrder.totalPrice }}</span> €</strong></td>
+                                  <td><strong><span id="totalOrder">{{ detailsOrder.totalPrice|round(2, 'floor') }}</span> €</strong></td>
                                 </tr>
                                 <tr>
                                   <th>Total Payment:</th>
@@ -275,7 +275,7 @@
                                 </tr>
                                 <tr>
                                   <th>Outstanding payment:</th>
-                                  <td><span id='totalOutstandingPaiement'>{{ detailsOrder.totalPrice - payment }}</span> €</td>
+                                  <td><span id='totalOutstandingPaiement'>{{ detailsOrder.totalPrice - payment|round(2, 'floor') }}</span> €</td>
                                 </tr>
                                 {% endif %}
                               </tbody>
