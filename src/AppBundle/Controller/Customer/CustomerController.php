@@ -33,12 +33,29 @@ class CustomerController extends Controller
 
         $repository = $this->getDoctrine()->getRepository(RarCustomer::class);
         //$customers = $repository->findAll();
-
-        $em = $this->get('doctrine.orm.entity_manager');
-        $dql = "SELECT a FROM AppBundle:RarCustomer a";
-        $query = $em->createQuery($dql);
-        $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate( $query, $request->query->getInt('page', 1), 1 );
+        $searchTerm = "";
+        if($display == 'view'){
+            $em = $this->get('doctrine.orm.entity_manager');
+            $dql = "SELECT a FROM AppBundle:RarCustomer a";
+            $query = $em->createQuery($dql);
+            $paginator  = $this->get('knp_paginator');
+            $pagination = $paginator->paginate( $query, $request->query->getInt('page', 1), 1 );
+        }elseif($display == 'search'){
+            if ($request->isMethod('POST')) {
+                $request = new Request($_POST);
+                $term = $request->query->get('term');
+                $em = $this->get('doctrine.orm.entity_manager');
+                $dql = "SELECT a FROM AppBundle:RarCustomer a WHERE a.lastName LIKE '%".addcslashes($term, '%_')."%' OR a.firstName LIKE '%".addcslashes($term, '%_')."%'";
+                $query = $em->createQuery($dql);
+                $paginator  = $this->get('knp_paginator');
+                $pagination = $paginator->paginate( $query, $request->query->getInt('page', 1), $number );
+                $searchTerm = $term;
+            }else{
+                return $this->redirect('/admin/'.$locale.'/models/view/'.$number);
+            }
+        }else{
+            return $this->redirect('/admin/'.$locale.'/models/view/'.$number);
+        }
 
         if($user){
             return $this->render('customers/list.html.twig', array(

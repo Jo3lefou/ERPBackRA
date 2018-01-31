@@ -29,61 +29,45 @@
 
   <div class="x_panel">
     <div class="x_title">
-      <h2>{{ p1h2 }}</h2>
+      <h2>{% trans %}Find the {% endtrans %}{{ pagination.getTotalItemCount }} {% trans %}customers below{% endtrans %}</h2>
       <div class="col-md-2 pull-right"><a href="/admin/{{ locale }}/models/create/" class="btn btn-success btn-xs"><i class="fa fa-plus"></i> {% trans %}Add a new customer{% endtrans %}</a></div>
       <div class="clearfix"></div>
     </div>
     <div class="x_content">
-      <p class="text-muted font-13 m-b-30">
-        Find all your customers here and manage their profile from here.
-      </p>
-      {{ dump(pagination) }}
-      <table id="datatable-buttons" class="table table-striped table-bordered">
-        <thead>
-          <tr>
-            <th>{% trans %}Last name{% endtrans %}</th>
-            <th>{% trans %}First name{% endtrans %}</th>
-            <th>{% trans %}City{% endtrans %}</th>
-            <th>{% trans %}Phone{% endtrans %}</th>
-            <th>{% trans %}Email{% endtrans %}?</th>
-            <th>{% trans %}Nb Orders{% endtrans %}</th>
-            <th>{% trans %}Action{% endtrans %}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for customer in customers %}
-          <tr>
-            <td>{{ customer.lastName }}</td>
-            <td>{{ customer.firstName }}</td>
-            <td>{{ customer.city }}</td>
-            <td>{{ customer.phone }}</td>
-            <td>{{ customer.email }}</td>
-            <td>{{ customer.orders|length }}</td>
-            <td><a href="edit/" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>&nbsp;<a href="edit/" class="btn btn-danger btn-xs"><i class="fa  fa-trash"></i></a>&nbsp;<a href="edit/" class="btn btn-warning btn-xs"><i class="fa fa-lock"></i></a></td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+      {% if searchterm is empty %}
+      {% else %}
+        <p class="text-muted font-13 m-b-30">{% trans %}We have found{% endtrans %} {{ pagination.getTotalItemCount }} {% trans %}customers corresponding to your search{% endtrans %}: {{searchterm}}</p>
+      {% endif %}
 
-      {# total items count #}
-      <div class="count">
-          {{ pagination.getTotalItemCount }}
-      </div>
+      {% if pagination.getTotalItemCount == 0 %}
+      <div class="alert alert-info"><strong>Oups!</strong> Nothing has been found with the terms '{{searchterm}}'...<a class="btn btn-default" href="/admin/{{locale}}/customers/view/{{nbitem}}">Watch all customers</a></div>
+      {% else %}
+
       <table id="datatable-buttons" class="table table-striped table-bordered">
         <thead>
           <tr>
-          {# sorting of properties based on query components #}
-              <th>{{ knp_pagination_sortable(pagination, 'Id', 'a.id') }}</th>
-              <th{% if pagination.isSorted('a.firstName') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'FirstName', 'a.firstName') }}</th>
+            <th{% if pagination.isSorted('a.lastName') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Last name', 'a.lastName') }}</th>
+            <th{% if pagination.isSorted('a.firstName') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'First name', 'a.fistName') }}</th>
+            <th{% if pagination.isSorted('a.city') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'City', 'a.city') }}</th>
+            <th{% if pagination.isSorted('a.phone') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Phone', 'a.phone') }}</th>
+            <th{% if pagination.isSorted('a.email') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Email', 'a.email') }}</th>
+            <th>{% trans %}Nb Orders{% endtrans %}</th>
+            <th{% if pagination.isSorted('a.dateCreation') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Cus. since', 'a.dateCreation') }}</th>
+            <th>{% trans %}Action{% endtrans %}</th>
           </tr>
         </thead>
         <tbody>
           {# table body #}
           {% for customer in pagination %}
           <tr {% if loop.index is odd %}class="color"{% endif %}>
-              <td>{{ customer.id }}</td>
-              <td>{{ customer.firstName }}</td>
-              <td>{{ customer.dateCreation | date('Y-m-d') }}</td>
+            <td>{{ customer.lastName }}</td>
+            <td>{{ customer.firstName }}</td>
+            <td>{{ customer.city }}</td>
+            <td>{{ customer.phone }}</td>
+            <td>{{ customer.email }}</td>
+            <td>{{ customer.orders|length }}</td>
+            <td>{{ customer.dateCreation | date('Y-m-d') }}</td>
+            <td></td>
           </tr>
           {% endfor %}
         </tbody>
@@ -92,7 +76,7 @@
       <div class="navigation">
           {{ knp_pagination_render(pagination) }}
       </div>
-
+      {% endif %}
     </div>
 
 
