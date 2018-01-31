@@ -113,6 +113,35 @@
         </tbody>
       </table>
       {# display navigation #}
+        <div class="">
+          <div class="pull-left">
+            <div class="col-md-5 col-sm-5 col-xs-5">
+              <label for="displaydropdown">Display</label>
+            </div>
+            <div class="col-md-5 col-sm-5 col-xs-5">
+              <select id="displaydrop" name="displaydropdown">
+                  <option value="25" {% if nbitem == 25 %}selected{% endif %}>25</option>
+                  <option value="50" {% if nbitem == 50 %}selected{% endif %}>50</option>
+                  <option value="100" {% if nbitem == 100 %}selected{% endif %}>100</option>
+                  <option value="500" {% if nbitem == 500 %}selected{% endif %}>500</option>
+                  <option value="1000" {% if nbitem == 1000 %}selected{% endif %}>1000</option>
+              </select>
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-2">
+              <a id="link" href="" class="btn btn-default btn-xs">Go !</a>
+            </div>
+          </div>
+          <script>
+            var sel = document.getElementById('displaydrop');
+            sel.onchange = function () {
+                //document.getElementById("link").href = this.value;
+                var pathArray = window.location.pathname.split( '/' );
+                var newURL = window.location.protocol + "//" + window.location.host + "/" + pathArray[1] + "/" + pathArray[2] + "/" + pathArray[3] + "/" + this.value;
+                document.getElementById("link").href = newURL
+
+            }
+          </script>
+        </div>
       <div class="navigation">
           {{ knp_pagination_render(pagination) }}
       </div>
