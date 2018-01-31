@@ -71,7 +71,8 @@ class ModelController extends Controller
                 'user' => $user,
                 'pagination' => $pagination,
                 'nbitem' => $number,
-                'searchterm' => $searchTerm
+                'searchterm' => $searchTerm,
+                'dump' => $dql
             ));
 
         }else{
