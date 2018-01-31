@@ -37,6 +37,19 @@
       <table id="datatable-buttons" class="table table-striped table-bordered">
         <thead>
           <tr>
+            <th>{{ knp_pagination_sortable(pagination, 'Name', 'a.name') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'ID Co.', 'a.collectionId') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'SKU', 'a.sku') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Public Price', 'a.prixHT') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Shop Price', 'a.prixShop') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'A', 'a.isActive') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'S', 'a.isShop') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'C', 'a.isContract') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Type', 'a.type') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Min Ship', 'a.minShipWeek') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'max Ship', 'a.maxShipWeek') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'sizes', 'a.sizes') }}</th>
+            <th>{% trans %}Action{% endtrans %}</th>
           </tr>
         </thead>
         <tbody>
@@ -97,7 +110,7 @@
       </table>
       {# display navigation #}
       <div class="navigation">
-          
+          {{ knp_pagination_render(pagination) }}
       </div>
     </div>
   </div>
