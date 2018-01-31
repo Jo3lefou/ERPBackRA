@@ -254,7 +254,7 @@
                                 </tr>
                                 <tr>
                                   <th>Total:</th>
-                                  <td><strong><span id="totalOrder">{{ detailsOrder.totalPrice }}</span> €</strong></td>
+                                  <td><strong><span id="totalOrder">{{ (detailsOrder.totalPrice)|round(2, 'common') }}</span> €</strong></td>
                                 </tr>
                                 <tr>
                                   <th>Total Payment:</th>
