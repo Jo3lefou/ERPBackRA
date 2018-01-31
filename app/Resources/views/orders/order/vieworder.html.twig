@@ -168,9 +168,9 @@
                                 <td>{{ modelOrdered.model.name }} ({{ modelOrdered.model.category }})</td>
                                 <td>{{ modelOrdered.model.sku }}</td>
                                 <td>{{ modelOrdered.maxProdShip|date("d/m/Y") }}</td>
-                                <td class="align-right">{{ modelOrdered.prixSoldHT/(1+(shop.amountVat/ 100))|round(1, 'floor') }} €</td>
-                                {% if order.shop.isVat %}<td class="align-right">{{ modelOrdered.prixSoldHT/(1+(shop.amountVat/ 100))*(shop.amountVat/100)|round(1, 'floor') }} €</td>{% endif %}
-                                {% if order.shop.isVat %}<td class="align-right">{{ modelOrdered.prixSoldHT|round(1, 'floor') }} €</td>{% endif %}
+                                <td class="align-right">{{ modelOrdered.prixSoldHT/(1+(shop.amountVat/ 100))|round(1, 'ceil') }} €</td>
+                                {% if order.shop.isVat %}<td class="align-right">{{ modelOrdered.prixSoldHT/(1+(shop.amountVat/ 100))*(shop.amountVat/100)|round(1, 'ceil') }} €</td>{% endif %}
+                                {% if order.shop.isVat %}<td class="align-right">{{ modelOrdered.prixSoldHT|round(1, 'ceil') }} €</td>{% endif %}
                               </tr>
                               {% endfor %}
                             </tbody>
