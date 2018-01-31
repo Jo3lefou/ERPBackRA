@@ -86,9 +86,8 @@
                           For
                           <address>
                             <strong>
-                              {% if customer.salutation %}
-                                {% if customer.salutation == 1 %}{% trans %}Mr.{% endtrans %}{% elseif customer.salutation == 2 %}{% trans %}Mrs.{% endtrans %}{% else %}{% trans %}Miss.{% endtrans %}{% endif %} {{ customer.firstName }} {{ customer.lastName }}
-                              {% endif %}
+                              {% if customer.salutation|default('2') %}
+                                {% if customer.salutation == 1 %}{% trans %}Mr.{% endtrans %}{% elseif customer.salutation == 2 %}{% trans %}Mrs.{% endtrans %}{% else %}{% trans %}Miss.{% endtrans %}{% endif %}{% endif %} {{ customer.firstName }} {{ customer.lastName }}
                             </strong>
                             <br>{{ customer.address }}
                             <br>{{ customer.postCode }} {{ customer.city }}
