@@ -157,8 +157,8 @@ class EditOrderAjaxController extends Controller
                 $shopLocale = $shop->getLocale();
                 // We send a notification to tell the shop that the order is now confirmed.
                 $message = (new \Swift_Message('Hello Email'))
-                    ->setFrom('showroom@rime-arodaky.com')
-                    ->setTo($shopEmail)
+                    ->setFrom('notification@rime-arodaky.com')
+                    ->setTo('joffrey.faroux@gmail.com')//$shopEmail
                     ->setBody(
                         $this->renderView( 'email/confirmationOrder.txt.twig',
                         array('locale' => $shopLocale, 'order' => $entity, 'shop' => $shop, 'statusEn' => $emailstateEn, 'statusFr' => $emailstateFr ) )
