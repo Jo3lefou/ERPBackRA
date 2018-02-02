@@ -29,7 +29,7 @@ class EditOrderAjaxController extends Controller
 	/**
      * @Route("/{_locale}/orders/update/{type}/{id}", name="updateorder")
      */
-	public function indexAction($type, $id, Request $request, \Swift_Mailer $mailer)
+	public function indexAction($type, $id, Request $request, \Swift_Mailer $mailer, LoggerInterface $logger)
 	{
 		if( $request->get('value') || $request->get('value') == 0 ){
 
