@@ -615,6 +615,30 @@ class RarShop
         return $this->vatNum;
     }
 
+    /**
+     * Get color
+     *
+     * @return string
+     */
+    public function getColor()
+    {
+        return $this->color;
+    }
+
+    /**
+     * Set color
+     *
+     * @param string $color
+     *
+     * @return RarShop
+     */
+    public function setColor($color)
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
 
 
     /**
