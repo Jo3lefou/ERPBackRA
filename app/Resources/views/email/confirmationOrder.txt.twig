@@ -234,24 +234,44 @@
             <!-- 1 Column Text + Button : BEGIN -->
             <tr>
                 <td bgcolor="#ffffff" style="padding: 40px 40px 20px; text-align: center;">
-                    <h1 style="margin: 0; font-family: sans-serif; font-size: 24px; line-height: 125%; color: #333333; font-weight: normal;">Praesent laoreet malesuada&nbsp;cursus.</h1>
+                	{% if locale == 'fr' %}
+                    	<h1 style="margin: 0; font-family: sans-serif; font-size: 24px; line-height: 125%; color: #333333; font-weight: normal;">Commande {% if order.idCompta|length < 1 %}DRAFT created on {{ order.dateOrder}}{% elseif order.idCompta|length < 2 %}{{ shop.extention }}000{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 3 %}{{ shop.extention }}00{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 4 %}{{ shop.extention }}0{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 5 %}{{ shop.extention }}{{ order.idCompta }}-{{ order.year }}{% endif %}{% if order.type == "1" %}-S{% elseif order.type == 2 %}-P{% endif %}</h1>
+                    {% else %}
+                    	<h1 style="margin: 0; font-family: sans-serif; font-size: 24px; line-height: 125%; color: #333333; font-weight: normal;">Order {% if order.idCompta|length < 1 %}DRAFT created on {{ order.dateOrder}}{% elseif order.idCompta|length < 2 %}{{ shop.extention }}000{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 3 %}{{ shop.extention }}00{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 4 %}{{ shop.extention }}0{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 5 %}{{ shop.extention }}{{ order.idCompta }}-{{ order.year }}{% endif %}{% if order.type == "1" %}-S{% elseif order.type == 2 %}-P{% endif %}</h1>
+                    {% endif %}
                 </td>
             </tr>
             <tr>
                 <td bgcolor="#ffffff" style="padding: 0 40px 40px; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555; text-align: center;">
-                    <p style="margin: 0;">Maecenas sed ante pellentesque, posuere leo id, eleifend dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent laoreet malesuada cursus. Maecenas scelerisque congue eros eu posuere. Praesent in felis ut velit pretium lobortis rhoncus ut&nbsp;erat.</p>
+                	{% if locale == 'fr' %}
+		            	<p style="margin: 0;">
+		            		La commande {% if order.idCompta|length < 1 %}DRAFT created on {{ order.dateOrder}}{% elseif order.idCompta|length < 2 %}{{ shop.extention }}000{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 3 %}{{ shop.extention }}00{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 4 %}{{ shop.extention }}0{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 5 %}{{ shop.extention }}{{ order.idCompta }}-{{ order.year }}{% endif %}{% if order.type == "1" %}-S{% elseif order.type == 2 %}-P{% endif %}{% if locale == 'en' %}{{ statusEn }}{% else %}{{ statusFr }}{% endif %}.
+		            		<br><br>
+            				Pour suivre l'avancé de votre commande, merci de vous connecter sur la plateforme de commande.
+            			</p>
+					{% else %}
+						<p style="margin: 0;">
+							The order {% if order.idCompta|length < 1 %}DRAFT created on {{ order.dateOrder}}{% elseif order.idCompta|length < 2 %}{{ shop.extention }}000{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 3 %}{{ shop.extention }}00{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 4 %}{{ shop.extention }}0{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 5 %}{{ shop.extention }}{{ order.idCompta }}-{{ order.year }}{% endif %}{% if order.type == "1" %}-S{% elseif order.type == 2 %}-P{% endif %}{% if locale == 'en' %}{{ statusEn }}{% else %}{{ statusFr }}{% endif %}.
+							<br><br>
+							To follow the status of your order, please connect on the order platform.</p>
+					{% endif %}
                 </td>
             </tr>
             <tr>
                 <td bgcolor="#ffffff" style="padding: 0 40px 40px; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555;">
                     <!-- Button : BEGIN -->
-		    <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+		    		<table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
                         <tr>
                             <td style="border-radius: 3px; background: #070707; text-align: center;" class="button-td">
-                                <a href="http://www.google.com" style="background: #070707; border: 15px solid #070707; font-family: sans-serif; font-size: 13px; line-height: 110%; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold;" class="button-a">
-                                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ffffff;">A Button</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a href="http://ns367524.ip-37-59-36.eu/{{ locale }}/orders/single/{{ order.id }}" style="background: #070707; border: 15px solid #070707; font-family: sans-serif; font-size: 13px; line-height: 110%; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold;" class="button-a">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ffffff;">{% if locale == 'fr' %}Accéder à votre commande{% else %}Access to the order{% endif %}</span>&nbsp;&nbsp;&nbsp;&nbsp;
                                 </a>
                             </td>
+                        </tr>
+                        <tr>
+                        	<td>
+                        		{% if locale == 'fr' %}La (d)Rime Team{% else %}The (d)Rime Team{% endif %}
+                        	</td>
                         </tr>
                     </table>
                     <!-- Button : END -->
@@ -272,7 +292,7 @@
                     <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
                         <tr>
                             <td valign="middle" style="text-align: center; padding: 40px; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #ffffff;">
-                                <p style="margin: 0;">Maecenas sed ante pellentesque, posuere leo id, eleifend dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent laoreet malesuada cursus. Maecenas scelerisque congue eros eu posuere. Praesent in felis ut velit pretium lobortis rhoncus ut&nbsp;erat.</p>
+                                <p style="margin: 0;">Blabla about rime Arodaky</p>
                             </td>
                         </tr>
                     </table>
@@ -285,220 +305,6 @@
         </tr>
         <!-- Background Image with Text : END -->
 
-        <!-- 2 Even Columns : BEGIN -->
-        <tr>
-            <td bgcolor="#ffffff" align="center" valign="top" style="padding: 10px;">
-                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-                    <tr>
-                        <!-- Column : BEGIN -->
-                        <td class="stack-column-center">
-                            <table role="presentation" cellspacing="0" cellpadding="0" border="0">
-                                <tr>
-                                    <td style="padding: 10px; text-align: center">
-                                        <img src="http://placehold.it/270" width="270" height="270" alt="alt_text" border="0" class="fluid" style="height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555;">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555; padding: 0 10px 10px; text-align: left;" class="center-on-narrow">
-                                        <p style="margin: 0;">Maecenas sed ante pellentesque, posuere leo id, eleifend dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                        <!-- Column : END -->
-                        <!-- Column : BEGIN -->
-                        <td class="stack-column-center">
-                            <table role="presentation" cellspacing="0" cellpadding="0" border="0">
-                                <tr>
-                                    <td style="padding: 10px; text-align: center">
-                                        <img src="http://placehold.it/270" width="270" height="270" alt="alt_text" border="0" class="fluid" style="height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555;">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555; padding: 0 10px 10px; text-align: left;" class="center-on-narrow">
-                                        <p style="margin: 0;">Maecenas sed ante pellentesque, posuere leo id, eleifend dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                        <!-- Column : END -->
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <!-- 2 Even Columns : END -->
-
-        <!-- 3 Even Columns : BEGIN -->
-        <tr>
-            <td bgcolor="#ffffff" align="center" valign="top" style="padding: 10px;">
-                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-                    <tr>
-                        <!-- Column : BEGIN -->
-                        <td width="33.33%" class="stack-column-center">
-                            <table role="presentation" cellspacing="0" cellpadding="0" border="0">
-                                <tr>
-                                    <td style="padding: 10px; text-align: center">
-                                        <img src="http://placehold.it/170" width="170" height="170" alt="alt_text" border="0" class="fluid" style="height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555;">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555; padding: 0 10px 10px; text-align: left;" class="center-on-narrow">
-                                        <p style="margin: 0;">Maecenas sed ante pellentesque, posuere leo id, eleifend dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                        <!-- Column : END -->
-                        <!-- Column : BEGIN -->
-                        <td width="33.33%" class="stack-column-center">
-                            <table role="presentation" cellspacing="0" cellpadding="0" border="0">
-                                <tr>
-                                    <td style="padding: 10px; text-align: center">
-                                        <img src="http://placehold.it/170" width="170" height="170" alt="alt_text" border="0" class="fluid" style="height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555;">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555; padding: 0 10px 10px; text-align: left;" class="center-on-narrow">
-                                        <p style="margin: 0;">Maecenas sed ante pellentesque, posuere leo id, eleifend dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                        <!-- Column : END -->
-                        <!-- Column : BEGIN -->
-                        <td width="33.33%" class="stack-column-center">
-                            <table role="presentation" cellspacing="0" cellpadding="0" border="0">
-                                <tr>
-                                    <td style="padding: 10px; text-align: center">
-                                        <img src="http://placehold.it/170" width="170" height="170" alt="alt_text" border="0" class="fluid" style="height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555;">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555; padding: 0 10px 10px; text-align: left;" class="center-on-narrow">
-                                        <p style="margin: 0;">Maecenas sed ante pellentesque, posuere leo id, eleifend dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                        <!-- Column : END -->
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <!-- 3 Even Columns : END -->
-
-        <!-- Thumbnail Left, Text Right : BEGIN -->
-        <tr>
-            <td bgcolor="#ffffff" dir="ltr" align="center" valign="top" width="100%" style="padding: 10px;">
-                <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
-                    <tr>
-                        <!-- Column : BEGIN -->
-                        <td width="33.33%" class="stack-column-center">
-                            <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
-                                <tr>
-                                    <td dir="ltr" valign="top" style="padding: 0 10px;">
-                                        <img src="http://placehold.it/170" width="170" height="170" alt="alt_text" border="0" class="center-on-narrow" style="height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555;">
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                        <!-- Column : END -->
-                        <!-- Column : BEGIN -->
-                        <td width="66.66%" class="stack-column-center">
-                            <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
-                                <tr>
-                                    <td dir="ltr" valign="top" style="font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555; padding: 10px; text-align: left;" class="center-on-narrow">
-                                        <h2 style="margin: 0 0 10px 0; font-family: sans-serif; font-size: 18px; line-height: 125%; color: #333333; font-weight: bold;">Class aptent taciti sociosqu</h2>
-                                        <p style="margin: 0 0 10px 0;">Maecenas sed ante pellentesque, posuere leo id, eleifend dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
-                                        <!-- Button : BEGIN -->
-                                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" class="center-on-narrow" style="float:left;">
-                                            <tr>
-                                                <td style="border-radius: 3px; background: #070707; text-align: center;" class="button-td">
-                                                    <a href="http://www.google.com" style="background: #070707; border: 15px solid #070707; font-family: sans-serif; font-size: 13px; line-height: 110%; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold;" class="button-a">
-                                                      <span style="color:#ffffff;" class="button-link">&nbsp;&nbsp;&nbsp;&nbsp;A Button&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                                  </a>
-                                              </td>
-                                          </tr>
-                                      </table>
-                                      <!-- Button : END -->
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                        <!-- Column : END -->
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <!-- Thumbnail Left, Text Right : END -->
-
-        <!-- Thumbnail Right, Text Left : BEGIN -->
-        <tr>
-            <td bgcolor="#ffffff" dir="rtl" align="center" valign="top" width="100%" style="padding: 10px;">
-                <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
-                    <tr>
-                        <!-- Column : BEGIN -->
-                        <td width="33.33%" class="stack-column-center">
-                            <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
-                                <tr>
-                                    <td dir="ltr" valign="top" style="padding: 0 10px;">
-                                        <img src="http://placehold.it/170" width="170" height="170" alt="alt_text" border="0" class="center-on-narrow" style="height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555;">
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                        <!-- Column : END -->
-                        <!-- Column : BEGIN -->
-                        <td width="66.66%" class="stack-column-center">
-                            <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
-                                <tr>
-                                    <td dir="ltr" valign="top" style="font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555; padding: 10px; text-align: left;" class="center-on-narrow">
-                                        <h2 style="margin: 0 0 10px 0; font-family: sans-serif; font-size: 18px; line-height: 125%; color: #333333; font-weight: bold;">Class aptent taciti sociosqu</h2>
-                                        <p style="margin: 0 0 10px 0;">Maecenas sed ante pellentesque, posuere leo id, eleifend dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
-                                        <!-- Button : BEGIN -->
-                                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" class="center-on-narrow" style="float:left;">
-                                            <tr>
-                                                <td style="border-radius: 3px; background: #070707; text-align: center;" class="button-td">
-                                                    <a href="http://www.google.com" style="background: #070707; border: 15px solid #070707; font-family: sans-serif; font-size: 13px; line-height: 110%; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold;" class="button-a">
-                                                        <span style="color:#ffffff;" class="button-link">&nbsp;&nbsp;&nbsp;&nbsp;A Button&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                        <!-- Button : END -->
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                        <!-- Column : END -->
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <!-- Thumbnail Right, Text Left : END -->
-
-        <!-- Clear Spacer : BEGIN -->
-        <tr>
-            <td aria-hidden="true" height="40" style="font-size: 0; line-height: 0;">
-                &nbsp;
-            </td>
-        </tr>
-        <!-- Clear Spacer : END -->
-
-        <!-- 1 Column Text : BEGIN -->
-        <tr>
-            <td bgcolor="#ffffff">
-                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-                    <tr>
-                        <td style="padding: 40px; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555;">
-                            Maecenas sed ante pellentesque, posuere leo id, eleifend dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent laoreet malesuada cursus. Maecenas scelerisque congue eros eu posuere. Praesent in felis ut velit pretium lobortis rhoncus ut&nbsp;erat.
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <!-- 1 Column Text : END -->
-
     </table>
     <!-- Email Body : END -->
 
@@ -508,76 +314,13 @@
             <td style="padding: 40px 10px; width: 100%; font-family: sans-serif; font-size: 12px; line-height: 140%; text-align: center; color: #888888;" class="x-gmail-data-detectors">
                 <webversion style="color: #cccccc; text-decoration: underline; font-weight: bold;">View as a Web Page</webversion>
                 <br><br>
-                Company Name<br>123 Fake Street, SpringField, OR, 97477 US<br>(123) 456-7890
-                <br><br>
-                <unsubscribe style="color: #888888; text-decoration: underline;">unsubscribe</unsubscribe>
+                Rime Arodaky<br>28 rue d’Aboukir, 75002 Paris, France<br>+33 (0)1 75 42 99 95 | <a href="mailto:boutique@rime-arodaky.com">boutique@rime-arodaky.com</a>
             </td>
         </tr>
     </table>
     <!-- Email Footer : END -->
 
-    <!-- Full Bleed Background Section : BEGIN -->
-    <table role="presentation" bgcolor="#709f2b" cellspacing="0" cellpadding="0" border="0" align="center" width="100%">
-        <tr>
-            <td valign="top" align="center">
-                <div style="max-width: 600px; margin: auto;" class="email-container">
-                    <!--[if mso]>
-                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" align="center">
-                    <tr>
-                    <td>
-                    <![endif]-->
-                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-                        <tr>
-                            <td style="padding: 40px; text-align: left; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #ffffff;">
-                                <p style="margin: 0;">Maecenas sed ante pellentesque, posuere leo id, eleifend dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent laoreet malesuada cursus. Maecenas scelerisque congue eros eu posuere. Praesent in felis ut velit pretium lobortis rhoncus ut&nbsp;erat.</p>
-                            </td>
-                        </tr>
-                    </table>
-                    <!--[if mso]>
-                    </td>
-                    </tr>
-                    </table>
-                    <![endif]-->
-                </div>
-            </td>
-        </tr>
-    </table>
-    <!-- Full Bleed Background Section : END -->
-
     </center>
 </body>
 </html>
-
-
-
-
-
-
-
-
---- Rime Arodaky notification ---
-
-
-
-
-
-
-
-
-{% if locale == 'fr' %}
-Pour suivre l'avancé de votre commande, merci de vous connecter sur la <a href="http://ns367524.ip-37-59-36.eu">plateforme Rime Arodaky</a>.
-<br/><br/>
-Best regards,
-<br/><br/>
-La (d)Rime Team
-{% else %}
-To follow the status of your order, please connect to the <a href="http://ns367524.ip-37-59-36.eu">Rime Arodaky Platform</a>.
-<br/><br/>
-Best regards,
-<br/><br/>
-The (d)Rime Team
-{% endif %}
-<br/><br/>
-
-<a href="http://www.rime-arodaky.com"/>Rime Arodaky</a>
 
