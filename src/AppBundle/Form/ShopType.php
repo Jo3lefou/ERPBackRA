@@ -58,6 +58,7 @@ class ShopType extends AbstractType
             ->add('amountContract', NumberType::class, [
                 'required'   => false, //important!
             ])
+            ->add('color', TextType::class)
             ->add('users', EntityType::class, array(
                 // query choices from this entity
                 'class' => 'AppBundle:User',

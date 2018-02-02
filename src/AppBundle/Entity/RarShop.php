@@ -150,6 +150,13 @@ class RarShop
     private $vatNum;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="color", type="string", length=255)
+     */
+    private $color;
+
+    /**
      * @ORM\OneToMany(targetEntity="RarOrder", mappedBy="shop")
      */
     protected $orders;
