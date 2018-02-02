@@ -50,6 +50,7 @@ class ManagementController extends Controller
     			$em = $this->get('doctrine.orm.entity_manager');
 	            //$dql = "SELECT a FROM AppBundle:RarCustomer a";
 				$dql = "SELECT 
+					c.color as color,
 					c.name as shop,
 					SUM(CASE WHEN WEEK(a.datePaiement) = 35 THEN a.amount ELSE 0 END) as W35,
 					SUM(CASE WHEN WEEK(a.datePaiement) = 36 THEN a.amount ELSE 0 END) as W36,

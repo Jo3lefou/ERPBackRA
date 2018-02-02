@@ -167,8 +167,8 @@
       behaveLikeLine: true,
       resize: true,
       pointFillColors:['#ffffff'],
-      pointStrokeColors: ['black'],
-      lineColors:['gray','red','blue']
+      pointStrokeColors: ['#EDEDED'],
+      lineColors:[{% for shopPaiement in dashboard %}'{{shopPaiement.color}}'{% if loop.last %}{% else %}, {% endif %}{% endfor %}],
     };
     config.element = 'area-chart';
     Morris.Area(config);
