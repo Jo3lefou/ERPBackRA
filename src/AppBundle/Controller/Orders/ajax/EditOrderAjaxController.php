@@ -158,7 +158,7 @@ class EditOrderAjaxController extends Controller
                 $shopEmail = $shop->getEmail();
                 $shopLocale = $shop->getLocale();
 
-                $logger->info('Send Email Begins');
+                //$logger->info('Send Email Begins');
                 // We send a notification to tell the shop that the order is now confirmed.
                 $message = (new \Swift_Message('Hello Email'))
                     ->setFrom('notification@rime-arodaky.com')
@@ -168,7 +168,7 @@ class EditOrderAjaxController extends Controller
                         array('locale' => $shopLocale, 'order' => $entity, 'shop' => $shop, 'statusEn' => $emailstateEn, 'statusFr' => $emailstateFr ) )
                     );
                 $mailer->send($message);
-                $logger->info('Send Email Ends');
+                //$logger->info('Send Email Ends');
 
 
 			}elseif($type == 'update-workroom'){
