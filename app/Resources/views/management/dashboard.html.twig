@@ -100,6 +100,79 @@
     <script src="{{ url('homepage') }}build/js/custom.min.js"></script>
 
     <script>
-    
+
+    var data = [
+      { y: '{{ ("now"|date("Y"))-1 }} W35', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W35}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y"))-1 }} W36', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W36}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y"))-1 }} W37', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W37}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y"))-1 }} W38', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W38}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y"))-1 }} W39', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W39}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y"))-1 }} W40', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W40}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y"))-1 }} W41', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W41}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y"))-1 }} W42', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W42}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y"))-1 }} W43', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W43}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y"))-1 }} W44', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W44}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y"))-1 }} W45', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W45}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y"))-1 }} W46', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W46}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y"))-1 }} W47', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W47}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y"))-1 }} W48', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W48}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y"))-1 }} W49', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W49}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y"))-1 }} W50', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W50}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y"))-1 }} W51', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W51}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y"))-1 }} W52', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W52}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y"))-1 }} W53', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W53}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y"))-1 }} W54', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W54}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y")) }} W01', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W01}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y")) }} W02', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W02}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y")) }} W03', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W03}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y")) }} W04', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W04}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y")) }} W05', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W05}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y")) }} W06', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W06}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y")) }} W07', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W07}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y")) }} W08', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W08}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y")) }} W09', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W09}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y")) }} W10', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W10}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y")) }} W11', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W11}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y")) }} W12', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W12}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y")) }} W13', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W13}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y")) }} W14', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W14}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y")) }} W15', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W15}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y")) }} W16', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W16}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y")) }} W17', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W17}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y")) }} W18', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W18}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y")) }} W19', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W19}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y")) }} W20', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W20}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y")) }} W21', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W21}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y")) }} W22', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W22}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y")) }} W23', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W23}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y")) }} W24', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W24}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y")) }} W25', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W25}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y")) }} W26', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W26}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y")) }} W27', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W27}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y")) }} W28', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W28}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y")) }} W29', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W29}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y")) }} W30', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W30}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y")) }} W31', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W31}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y")) }} W32', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W32}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y")) }} W33', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W33}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} },
+      { y: '{{ ("now"|date("Y")) }} W34', {% for shopPaiement in dashboard %}{{loop.index}}: {{shopPaiement.W34}}{% if loop.last %}{% else %}, {% endif %}{% endfor %} }
+    ],
+    config = {
+      data: data,
+      xkey: 'y',
+      ykeys: [{% for shopPaiement in dashboard %}'{{loop.index}}'{% if loop.last %}{% else %}, {% endif %}{% endfor %}],
+      labels: [{% for shopPaiement in dashboard %}'{{shopPaiement.shop}}'{% if loop.last %}{% else %}, {% endif %}{% endfor %}],
+      fillOpacity: 0.6,
+      hideHover: 'auto',
+      behaveLikeLine: true,
+      resize: true,
+      pointFillColors:['#ffffff'],
+      pointStrokeColors: ['black'],
+      lineColors:['gray','red','blue']
+    };
+    config.element = 'area-chart';
+    Morris.Area(config);
+
+
     </script>
 {% endblock %}
