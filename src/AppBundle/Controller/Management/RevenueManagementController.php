@@ -25,7 +25,7 @@ class RevenueManagementController extends Controller
      *
      * @Route("/{_locale}/management/revenue/{action}/{shop}", name="revenuemanagement")
      *
-     * Security("has_role('ROLE_ADMIN')")
+     * Security("has_role('ROLE_ADMIN') or has_role('ROLE_ACCOUNTING_MANAGER')")
      *
      */
     public function indexAction($action = 'view', $shop = 'all', UserInterface $user)
