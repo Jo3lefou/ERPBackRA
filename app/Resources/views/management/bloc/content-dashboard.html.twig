@@ -1,0 +1,138 @@
+			  <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>{{ p1h2 }}</h2>
+                    <div class="col-md-2 pull-right"><a href="/fr/management/dashboard/extractManagementDashboard.csv" class="btn btn-default btn-xs"><i class="fa fa-download"></i> {% trans %}Extract{% endtrans %}</a></div>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <p class="text-muted font-13 m-b-30">
+                      Find revenue, sum of paiement received per shop and per week
+                    </p>
+                    <div style="width:100%; overflow:auto;">
+	                    <table id="datatable-buttons" class="table table-striped table-bordered">
+	                      <thead>
+	                        <tr>
+	                          <th>{% trans %}Name{% endtrans %}</th>
+	                          <th>W35</th>
+	                          <th>W36</th>
+	                          <th>W37</th>
+	                          <th>W38</th>
+	                          <th>W39</th>
+	                          <th>W40</th>
+	                          <th>W41</th>
+	                          <th>W42</th>
+	                          <th>W43</th>
+	                          <th>W44</th>
+	                          <th>W45</th>
+	                          <th>W46</th>
+	                          <th>W47</th>
+	                          <th>W48</th>
+	                          <th>W49</th>
+	                          <th>W50</th>
+	                          <th>W51</th>
+	                          <th>W52</th>
+	                          <th>W53</th>
+	                          <th>W54</th>
+	                          <th>W01</th>
+	                          <th>W02</th>
+	                          <th>W03</th>
+	                          <th>W04</th>
+	                          <th>W05</th>
+	                          <th>W06</th>
+	                          <th>W07</th>
+	                          <th>W08</th>
+	                          <th>W09</th>
+	                          <th>W10</th>
+	                          <th>W11</th>
+	                          <th>W12</th>
+	                          <th>W13</th>
+	                          <th>W14</th>
+	                          <th>W15</th>
+	                          <th>W16</th>
+	                          <th>W17</th>
+	                          <th>W18</th>
+	                          <th>W19</th>
+	                          <th>W20</th>
+	                          <th>W21</th>
+	                          <th>W22</th>
+	                          <th>W23</th>
+	                          <th>W24</th>
+	                          <th>W25</th>
+	                          <th>W26</th>
+	                          <th>W27</th>
+	                          <th>W28</th>
+	                          <th>W29</th>
+	                          <th>W30</th>
+	                          <th>W31</th>
+	                          <th>W32</th>
+	                          <th>W33</th>
+	                          <th>W34</th>
+	                        </tr>
+	                      </thead>
+	                      <tbody>
+							{% for shopPaiement in dashboard %}
+							<tr>
+							  <th>{{shopPaiement.shop}}</th>
+	                          <th>{{shopPaiement.W35}}</th>
+	                          <th>{{shopPaiement.W36}}</th>
+	                          <th>{{shopPaiement.W37}}</th>
+	                          <th>{{shopPaiement.W38}}</th>
+	                          <th>{{shopPaiement.W39}}</th>
+	                          <th>{{shopPaiement.W40}}</th>
+	                          <th>{{shopPaiement.W41}}</th>
+	                          <th>{{shopPaiement.W42}}</th>
+	                          <th>{{shopPaiement.W43}}</th>
+	                          <th>{{shopPaiement.W44}}</th>
+	                          <th>{{shopPaiement.W45}}</th>
+	                          <th>{{shopPaiement.W46}}</th>
+	                          <th>{{shopPaiement.W47}}</th>
+	                          <th>{{shopPaiement.W48}}</th>
+	                          <th>{{shopPaiement.W49}}</th>
+	                          <th>{{shopPaiement.W50}}</th>
+	                          <th>{{shopPaiement.W51}}</th>
+	                          <th>{{shopPaiement.W52}}</th>
+	                          <th>{{shopPaiement.W53}}</th>
+	                          <th>{{shopPaiement.W54}}</th>
+	                          <th>{{shopPaiement.W01}}</th>
+	                          <th>{{shopPaiement.W02}}</th>
+	                          <th>{{shopPaiement.W03}}</th>
+	                          <th>{{shopPaiement.W04}}</th>
+	                          <th>{{shopPaiement.W05}}</th>
+	                          <th>{{shopPaiement.W06}}</th>
+	                          <th>{{shopPaiement.W07}}</th>
+	                          <th>{{shopPaiement.W08}}</th>
+	                          <th>{{shopPaiement.W09}}</th>
+	                          <th>{{shopPaiement.W10}}</th>
+	                          <th>{{shopPaiement.W11}}</th>
+	                          <th>{{shopPaiement.W12}}</th>
+	                          <th>{{shopPaiement.W13}}</th>
+	                          <th>{{shopPaiement.W14}}</th>
+	                          <th>{{shopPaiement.W15}}</th>
+	                          <th>{{shopPaiement.W16}}</th>
+	                          <th>{{shopPaiement.W17}}</th>
+	                          <th>{{shopPaiement.W18}}</th>
+	                          <th>{{shopPaiement.W19}}</th>
+	                          <th>{{shopPaiement.W20}}</th>
+	                          <th>{{shopPaiement.W21}}</th>
+	                          <th>{{shopPaiement.W22}}</th>
+	                          <th>{{shopPaiement.W23}}</th>
+	                          <th>{{shopPaiement.W24}}</th>
+	                          <th>{{shopPaiement.W25}}</th>
+	                          <th>{{shopPaiement.W26}}</th>
+	                          <th>{{shopPaiement.W27}}</th>
+	                          <th>{{shopPaiement.W28}}</th>
+	                          <th>{{shopPaiement.W29}}</th>
+	                          <th>{{shopPaiement.W30}}</th>
+	                          <th>{{shopPaiement.W31}}</th>
+	                          <th>{{shopPaiement.W32}}</th>
+	                          <th>{{shopPaiement.W33}}</th>
+	                          <th>{{shopPaiement.W34}}</th>
+	                        </tr>
+							{% endfor %}
+						  </tbody>
+	                    </table>
+                	</div>
+                  </div>
+                </div>
+              </div>
