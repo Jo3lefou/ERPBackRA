@@ -59,7 +59,7 @@
         <tbody>
           {# table body #}
           {% for customer in pagination %}
-          <tr {% if loop.index is odd %}class="color"{% endif %} rel="/customers/single/view/{{ customer.id }}">
+          <tr {% if loop.index is odd %}class="color"{% endif %} rel="/{{locale }}/customers/single/view/{{ customer.id }}" style="cursor:pointer;">
             <td>{{ customer.lastName }}</td>
             <td>{{ customer.firstName }}</td>
             <td>{{ customer.city }}</td>
