@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 
 class PdfController extends Controller
@@ -180,7 +181,7 @@ class PdfController extends Controller
                 $model = $modelOrdered->getModel();
                 $modelName = $model->getName();
                 $text = $modelName.' (size: '.$modelSize.' - heels: '.$modelHeels.')';
-                $url = $this->generateUrl('viewproduction', array('id' => $prodID));
+                $url = $this->generateUrl('viewproduction', array('id' => $prodID),UrlGeneratorInterface::ABSOLUTE_URL);
                 $pdf->write2DBarcode($url, 'QRCODE,H', 20, $p, 40, 40, $style, 'N');
                 $pdf->Text(70, $p, $text);
                 $p=$p+50;
