@@ -142,7 +142,7 @@ class EditOrderAjaxController extends Controller
              		case 2: $class = 'btn btn-default dropdown-toggle btn-xs state st-vlt'; $lineClass ='st-vlt'; $stateWord ='validated'; $emailstateEn = 'has been validated'; $emailstateFr = 'a bien été validée'; break;
              		case 3: $class = 'btn btn-default dropdown-toggle btn-xs state st-err'; $lineClass ='st-err'; $stateWord ='error'; $emailstateEn = 'is in error, please verify your order'; $emailstateFr = 'est en erreur, merci de vérifier votre commande'; break;
               		case 4: $class = 'btn btn-default dropdown-toggle btn-xs state st-ccl'; $lineClass ='st-ccl'; $stateWord ='canceled'; $emailstateEn = 'has been canceled'; $emailstateFr = 'a été annulée'; break;
-              		case 5: $class = 'btn btn-default dropdown-toggle btn-xs state st-ctl'; $lineClass ='st-ctl'; $stateWord ='controled'; $emailstateEn = 'has been controled and should be soon available for shipping'; $emailstateFr = 'a été controllée. Vous devriez bientôt la recevoir'; break;
+              		case 5: $class = 'btn btn-default dropdown-toggle btn-xs state st-ctl'; $lineClass ='st-ctl'; $stateWord ='controled'; $emailstateEn = 'has been controled and should be soon available for shipping'; $emailstateFr = 'a été controlée. Vous devriez bientôt la recevoir'; break;
               		case 6: $class = 'btn btn-default dropdown-toggle btn-xs state st-dlv'; $lineClass ='st-dlv'; $stateWord ='delivered'; $emailstateEn = 'has been sent to you. You should receive it soon'; $emailstateFr = 'a été expédiée. Vous recevrez bientôt votre commande'; break;
               		case 7: $class = 'btn btn-default dropdown-toggle btn-xs state st-sis'; $lineClass ='st-sis'; $stateWord ='stored in stock'; $emailstateEn = 'has been store in the stock, pending for shiping'; $emailstateFr = 'a été placée en stock, dans l\'attente d\'être expédiée'; break;
               	}
@@ -158,9 +158,9 @@ class EditOrderAjaxController extends Controller
                 $shopEmail = $shop->getEmail();
                 $shopLocale = $shop->getLocale();
 
-                //$logger->info('Send Email Begins');
-                // We send a notification to tell the shop that the order is now confirmed.
-                $message = (new \Swift_Message('Hello Email'))
+                
+                // ****** NOTIFICATION EMAIL ******* //
+                $message = (new \Swift_Message('Rime Arodaky - Notification'))
                     ->setFrom('notification@rime-arodaky.com')
                     ->setTo('joffrey.faroux@gmail.com')//$shopEmail
                     ->setContentType("text/html")
@@ -169,7 +169,7 @@ class EditOrderAjaxController extends Controller
                         array('locale' => $shopLocale, 'order' => $entity, 'shop' => $shop, 'statusEn' => $emailstateEn, 'statusFr' => $emailstateFr ) )
                     );
                 $mailer->send($message);
-                //$logger->info('Send Email Ends');
+                // ****** NOTIFICATION EMAIL ******* //
 
 
 			}elseif($type == 'update-workroom'){

@@ -128,7 +128,7 @@ class PdfController extends Controller
             $filename = $type.'-'.$id;
             $pdt_list=$modelsOrdered;
         }
-	    $this->returnPDFResponseFromHTML($html, $title, $subject, $filename, $type, $pdt_list);
+	    $this->returnPDFResponseFromHTML($html, $title, $subject, $filename, $type, $pdt_list, $locale);
 
         /*return $this->render( 'renders/pdf/purchase-order.html.twig', array(
                 'name' => $name,
@@ -147,7 +147,7 @@ class PdfController extends Controller
          );*/
 	}
 
-	public function returnPDFResponseFromHTML($html, $title, $subject, $filename, $type, $pdt_list){
+	public function returnPDFResponseFromHTML($html, $title, $subject, $filename, $type, $pdt_list, $locale){
 
         $pdf = $this->get("white_october.tcpdf")->create('vertical', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf->SetAuthor('Rime Arodaky');
@@ -180,7 +180,8 @@ class PdfController extends Controller
                 $model = $modelOrdered->getModel();
                 $modelName = $model->getName();
                 $text = $modelName.' (size: '.$modelSize.' - heels: '.$modelHeels.')';
-                $pdf->write2DBarcode('http://www.rime-arodaky.com/back/prod/'.$prodID, 'QRCODE,H', 20, $p, 40, 40, $style, 'N');
+                $url = $this->generateUrl('viewproduction', array('id' => $prodID))
+                $pdf->write2DBarcode($url, 'QRCODE,H', 20, $p, 40, 40, $style, 'N');
                 $pdf->Text(70, $p, $text);
                 $p=$p+50;
             }

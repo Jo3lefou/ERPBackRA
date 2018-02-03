@@ -37,8 +37,9 @@ class RarOrderType extends AbstractType
             $choices['Validated'] = 2;
             $choices['Error'] = 3;
             $choices['Canceled'] = 4;
-            $choices['Delivered'] = 5;
-            $choices['In Stock'] = 6;
+            $choices['Controlled'] = 5;
+            $choices['Delivered'] = 6;
+            $choices['In Stock'] = 7;
         }
 
         
