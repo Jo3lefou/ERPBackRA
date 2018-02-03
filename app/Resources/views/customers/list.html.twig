@@ -98,4 +98,10 @@
 
     <!-- Custom Theme Scripts -->
     <script src="{{ url('homepage') }}build/js/custom.min.js"></script>
+    <script>
+    $('.table > tbody > tr').on('click', function() {
+        url = $(this).attr('rel');
+        window.location.href = url;
+    });
+    </script>
 {% endblock %}
