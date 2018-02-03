@@ -53,7 +53,6 @@
             <th{% if pagination.isSorted('a.email') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Email', 'a.email') }}</th>
             <th>{% trans %}Nb Orders{% endtrans %}</th>
             <th{% if pagination.isSorted('a.dateCreation') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Cus. since', 'a.dateCreation') }}</th>
-            <th>{% trans %}Action{% endtrans %}</th>
           </tr>
         </thead>
         <tbody>
@@ -67,7 +66,6 @@
             <td>{{ customer.email }}</td>
             <td>{{ customer.orders|length }}</td>
             <td>{{ customer.dateCreation | date('Y-m-d') }}</td>
-            <td></td>
           </tr>
           {% endfor %}
         </tbody>

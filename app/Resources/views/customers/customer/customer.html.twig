@@ -33,7 +33,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>{% trans %}Your profile{% endtrans %}</h3>
+                <h3>{% trans %}Customer{% endtrans %}</h3>
               </div>
               <div class="title_right">
                 <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
@@ -65,18 +65,14 @@
                       <div class="profile_img">
                         <div id="crop-avatar">
                           <!-- Current avatar -->
-                          {% if ( user.imagePath ) %}
-                          <img src="{{ asset('uploads/pic/profile/' ~ user.imagePath) | imagine_filter('big_thumb') }}" alt="">
-                          {% else %}
                           <img class="img-responsive avatar-view" src="{{ url('homepage') }}build/images/profilpic.png" alt="Avatar" title="Change the avatar">
-                          {% endif %}
-                         
+                          
                         </div>
                       </div>
-                      <h3><span class="puce color" style="background-color:{{ user.userColor }};"></span> {{ name }}</h3>
+                      <h3><span class="puce color" style="background-color:#000;"></span> Nom</h3>
 
                       <ul class="list-unstyled user_data">
-                        <li><i class="fa fa-map-marker user-profile-icon"></i> {{ user.city }}, {{ user.state }}, {{ user.country }}
+                        <li><i class="fa fa-map-marker user-profile-icon"></i> City, State, Country
                         </li>
 
                         <li>
@@ -84,7 +80,7 @@
                         </li>
                       </ul>
 
-                      <a href="/{{ locale }}/profile/edit/" class="btn btn-success"><i class="fa fa-edit m-right-xs"></i> Edit Profile</a>
+                      <a href="/{{ locale }}/customers/single/edit/ID" class="btn btn-success"><i class="fa fa-edit m-right-xs"></i> Edit Customer</a>
                       <br />
 
                       <!-- start skills -->
