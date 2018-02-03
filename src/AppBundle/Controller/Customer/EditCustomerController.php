@@ -15,10 +15,10 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class ViewCustomerController extends Controller
+class EditCustomerController extends Controller
 {
     /**
-     * @Route("/{_locale}/customers/single/view/{id}", name="viewcustomer")
+     * @Route("/{_locale}/customers/single/edit/{id}", name="editcustomer")
      */
     public function indexAction($id)
     {
