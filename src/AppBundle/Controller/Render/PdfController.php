@@ -193,7 +193,7 @@ class PdfController extends Controller
                 }
             }elseif($type == 'uniqueqrcode'){
                 $p = 10;
-                $pdt_list=$modelOrdered;
+                $modelOrdered=$pdt_list;
                 $prodID = $modelOrdered->getId();
                 $modelSize = $modelOrdered->getSize();
                 $modelHeels = $modelOrdered->getHeels();
