@@ -39,51 +39,51 @@ class PdfController extends Controller
         $saleConditionEn = $configuration->getSaleConditionEn();
         $saleCondition = $configuration->getSaleCondition();
 
-        // On ve récupérer les données de la commande
-        $em = $this->getDoctrine()->getManager();
-        $order = $em->getRepository('AppBundle:RarOrder')->find($id);
-        // Data needed
-        $modelsOrdered = $order->getmodelsOrdered();
-        $shop = $order->getShop();
-        $amountVAT = $shop->getAmountVat();
-        $vatStatus = $shop->getIsVat();
-        $paiment = $order->getPayments();
+        if($type == 'invoice' || $type == 'purchase-order' || $type == 'qrcode'){
+            //// Plusieurs éléments
+            // On ve récupérer les données de la commande
+            $em = $this->getDoctrine()->getManager();
+            $order = $em->getRepository('AppBundle:RarOrder')->find($id);
+            // Data needed
+            $modelsOrdered = $order->getmodelsOrdered();
+            $shop = $order->getShop();
+            $amountVAT = $shop->getAmountVat();
+            $vatStatus = $shop->getIsVat();
+            $paiment = $order->getPayments();
 
-
-
-
-
-        $detailsOrder = array();
-        $totalPrice = '';
-        $totalVAT = '';
-        $totalwVAT = '';
-        $totalwoVAT = '';
-        if($vatStatus == 1){
-            foreach ($modelsOrdered as $key => $modelOrdered) {
-                $totalPrice = $totalPrice + $modelOrdered->getPrixSoldHT();
-                $totalwVAT = $totalVAT+$totalPrice;
-                $totalwoVAT = $totalPrice/(1+($amountVAT/100));
-                $totalVAT = $totalwoVAT*($amountVAT/ 100);
+            $detailsOrder = array();
+            $totalPrice = '';
+            $totalVAT = '';
+            $totalwVAT = '';
+            $totalwoVAT = '';
+            if($vatStatus == 1){
+                foreach ($modelsOrdered as $key => $modelOrdered) {
+                    $totalPrice = $totalPrice + $modelOrdered->getPrixSoldHT();
+                    $totalwVAT = $totalVAT+$totalPrice;
+                    $totalwoVAT = $totalPrice/(1+($amountVAT/100));
+                    $totalVAT = $totalwoVAT*($amountVAT/ 100);
+                }
+            }else{
+                foreach ($modelsOrdered as $key => $modelOrdered) {
+                    $totalPrice = $totalPrice + $modelOrdered->getPrixSoldHT();
+                }
             }
-        }else{
-            foreach ($modelsOrdered as $key => $modelOrdered) {
-                $totalPrice = $totalPrice + $modelOrdered->getPrixSoldHT();
+            $detailsOrder = array(
+                'totalPrice' => $totalPrice,
+                'totalVAT' => $totalVAT,
+                'totalHT' => $totalwoVAT
+            );
+
+            $totalPaiement = '';
+            foreach ($paiment as $key => $paye) {
+                $totalPaiement = $totalPaiement + $paye->getAmount();
             }
+        }elseif($type == 'uniqueqrcode'){
+            //// Un seul élément
+            $em = $this->getDoctrine()->getManager();
+            $modelOrdered = $em->getRepository('AppBundle:RarModelOrdered')->find($id);
+
         }
-        $detailsOrder = array(
-            'totalPrice' => $totalPrice,
-            'totalVAT' => $totalVAT,
-            'totalHT' => $totalwoVAT
-        );
-
-
-
-        $totalPaiement = '';
-        foreach ($paiment as $key => $paye) {
-            $totalPaiement = $totalPaiement + $paye->getAmount();
-        }
-
-
         // Chercher les données pour faire le tableau pour la facture et/ou le bon de commande
         if($type == 'invoice') {
     	    $html = $this->renderView( 'renders/pdf/invoice.html.twig', array(
@@ -128,6 +128,13 @@ class PdfController extends Controller
             $subject = 'Bar Code Tracker '.$type.'-'.$id;
             $filename = $type.'-'.$id;
             $pdt_list=$modelsOrdered;
+        }elseif($type == 'uniqueqrcode'){
+
+            $html="<p>BarCode Tracker</p>";
+            $title = 'QRcode_'.$type.'-'.$id;
+            $subject = 'Bar Code Tracker '.$type.'-'.$id;
+            $filename = $type.'-'.$id;
+            $pdt_list=$modelOrdered;
         }
 	    $this->returnPDFResponseFromHTML($html, $title, $subject, $filename, $type, $pdt_list, $locale);
 
@@ -159,7 +166,7 @@ class PdfController extends Controller
         $pdf->SetPrintHeader(false);
         //$pdf->SetMargins(20,20,40, true);
 
-        if($type == "qrcode"){
+        if($type == "qrcode" || $type == 'uniqueqrcode'){
             $pdf->AddPage();
             $style = array(
                 'border' => 2,
@@ -170,11 +177,22 @@ class PdfController extends Controller
                 'module_width' => 1, // width of a single module in points
                 'module_height' => 1 // height of a single module in points
             );
-            /////////////////////////////////////////////////////////////////
-            // ******** PENSER A GENERER l'URL DU PRODUIT *****************//
-            /////////////////////////////////////////////////////////////////
-            $p = 10;
-            foreach ($pdt_list as $key => $modelOrdered) {
+            if($type == "qrcode"){
+                $p = 10;
+                foreach ($pdt_list as $key => $modelOrdered) {
+                    $prodID = $modelOrdered->getId();
+                    $modelSize = $modelOrdered->getSize();
+                    $modelHeels = $modelOrdered->getHeels();
+                    $model = $modelOrdered->getModel();
+                    $modelName = $model->getName();
+                    $text = $modelName.' (size: '.$modelSize.' - heels: '.$modelHeels.')';
+                    $url = $this->generateUrl('viewproduction', array('id' => $prodID),UrlGeneratorInterface::ABSOLUTE_URL);
+                    $pdf->write2DBarcode($url, 'QRCODE,H', 20, $p, 40, 40, $style, 'N');
+                    $pdf->Text(70, $p, $text);
+                    $p=$p+50;
+                }
+            }elseif($type == 'uniqueqrcode'){
+                $p = 10;
                 $prodID = $modelOrdered->getId();
                 $modelSize = $modelOrdered->getSize();
                 $modelHeels = $modelOrdered->getHeels();
