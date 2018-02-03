@@ -214,7 +214,7 @@
         <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" width="600" style="margin: auto;" class="email-container">
             <tr>
                 <td style="padding: 20px 0; text-align: center">
-                    <img src="{{ absolute_url(asset('images/logo.png')) }}" width="132" height="39" alt="alt_text" border="0" style="height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555;">
+                    <img src="{{ absolute_url(asset('build/images/logo.png')) }}" width="132" height="39" alt="alt_text" border="0" style="height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555;">
                 </td>
             </tr>
         </table>
@@ -226,7 +226,7 @@
             <!-- Hero Image, Flush : BEGIN -->
             <tr>
                 <td bgcolor="#ffffff" align="center">
-                    <img src="{{ absolute_url(asset('images/header-email.jpg')) }}" width="600" height="" alt="alt_text" border="0" align="center" style="width: 100%; max-width: 600px; height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555; margin: auto;" class="g-img">
+                    <img src="{{ absolute_url(asset('build/images/header-email.jpg')) }}" width="600" height="" alt="alt_text" border="0" align="center" style="width: 100%; max-width: 600px; height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555; margin: auto;" class="g-img">
                 </td>
             </tr>
             <!-- Hero Image, Flush : END -->
@@ -245,13 +245,13 @@
                 <td bgcolor="#ffffff" style="padding: 0 40px 40px; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555; text-align: center;">
                 	{% if locale == 'fr' %}
 		            	<p style="margin: 0;">
-		            		La commande {% if order.idCompta|length < 1 %}DRAFT created on {{ order.dateOrder}}{% elseif order.idCompta|length < 2 %}{{ shop.extention }}000{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 3 %}{{ shop.extention }}00{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 4 %}{{ shop.extention }}0{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 5 %}{{ shop.extention }}{{ order.idCompta }}-{{ order.year }}{% endif %}{% if order.type == "1" %}-S{% elseif order.type == 2 %}-P{% endif %}{% if locale == 'en' %}{{ statusEn }}{% else %}{{ statusFr }}{% endif %}.
+		            		La commande {% if order.idCompta|length < 1 %}DRAFT created on {{ order.dateOrder}}{% elseif order.idCompta|length < 2 %}{{ shop.extention }}000{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 3 %}{{ shop.extention }}00{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 4 %}{{ shop.extention }}0{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 5 %}{{ shop.extention }}{{ order.idCompta }}-{{ order.year }}{% endif %}{% if order.type == "1" %}-S{% elseif order.type == 2 %}-P{% endif %} {% if locale == 'en' %}{{ statusEn }}{% else %}{{ statusFr }}{% endif %}.
 		            		<br><br>
             				Pour suivre l'avancé de votre commande, merci de vous connecter sur la plateforme de commande.
             			</p>
 					{% else %}
 						<p style="margin: 0;">
-							The order {% if order.idCompta|length < 1 %}DRAFT created on {{ order.dateOrder}}{% elseif order.idCompta|length < 2 %}{{ shop.extention }}000{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 3 %}{{ shop.extention }}00{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 4 %}{{ shop.extention }}0{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 5 %}{{ shop.extention }}{{ order.idCompta }}-{{ order.year }}{% endif %}{% if order.type == "1" %}-S{% elseif order.type == 2 %}-P{% endif %}{% if locale == 'en' %}{{ statusEn }}{% else %}{{ statusFr }}{% endif %}.
+							The order {% if order.idCompta|length < 1 %}DRAFT created on {{ order.dateOrder}}{% elseif order.idCompta|length < 2 %}{{ shop.extention }}000{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 3 %}{{ shop.extention }}00{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 4 %}{{ shop.extention }}0{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 5 %}{{ shop.extention }}{{ order.idCompta }}-{{ order.year }}{% endif %}{% if order.type == "1" %}-S{% elseif order.type == 2 %}-P{% endif %} {% if locale == 'en' %}{{ statusEn }}{% else %}{{ statusFr }}{% endif %}.
 							<br><br>
 							To follow the status of your order, please connect on the order platform.</p>
 					{% endif %}
@@ -270,7 +270,7 @@
                         </tr>
                         <tr>
                         	<td>
-                        		{% if locale == 'fr' %}La (d)Rime Team{% else %}The (d)Rime Team{% endif %}
+                        		<center><br/>{% if locale == 'fr' %}La (d)Rime Team{% else %}The (d)Rime Team{% endif %}</center>
                         	</td>
                         </tr>
                     </table>
@@ -282,10 +282,10 @@
             <!-- Background Image with Text : BEGIN -->
             <tr>
                 <!-- Bulletproof Background Images c/o https://backgrounds.cm -->
-                <td background="http://placehold.it/600x230/222222/666666" bgcolor="#070707" valign="middle" style="text-align: center; background-position: center center !important; background-size: cover !important;">
+                <td background="{{ absolute_url(asset('build/images/footer-bg-email.jpg')) }}" bgcolor="#070707" valign="middle" style="text-align: center; background-position: center center !important; background-size: cover !important;">
                 <!--[if gte mso 9]>
                 <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:175px; background-position: center center !important;">
-                <v:fill type="tile" src="http://placehold.it/600x230/222222/666666" color="#070707" />
+                <v:fill type="tile" src="{{ absolute_url(asset('build/images/footer-bg-email.jpg')) }}" color="#070707" />
                 <v:textbox inset="0,0,0,0">
                 <![endif]-->
                 <div>

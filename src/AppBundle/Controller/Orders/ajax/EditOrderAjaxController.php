@@ -139,12 +139,12 @@ class EditOrderAjaxController extends Controller
 				switch($newValue){
 					case 0: $class = 'btn btn-default dropdown-toggle btn-xs state st-dft'; $lineClass ='st-dft'; $stateWord ='draft'; $emailstateEn = 'is still in the DRAFT status'; $emailstateFr = 'est toujours en brouillon'; break;
               		case 1: $class = 'btn btn-default dropdown-toggle btn-xs state st-pnd'; $lineClass ='st-pnd'; $stateWord ='pending'; $emailstateEn = 'is now pending, still waiting for approbation'; $emailstateFr = 'est en attente de validation'; break;
-             		case 2: $class = 'btn btn-default dropdown-toggle btn-xs state st-vlt'; $lineClass ='st-vlt'; $stateWord ='validated'; $emailstateEn = 'has been validated'; $emailstateFr = 'a bien été validé'; break;
+             		case 2: $class = 'btn btn-default dropdown-toggle btn-xs state st-vlt'; $lineClass ='st-vlt'; $stateWord ='validated'; $emailstateEn = 'has been validated'; $emailstateFr = 'a bien été validée'; break;
              		case 3: $class = 'btn btn-default dropdown-toggle btn-xs state st-err'; $lineClass ='st-err'; $stateWord ='error'; $emailstateEn = 'is in error, please verify your order'; $emailstateFr = 'est en erreur, merci de vérifier votre commande'; break;
-              		case 4: $class = 'btn btn-default dropdown-toggle btn-xs state st-ccl'; $lineClass ='st-ccl'; $stateWord ='canceled'; $emailstateEn = 'has been canceled'; $emailstateFr = 'a été annulé'; break;
-              		case 5: $class = 'btn btn-default dropdown-toggle btn-xs state st-ctl'; $lineClass ='st-ctl'; $stateWord ='controled'; $emailstateEn = 'has been controled and should be soon available for shipping'; $emailstateFr = 'a été controllé. Vous devriez bientôt la recevoir'; break;
-              		case 6: $class = 'btn btn-default dropdown-toggle btn-xs state st-dlv'; $lineClass ='st-dlv'; $stateWord ='delivered'; $emailstateEn = 'has been sent to you. You should receive it soon'; $emailstateFr = 'a été expédié. Vous recevrez bientôt votre commande'; break;
-              		case 7: $class = 'btn btn-default dropdown-toggle btn-xs state st-sis'; $lineClass ='st-sis'; $stateWord ='stored in stock'; $emailstateEn = 'has been store in the stock, pending for shiping'; $emailstateFr = 'a été placé en stock, dans l\'attente d\'être expédié'; break;
+              		case 4: $class = 'btn btn-default dropdown-toggle btn-xs state st-ccl'; $lineClass ='st-ccl'; $stateWord ='canceled'; $emailstateEn = 'has been canceled'; $emailstateFr = 'a été annulée'; break;
+              		case 5: $class = 'btn btn-default dropdown-toggle btn-xs state st-ctl'; $lineClass ='st-ctl'; $stateWord ='controled'; $emailstateEn = 'has been controled and should be soon available for shipping'; $emailstateFr = 'a été controllée. Vous devriez bientôt la recevoir'; break;
+              		case 6: $class = 'btn btn-default dropdown-toggle btn-xs state st-dlv'; $lineClass ='st-dlv'; $stateWord ='delivered'; $emailstateEn = 'has been sent to you. You should receive it soon'; $emailstateFr = 'a été expédiée. Vous recevrez bientôt votre commande'; break;
+              		case 7: $class = 'btn btn-default dropdown-toggle btn-xs state st-sis'; $lineClass ='st-sis'; $stateWord ='stored in stock'; $emailstateEn = 'has been store in the stock, pending for shiping'; $emailstateFr = 'a été placée en stock, dans l\'attente d\'être expédiée'; break;
               	}
                 $newOrderLog = new RarOrderLog();
                 $newOrderLog->setDate($time);
