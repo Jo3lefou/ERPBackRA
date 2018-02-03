@@ -163,10 +163,10 @@ class EditOrderAjaxController extends Controller
                 $message = (new \Swift_Message('Hello Email'))
                     ->setFrom('notification@rime-arodaky.com')
                     ->setTo('joffrey.faroux@gmail.com')//$shopEmail
-                    //->setContentType("text/html");
+                    ->setContentType("text/html")
                     ->setBody(
                         $this->renderView( 'email/confirmationOrder.html.twig',
-                        array('locale' => $shopLocale, 'order' => $entity, 'shop' => $shop, 'statusEn' => $emailstateEn, 'statusFr' => $emailstateFr ), 'text/html' )
+                        array('locale' => $shopLocale, 'order' => $entity, 'shop' => $shop, 'statusEn' => $emailstateEn, 'statusFr' => $emailstateFr ) )
                     );
                 $mailer->send($message);
                 //$logger->info('Send Email Ends');
