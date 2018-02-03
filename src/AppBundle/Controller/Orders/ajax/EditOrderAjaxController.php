@@ -166,7 +166,7 @@ class EditOrderAjaxController extends Controller
                     //->setContentType("text/html");
                     ->setBody(
                         $this->renderView( 'email/confirmationOrder.html.twig',
-                        array('locale' => $shopLocale, 'order' => $entity, 'shop' => $shop, 'statusEn' => $emailstateEn, 'statusFr' => $emailstateFr ) )
+                        array('locale' => $shopLocale, 'order' => $entity, 'shop' => $shop, 'statusEn' => $emailstateEn, 'statusFr' => $emailstateFr ), 'text/html' )
                     );
                 $mailer->send($message);
                 //$logger->info('Send Email Ends');
