@@ -178,6 +178,11 @@ class User implements UserInterface, \Serializable
      */
     private $payments;
 
+    /**
+     * @ORM\OneToMany(targetEntity="RarNotes", mappedBy="user",cascade={"persist"}, fetch="EAGER")
+     */
+    private $notes;
+
 
     public function getId()
     {

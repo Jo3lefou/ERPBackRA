@@ -126,6 +126,11 @@ class RarCustomer
     private $orders;
 
     /**
+     * @ORM\OneToMany(targetEntity="RarNotes", mappedBy="customer",cascade={"persist"}, fetch="EAGER")
+     */
+    private $notes;
+
+    /**
      * Set id
      *
      * @param integer $id
