@@ -32,7 +32,7 @@
                       #{{ order.shop.extention }}0{{ order.idCompta }}-{{ order.year }}
                     {% elseif order.idCompta|length < 5 %}
                       #{{ order.shop.extention }}{{ order.idCompta }}-{{ order.year }}
-                    {% endif %}</h3>
+                    {% endif %}{% if order.type == "1" %}-S{% elseif order.type == 2 %}-P{% endif %}</h3>
           </div>
           {% for message in app.flashes('success') %}
               <div class="alert alert-success">
