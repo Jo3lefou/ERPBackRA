@@ -112,21 +112,26 @@
                         </ul>
                         <div id="myTabContent" class="tab-content">
                           <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
-
+                            <div class="row">
+                              <div class="col-md-6 col-sm-6 col-xs-12">{% trans %}Orders done{% endtrans %}</div>
+                              <div class="col-md-6 col-sm-6 col-xs-12"><a href="/{locale}/orders/create/{{ customer.id }}">{% trans %}Create a new order for{% endtrans %} {{ customer.firstName }} {{ customer.lastName }}</a></div>
+                            </div>
                             <!-- start recent activity -->
                             {% if customer.orders is empty %}
+                            <div class="alert alert-warning"><strong>Oh! Damn it...</strong> There is no orders yet created for this customer.</div>
                             {% else %}
                             <ul class="messages">
                               {% for sorder in customer.orders %}
-                              <li>
+                              <li style="min-height: 100px;">
                                 <img src="{{ url('homepage') }}build/images/basket.jpg" class="avatar" alt="Avatar">
                                 <div class="message_date">
                                   <h3 class="date text-info">{{ sorder.dateOrder|date("d") }}</h3>
                                   <p class="month">{{ sorder.dateOrder|date("F")|slice(0, 3) }}.</p>
                                 </div>
                                 <div class="message_wrapper">
-                                  <h4 class="heading"><a href="/{{locale}}/orders/single/{{sorder.id}}">{% trans %}Order{% endtrans %} {% if sorder.idCompta|length < 1 %}DRAFT{% elseif sorder.idCompta|length < 2 %}#{{ sorder.shop.extention }}000{{ sorder.idCompta }}-{{ sorder.year }}{% elseif sorder.idCompta|length < 3 %}#{{ sorder.shop.extention }}00{{ sorder.idCompta }}-{{ sorder.year }}{% elseif sorder.idCompta|length < 4 %}#{{ sorder.shop.extention }}0{{ sorder.idCompta }}-{{ sorder.year }}{% elseif sorder.idCompta|length < 5 %}#{{ sorder.shop.extention }}{{ sorder.idCompta }}-{{ sorder.year }}{% endif %}{% if sorder.type == "1" %}-S{% elseif sorder.type == 2 %}-P{% endif %}</a></h4>
+                                  <h4 class="heading"><a href="/{{locale}}/orders/single/{{ sorder.id }}">{% trans %}Order{% endtrans %} {% if sorder.idCompta|length < 1 %}DRAFT{% elseif sorder.idCompta|length < 2 %}#{{ sorder.shop.extention }}000{{ sorder.idCompta }}-{{ sorder.year }}{% elseif sorder.idCompta|length < 3 %}#{{ sorder.shop.extention }}00{{ sorder.idCompta }}-{{ sorder.year }}{% elseif sorder.idCompta|length < 4 %}#{{ sorder.shop.extention }}0{{ sorder.idCompta }}-{{ sorder.year }}{% elseif sorder.idCompta|length < 5 %}#{{ sorder.shop.extention }}{{ sorder.idCompta }}-{{ sorder.year }}{% endif %}{% if sorder.type == "1" %}-S{% elseif sorder.type == 2 %}-P{% endif %}</a></h4>
                                   {% if sorder.modelsOrdered is empty %}
+                                  <div class="alert alert-warning"><strong>Strange...</strong> No product has been added to this order.</div>
                                   {% else %}
                                   <ul style="list-style-type:none; padding:0px;">
                                     {% for modelO in sorder.modelsOrdered %}
