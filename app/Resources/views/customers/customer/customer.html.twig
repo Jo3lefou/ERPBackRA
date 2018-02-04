@@ -76,13 +76,10 @@
                           <i class="fa fa-map-marker user-profile-icon"></i> {{ customer.address }}<br/>{{ customer.postCode }} {{ customer.city }},<br/> {{ customer.state }},<br/> {{ customer.country }}
                         </li>
                         <li>
-                          <i class="fa fa-address-card user-profile-icon"></i> {{ customer.address }}
-                        </li>
-                        <li>
                           <i class="fa fa-envelope user-profile-icon"></i> {{ customer.email }}
                         </li>
                         <li>
-                          <i class="fa fa-envelope user-profile-icon"></i> {{ customer.email }}
+                          <i class="fa fa-phone user-profile-icon"></i> {{ customer.phone }}
                         </li>
                         <li>
                           {% if customer.optin == 'true' %}
