@@ -51,7 +51,7 @@ class ApiUpdateOrderController extends Controller
                     $fullName = $firstName.' '.$lastName;
 
                     if($params['action'] == 'canceled'){
-                        $order->setState('3');
+                        $order->setState('4');
                         $stateWord = 'canceled';
                     }
 
