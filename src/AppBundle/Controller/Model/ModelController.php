@@ -36,7 +36,7 @@ class ModelController extends Controller
             $paginator  = $this->get('knp_paginator');
             $pagination = $paginator->paginate( $query, $request->query->getInt('page', 1), $number );
         }elseif($display == 'search'){
-            $request = new Request($_POST);
+            $request = new Request($_GET);
             $term = $request->query->get('term');
             $em = $this->get('doctrine.orm.entity_manager');
             $dql = "SELECT a FROM AppBundle:RarModel a WHERE a.name LIKE '%".addcslashes($term, '%_')."%' OR a.sku LIKE '%".addcslashes($term, '%_')."%'";
@@ -62,7 +62,7 @@ class ModelController extends Controller
                 'user' => $user,
                 'pagination' => $pagination,
                 'nbitem' => $number,
-                'searchterm' => $searchTerm,
+                'searchterm' => $searchTerm
             ));
 
         }else{

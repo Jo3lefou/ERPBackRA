@@ -41,7 +41,7 @@ class CustomerController extends Controller
             $paginator  = $this->get('knp_paginator');
             $pagination = $paginator->paginate( $query, $request->query->getInt('page', 1), $number );
         }elseif($display == 'search'){
-            $request = new Request($_POST);
+            $request = new Request($_GET);
             $term = $request->query->get('term');
             $em = $this->get('doctrine.orm.entity_manager');
             $dql = "SELECT a FROM AppBundle:RarCustomer a WHERE a.lastName LIKE '%".addcslashes($term, '%_')."%' OR a.firstName LIKE '%".addcslashes($term, '%_')."%'";
@@ -71,7 +71,7 @@ class CustomerController extends Controller
                     //'customers' => $customers,
                     'pagination' => $pagination,
                     'nbitem' => $number,
-                    'searchterm' => $searchTerm,
+                    'searchterm' => $searchTerm
                 )
             );
         }else{
