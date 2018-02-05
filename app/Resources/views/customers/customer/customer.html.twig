@@ -402,7 +402,7 @@
               dataType: "json",
               data: { data: data },
               success: function( data ){
-                
+                $('#noteModal').modal('hide');
               },
               complete: function(){
                 $('#loading-bar').fadeOut();
