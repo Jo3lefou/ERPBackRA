@@ -388,4 +388,27 @@
         text-decoration: underline;
       }
     </style>
+    <script type="text/javascript">
+      $('button#saveNote').on( 'click', function (e) {
+            e.preventDefault();
+            var href = $(this).attr('href');
+            var data = $('#editor-note').html();
+            //.replace(/&/g, '&amp').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+            //alert(data);
+            $('#loading-bar').fadeIn();
+            $.ajax( {
+              type:"POST",
+              url: href,
+              dataType: "json",
+              data: { data: data },
+              success: function( data ){
+                
+              },
+              complete: function(){
+                $('#loading-bar').fadeOut();
+              }
+            });
+         //});
+      });
+    </script>
 {% endblock %}

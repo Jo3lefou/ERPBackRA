@@ -31,7 +31,7 @@ class EditCustomerController extends Controller
         if($user){
 
             $em = $this->getDoctrine()->getManager();
-            $customer = $em->getRepository('AppBundle:RarOrder')->findOneBy(['id' => $id]);
+            $customer = $em->getRepository('AppBundle:RarCustomer')->findOneBy(['id' => $id]);
 
             return $this->render('customers/customer/customer.html.twig', array(
                 'name' => $name,
