@@ -161,71 +161,52 @@
 
                           </div>
                           <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+                          <!-- TAB 2 -->
 
-                            <!-- start user projects -->
-                            <table class="data table table-striped no-margin">
-                              <thead>
-                                <tr>
-                                  <th>#</th>
-                                  <th>Project Name</th>
-                                  <th>Client Company</th>
-                                  <th class="hidden-phone">Hours Spent</th>
-                                  <th>Contribution</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>1</td>
-                                  <td>New Company Takeover Review</td>
-                                  <td>Deveint Inc</td>
-                                  <td class="hidden-phone">18</td>
-                                  <td class="vertical-align-mid">
-                                    <div class="progress">
-                                      <div class="progress-bar progress-bar-success" data-transitiongoal="35"></div>
-                                    </div>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>2</td>
-                                  <td>New Partner Contracts Consultanci</td>
-                                  <td>Deveint Inc</td>
-                                  <td class="hidden-phone">13</td>
-                                  <td class="vertical-align-mid">
-                                    <div class="progress">
-                                      <div class="progress-bar progress-bar-danger" data-transitiongoal="15"></div>
-                                    </div>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>3</td>
-                                  <td>Partners and Inverstors report</td>
-                                  <td>Deveint Inc</td>
-                                  <td class="hidden-phone">30</td>
-                                  <td class="vertical-align-mid">
-                                    <div class="progress">
-                                      <div class="progress-bar progress-bar-success" data-transitiongoal="45"></div>
-                                    </div>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>4</td>
-                                  <td>New Company Takeover Review</td>
-                                  <td>Deveint Inc</td>
-                                  <td class="hidden-phone">28</td>
-                                  <td class="vertical-align-mid">
-                                    <div class="progress">
-                                      <div class="progress-bar progress-bar-success" data-transitiongoal="75"></div>
-                                    </div>
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                            <!-- end user projects -->
-
+                          <!-- END TAB 2 -->
                           </div>
                           <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
-                            <p>xxFood truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui
-                              photo booth letterpress, commodo enim craft beer mlkshk </p>
+                          <!-- TAB 3 -->
+
+
+                            <div class="row" style="border-bottom:2px solid #E6E9ED; margin-bottom:10px;">
+                              <div class="col-md-12 col-sm-12 col-xs-12"><h3>{% trans %}Notes{% endtrans %}</h3></div>
+                            </div>
+
+                            <!-- start note -->
+                            {% if customer.notes is empty %}
+                            <div class="alert alert-warning"><strong>Oh! Damn it...</strong> There isn't any notes created yet.</div>
+                            {% else %}
+                            <ul class="messages" id="notefeed">
+                              {% for snote in customer.notes %}
+                              <li style="min-height: 100px;overflow:hidden">
+                                <img src="{{ url('homepage') }}build/images/note.jpg" class="avatar" alt="Avatar">
+                                <div class="message_date">
+                                  <h3 class="date text-info">{{ snote.dateCreation|date("d") }}</h3>
+                                  <p class="month">{{ snote.dateCreation|date("F")|slice(0, 3) }}.</p>
+                                </div>
+                                <div class="message_wrapper">
+
+                                  <div class="col-md-2" style="text-align:center">
+                                    {% if ( user.imagePath ) %}
+                                      <img src="{{ asset('uploads/pic/profile/' ~ snote.user.imagePath) | imagine_filter('my_thumb') }}" alt="{{ snote.user.firstName }} {{ snote.user.lastName }}" class="img-circle" height="50" width="50">
+                                    {% else %}
+                                      <img src="{{ url('homepage') }}build/images/profilpic.png" alt="{{ snote.user.firstName }} {{ snote.user.lastName }}" class="img-circle" height="50" width="50">
+                                    {% endif %}<br/>
+                                    <span>{{ snote.user.firstName }} {{ snote.user.lastName }}</span>
+                                  </div>
+
+                                  <div class="bubble col-md-10">{{ snote.note|raw }}</div>
+
+                                </div>
+                              </li>
+                              {% endfor %}
+                            </ul>
+                            
+                            {% endif %}
+                            <!-- end note -->
+
+                          <!-- END TAB 3 -->
                           </div>
                         </div>
                       </div>
@@ -392,7 +373,7 @@
       $('button#saveNote').on( 'click', function (e) {
             e.preventDefault();
             var href = $(this).attr('href');
-            var data = $('#editor-note').html();
+            var text = $('#editor-note').html();
             //.replace(/&/g, '&amp').replace(/</g, '&lt;').replace(/>/g, '&gt;')
             //alert(data);
             $('#loading-bar').fadeIn();
@@ -400,15 +381,47 @@
               type:"POST",
               url: href,
               dataType: "json",
-              data: { data: data },
+              data: { data: text },
               success: function( data ){
                 $('#noteModal').modal('hide');
               },
               complete: function(){
                 $('#loading-bar').fadeOut();
+                var now = new Date();
+                var day = now.getDate();
+
+                var month = new Array();
+                  month[0] = "Jan.";
+                  month[1] = "Feb.";
+                  month[2] = "Mar.";
+                  month[3] = "Apr.";
+                  month[4] = "May.";
+                  month[5] = "Jun.";
+                  month[6] = "Jul.";
+                  month[7] = "Aug.";
+                  month[8] = "Sep.";
+                  month[9] = "Oct.";
+                  month[10] = "Nov.";
+                  month[11] = "Dec.";
+                var monthText = month[now.getMonth()];
+
+                //var monthText = 'test';
+                //var day = '09';
+
+                var profilePic = "{{ asset('uploads/pic/profile/' ~ user.imagePath) | imagine_filter('my_thumb') }}";
+                var standardPic = "{{ url('homepage') }}build/images/profilpic.png";
+                var icon = "{{ url('homepage') }}build/images/note.jpg";
+                var html = '<li style="min-height: 100px;overflow:hidden"><img src="'+icon+'" class="avatar" alt="Avatar"><div class="message_date"><h3 class="date text-info">'+day+'</h3><p class="month">'+monthText+'</p></div><div class="message_wrapper"><div class="col-md-2" style="text-align:center">{% if ( user.imagePath ) %}<img src="'+profilePic+'" alt="{{ user.firstName }} {{ user.lastName }}" class="img-circle" height="50" width="50">{% else %}<img src="'+standardPic+'" alt="{{ user.firstName }} {{ user.lastName }}" class="img-circle" height="50" width="50">{% endif %}<br/><span>{{ user.firstName }} {{ user.lastName }}</span></div><div class="bubble col-md-10">'+text+'</div></div></li>';
+                $('#notefeed').append(html);
               }
             });
-         //});
       });
     </script>
+    <style>
+      div.bubble{
+        border-left: 4px solid #EEE;
+        padding: 7px 10px;
+        min-height: 73px;
+      }
+    </style>
 {% endblock %}

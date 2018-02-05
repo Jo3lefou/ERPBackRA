@@ -103,6 +103,9 @@ class RarNotes
      */
     public function getNote()
     {
+        if($this->note != ''){
+            return stream_get_contents($this->note);
+        }
         return $this->note;
     }
 

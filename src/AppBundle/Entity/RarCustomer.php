@@ -527,5 +527,39 @@ class RarCustomer
     {
         return $this->orders;
     }
+
+    /**
+     * Add note
+     *
+     * @param \AppBundle\Entity\RarNote $note
+     *
+     * @return RarNotes
+     */
+    public function addNotes(\AppBundle\Entity\RarNotes $note)
+    {
+        $this->notes[] = $note;
+
+        return $this;
+    }
+
+    /**
+     * Remove note
+     *
+     * @param \AppBundle\Entity\RarNotes $notes
+     */
+    public function removeNotes(\AppBundle\Entity\RarNotes $notes)
+    {
+        $this->notes->removeElement($note);
+    }
+
+    /**
+     * Get notes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getNotes()
+    {
+        return $this->notes;
+    }
 }
 
