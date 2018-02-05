@@ -42,7 +42,7 @@ class AddNoteAjaxController extends Controller
             $newNotes->setNote($dataToSave);
             $newNotes->setCustomer($customer);
             $newNotes->setUser($user);
-            $newNotes->setDateCreation();
+            $newNotes->setDateCreation($time);
 
             $em->persist($newNotes);
             $em->flush();
