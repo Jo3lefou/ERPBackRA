@@ -105,5 +105,53 @@ class RarNotes
     {
         return $this->note;
     }
+
+    /**
+     * Set customer
+     *
+     * @param \AppBundle\Entity\RarCustomer $customer
+     *
+     * @return RarNotes
+     */
+    public function setCustomer(\AppBundle\Entity\RarCustomer $customer = null)
+    {
+        $this->customer = $customer;
+
+        return $this;
+    }
+
+    /**
+     * Get customer
+     *
+     * @return \AppBundle\Entity\RarCustomer
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\User $user
+     *
+     * @return RarNotes
+     */
+    public function setUser(\AppBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
 }
 
