@@ -38,7 +38,7 @@ class AddNoteAjaxController extends Controller
 
 		if ( $request->isXMLHttpRequest() ){
             // Creation Note
-            $newNotes = new RarOrder();
+            $newNotes = new RarNotes();
             $newNotes->addNote($dataToSave);
             $newNotes->setCustomer($customer);
             $newNotes->setUser($user);
