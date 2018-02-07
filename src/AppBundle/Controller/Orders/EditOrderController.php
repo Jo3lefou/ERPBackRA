@@ -10,7 +10,7 @@ use AppBundle\Entity\RarOrderLog;
 use AppBundle\Entity\RarSize;
 use AppBundle\Entity\RarModel;
 
-use AppBundle\Form\RarOrderType;
+use AppBundle\Form\RarEditOrderType;
 use AppBundle\Form\RarCustomerType;
 use AppBundle\Form\Bloc\OrderNoteType;
 
