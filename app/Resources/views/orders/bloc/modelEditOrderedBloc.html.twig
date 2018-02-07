@@ -129,37 +129,41 @@
         </td style="vertical-align: middle;">
         <td style="vertical-align: middle;">
           <div class="form-group">
-            {{ modelordered.isCommentInvoice }}
+            {% if modelordered.isCommentInvoice == 0 or modelordered.isCommentInvoice is empty %}
+              no
+            {% else %}
+              oui
+            {% endif %}
           </div>
         </td>
         <td style="vertical-align: middle;">
             <div class="form-group">
-              {% if modelOrdered.status == 0 %}
+              {% if modelordered.status == 0 %}
                 <span class="label label-default state st-td">{% trans %}To be done{% endtrans %}</span>
-              {% elseif modelOrdered.status == 1 %}
+              {% elseif modelordered.status == 1 %}
                 <span class="label label-default state st-es">{% trans %}In Stock{% endtrans %}</span>
-              {% elseif modelOrdered.status == 2 %}
+              {% elseif modelordered.status == 2 %}
                 <span class="label label-default state st-ew">{% trans %}Sent to workroom{% endtrans %}</span>
-              {% elseif modelOrdered.status == 3 %}
+              {% elseif modelordered.status == 3 %}
                 <span class="label label-default state st-cut">{% trans %}Cut{% endtrans %}</span>
-              {% elseif modelOrdered.status == 4 %}
+              {% elseif modelordered.status == 4 %}
                 <span class="label label-default state st-ecp">{% trans %}In production{% endtrans %}</span>
-              {% elseif modelOrdered.status == 5 %}
+              {% elseif modelordered.status == 5 %}
                 <span class="label label-default state st-epf">{% trans %}Sent by fullfilment house{% endtrans %}</span>
-              {% elseif modelOrdered.status == 6 %}
+              {% elseif modelordered.status == 6 %}
                 <span class="label label-default state st-rs">{% trans %}Received by Rime Arodaky{% endtrans %}</span>
-              {% elseif modelOrdered.status == 7 %}
+              {% elseif modelordered.status == 7 %}
                 <span class="label label-default state st-rse">{% trans %}Received with error{% endtrans %}</span>
-              {% elseif modelOrdered.status == 8 %}
+              {% elseif modelordered.status == 8 %}
                 <span class="label label-default state st-cs">{% trans %}Controled{% endtrans %}</span>
-              {% elseif modelOrdered.status == 9 %}
+              {% elseif modelordered.status == 9 %}
                 <span class="label label-default state st-lc">{% trans %}Delivered{% endtrans %}</span>
-              {% elseif modelOrdered.status == 10 %}
+              {% elseif modelordered.status == 10 %}
                 <span class="label label-default state st-lc">{% trans %}Finished{% endtrans %}</span>
               {% endif %}
             </div>
         </td>
-        {% if value.state < 2 or value.state == 3 or modelOrdered.status > 2 %}
+        {% if value.state < 2 or value.state == 3 or modelordered.status > 2 %}
           <th>{% trans %}Edit / Delete{% endtrans %}</th>
         {% endif %}
     </tr>
