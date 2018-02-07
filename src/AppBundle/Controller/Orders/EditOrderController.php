@@ -263,71 +263,32 @@ class EditOrderController extends Controller
                 $idOrder = $entity->getId();
                 //-------------------------------
                 // Update OrderID on ModelOrdered
-                //----------------------------------
+                //-------------------------------
                 foreach ( $entity->getModelsOrdered() as $model ){
-                    //$model = new RarModelOrdered();
-                    // ** On récupère les prix variables de la taille ** //
-                    $repositoryOrder = $this->getDoctrine()->getRepository(RarSize::class);
-                    $queryPricesSize = $repositoryOrder->createQueryBuilder('s')
-                        ->select("s.supPriceHT as supHt, s.supPriceShop as supShop")
-                        ->where('s.nameSize = :nameSize')
-                        ->andwhere('s.model = :model')
-                        ->setParameter('nameSize', $model->getSize() )
-                        ->setParameter('model', $model->getModel() );
-                    $pricesSize = $queryPricesSize->getQuery()->getResult();
-                    
-                    // ** Si la boutique achete RA au prix Retails (ex. Showroom)
-                    if($shopStatus == 1){
-                        if($vatStatus == 1){
-                            $priceSold = $model->getModel()->getPrixHT();
-                            $tvaAmount = ($priceSold+$pricesSize[0]['supHt'])*$amountVAT/100;
-                            $price = $tvaAmount+$priceSold;
-                        }else{
-                            $price = $model->getModel()->getPrixHT()+$pricesSize[0]['supHt'];
-                        }
-                    // ** Si la boutique achete RA a un prix contractualisé
-                    }elseif($contractStatus ==1){
-                        if($vatStatus == 1){
-                            $priceSold = $model->getModel()->getPrixHT();
-                            $tvaAmount = ($priceSold+$pricesSize[0]['supHt'])*$amountVAT/100;
-                            $price = ($tvaAmount+$priceSold)*($contractAmount/100);
-                        }else{
-                            $price = ($model->getModel()->getPrixHT()+$pricesSize[0]['supShop'])*($contractAmount/100);
-                        }
-                    // ** Si la boutique achete RA au prix Wholesale (ex. Revendeur)
-                    }else{
-                        if($vatStatus == 1){
-                            $priceSold = $model->getModel()->getPrixShop();
-                            $tvaAmount = ($priceSold+$pricesSize[0]['supShop'])*$amountVAT/100;
-                            $price = $tvaAmount+$priceSold;
-                        }else{
-                            $price = $model->getModel()->getPrixShop()+$pricesSize[0]['supShop'];
-                        }
-                    }
-                    
-                    if( $status == 0 ){
-                    // if Draft :
-                        // Do nothing about Shipping Date
+                    if( $model->getModel() ){
 
-                    }else if( $status == 1 ){
-                        $baseDate = $entity->getDateMinShip();
-                    // if Published :
-                        $minDateShip = $baseDate->modify('-2 weeks');
-                        $model->setMinProdShip($minDateShip);
-                        $maxDateShip = $baseDate->modify('-1 week');
-                        $model->setMaxProdShip($maxDateShip);
+                        // Pour les produits modifiés sur la page d'édition
+                        // ** On récupère les prix variables de la taille ** //
+                        $repositoryOrder = $this->getDoctrine()->getRepository(RarSize::class);
+                        $queryPricesSize = $repositoryOrder->createQueryBuilder('s')
+                            ->select("s.supPriceHT as supHt, s.supPriceShop as supShop")
+                            ->where('s.nameSize = :nameSize')
+                            ->andwhere('s.model = :model')
+                            ->setParameter('nameSize', $model->getSize() )
+                            ->setParameter('model', $model->getModel() );
+                        $pricesSize = $queryPricesSize->getQuery()->getResult();
+                        
+                        // ** Si la boutique achete RA au prix Retails (ex. Showroom)
                         if($shopStatus == 1){
-                        // ** Si directCustomer
                             if($vatStatus == 1){
                                 $priceSold = $model->getModel()->getPrixHT();
-                                $tvaAmount = $priceSold*$amountVAT/100;
+                                $tvaAmount = ($priceSold+$pricesSize[0]['supHt'])*$amountVAT/100;
                                 $price = $tvaAmount+$priceSold;
                             }else{
-                                $price = $model->getModel()->getPrixHT();
+                                $price = $model->getModel()->getPrixHT()+$pricesSize[0]['supHt'];
                             }
-                        
-                        }elseif($contractStatus == 1){
                         // ** Si la boutique achete RA a un prix contractualisé
+                        }elseif($contractStatus ==1){
                             if($vatStatus == 1){
                                 $priceSold = $model->getModel()->getPrixHT();
                                 $tvaAmount = ($priceSold+$pricesSize[0]['supHt'])*$amountVAT/100;
@@ -335,19 +296,61 @@ class EditOrderController extends Controller
                             }else{
                                 $price = ($model->getModel()->getPrixHT()+$pricesSize[0]['supShop'])*($contractAmount/100);
                             }
+                        // ** Si la boutique achete RA au prix Wholesale (ex. Revendeur)
                         }else{
-                        // ** Si Vente Boutique
                             if($vatStatus == 1){
                                 $priceSold = $model->getModel()->getPrixShop();
-                                $tvaAmount = $priceSold*$amountVAT/100;
+                                $tvaAmount = ($priceSold+$pricesSize[0]['supShop'])*$amountVAT/100;
                                 $price = $tvaAmount+$priceSold;
                             }else{
-                                $price = $model->getModel()->getPrixShop();
+                                $price = $model->getModel()->getPrixShop()+$pricesSize[0]['supShop'];
                             }
                         }
-                        $model->setPrixSoldHT($price);
-                        $model->setOrder($entity);
-                        $em->flush();
+                        
+                        if( $status == 0 ){
+                        // if Draft :
+                            // Do nothing about Shipping Date
+
+                        }else if( $status == 1 ){
+                            $baseDate = $entity->getDateMinShip();
+                        // if Published :
+                            $minDateShip = $baseDate->modify('-2 weeks');
+                            $model->setMinProdShip($minDateShip);
+                            $maxDateShip = $baseDate->modify('-1 week');
+                            $model->setMaxProdShip($maxDateShip);
+                            if($shopStatus == 1){
+                            // ** Si directCustomer
+                                if($vatStatus == 1){
+                                    $priceSold = $model->getModel()->getPrixHT();
+                                    $tvaAmount = $priceSold*$amountVAT/100;
+                                    $price = $tvaAmount+$priceSold;
+                                }else{
+                                    $price = $model->getModel()->getPrixHT();
+                                }
+                            
+                            }elseif($contractStatus == 1){
+                            // ** Si la boutique achete RA a un prix contractualisé
+                                if($vatStatus == 1){
+                                    $priceSold = $model->getModel()->getPrixHT();
+                                    $tvaAmount = ($priceSold+$pricesSize[0]['supHt'])*$amountVAT/100;
+                                    $price = ($tvaAmount+$priceSold)*($contractAmount/100);
+                                }else{
+                                    $price = ($model->getModel()->getPrixHT()+$pricesSize[0]['supShop'])*($contractAmount/100);
+                                }
+                            }else{
+                            // ** Si Vente Boutique
+                                if($vatStatus == 1){
+                                    $priceSold = $model->getModel()->getPrixShop();
+                                    $tvaAmount = $priceSold*$amountVAT/100;
+                                    $price = $tvaAmount+$priceSold;
+                                }else{
+                                    $price = $model->getModel()->getPrixShop();
+                                }
+                            }
+                            $model->setPrixSoldHT($price);
+                            $model->setOrder($entity);
+                            $em->flush();
+                        }
                     }
                 }
                 //-------------------------------
