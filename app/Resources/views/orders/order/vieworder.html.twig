@@ -384,36 +384,38 @@
                   <div class="widget_summary">
                     <div class="w_left w_25">
                       {% if modelO.status == 0 %}
-                          <span class="label label-default state st-td">To be done</span>
+                          <span class="label label-default state st-td">{% trans %}To be done{% endtrans %}</span>
                         {% elseif modelO.status == 1 %}
-                          <span class="label label-default state st-es">In stock</span>
+                          <span class="label label-default state st-es">{% trans %}In stock{% endtrans %}</span>
                         {% elseif modelO.status == 2 %}
-                          <span class="label label-default state st-ew">Sent to the workroom</span>
+                          <span class="label label-default state st-ew">{% trans %}Sent to the workroom{% endtrans %}</span>
                         {% elseif modelO.status == 3 %}
-                          <span class="label label-default state st-ecp">Error</span>
+                          <span class="label label-default state st-cut">{% trans %}Cut{% endtrans %}</span>
                         {% elseif modelO.status == 4 %}
-                          <span class="label label-default state st-epf">In production</span>
+                          <span class="label label-default state st-ecp">{% trans %}In production{% endtrans %}</span>
                         {% elseif modelO.status == 5 %}
-                          <span class="label label-default state st-rs">Done at the workroom</span>
+                          <span class="label label-default state st-epf">{% trans %}Sent by workroom{% endtrans %}</span>
                         {% elseif modelO.status == 6 %}
-                          <span class="label label-default state st-rse">Error</span>
+                          <span class="label label-default state st-rs">{% trans %}Received by Rime{% endtrans %}</span>
                         {% elseif modelO.status == 7 %}
-                          <span class="label label-default state st-cs">Controled</span>
+                          <span class="label label-default state st-rse">{% trans %}Error{% endtrans %}</span>
                         {% elseif modelO.status == 8 %}
-                          <span class="label label-default state st-lc">Delivered</span>
+                          <span class="label label-default state st-cs">{% trans %}Controled{% endtrans %}</span>
                         {% elseif modelO.status == 9 %}
-                          <span class="label label-default state st-lc">Finished</span>
+                          <span class="label label-default state st-lc">{% trans %}Delivered{% endtrans %}</span>
+                        {% elseif modelO.status == 10 %}
+                          <span class="label label-default state st-lc">{% trans %}Finished{% endtrans %}</span>
                         {% endif %}
                     </div>
                     <div class="w_center w_55">
                       <div class="progress">
-                        <div class="progress-bar bg-green" role="progressbar" aria-valuenow="{{ modelO.status*100/8 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ modelO.status*100/8 }}%;">
-                          <span class="sr-only">{{ modelO.status*100/8 }}% Complete</span>
+                        <div class="progress-bar bg-green" role="progressbar" aria-valuenow="{{ modelO.status*100/9 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ modelO.status*100/9 }}%;">
+                          <span class="sr-only">{{ modelO.status*100/9 }}% Complete</span>
                         </div>
                       </div>
                     </div>
                     <div class="w_right w_20">
-                      <span>{{ modelO.status*100/8 }}%</span>
+                      <span>{{ modelO.status*100/9 }}%</span>
                     </div>
                     <div class="clearfix"></div>
                   </div>
@@ -428,9 +430,9 @@
                       </tr>
                       <tr>
                         <td>
-                          <p><i class="fa fa-arrows-v"></i>{% trans %}Size Heels{% endtrans %}</p>
+                          <p><i class="fa fa-arrows-v"></i>{% trans %}Length{% endtrans %}</p>
                         </td>
-                        <td>{{ modelO.heels }}</td>
+                        <td>{{ modelO.heels }} cm</td>
                       </tr>
                       <tr>
                         <td>
