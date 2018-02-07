@@ -200,7 +200,7 @@
             {{ form.vars.value.model.name }} ({{ form.vars.value.model.sku }})
           {% endif %}
           <div style="display:none">
-            {{ form_widget(form.model, {'attr': {'class': 'form-control col-md-7 col-xs-12 model', 'rel': form.vars.id}}) }}
+            {# form_widget(form.model, {'attr': {'class': 'form-control col-md-7 col-xs-12 model', 'rel': form.vars.id}}) #}
           </div>
         </td style="vertical-align: middle;">
         <td style="vertical-align: middle;">
@@ -208,7 +208,7 @@
             {{ form.vars.value.size }}
           {% endif %}
           <div style="display:none">
-            {{ form_widget(form.size, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+            {# form_widget(form.size, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) #}
           </div>
         </td style="vertical-align: middle;">
         <td style="vertical-align: middle;">
@@ -216,7 +216,7 @@
             {{ form.vars.value.heels }} cm
           {% endif %}
           <div style="display:none">
-            {{ form_widget(form.heels, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+            {# form_widget(form.heels, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) #}
           </div>
         </td>
         <td style="vertical-align: middle;">
@@ -224,20 +224,20 @@
             {{ form.vars.value.comment }}
           {% endif %}
           <div style="display:none">
-            {{ form_widget(form.comment, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+            {# form_widget(form.comment, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) #}
           </div>
         </td style="vertical-align: middle;">
         <td style="vertical-align: middle;">
           {% if form.isCommentInvoice is defined %}
             <div class="form-group">
-                {{ form_widget(form.isCommentInvoice, {'attr': {'class': 'js-switch'}}) }}
+                {# form_widget(form.isCommentInvoice, {'attr': {'class': 'js-switch'}}) #}
             </div>
           {% endif %}
         </td>
         {% if form.status is defined %}
         <td style="vertical-align: middle;">
             <div class="form-group">
-                {{ form_widget(form.status, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                {# form_widget(form.status, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) #}
             </div>
         </td>
         {% endif %}

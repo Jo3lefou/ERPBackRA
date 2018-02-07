@@ -75,7 +75,7 @@ class EditOrderController extends Controller
 
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('AppBundle:RarOrder')->find($id);
-            $form = $this->createForm(RarOrderType::class, $entity, 
+            $form = $this->createForm(RarEditOrderType::class, $entity, 
                 ['attr' => [
                     'adminRights' => $adminRights, 
                     'type' => 'edit'] 
