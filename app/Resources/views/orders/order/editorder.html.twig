@@ -347,13 +347,13 @@
               dataType: "json",
               data: { value:'addmodel', model: model, size: size, length:length, comment:comment, status:status, isCommentInvoice:isCommentInvoice },
               success: function( data ) {
-                var html = '<tr class="item" name="OrderType[modelsOrdered]['+lengthitem+']" id="OrderType_modelsOrdered_'+lengthitem+'">'
-                + '<td style="vertical-align: middle;">'+modelName+'<input type="hidden" value="'+model+'" name="OrderType[modelsOrdered]['+lengthitem+'][model]"/></td>'
-                + '<td style="vertical-align: middle;">'+size+'<input type="hidden" value="'+size+'" name="OrderType[modelsOrdered]['+lengthitem+'][size]"/></td>'
-                + '<td style="vertical-align: middle;">'+length+' cm<input type="hidden" value="'+length+'" name="OrderType[modelsOrdered]['+lengthitem+'][heels]"/></td>'
-                + '<td style="vertical-align: middle;">'+comment+'<input type="hidden" value="'+comment+'" name="OrderType[modelsOrdered]['+lengthitem+'][comment]"/></td>'
-                + '<td style="vertical-align: middle;">'+isCommentInvoiceTxt+'<input type="hidden" value="'+isCommentInvoiceNum+'" name="OrderType[modelsOrdered]['+lengthitem+'][isCommentInvoice]"/></td>'
-                + '<td style="vertical-align: middle;">'+statusName+'<input type="hidden" value="'+status+'" name="OrderType[modelsOrdered]['+lengthitem+'][status]"/></td>'
+                var html = '<tr class="item" name="OrderType[modelsOrdered]['+lengthitem+']" id="OrderType_modelsOrdered_'+lengthitem+'" rel="'+data.idreturn+'">'
+                + '<td style="vertical-align: middle;">'+modelName+'<input type="hidden" value="'+model+'" name="OrderType[modelsOrdered]['+lengthitem+'][model]" id="OrderType_modelsOrdered_'+lengthitem+'_model" /></td>'
+                + '<td style="vertical-align: middle;">'+size+'<input type="hidden" value="'+size+'" name="OrderType[modelsOrdered]['+lengthitem+'][size]" id="OrderType_modelsOrdered_'+lengthitem+'_size" /></td>'
+                + '<td style="vertical-align: middle;">'+length+' cm<input type="hidden" value="'+length+'" name="OrderType[modelsOrdered]['+lengthitem+'][heels]" id="OrderType_modelsOrdered_'+lengthitem+'_heels" /></td>'
+                + '<td style="vertical-align: middle;">'+comment+'<input type="hidden" value="'+comment+'" name="OrderType[modelsOrdered]['+lengthitem+'][comment]" id="OrderType_modelsOrdered_'+lengthitem+'_comment" /></td>'
+                + '<td style="vertical-align: middle;">'+isCommentInvoiceTxt+'<input type="hidden" value="'+isCommentInvoiceNum+'" name="OrderType[modelsOrdered]['+lengthitem+'][isCommentInvoice]" id="OrderType_modelsOrdered_'+lengthitem+'_isCommentInvoice" /></td>'
+                + '<td style="vertical-align: middle;">'+statusName+'<input type="hidden" value="'+status+'" name="OrderType[modelsOrdered]['+lengthitem+'][status]" id="OrderType_modelsOrdered_'+lengthitem+'_status" /></td>'
                 + '</tr>'
                 $('#OrderType_modelsOrdered tbody').append(html);
                 $('#modelModal').modal('hide');
