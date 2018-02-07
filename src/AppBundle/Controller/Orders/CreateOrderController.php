@@ -42,6 +42,7 @@ class CreateOrderController extends Controller
         $role = $this->getUser()->getRole();
         $customerAllow = $this->getUser()->getCustomerAllow();
         $name = $firstName.' '.$lastName;
+        $time = date_create(date('Y/m/d H:i:s'));
 
         switch($role){
             case 'ROLE_ADMIN':
@@ -154,7 +155,6 @@ class CreateOrderController extends Controller
                     }
 
                     // ** Set Date Creation
-                    $time = date_create(date('Y/m/d H:i:s'));
                     $newOrder->setDateOrder($time);
 
                     // ** Set Id Compta
@@ -185,6 +185,12 @@ class CreateOrderController extends Controller
 
 
                 // ** Recup Order ID
+                if($newOrder->getDateCivil()){
+                    $baseDate = $newOrder->getDateCivil();
+                }else{
+                    $baseDate = $time;
+                }
+                
                 $idOrder = $newOrder->getId();
                 //-------------------------------
                 // ** Update OrderID on ModelOrdered
@@ -243,8 +249,8 @@ class CreateOrderController extends Controller
                         // Do nothing about Shipping Date
                     }else if( $status == 1 ){
                     // ** if Published :
-                        $maxDateShip = date_create(date("Y/m/d H:i:s", strtotime("+".$maxWeek." week")));
-                        $minDateShip = date_create(date("Y/m/d H:i:s", strtotime("+".$minWeek." week")));
+                        $maxDateShip = date_create($baseDate, strtotime("-1 week")));
+                        $minDateShip = date_create($baseDate, strtotime("-2 weeks")));
                         $model->setMinProdShip($minDateShip);
                         $model->setMaxProdShip($maxDateShip);
                     }
