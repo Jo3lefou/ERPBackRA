@@ -123,7 +123,7 @@ class EditOrderController extends Controller
                 // On s'occupe des stocks
                 ///////////////////////////
                 //if order
-                $entitywmodelordered = $em->getRepository('AppBundle:RarOrder')->find($id);
+                /*$entitywmodelordered = $em->getRepository('AppBundle:RarOrder')->find($id);
                 foreach ($entitywmodelordered->getModelsOrdered() as $modelOrdered) {
                     $idEntity = $modelOrdered->getId();
                     
@@ -183,7 +183,7 @@ class EditOrderController extends Controller
                         $em->persist($newOrderLog);
                         $em->flush();
                     }
-                }
+                }*/
                 
 
                 /////////////////////////////////////////////////////
@@ -264,7 +264,7 @@ class EditOrderController extends Controller
                 //-------------------------------
                 // Update OrderID on ModelOrdered
                 //-------------------------------
-                foreach ( $entity->getModelsOrdered() as $model ){
+                /*foreach ( $entity->getModelsOrdered() as $model ){
                     if( $model->getModel() ){
 
                         // Pour les produits modifiés sur la page d'édition
@@ -352,7 +352,7 @@ class EditOrderController extends Controller
                             $em->flush();
                         }
                     }
-                }
+                }*/
                 //-------------------------------
                 $this->addFlash( "success", $this->get('translator')->trans($message) );
                 return $this->redirectToRoute('orders');
