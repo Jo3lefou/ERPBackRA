@@ -170,18 +170,20 @@
                           {% elseif modelOrdered.status == 2 %}
                             <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-ew" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ modelOrdered.id }}">
                           {% elseif modelOrdered.status == 3 %}
-                            <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-ecp" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ modelOrdered.id }}">
+                            <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-cut" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ modelOrdered.id }}">
                           {% elseif modelOrdered.status == 4 %}
-                            <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-epf" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ modelOrdered.id }}">
+                            <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-ecp" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ modelOrdered.id }}">
                           {% elseif modelOrdered.status == 5 %}
-                            <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-rs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ modelOrdered.id }}">
+                            <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-epf" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ modelOrdered.id }}">
                           {% elseif modelOrdered.status == 6 %}
-                            <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-rse" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ modelOrdered.id }}">
+                            <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-rs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ modelOrdered.id }}">
                           {% elseif modelOrdered.status == 7 %}
-                            <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-cs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ modelOrdered.id }}">
+                            <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-rse" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ modelOrdered.id }}">
                           {% elseif modelOrdered.status == 8 %}
-                            <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-lc" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ modelOrdered.id }}">
+                            <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-cs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ modelOrdered.id }}">
                           {% elseif modelOrdered.status == 9 %}
+                            <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-lc" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ modelOrdered.id }}">
+                          {% elseif modelOrdered.status == 10 %}
                             <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-lc" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ modelOrdered.id }}">
                           {% endif %}
                             {{ modelOrdered.model.name }} ({{ modelOrdered.size }}) <span class="caret"></span>
@@ -191,14 +193,16 @@
                             <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ modelOrdered.id }}" rel="1">{% trans %}In Stock{% endtrans %}</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ modelOrdered.id }}" rel="2">{% trans %}Sent to workroom{% endtrans %}</a></li>
-                            <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ modelOrdered.id }}" rel="3">{% trans %}In production{% endtrans %}</a></li>
-                            <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ modelOrdered.id }}" rel="4">{% trans %}Sent by fullfilment house{% endtrans %}</a></li>
-                            <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ modelOrdered.id }}" rel="5">{% trans %}Received by Rime Arodaky{% endtrans %}</a></li>
-                            <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ modelOrdered.id }}" rel="6">{% trans %}Received with error{% endtrans %}</a></li>
+                            <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ modelOrdered.id }}" rel="3">{% trans %}Cut{% endtrans %}</a></li>
+                            <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ modelOrdered.id }}" rel="4">{% trans %}In production{% endtrans %}</a></li>
+                            <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ modelOrdered.id }}" rel="5">{% trans %}Sent by fullfilment house{% endtrans %}</a></li>
+                            <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ modelOrdered.id }}" rel="6">{% trans %}Received by Rime Arodaky{% endtrans %}</a></li>
+                            <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ modelOrdered.id }}" rel="7">{% trans %}Received with error{% endtrans %}</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ modelOrdered.id }}" rel="7">{% trans %}Controled{% endtrans %}</a></li>
-                            <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ modelOrdered.id }}" rel="9">{% trans %}Finished{% endtrans %}</a></li>
-                            <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ modelOrdered.id }}" rel="8">{% trans %}Delivered{% endtrans %}</a></li>
+                            <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ modelOrdered.id }}" rel="8">{% trans %}Controled{% endtrans %}</a></li>
+                            <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ modelOrdered.id }}" rel="9">{% trans %}Delivered{% endtrans %}</a></li>
+                            <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ modelOrdered.id }}" rel="10">{% trans %}Finished{% endtrans %}</a></li>
+                            
                           </ul>
                         </div>
                       {% else %}
@@ -209,18 +213,20 @@
                         {% elseif modelOrdered.status == 2 %}
                           <span class="label label-default state st-ew">{{ modelOrdered.model.name }} ({{ modelOrdered.size }}) </span>
                         {% elseif modelOrdered.status == 3 %}
-                          <span class="label label-default state st-ecp">{{ modelOrdered.model.name }} ({{ modelOrdered.size }}) </span>
+                          <span class="label label-default state st-cut">{{ modelOrdered.model.name }} ({{ modelOrdered.size }}) </span>
                         {% elseif modelOrdered.status == 4 %}
-                          <span class="label label-default state st-epf">{{ modelOrdered.model.name }} ({{ modelOrdered.size }}) </span>
+                          <span class="label label-default state st-ecp">{{ modelOrdered.model.name }} ({{ modelOrdered.size }}) </span>
                         {% elseif modelOrdered.status == 5 %}
-                          <span class="label label-default state st-rs">{{ modelOrdered.model.name }} ({{ modelOrdered.size }}) </span>
+                          <span class="label label-default state st-epf">{{ modelOrdered.model.name }} ({{ modelOrdered.size }}) </span>
                         {% elseif modelOrdered.status == 6 %}
-                          <span class="label label-default state st-rse">{{ modelOrdered.model.name }} ({{ modelOrdered.size }}) </span>
+                          <span class="label label-default state st-rs">{{ modelOrdered.model.name }} ({{ modelOrdered.size }}) </span>
                         {% elseif modelOrdered.status == 7 %}
-                          <span class="label label-default state st-cs">{{ modelOrdered.model.name }} ({{ modelOrdered.size }}) </span>
+                          <span class="label label-default state st-rse">{{ modelOrdered.model.name }} ({{ modelOrdered.size }}) </span>
                         {% elseif modelOrdered.status == 8 %}
-                          <span class="label label-default state st-lc">{{ modelOrdered.model.name }} ({{ modelOrdered.size }}) </span>
+                          <span class="label label-default state st-cs">{{ modelOrdered.model.name }} ({{ modelOrdered.size }}) </span>
                         {% elseif modelOrdered.status == 9 %}
+                          <span class="label label-default state st-lc">{{ modelOrdered.model.name }} ({{ modelOrdered.size }}) </span>
+                        {% elseif modelOrdered.status == 10 %}
                           <span class="label label-default state st-lc">{{ modelOrdered.model.name }} ({{ modelOrdered.size }}) </span>
                         {% endif %}
                       {% endif %}

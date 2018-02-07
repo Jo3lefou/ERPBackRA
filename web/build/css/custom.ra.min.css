@@ -290,6 +290,9 @@ ul.nav.nav-tabs.bar_tabs.myBigTab{
 .table-striped > tbody > tr.st-ecp{
 	background-color:#c0cec0;
 }
+.table-striped > tbody > tr.st-cut{
+	background-color:#fda971;
+}
 .table-striped > tbody > tr.st-es{
 	background-color:#d0dfe0;
 }
