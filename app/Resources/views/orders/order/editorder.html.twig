@@ -347,7 +347,7 @@
               dataType: "json",
               data: { value:'addmodel', model: model, size: size, length:length, comment:comment, status:status, isCommentInvoice:isCommentInvoice },
               success: function( data ) {
-                var html = '<tr class="item">'
+                var html = '<tr class="item" name="OrderType[modelsOrdered]['+lengthitem+']" id="OrderType_modelsOrdered_'+lengthitem+'">'
                 + '<td style="vertical-align: middle;">'+modelName+'<input type="hidden" value="'+model+'" name="OrderType[modelsOrdered]['+lengthitem+'][model]"/></td>'
                 + '<td style="vertical-align: middle;">'+size+'<input type="hidden" value="'+size+'" name="OrderType[modelsOrdered]['+lengthitem+'][size]"/></td>'
                 + '<td style="vertical-align: middle;">'+length+' cm<input type="hidden" value="'+length+'" name="OrderType[modelsOrdered]['+lengthitem+'][heels]"/></td>'
