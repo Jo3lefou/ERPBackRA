@@ -103,6 +103,7 @@ class EditOrderController extends Controller
                 $modellist = $em->getRepository('AppBundle:RarModel')->findBy( array('isActive' => '1', 'isShop' => '1'), array('name' => 'ASC') );
             }
 
+            $message = "bad";
             // On choppe la requête et si Ok, on envoie l'enregistrement
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
