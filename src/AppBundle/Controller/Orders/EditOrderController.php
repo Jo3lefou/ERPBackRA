@@ -107,48 +107,12 @@ class EditOrderController extends Controller
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
 
-                $entityUpdated = $form->getData();
+                $entity = $form->getData();
 
                 // Set Date Creation
                 $time = date_create(date('Y/m/d H:i:s'));
                 // On crée un message sympas
                 $message = $messageGenerator->getHappyMessage();
-                // On récupère les données du formulaire
-                $data = array();
-                $i=0;
-
-                //$request = new Request($_POST);
-                dump($request->query->get('modelsOrdered'));
-                /*foreach ( $request->query->get('modelsOrdered') as $newModelOrdered){
-                    $data[$i] = $newModelOrdered;
-                    /*$entityMO = new RarModelOrdered();
-                    $entityMO->setModel($newModelOrdered['model']);
-                    $entityMO->setSize($newModelOrdered['size']);
-                    $entityMO->setHeels($newModelOrdered['heels']);
-                    $entityMO->setComment($newModelOrdered['comment']);
-                    $entityMO->setStatus($newModelOrdered['status']);
-                    $entityMO->setIsCommentInvoice($newModelOrdered['isCommentInvoice']);
-                    $entityMO->setOrder($entityUpdated);
-                    $em->persist($entityMO);*/
-               //     $i++;
-                //}
-
-                /*$data = array();
-                $i=0;
-                foreach($entityUpdated->getModelsOrdered() as $modelOrderedUpdated){
-                     $modelOrderedUpdated->setOrder($entityUpdated);
-                     $em->persist($modelOrderedUpdated);
-                     $data[$i]=$modelOrderedUpdated->getId();
-                     $i++;
-                }*/
-
-                $em->persist($entityUpdated);
-                $em->flush();
-                
-
-            }
-
-            /*
 
 
 
@@ -158,34 +122,7 @@ class EditOrderController extends Controller
                 // On s'occupe des stocks
                 ///////////////////////////
                 //if order
-                /*foreach ($entity->getModelsOrdered() as $modelOrdered) {
-
-
-                    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                foreach ($entity->getModelsOrdered() as $modelOrdered) {
                     $idEntity = $modelOrdered->getId();
                     $oldOrder = $em->getRepository('AppBundle:RarModelOrdered')->find($idEntity);
                     $oldStatus = $oldOrder->getStatus();
@@ -321,7 +258,7 @@ class EditOrderController extends Controller
                 //-------------------------------
                 // Update OrderID on ModelOrdered
                 //----------------------------------
-                /*foreach ( $entity->getModelsOrdered() as $model ){
+                foreach ( $entity->getModelsOrdered() as $model ){
                     //$model = new RarModelOrdered();
                     // ** On récupère les prix variables de la taille ** //
                     $repositoryOrder = $this->getDoctrine()->getRepository(RarSize::class);
@@ -361,8 +298,7 @@ class EditOrderController extends Controller
                             $price = $model->getModel()->getPrixShop()+$pricesSize[0]['supShop'];
                         }
                     }
-                    /***** ADDED ***
-
+                    
                     if( $status == 0 ){
                     // if Draft :
                         // Do nothing about Shipping Date

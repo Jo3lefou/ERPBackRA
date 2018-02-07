@@ -185,12 +185,7 @@ class CreateOrderController extends Controller
 
 
                 // ** Recup Order ID
-                if($newOrder->getDateCivil()){
-                    $baseDate = $newOrder->getDateCivil();
-                }else{
-                    $baseDate = $time;
-                }
-                
+                $baseDate = $newOrder->getDateMinShip();
                 $idOrder = $newOrder->getId();
                 //-------------------------------
                 // ** Update OrderID on ModelOrdered
@@ -249,9 +244,9 @@ class CreateOrderController extends Controller
                         // Do nothing about Shipping Date
                     }else if( $status == 1 ){
                     // ** if Published :
-                        $maxDateShip = $baseDate->modify('-1 week');
-                        $minDateShip = $baseDate->modify('-2 week');
+                        $minDateShip = $baseDate->modify('-2 weeks');
                         $model->setMinProdShip($minDateShip);
+                        $maxDateShip = $baseDate->modify('-1 week');
                         $model->setMaxProdShip($maxDateShip);
                     }
                     $model->setDateCreation($time);
