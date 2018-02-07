@@ -4,6 +4,7 @@ Accounting Manager: Manageur Comptable
 Active: Actif
 Activity report: Rapport d'activité
 Add a shop: Ajouter une boutique
+Add new product: Ajouter un nouveau produit
 Add your models here: Ajouter vos models ici
 Address: Adresse
 Admin: Administrateur
@@ -36,9 +37,11 @@ Create here your new user: Créer ici votre nouvel utilisateur
 Create here your new profile: Créer votre nouveau profil ici
 Customer infos: Infos client
 Customers: Clients
+Cut: Coupé
 Dashboard: Tableau de bord
 Define your order: Définissez votre commande
 Delivered: Délivrée
+Display comment on invoice: Afficher le commentaire sur la facture
 Done: Fait
 Draft: Brouillon
 Edit: Editer
@@ -67,6 +70,8 @@ In stock: En stock
 Interface: Interface
 Language: Langue
 Last Name: Nom de Famille
+Length: Longueur
+length: longueur
 Log Out: Se deconnecter
 Manage contract and VAT: Gérer les contrats et la TVA
 Manage the shop associated to the user: Gérer les boutiques associées à l'utilisateur

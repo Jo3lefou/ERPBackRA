@@ -41,6 +41,7 @@ class EditOrderAjaxController extends Controller
             $class = "";
             $lineClass="";
             $error="";
+            $idreturn="";
 
 			if($type == 'update-model-ordered'){
             	$entity = $em->getRepository('AppBundle:RarModelOrdered')->find($id);
@@ -51,13 +52,14 @@ class EditOrderAjaxController extends Controller
             		case 0: $class = 'btn btn-default dropdown-toggle btn-xs state st-td'; $stateWord ='to do'; break;
                     case 1: $class = 'btn btn-default dropdown-toggle btn-xs state st-es'; $stateWord ='in stock'; break;
                     case 2: $class = 'btn btn-default dropdown-toggle btn-xs state st-ew'; $stateWord ='sent to workroom'; break;
-                    case 3: $class = 'btn btn-default dropdown-toggle btn-xs state st-ecp'; $stateWord ='in production'; break;
-                    case 4: $class = 'btn btn-default dropdown-toggle btn-xs state st-epf'; $stateWord ='sent by workroom'; break;
-                    case 5: $class = 'btn btn-default dropdown-toggle btn-xs state st-rs'; $stateWord ='received by rime arodaky'; break;
-                    case 6: $class = 'btn btn-default dropdown-toggle btn-xs state st-rse'; $stateWord ='received by rime arodaky with error'; break;
-                    case 7: $class = 'btn btn-default dropdown-toggle btn-xs state st-cs'; $stateWord ='controled';break;
-                    case 8: $class = 'btn btn-default dropdown-toggle btn-xs state st-lc'; $stateWord ='delivered'; break;
-                    case 9: $class = 'btn btn-default dropdown-toggle btn-xs state st-lc'; $stateWord ='finished'; break;
+                    case 3: $class = 'btn btn-default dropdown-toggle btn-xs state st-cut'; $stateWord ='cut'; break;
+                    case 4: $class = 'btn btn-default dropdown-toggle btn-xs state st-ecp'; $stateWord ='in production'; break;
+                    case 5: $class = 'btn btn-default dropdown-toggle btn-xs state st-epf'; $stateWord ='sent by workroom'; break;
+                    case 6: $class = 'btn btn-default dropdown-toggle btn-xs state st-rs'; $stateWord ='received by rime arodaky'; break;
+                    case 7: $class = 'btn btn-default dropdown-toggle btn-xs state st-rse'; $stateWord ='received by rime arodaky with error'; break;
+                    case 8: $class = 'btn btn-default dropdown-toggle btn-xs state st-cs'; $stateWord ='controled';break;
+                    case 9: $class = 'btn btn-default dropdown-toggle btn-xs state st-lc'; $stateWord ='delivered'; break;
+                    case 10: $class = 'btn btn-default dropdown-toggle btn-xs state st-lc'; $stateWord ='finished'; break;
             	}
             	$lineClass = "";
             	if($newValue >= 2 && $oldStatus < 2){
@@ -206,12 +208,47 @@ class EditOrderAjaxController extends Controller
 
 
                 
+            }elseif($type == 'addmodel'){
+
+                $newValue = '';
+                $jsAction = '';
+
+                $modelid = $request->get('model');
+                $model = $em->getRepository('AppBundle:RarModel')->find($modelid);
+                $order = $em->getRepository('AppBundle:RarOrder')->find($id);
+
+                $entity =  new RarModelOrdered();
+                
+                $dateValidation = date_create(date('d/m/Y'));
+                $size = $request->get('size');
+                $length = $request->get('length');
+                $comment = $request->get('comment');
+                $status = $request->get('status');
+                if($request->get('isCommentInvoice') == 'on'){
+                    $isCommentInvoice = '1';
+                }else{
+                    $isCommentInvoice = '0';
+                }
+                
+
+                $entity->setModel($model);
+                $entity->setHeels($length);
+                $entity->setSize($size);
+                $entity->setComment($comment);
+                $entity->setStatus($status);
+                $entity->setOrder($order);
+                $entity->setIsCommentInvoice($isCommentInvoice);
+                $entity->setDateCreation($dateValidation);
+
+                //$entity->
+
             }
 
 	    	if($error == ''){
                 $em->persist($entity);
                 $em->flush();
-                $response = array('type' => $type, 'id' => $id, 'class' => $class, 'lineclass' => $lineClass, 'datevalidation' => $dateValidation, 'error' => '', 'newValue' => $newValue, 'action' => $jsAction);
+                $idreturn = $entity->getId();
+                $response = array('type' => $type, 'id' => $id, 'class' => $class, 'lineclass' => $lineClass, 'datevalidation' => $dateValidation, 'error' => '', 'newValue' => $newValue, 'action' => $jsAction, 'idreturn' => $idreturn);
             }else{
                 $response = array('type' => '', 'id' => '', 'class' => '', 'lineclass' => '', 'datevalidation' => '', 'error' => $error, 'newValue' => '', 'action' => $jsAction);
             }

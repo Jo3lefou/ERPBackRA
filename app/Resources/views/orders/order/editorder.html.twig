@@ -32,7 +32,7 @@
 
           <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
-              {% if customerAllow == 1 %}
+              {% if customerAllow == 1 and order.type == 0 %}
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>
@@ -75,7 +75,7 @@
                     </div>
                   </div>
                 </div>
-              {% else %}
+              {% elseif order.type == 0 %}
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>
@@ -88,6 +88,7 @@
                     {{ order.customerName }}
                   </div>
                 </div>
+              {% else %}
               {% endif %}
 
               <!-- Review -->
@@ -145,6 +146,101 @@
 {% endblock %}
 
 {% block footer %}
+  <!-- Modal Payment -->
+    <div class="modal fade" id="modelModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">{% trans %}Add new product{% endtrans %}</h4>
+          </div>
+          <div class="modal-body">
+            <div id="formPayment">
+              <div class="form-horizontal form-label-left">
+                <!-- Debut Form -->
+                <div class="form-group">
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="model">
+                    {% trans %}Model{% endtrans %}
+                    <span class="required">*</span>
+                  </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <select class="form-control" id="model" name="model">
+                      <option value="-"></option>
+                      {% for model in modelslist %}
+                      <option value="{{ model.id }}" rel="{{ model.name }} ({{ model.sku }})">
+                        {{ model.name }} ({{ model.sku }})
+                      </option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="size">
+                    {% trans %}Size{% endtrans %}
+                    <span class="required">*</span>
+                  </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12" style="position:relative;">
+                    <select class="form-control" id="size" name="size">
+                    </select>
+                    <div id="loadingisize" style="display:none;">
+                      <img src="{{ url('homepage') }}build/images/loading.gif" alt="" />
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="length">
+                    {% trans %}Length{% endtrans %}
+                  </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input type="text" class="form-control" value="" id="length" name="length"/>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment">
+                    {% trans %}Comment{% endtrans %}
+                  </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <textarea class="form-control" id="comment"></textarea>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-12 col-sm-12 col-xs-12">
+                    <p class="col-md-3 col-sm-3 col-xs-12"><input type="checkbox" id="isCommentInvoice" name="isCommentInvoice" class="js-switch" /></p>
+                    <p class="col-md-6 col-sm-6 col-xs-12">{% trans %}Display comment on invoice{% endtrans %}?</p>
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment">
+                    {% trans %}Status{% endtrans %}
+                  </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <select id="status" name="status" class="form-control col-md-7 col-xs-12">
+                      <option value="0" selected="selected">{% trans %}To do{% endtrans %}</option>
+                      <option value="1" rel="{% trans %}In stock{% endtrans %}">{% trans %}In stock{% endtrans %}</option>
+                      <option value="2" rel="{% trans %}Sent to workroom{% endtrans %}">{% trans %}Sent to workroom{% endtrans %}</option>
+                      <option value="3" rel="{% trans %}Cut{% endtrans %}">{% trans %}Cut{% endtrans %}</option>
+                      <option value="4" rel="{% trans %}In production{% endtrans %}">{% trans %}In production{% endtrans %}</option>
+                      <option value="5" rel="{% trans %}Sent by the workroom{% endtrans %}">{% trans %}Sent by the workroom{% endtrans %}</option>
+                      <option value="6" rel="{% trans %}Received by Rime Arodaky{% endtrans %}">{% trans %}Received by Rime Arodaky{% endtrans %}</option>
+                      <option value="7" rel="{% trans %}Received with error{% endtrans %}">{% trans %}Received with error{% endtrans %}</option>
+                      <option value="8" rel="{% trans %}Controlled{% endtrans %}">{% trans %}Controlled{% endtrans %}</option>
+                      <option value="9" rel="{% trans %}Shipped{% endtrans %}">{% trans %}Shipped{% endtrans %}</option>
+                      <option value="10" rel="{% trans %}Finished{% endtrans %}">{% trans %}Finished{% endtrans %}</option>
+                    </select>
+                  </div>
+                </div>
+                <!-- Fin Form -->
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="saveModel" href="/{{ locale }}/orders/update/addmodel/{{ order.id }}" >Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- //Modal Payment -->
     <!-- jQuery -->
     <script src="{{ url('homepage') }}vendors/jquery/dist/jquery.min.js"></script>
     <!-- jQueryUI -->
@@ -196,72 +292,82 @@
     <script src="{{ url('homepage') }}build/js/rarcustom.js"></script>
     <script type="text/javascript">
 
-        function searchSize(){
-          $('#OrderType_modelsOrdered select.model').on('change', function(){
+        function searchSizeModal(){
+          $('#modelModal select#model').on('change', function(){
               var val = $(this).val();
-              var rel = $(this).attr('rel');
-              $('select.'+rel+'_size').html('');
+              var rel = 'EditOrder';
+              $('#modelModal select#size').html('');
+              $('#loadingisize').fadeIn();
               $.ajax({
                   url:'{{ (path('app_size_route')) }}',
                   type: "POST",
                   dataType: "json",
-                  data: {"val": val, "rel": rel },
+                  data: {"val": val, "rel": rel},
                   async: true,
                   success: function (data){
-                      $('body').find('select.'+rel+'_size').append('<option></option>');
+                      $('#modelModal select#size').append('<option></option>');
                       $.each(data, function(index, s) {
-                          $('body').find('select.'+rel+'_size').append('<option value="'+s.nameSize+'">'+s.nameSize+'</option>')
+                          $('#modelModal select#size').append('<option value="'+s.nameSize+'">'+s.nameSize+'</option>')
                       });
+                  },
+                  complete: function(){
+                    $('#loadingisize').fadeOut();
                   }
-              });
-              $('select.'+rel+'_size').on('change', function(){
-                  var val = $(this).val();
-                  $('#'+rel+'_size').attr('value', val);
               });
               return false;
           });
         }
 
-        $('.size-collection').collection({
-            allow_duplicate: true,
-            allow_up: false,
-            allow_down: false,
-            add: '<a href="#" class="btn btn-default" title="Add element"><span class="glyphicon glyphicon-plus-sign"></span></a>',
-            // here is the magic!
-            elements_selector: 'tr.item',
-            elements_parent_selector: '%id% tbody',
-            after_add: function(collection, element) {
-                searchSize();
-                return true;
-             }
+        searchSizeModal();
+
+        $('button#saveModel').on('click', function(e){
+          e.preventDefault();
+          var model = $('#modelModal select#model').val();
+          var modelName = $('#modelModal select#model option:selected').attr('rel');
+          var size = $('#modelModal select#size').val();
+          var status = $('#modelModal select#status').val();
+          var statusName = $('#modelModal select#status option:selected').attr('rel');
+          var length = $('#modelModal input#length').val();
+          var comment = $('#modelModal #comment').val();
+          
+          var isCommentInvoice = $('#modelModal #isCommentInvoice').val();
+          if(isCommentInvoice == 'on'){
+            var isCommentInvoiceTxt = 'oui';
+          }else{
+            var isCommentInvoiceTxt = 'non';
+          }
+          var href = $(this).attr('href');
+
+          $('#loading-bar').fadeIn();
+          $.ajax( {
+              type:"GET",
+              url: href,
+              dataType: "json",
+              data: { value:'addmodel', model: model, size: size, length:length, comment:comment, status:status, isCommentInvoice:isCommentInvoice },
+              success: function( data ) {
+                var html = '<tr class="item">'
+                + '<td style="vertical-align: middle;">'+modelName+'</td>'
+                + '<td style="vertical-align: middle;">'+size+'</td>'
+                + '<td style="vertical-align: middle;">'+length+' cm</td>'
+                + '<td style="vertical-align: middle;">'+comment+'</td>'
+                + '<td style="vertical-align: middle;">'+isCommentInvoiceTxt+'</td>'
+                + '<td style="vertical-align: middle;">'+statusName+'</td>'
+                + '</tr>'
+                $('#OrderType_modelsOrdered tbody').append(html);
+                $('#modelModal').modal('hide');
+              },
+              complete: function(){
+                $('#loading-bar').fadeOut();
+              }
+            });
         });
 
-        searchSize();
-
-        $( function() {
-            function log( message ) {
-                $( "<div>" ).text( message ).prependTo( "#log" );
-                $( "#log" ).scrollTop( 0 );
-            }
-         
-            $( "#customer-input" ).autocomplete({
-              source: function( request, response ) {
-                $.ajax( {
-                  type:"GET",
-                  url: "{{ (path('app_customer_route')) }}",
-                  dataType: "json",
-                  data: { value: request.term },
-                  success: function( data ) {
-                    response( data );
-                  }
-                } );
-              },
-              minLength: 3,
-              select: function( event, ui ) {
-                $( "#OrderType_customer_idCustomer" ).val( ui.item.id );
-              }
-            })
-          } );
-
     </script>
+    <style>
+      #loadingisize{
+        position: absolute;
+        top:0px;
+        right:10px;
+      }
+    </style>
 {% endblock %}

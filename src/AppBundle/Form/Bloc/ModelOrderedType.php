@@ -39,24 +39,26 @@ class ModelOrderedType extends AbstractType
                   ->add('comment', TextareaType::class, [
                       'label' => false,
                   ])
+                  ->add('isCommentInvoice', CheckboxType::class, [
+                        'required' => false,
+                  ])
                   ->add('status', choiceType::class, [
                       'label' => false,
                       'choices'  => array(
                         'To be done' => '0',
                         'In Stock' => '1',
                         'Sent to workroom' => '2',
-                        'In production' => '3',
-                        'Sent by fullfilment house' => '4',
-                        'Received by Rime Arodaky' => '5',
-                        'Received with error' => '6',
-                        'Controled' => '7',
-                        'Finished' => '9',
-                        'Delivered' => '8',
+                        'Cut' => '3',
+                        'In production' => '4',
+                        'Sent by fullfilment house' => '5',
+                        'Received by Rime Arodaky' => '6',
+                        'Received with error' => '7',
+                        'Controled' => '8',
+                        'Shipped' => '9',
+                        'Finished' => '10',
                       )
-                  ])
-                  ->add('isCommentInvoice', CheckboxType::class, [
-                        'required' => false,
-                    ]);
+                  ]);
+                  
             }else{
               $builder
                   ->add('model', entityType::class,
@@ -76,6 +78,9 @@ class ModelOrderedType extends AbstractType
                   ])
                   ->add('comment', TextareaType::class, [
                       'label' => false,
+                  ])
+                  ->add('isCommentInvoice', CheckboxType::class, [
+                        'required' => false,
                   ]);
             }
         }else{

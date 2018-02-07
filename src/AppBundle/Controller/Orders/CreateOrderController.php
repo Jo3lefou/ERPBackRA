@@ -197,8 +197,7 @@ class CreateOrderController extends Controller
                     $workroom = $model->getModel()->getWorkroom();
 
                     // ** On récupère les prix variables de la taille ** //
-                    $repositoryOrder = $this->getDoctrine()
-                        ->getRepository(RarSize::class);
+                    $repositoryOrder = $this->getDoctrine()->getRepository(RarSize::class);
                     $queryPricesSize = $repositoryOrder->createQueryBuilder('s')
                         ->select("s.supPriceHT as supHt, s.supPriceShop as supShop")
                         ->where('s.nameSize = :nameSize')
@@ -276,7 +275,8 @@ class CreateOrderController extends Controller
                     'h1title' => 'Votre profile',
                     'bodyClass' => 'nav-md',
                     'user' => $user,
-                    'form' => $form->createView()
+                    'form' => $form->createView(),
+                    'order' => '',
                 )
             );
 

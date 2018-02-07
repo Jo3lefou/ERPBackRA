@@ -36,6 +36,7 @@
   <div class="x_content">
     <!-- CONTENU -->
     <div class="form-horizontal form-label-left">
+
       <div class="form-group">
         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="shop_name">{{ form.dateCivil.vars.label|trans }}
         </label>
@@ -94,6 +95,9 @@
         <!-- CONTENU -->
         <div class="form-horizontal form-label-left">
             {{ form_widget(form.modelsOrdered) }}
+            {% if value.state < 2 %}
+              <a class="btn btn-success" data-toggle="modal" data-target="#modelModal" href="#"><i class="fa fa-plus"></i> {% trans %}Add new product to this order{% endtrans %}</a>
+            {% endif %}
         </div>
       <!-- // CONTENU -->
     </div>
@@ -167,16 +171,11 @@
             <thead>
                 <th>{% trans %}Model{% endtrans %}</th>
                 <th>{% trans %}Size{% endtrans %}</th>
-                <th>{% trans %}Heels{% endtrans %}</th>
+                <th>{% trans %}Length{% endtrans %}</th>
                 <th>{% trans %}Comment{% endtrans %}</th>
                 {% if form.status is defined %}
                 <th>{% trans %}Status{% endtrans %}</th>
                 {% endif %}
-                {% if form.isCommentInvoice is defined %}
-                <th>{% trans %}Display comment{% endtrans %}</th>
-                {% endif %}
-                <th>&nbsp;</th>
-                
             </thead>
             <tbody>
 
@@ -195,58 +194,41 @@
 {% block ModelOrderedType_widget %}
 
     {# widget_attributes will generate class="item" from the ModelType.entry_options configuration #}
-    <tr {{ block('widget_attributes') }} price="">
-        <td>
-            <div class="form-group select-model">
-              {% if form.size.vars.value != '' %}
-                {{ form_widget(form.model, {'attr': {'class': 'form-control col-md-7 col-xs-12 model', 'rel': form.vars.id}}) }}
-              {% else %}
-                {{ form_widget(form.model, {'attr': {'class': 'form-control col-md-7 col-xs-12 model', 'rel': form.vars.id}}) }}
-              {% endif %}
-            </div>
+    <tr {{ block('widget_attributes') }} style="border-bottom:1px #DDD solid" rel="{{ form.vars.value.id }}">
+        <td style="vertical-align: middle;">
+          {% if form.vars.value.model.name is defined %}
+            {{ form.vars.value.model.name }} ({{ form.vars.value.model.sku }})
+          {% endif %}
+        </td style="vertical-align: middle;">
+        <td style="vertical-align: middle;">
+          {% if form.vars.value.size is defined %}
+            {{ form.vars.value.size }}
+          {% endif %}
+        </td style="vertical-align: middle;">
+        <td style="vertical-align: middle;">
+          {% if form.vars.value.heels is defined %}
+            {{ form.vars.value.heels }} cm
+          {% endif %}
         </td>
-        <td>
+        <td style="vertical-align: middle;">
+          {% if form.vars.value.comment is defined %}
+            {{ form.vars.value.comment }}
+          {% endif %}
+        </td style="vertical-align: middle;">
+        <td style="vertical-align: middle;">
+          {% if form.isCommentInvoice is defined %}
             <div class="form-group">
-              {% if form.size.vars.value != '' %}
-                <select class="form-control col-md-7 col-xs-12 {{ form.vars.id }}_size size">
-                  <option>{{ form.size.vars.value }}</option>
-                </select>
-                {{ form_widget(form.size, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
-              {% else %}
-                <select class="form-control col-md-7 col-xs-12 {{ form.vars.id }}_size size"></select>
-                {{ form_widget(form.size, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
-              {% endif %}
+                {{ form_widget(form.isCommentInvoice, {'attr': {'class': 'js-switch'}}) }}
             </div>
-        </td>
-        <td>
-            <div class="form-group">
-                {{ form_widget(form.heels, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
-            </div>
-        </td>
-        <td>
-            <div class="form-group">
-                {{ form_widget(form.comment, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
-            </div>
+          {% endif %}
         </td>
         {% if form.status is defined %}
-        <td>
+        <td style="vertical-align: middle;">
             <div class="form-group">
                 {{ form_widget(form.status, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
             </div>
         </td>
         {% endif %}
-        {% if form.isCommentInvoice is defined %}
-        <td>
-            <div class="form-group">
-                {{ form_widget(form.isCommentInvoice, {'attr': {'class': 'js-switch'}}) }}
-            </div>
-        </td>
-        {% endif %}
-        <td class="text-center">
-            <a href="#" class="collection-remove btn btn-default" title="Delete element"><span class="glyphicon glyphicon-trash"></span></a>
-            <a href="#" class="collection-add btn btn-default" title="Add element"><span class="glyphicon glyphicon-plus-sign"></span></a>
-            <a href="#" class="collection-duplicate btn btn-default" title="Duplicate element"><span class="glyphicon glyphicon-th-large"></span></a>
-        </td>
     </tr>
 {% endblock %}
 

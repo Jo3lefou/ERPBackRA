@@ -129,6 +129,9 @@ td span.state{
 .st-ew{ /*2*/
 	background-color:#a735ad;
 }
+.st-cut{ /*2*/
+	background-color:#d35400;
+}
 .st-ecp{ /*3*/
 	background-color:#247924;
 }

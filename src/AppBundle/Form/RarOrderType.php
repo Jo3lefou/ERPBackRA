@@ -41,6 +41,51 @@ class RarOrderType extends AbstractType
             $choices['Delivered'] = 6;
             $choices['In Stock'] = 7;
         }
+        if($options['attr']['type'] != 'create'){
+            $modelOrderedArray = [
+                'label'        => 'Add your models here',
+                'entry_type'   => ModelOrderedType::class,
+                'entry_options' => [
+                    'attr' => [
+                        'class' => 'item', // we want to use 'tr.item' as collection elements' selector
+                        'adminRights' => $options['attr']['adminRights'],
+                        'type' => $options['attr']['type'],
+                    ],
+                ],
+                'allow_add'    => false,
+                'allow_delete' => false,
+                'prototype'    => true,
+                'required'     => false,
+                'by_reference' => true,
+                'delete_empty' => true,
+                'attr' => [
+                    'class' => 'table size-collection',
+                ],
+
+            ];
+        }else{
+            $modelOrderedArray = [
+                'label'        => 'Add your models here',
+                'entry_type'   => ModelOrderedType::class,
+                'entry_options' => [
+                    'attr' => [
+                        'class' => 'item', // we want to use 'tr.item' as collection elements' selector
+                        'adminRights' => $options['attr']['adminRights'],
+                        'type' => $options['attr']['type'],
+                    ],
+                ],
+                'allow_add'    => true,
+                'allow_delete' => true,
+                'prototype'    => true,
+                'required'     => false,
+                'by_reference' => true,
+                'delete_empty' => true,
+                'attr' => [
+                    'class' => 'table size-collection',
+                ],
+
+            ];
+        }
 
         
         $builder
@@ -75,27 +120,7 @@ class RarOrderType extends AbstractType
                 'label' => 'Status',
                 'choices'  => $choices
             ])
-            ->add('modelsOrdered', CollectionType::class, [
-                'label'        => 'Add your models here',
-                'entry_type'   => ModelOrderedType::class,
-                'entry_options' => [
-                    'attr' => [
-                        'class' => 'item', // we want to use 'tr.item' as collection elements' selector
-                        'adminRights' => $options['attr']['adminRights'],
-                        'type' => $options['attr']['type'],
-                    ],
-                ],
-                'allow_add'    => true,
-                'allow_delete' => true,
-                'prototype'    => true,
-                'required'     => false,
-                'by_reference' => true,
-                'delete_empty' => true,
-                'attr' => [
-                    'class' => 'table size-collection',
-                ],
-
-            ])
+            ->add('modelsOrdered', CollectionType::class, $modelOrderedArray)
             ->add('save', SubmitType::class)
             ->getForm();
 

@@ -7,6 +7,8 @@ use AppBundle\Entity\RarCustomer;
 use AppBundle\Entity\RarModelOrdered;
 use AppBundle\Entity\RarOrderNotes;
 use AppBundle\Entity\RarOrderLog;
+use AppBundle\Entity\RarSize;
+use AppBundle\Entity\RarModel;
 
 use AppBundle\Form\RarOrderType;
 use AppBundle\Form\RarCustomerType;
@@ -36,9 +38,8 @@ class EditOrderController extends Controller
     /**
      * @Route("/{_locale}/orders/edit/{id}", name="editorder")
      */
-    public function newAction($id, Request $request, MessageGenerator $messageGenerator)
+    public function editAction($id, Request $request, MessageGenerator $messageGenerator)
     {
-
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $firstName = $this->getUser()->getLastName();
         $lastName = $this->getUser()->getFirstName();
@@ -74,7 +75,11 @@ class EditOrderController extends Controller
 
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('AppBundle:RarOrder')->find($id);
-            $form = $this->createForm(RarOrderType::class, $entity, ['attr' => ['adminRights' => $adminRights, 'type' => 'edit'] ])
+            $form = $this->createForm(RarOrderType::class, $entity, 
+                ['attr' => [
+                    'adminRights' => $adminRights, 
+                    'type' => 'edit'] 
+                ])
                 ->add('note', TextareaType::class, array('mapped' => false, 'required' => false))
             ;
             $customer =  $entity->getCustomer();
@@ -89,15 +94,63 @@ class EditOrderController extends Controller
             $status = $entity->getState();
             $notes = $entity->getNotes();
 
+
+            if( $contractStatus == '1'){
+                $modellist = $em->getRepository('AppBundle:RarModel')->findBy( array('isActive' => '1', 'isContract' => '1'), array('name' => 'ASC') );
+            }elseif( $shopStatus == '1'){
+                $modellist = $em->getRepository('AppBundle:RarModel')->findBy( array('isActive' => '1'), array('name' => 'ASC') );
+            }else{
+                $modellist = $em->getRepository('AppBundle:RarModel')->findBy( array('isActive' => '1', 'isShop' => '1'), array('name' => 'ASC') );
+            }
+
             // On choppe la requête et si Ok, on envoie l'enregistrement
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
+
+                $entityUpdated = $form->getData();
+
                 // Set Date Creation
                 $time = date_create(date('Y/m/d H:i:s'));
                 // On crée un message sympas
                 $message = $messageGenerator->getHappyMessage();
                 // On récupère les données du formulaire
-                $entity = $form->getData();
+                $data = array();
+                $i=0;
+
+                //$request = new Request($_POST);
+                dump($request->query->get('modelsOrdered'));
+                /*foreach ( $request->query->get('modelsOrdered') as $newModelOrdered){
+                    $data[$i] = $newModelOrdered;
+                    /*$entityMO = new RarModelOrdered();
+                    $entityMO->setModel($newModelOrdered['model']);
+                    $entityMO->setSize($newModelOrdered['size']);
+                    $entityMO->setHeels($newModelOrdered['heels']);
+                    $entityMO->setComment($newModelOrdered['comment']);
+                    $entityMO->setStatus($newModelOrdered['status']);
+                    $entityMO->setIsCommentInvoice($newModelOrdered['isCommentInvoice']);
+                    $entityMO->setOrder($entityUpdated);
+                    $em->persist($entityMO);*/
+               //     $i++;
+                //}
+
+                /*$data = array();
+                $i=0;
+                foreach($entityUpdated->getModelsOrdered() as $modelOrderedUpdated){
+                     $modelOrderedUpdated->setOrder($entityUpdated);
+                     $em->persist($modelOrderedUpdated);
+                     $data[$i]=$modelOrderedUpdated->getId();
+                     $i++;
+                }*/
+
+                $em->persist($entityUpdated);
+                $em->flush();
+                
+
+            }
+
+            /*
+
+
 
                 ///////////////////////////
                 //        ATTENTION
@@ -105,7 +158,34 @@ class EditOrderController extends Controller
                 // On s'occupe des stocks
                 ///////////////////////////
                 //if order
-                foreach ($entity->getModelsOrdered() as $modelOrdered) {
+                /*foreach ($entity->getModelsOrdered() as $modelOrdered) {
+
+
+                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     $idEntity = $modelOrdered->getId();
                     $oldOrder = $em->getRepository('AppBundle:RarModelOrdered')->find($idEntity);
                     $oldStatus = $oldOrder->getStatus();
@@ -241,9 +321,48 @@ class EditOrderController extends Controller
                 //-------------------------------
                 // Update OrderID on ModelOrdered
                 //----------------------------------
-                foreach ( $entity->getModelsOrdered() as $model ){
-                    $maxWeek = $model->getModel()->getMaxShipWeek();
-                    $minWeek = $model->getModel()->getMinShipWeek();
+                /*foreach ( $entity->getModelsOrdered() as $model ){
+                    //$model = new RarModelOrdered();
+                    // ** On récupère les prix variables de la taille ** //
+                    $repositoryOrder = $this->getDoctrine()->getRepository(RarSize::class);
+                    $queryPricesSize = $repositoryOrder->createQueryBuilder('s')
+                        ->select("s.supPriceHT as supHt, s.supPriceShop as supShop")
+                        ->where('s.nameSize = :nameSize')
+                        ->andwhere('s.model = :model')
+                        ->setParameter('nameSize', $model->getSize() )
+                        ->setParameter('model', $model->getModel() );
+                    $pricesSize = $queryPricesSize->getQuery()->getResult();
+                    
+                    // ** Si la boutique achete RA au prix Retails (ex. Showroom)
+                    if($shopStatus == 1){
+                        if($vatStatus == 1){
+                            $priceSold = $model->getModel()->getPrixHT();
+                            $tvaAmount = ($priceSold+$pricesSize[0]['supHt'])*$amountVAT/100;
+                            $price = $tvaAmount+$priceSold;
+                        }else{
+                            $price = $model->getModel()->getPrixHT()+$pricesSize[0]['supHt'];
+                        }
+                    // ** Si la boutique achete RA a un prix contractualisé
+                    }elseif($contractStatus ==1){
+                        if($vatStatus == 1){
+                            $priceSold = $model->getModel()->getPrixHT();
+                            $tvaAmount = ($priceSold+$pricesSize[0]['supHt'])*$amountVAT/100;
+                            $price = ($tvaAmount+$priceSold)*($contractAmount/100);
+                        }else{
+                            $price = ($model->getModel()->getPrixHT()+$pricesSize[0]['supShop'])*($contractAmount/100);
+                        }
+                    // ** Si la boutique achete RA au prix Wholesale (ex. Revendeur)
+                    }else{
+                        if($vatStatus == 1){
+                            $priceSold = $model->getModel()->getPrixShop();
+                            $tvaAmount = ($priceSold+$pricesSize[0]['supShop'])*$amountVAT/100;
+                            $price = $tvaAmount+$priceSold;
+                        }else{
+                            $price = $model->getModel()->getPrixShop()+$pricesSize[0]['supShop'];
+                        }
+                    }
+                    /***** ADDED ***
+
                     if( $status == 0 ){
                     // if Draft :
                         // Do nothing about Shipping Date
@@ -255,6 +374,7 @@ class EditOrderController extends Controller
                         $model->setMinProdShip($minDateShip);
                         $model->setMaxProdShip($maxDateShip);
                         if($shopStatus == 1){
+                        // ** Si directCustomer
                             if($vatStatus == 1){
                                 $priceSold = $model->getModel()->getPrixHT();
                                 $tvaAmount = $priceSold*$amountVAT/100;
@@ -262,8 +382,9 @@ class EditOrderController extends Controller
                             }else{
                                 $price = $model->getModel()->getPrixHT();
                             }
+                        
+                        }elseif($contractStatus == 1){
                         // ** Si la boutique achete RA a un prix contractualisé
-                        }elseif($contractStatus ==1){
                             if($vatStatus == 1){
                                 $priceSold = $model->getModel()->getPrixHT();
                                 $tvaAmount = ($priceSold+$pricesSize[0]['supHt'])*$amountVAT/100;
@@ -272,6 +393,7 @@ class EditOrderController extends Controller
                                 $price = ($model->getModel()->getPrixHT()+$pricesSize[0]['supShop'])*($contractAmount/100);
                             }
                         }else{
+                        // ** Si Vente Boutique
                             if($vatStatus == 1){
                                 $priceSold = $model->getModel()->getPrixShop();
                                 $tvaAmount = $priceSold*$amountVAT/100;
@@ -288,7 +410,7 @@ class EditOrderController extends Controller
                 //-------------------------------
                 $this->addFlash( "success", $this->get('translator')->trans($message) );
                 return $this->redirectToRoute('orders');
-            }
+          }*/ 
 
             return $this->render('orders/order/editorder.html.twig', array(
                     'name' => $name,
@@ -310,7 +432,8 @@ class EditOrderController extends Controller
                     'shop' => $shop,
                     'customerAllow' => $customerAllow,
                     'order' => $entity,
-                    'debug' => '',
+                    'modelslist' => $modellist,
+                    //'debug' => $request,
                 )
             );
 

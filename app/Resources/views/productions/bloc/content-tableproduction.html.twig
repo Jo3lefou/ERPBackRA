@@ -49,6 +49,7 @@
                           <span>{% trans %}Caption box{% endtrans %} :</span>
                           <em class="state st-td">{% trans %}To be done{% endtrans %}</em>
                           <em class="state st-ew">{% trans %}Sent to provider{% endtrans %}</em>
+                          <em class="state st-cut">{% trans %}Cut{% endtrans %}</em>
                           <em class="state st-ecp">{% trans %}In Production{% endtrans %}</em>
                           <em class="state st-epf">{% trans %}Sent by workroom{% endtrans %}</em>
                           <em class="state st-rs">{% trans %}Received by Rime Arodaky{% endtrans %}</em>
@@ -216,101 +217,113 @@
                                       <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="1" data-action='text-change'>{% trans %}In Stock{% endtrans %}</a></li>
                                       <li role="separator" class="divider"></li>
                                       <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="2" data-action='text-change'>{% trans %}Sent to the workroom{% endtrans %}</a></li>
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="3" data-action='text-change'>{% trans %}In production{% endtrans %}</a></li>
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="4" data-action='text-change'>{% trans %}Sent by fullfilment house{% endtrans %}</a></li>
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="5" data-action='text-change'>{% trans %}Received by Rime Arodaky{% endtrans %}</a></li>
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="6" data-action='text-change'>{% trans %}Received with error{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="3" data-action='text-change'>{% trans %}Cut{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="4" data-action='text-change'>{% trans %}In production{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="5" data-action='text-change'>{% trans %}Sent by fullfilment house{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="6" data-action='text-change'>{% trans %}Received by Rime Arodaky{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="7" data-action='text-change'>{% trans %}Received with error{% endtrans %}</a></li>
                                       <li role="separator" class="divider"></li>
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="7" data-action='text-change'>{% trans %}Controled{% endtrans %}</a></li>
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="8" data-action='text-change'>{% trans %}Finished{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="8" data-action='text-change'>{% trans %}Controled{% endtrans %}</a></li>
                                       <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="9" data-action='text-change'>{% trans %}Delivered{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="10" data-action='text-change'>{% trans %}Finished{% endtrans %}</a></li>
                                     </ul>
                                   {% elseif production.status == 1 %}
                                     <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-es" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ production.id }}">{% trans %}In Stock{% endtrans %}<span class="caret"></span></button>
                                     <ul class="dropdown-menu">
                                       <li role="separator" class="divider"></li>
                                       <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="2" data-action='text-change'>{% trans %}Sent to the workroom{% endtrans %}</a></li>
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="3" data-action='text-change'>{% trans %}In production{% endtrans %}</a></li>
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="4" data-action='text-change'>{% trans %}Sent by fullfilment house{% endtrans %}</a></li>
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="5" data-action='text-change'>{% trans %}Received by Rime Arodaky{% endtrans %}</a></li>
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="6" data-action='text-change'>{% trans %}Received with error{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="3" data-action='text-change'>{% trans %}Cut{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="4" data-action='text-change'>{% trans %}In production{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="5" data-action='text-change'>{% trans %}Sent by fullfilment house{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="6" data-action='text-change'>{% trans %}Received by Rime Arodaky{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="7" data-action='text-change'>{% trans %}Received with error{% endtrans %}</a></li>
                                       <li role="separator" class="divider"></li>
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="7" data-action='text-change'>{% trans %}Controled{% endtrans %}</a></li>
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="8" data-action='text-change'>{% trans %}Finished{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="8" data-action='text-change'>{% trans %}Controled{% endtrans %}</a></li>
                                       <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="9" data-action='text-change'>{% trans %}Delivered{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="10" data-action='text-change'>{% trans %}Finished{% endtrans %}</a></li>
                                     </ul>
                                   {% elseif production.status == 2 %}
                                     <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-ew" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ production.id }}">{% trans %}Sent to the workroom{% endtrans %}<span class="caret"></span></button>
                                     <ul class="dropdown-menu">
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="3" data-action='text-change'>{% trans %}In production{% endtrans %}</a></li>
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="4" data-action='text-change'>{% trans %}Sent by fullfilment house{% endtrans %}</a></li>
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="5" data-action='text-change'>{% trans %}Received by Rime Arodaky{% endtrans %}</a></li>
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="6" data-action='text-change'>{% trans %}Received with error{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="3" data-action='text-change'>{% trans %}Cut{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="4" data-action='text-change'>{% trans %}In production{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="5" data-action='text-change'>{% trans %}Sent by fullfilment house{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="6" data-action='text-change'>{% trans %}Received by Rime Arodaky{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="7" data-action='text-change'>{% trans %}Received with error{% endtrans %}</a></li>
                                       <li role="separator" class="divider"></li>
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="7" data-action='text-change'>{% trans %}Controled{% endtrans %}</a></li>
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="8" data-action='text-change'>{% trans %}Finished{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="8" data-action='text-change'>{% trans %}Controled{% endtrans %}</a></li>
                                       <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="9" data-action='text-change'>{% trans %}Delivered{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="10" data-action='text-change'>{% trans %}Finished{% endtrans %}</a></li>
                                     </ul>
                                   {% elseif production.status == 3 %}
-                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-ecp" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ production.id }}">{% trans %}In production{% endtrans %}<span class="caret"></span></button>
+                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-cut" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ production.id }}">{% trans %}Cut{% endtrans %}<span class="caret"></span></button>
                                     <ul class="dropdown-menu">
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="2" data-action='text-change'>{% trans %}Sent to the workroom{% endtrans %}</a></li>
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="4" data-action='text-change'>{% trans %}Sent by fullfilment house{% endtrans %}</a></li>
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="5" data-action='text-change'>{% trans %}Received by Rime Arodaky{% endtrans %}</a></li>
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="6" data-action='text-change'>{% trans %}Received with error{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="4" data-action='text-change'>{% trans %}In production{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="5" data-action='text-change'>{% trans %}Sent by fullfilment house{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="6" data-action='text-change'>{% trans %}Received by Rime Arodaky{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="7" data-action='text-change'>{% trans %}Received with error{% endtrans %}</a></li>
                                       <li role="separator" class="divider"></li>
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="7" data-action='text-change'>{% trans %}Controled{% endtrans %}</a></li>
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="8" data-action='text-change'>{% trans %}Finished{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="8" data-action='text-change'>{% trans %}Controled{% endtrans %}</a></li>
                                       <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="9" data-action='text-change'>{% trans %}Delivered{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="10" data-action='text-change'>{% trans %}Finished{% endtrans %}</a></li>
                                     </ul>
                                   {% elseif production.status == 4 %}
-                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-epf" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ production.id }}">{% trans %}Sent by fullfilment house{% endtrans %}<span class="caret"></span></button>
+                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-ecp" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ production.id }}">{% trans %}In production{% endtrans %}<span class="caret"></span></button>
                                     <ul class="dropdown-menu">
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="2" data-action='text-change'>{% trans %}Sent to the workroom{% endtrans %}</a></li>
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="3" data-action='text-change'>{% trans %}In production{% endtrans %}</a></li>
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="5" data-action='text-change'>{% trans %}Received by Rime Arodaky{% endtrans %}</a></li>
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="6" data-action='text-change'>{% trans %}Received with error{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="5" data-action='text-change'>{% trans %}Sent by fullfilment house{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="6" data-action='text-change'>{% trans %}Received by Rime Arodaky{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="7" data-action='text-change'>{% trans %}Received with error{% endtrans %}</a></li>
                                       <li role="separator" class="divider"></li>
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="7" data-action='text-change'>{% trans %}Controled{% endtrans %}</a></li>
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="8" data-action='text-change'>{% trans %}Finished{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="8" data-action='text-change'>{% trans %}Controled{% endtrans %}</a></li>
                                       <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="9" data-action='text-change'>{% trans %}Delivered{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="10" data-action='text-change'>{% trans %}Finished{% endtrans %}</a></li>
                                     </ul>
                                   {% elseif production.status == 5 %}
-                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-rs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ production.id }}">{% trans %}Received by Rime Arodaky{% endtrans %}<span class="caret"></span></button>
+                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-epf" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ production.id }}">{% trans %}Sent by fullfilment house{% endtrans %}<span class="caret"></span></button>
                                     <ul class="dropdown-menu">
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="6" data-action='text-change'>{% trans %}Received with error{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="6" data-action='text-change'>{% trans %}Received by Rime Arodaky{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="7" data-action='text-change'>{% trans %}Received with error{% endtrans %}</a></li>
                                       <li role="separator" class="divider"></li>
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="7" data-action='text-change'>{% trans %}Controled{% endtrans %}</a></li>
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="8" data-action='text-change'>{% trans %}Finished{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="8" data-action='text-change'>{% trans %}Controled{% endtrans %}</a></li>
                                       <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="9" data-action='text-change'>{% trans %}Delivered{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="10" data-action='text-change'>{% trans %}Finished{% endtrans %}</a></li>
                                     </ul>
                                   {% elseif production.status == 6 %}
-                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-rse" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ production.id }}">{% trans %}Received with error{% endtrans %}<span class="caret"></span></button>
+                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-rs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ production.id }}">{% trans %}Received by Rime Arodaky{% endtrans %}<span class="caret"></span></button>
                                     <ul class="dropdown-menu">
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="0" data-action='text-change'>{% trans %}To be done{% endtrans %}</a></li>
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="2" data-action='text-change'>{% trans %}Sent to the workroom{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="7" data-action='text-change'>{% trans %}Received with error{% endtrans %}</a></li>
                                       <li role="separator" class="divider"></li>
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="7" data-action='text-change'>{% trans %}Controled{% endtrans %}</a></li>
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="8" data-action='text-change'>{% trans %}Finished{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="8" data-action='text-change'>{% trans %}Controled{% endtrans %}</a></li>
                                       <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="9" data-action='text-change'>{% trans %}Delivered{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="10" data-action='text-change'>{% trans %}Finished{% endtrans %}</a></li>
                                     </ul>
                                   {% elseif production.status == 7 %}
-                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-cs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ production.id }}">{% trans %}Controled{% endtrans %}<span class="caret"></span></button>
+                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-rse" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ production.id }}">{% trans %}Received with error{% endtrans %}<span class="caret"></span></button>
                                     <ul class="dropdown-menu">
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="8" data-action='text-change'>{% trans %}Finished{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="4" data-action='text-change'>{% trans %}In production{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="5" data-action='text-change'>{% trans %}Sent by fullfilment house{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="6" data-action='text-change'>{% trans %}Received by Rime Arodaky{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="8" data-action='text-change'>{% trans %}Controled{% endtrans %}</a></li>
                                       <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="9" data-action='text-change'>{% trans %}Delivered{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="10" data-action='text-change'>{% trans %}Finished{% endtrans %}</a></li>
                                     </ul>
                                   {% elseif production.status == 8 %}
-                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-lc" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ production.id }}">{% trans %}Finished{% endtrans %}<span class="caret"></span></button>
+                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-cs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ production.id }}">{% trans %}Controled{% endtrans %}<span class="caret"></span></button>
                                     <ul class="dropdown-menu">
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="8" data-action='text-change'>{% trans %}Finished{% endtrans %}</a></li>
                                       <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="9" data-action='text-change'>{% trans %}Delivered{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="10" data-action='text-change'>{% trans %}Finished{% endtrans %}</a></li>
                                     </ul>
                                   {% elseif production.status == 9 %}
                                     <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-lc" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ production.id }}">{% trans %}Delivered{% endtrans %}<span class="caret"></span></button>
                                     <ul class="dropdown-menu">
-                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="8" data-action='text-change'>{% trans %}Finished{% endtrans %}</a></li>
                                       <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="9" data-action='text-change'>{% trans %}Delivered{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="10" data-action='text-change'>{% trans %}Finished{% endtrans %}</a></li>
+                                    </ul>
+                                  {% elseif production.status == 10 %}
+                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs state st-lc" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="mo-{{ production.id }}">{% trans %}Finished{% endtrans %}<span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="9" data-action='text-change'>{% trans %}Delivered{% endtrans %}</a></li>
+                                      <li><a href="/{{ locale }}/orders/update/update-model-ordered/{{ production.id }}" rel="10" data-action='text-change'>{% trans %}Finished{% endtrans %}</a></li>
                                     </ul>
                                   {% endif %}
                                   </div>
@@ -318,20 +331,24 @@
                                     {% if production.status == 0 %}
                                     <em class="state st-td">{% trans %}To do{% endtrans %}</em>
                                     {% elseif production.status == 1 %}
-                                    <em class="state st-ecp">{% trans %}In stock{% endtrans %}</em>
+                                    <em class="state st-es">{% trans %}In stock{% endtrans %}</em>
                                     {% elseif production.status == 2 %}
-                                    <em class="state st-es">{% trans %}In Production{% endtrans %}</em>
+                                    <em class="state st-ew">{% trans %}Sent to workroom{% endtrans %}</em>
                                     {% elseif production.status == 3 %}
-                                    <em class="state st-epf">{% trans %}Sent by workroom{% endtrans %}</em>
+                                    <em class="state st-cut">{% trans %}Cut{% endtrans %}</em>
                                     {% elseif production.status == 4 %}
-                                    <em class="state st-rs">{% trans %}Received{% endtrans %}</em>
+                                    <em class="state st-ecp">{% trans %}In production{% endtrans %}</em>
                                     {% elseif production.status == 5 %}
-                                    <em class="state st-rse">{% trans %}Received with error{% endtrans %}</em>
+                                    <em class="state st-epf">{% trans %}Sent by fullfilment house{% endtrans %}</em>
                                     {% elseif production.status == 6 %}
-                                    <em class="state st-cs">{% trans %}Controled{% endtrans %}</em>
+                                    <em class="state st-rs">{% trans %}Received{% endtrans %}</em>
                                     {% elseif production.status == 7 %}
-                                    <em class="state st-lc">{% trans %}Shipped{% endtrans %}</em>
+                                    <em class="state st-rse">{% trans %}Received with error{% endtrans %}</em>
                                     {% elseif production.status == 8 %}
+                                    <em class="state st-cs">{% trans %}Controled{% endtrans %}</em>
+                                    {% elseif production.status == 9 %}
+                                    <em class="state st-lc">{% trans %}Shipped{% endtrans %}</em>
+                                    {% elseif production.status == 10 %}
                                     <em class="state st-lc">{% trans %}Finished{% endtrans %}</em>
                                     {% endif %}
                                   {% endif %}

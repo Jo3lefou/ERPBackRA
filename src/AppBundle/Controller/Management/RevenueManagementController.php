@@ -80,6 +80,8 @@ class RevenueManagementController extends Controller
 	                'bodyClass' => 'nav-md',
 	                'user' => $user,
 	                'revenue' => $revenueDisplay,
+	                'debug' => $sumRevenuePerShop,
+	                'shop' => $shops
 	            ));
 	        }elseif($action == 'extractRevenuPerMonth.csv'){
 

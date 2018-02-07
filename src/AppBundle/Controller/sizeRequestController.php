@@ -36,6 +36,6 @@ class sizeRequestController extends Controller
 			return new Response($serializer->serialize($sizes, 'json'));
 	    }
 
-	    return $this->redirect('/homepage/');
+	    return $this->redirect('home');
 	}
 }

@@ -170,21 +170,40 @@
   <div class="x_content">
     <!-- CONTENU -->
     <div class="form-horizontal form-label-left">
-      <div class="form-group">
-        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="shop_name">{{ form.dateCivil.vars.label }}
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-          {{ form_widget(form.dateCivil, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
-        </div>
-      </div>
+      {% if order is defined %}
+        {% if order.type == 0 %}
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="shop_name">{{ form.dateCivil.vars.label }}
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              {{ form_widget(form.dateCivil, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+            </div>
+          </div>
 
-      <div class="form-group">
-        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="shop_name">{{ form.dateChurch.vars.label }}
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-          {{ form_widget(form.dateChurch, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="shop_name">{{ form.dateChurch.vars.label }}
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              {{ form_widget(form.dateChurch, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+            </div>
+          </div>
+        {% endif %}
+      {% else %}
+        <div class="form-group">
+          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="shop_name">{{ form.dateCivil.vars.label }}
+          </label>
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            {{ form_widget(form.dateCivil, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+          </div>
         </div>
-      </div>
+        <div class="form-group">
+          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="shop_name">{{ form.dateChurch.vars.label }}
+          </label>
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            {{ form_widget(form.dateChurch, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+          </div>
+        </div>
+      {% endif %}
 
       <div class="form-group">
         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="shop_name">{{ form.dateMinShip.vars.label }}
@@ -324,8 +343,9 @@
             <thead>
                 <th>model</th>
                 <th>size</th>
-                <th>heels</th>
+                <th>length</th>
                 <th>comment</th>
+                <th>&nbsp;</th>
                 <th>&nbsp;</th>
             </thead>
             <tbody>
@@ -367,6 +387,13 @@
                 {{ form_widget(form.comment, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
             </div>
         </td>
+        {% if form.isCommentInvoice is defined %}
+        <td>
+            <div class="form-group">
+                {{ form_widget(form.isCommentInvoice, {'attr': {'class': 'js-switch'}}) }}
+            </div>
+        </td>
+        {% endif %}
         <td class="text-center">
             <a href="#" class="collection-remove btn btn-default" title="Delete element"><span class="glyphicon glyphicon-trash"></span></a>
             <a href="#" class="collection-add btn btn-default" title="Add element"><span class="glyphicon glyphicon-plus-sign"></span></a>
