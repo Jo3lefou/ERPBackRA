@@ -94,7 +94,79 @@
     <div class="x_content">
         <!-- CONTENU -->
         <div class="form-horizontal form-label-left">
-            {{ form_widget(form.modelsOrdered) }}
+            
+
+
+
+
+<fieldset class="well">
+        <label>{% trans %}Models{% endtrans %}</label>
+
+        <table {{ block('widget_attributes') }}>
+            <thead>
+                <th>{% trans %}Model{% endtrans %}</th>
+                <th>{% trans %}Size{% endtrans %}</th>
+                <th>{% trans %}Length{% endtrans %}</th>
+                <th>{% trans %}Comment{% endtrans %}</th>
+                {% if form.status is defined %}
+                <th>{% trans %}Status{% endtrans %}</th>
+                {% endif %}
+            </thead>
+            <tbody>
+
+{% for modelordered in order.modelsOrdered %}
+<tr style="border-bottom:1px #DDD solid" rel="{{ modelordered.id }}">
+        <td style="vertical-align: middle;">
+          {% if form.vars.value.model.name is defined %}
+            {{ modelordered.model.name }} ({{ modelordered.model.sku }})
+          {% endif %}
+        </td style="vertical-align: middle;">
+        <td style="vertical-align: middle;">
+          {% if form.vars.value.size is defined %}
+            {{ modelordered.size }}
+          {% endif %}
+        </td style="vertical-align: middle;">
+        <td style="vertical-align: middle;">
+          {% if form.vars.value.heels is defined %}
+            {{ modelordered.heels }} cm
+          {% endif %}
+        </td>
+        <td style="vertical-align: middle;">
+          {% if form.vars.value.comment is defined %}
+            {{ modelordered.comment }}
+          {% endif %}
+        </td style="vertical-align: middle;">
+        <td style="vertical-align: middle;">
+          {% if form.isCommentInvoice is defined %}
+            <div class="form-group">
+              {{ modelordered.isCommentInvoice }}
+            </div>
+          {% endif %}
+        </td>
+        {% if form.status is defined %}
+        <td style="vertical-align: middle;">
+            <div class="form-group">
+              {{ modelordered.status }}
+            </div>
+        </td>
+        {% endif %}
+    </tr>
+
+{% endfor %}
+
+            </tbody>
+        </table>
+    </fieldset>
+
+
+
+
+
+
+
+
+
+
             {% if value.state < 2 or value.state == 3 %}
               <a class="btn btn-success" data-toggle="modal" data-target="#modelModal" href="#"><i class="fa fa-plus"></i> {% trans %}Add new product to this order{% endtrans %}</a>
             {% endif %}
@@ -143,109 +215,5 @@
 
 {% endblock %}
 
-{# By default, collection uses the form_widget block to create its markup, but we want a table #}
-{% block collection_widget %}
-    {% spaceless %}
-
-    {#
-     # This is almost a copy/paste of jquery.collection.html.twig, we can't use it as it also
-     # use form_widget. Note that we also use form_widget(prototype) instead of form_row(prototype)
-     # to avoid generating extra markup.
-     #}
-    {% if prototype is defined %}
-        {% set attr = attr|merge({'data-prototype': form_widget(prototype)}) %}
-        {% set attr = attr|merge({'data-prototype-name': prototype.vars.name}) %}
-    {% endif %}
-
-    {% set attr = attr|merge({'data-allow-add': allow_add ? 1 : 0}) %}
-    {% set attr = attr|merge({'data-allow-remove': allow_delete ? 1 : 0 }) %}
-    {% set attr = attr|merge({'data-name-prefix': full_name}) %}
-
-    <fieldset class="well">
-        <label>{{ form_label(form) }}</label>
-
-        {{ form_errors(form) }}
-
-        {# Don't forget to add the collection attributes in your markup #}
-        <table {{ block('widget_attributes') }}>
-            <thead>
-                <th>{% trans %}Model{% endtrans %}</th>
-                <th>{% trans %}Size{% endtrans %}</th>
-                <th>{% trans %}Length{% endtrans %}</th>
-                <th>{% trans %}Comment{% endtrans %}</th>
-                {% if form.status is defined %}
-                <th>{% trans %}Status{% endtrans %}</th>
-                {% endif %}
-            </thead>
-            <tbody>
-
-                {% for item in form %}
-                    {{ form_widget(item) }}
-                {% endfor %}
-
-            </tbody>
-        </table>
-    </fieldset>
-
-    {% endspaceless %}
-{% endblock %}
-
-
-{% block ModelOrderedType_widget %}
-
-    {# widget_attributes will generate class="item" from the ModelType.entry_options configuration #}
-    <tr {{ block('widget_attributes') }} style="border-bottom:1px #DDD solid" rel="{{ form.vars.value.id }}">
-        <td style="vertical-align: middle;">
-          {% if form.vars.value.model.name is defined %}
-            {{ form.vars.value.model.name }} ({{ form.vars.value.model.sku }})
-          {% endif %}
-          <div style="display:none">
-            {# form_widget(form.model, {'attr': {'class': 'form-control col-md-7 col-xs-12 model', 'rel': form.vars.id}}) #}
-          </div>
-        </td style="vertical-align: middle;">
-        <td style="vertical-align: middle;">
-          {% if form.vars.value.size is defined %}
-            {{ form.vars.value.size }}
-          {% endif %}
-          <div style="display:none">
-            {# form_widget(form.size, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) #}
-          </div>
-        </td style="vertical-align: middle;">
-        <td style="vertical-align: middle;">
-          {% if form.vars.value.heels is defined %}
-            {{ form.vars.value.heels }} cm
-          {% endif %}
-          <div style="display:none">
-            {# form_widget(form.heels, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) #}
-          </div>
-        </td>
-        <td style="vertical-align: middle;">
-          {% if form.vars.value.comment is defined %}
-            {{ form.vars.value.comment }}
-          {% endif %}
-          <div style="display:none">
-            {# form_widget(form.comment, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) #}
-          </div>
-        </td style="vertical-align: middle;">
-        <td style="vertical-align: middle;">
-          {% if form.isCommentInvoice is defined %}
-            <div class="form-group">
-                {# form_widget(form.isCommentInvoice, {'attr': {'class': 'js-switch'}}) #}
-            </div>
-          {% endif %}
-        </td>
-        {% if form.status is defined %}
-        <td style="vertical-align: middle;">
-            <div class="form-group">
-                {# form_widget(form.status, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) #}
-            </div>
-        </td>
-        {% endif %}
-    </tr>
-{% endblock %}
-
-{% block ModelOrderedType_label %}
-
-{% endblock %}
 
 
