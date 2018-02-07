@@ -31,6 +31,12 @@ class EditOrderAjaxController extends Controller
      */
 	public function indexAction($type, $id, Request $request, \Swift_Mailer $mailer, LoggerInterface $logger)
 	{
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $firstName = $this->getUser()->getLastName();
+        $lastName = $this->getUser()->getFirstName();
+        $userName = $firstName.' '.$lastName;
+
+
 		if( $request->get('value') || $request->get('value') == 0 ){
 
             $jsAction = $request->get('action');
@@ -98,7 +104,7 @@ class EditOrderAjaxController extends Controller
                 // Create Log
                 $newOrderLog = new RarOrderLog();
                 $newOrderLog->setDate($time);
-                $newOrderLog->setMessage('The status of the model "'.$modelName.'"" has been changed to "'.$stateWord.'"');
+                $newOrderLog->setMessage('The status of the model "'.$modelName.'"" has been changed to "'.$stateWord.'" by '.$userName.'.');
                 $newOrderLog->setOrder($order);
                 $newOrderLog->setModelOrdered($entity);
 
@@ -150,7 +156,7 @@ class EditOrderAjaxController extends Controller
               	}
                 $newOrderLog = new RarOrderLog();
                 $newOrderLog->setDate($time);
-                $newOrderLog->setMessage('Order status updated to "'.$stateWord.'"');
+                $newOrderLog->setMessage('Order status updated to "'.$stateWord.'" by '.$userName.'.');
                 $newOrderLog->setOrder($entity);
                 $em->persist($newOrderLog);
                 $em->flush();
@@ -194,7 +200,7 @@ class EditOrderAjaxController extends Controller
 
                     $newOrderLog = new RarOrderLog();
                     $newOrderLog->setDate($time);
-                    $newOrderLog->setMessage('Model '.$modelName.' has been assigned to '.$newworkroomName);
+                    $newOrderLog->setMessage('Model '.$modelName.' has been assigned to '.$newworkroomName.' by '.$userName.'.');
                     $newOrderLog->setOrder($order);
                     $newOrderLog->setWorkroom($newworkroom);
                     $newOrderLog->setModelOrdered($entity);
