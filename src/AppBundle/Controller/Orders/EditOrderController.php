@@ -167,8 +167,9 @@ class EditOrderController extends Controller
                         case 8: $stateWord ='delivered'; break;
                         case 9: $stateWord ='finished'; break;
                     }
+                    dump($modelOrdered);
                     $model = $modelOrdered->getModel();
-                    $modelName = $modelOrdered->getName();
+                    $modelName = $model->getName();
                     $newOrderLog = new RarOrderLog();
                     $newOrderLog->setDate($time);
                     $newOrderLog->setMessage('The order has been modified. Statuf of "'.$modelName.'" was set to "'.$stateWord.'" by '.$name.'.');
