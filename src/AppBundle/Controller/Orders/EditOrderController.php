@@ -123,7 +123,8 @@ class EditOrderController extends Controller
                 // On s'occupe des stocks
                 ///////////////////////////
                 //if order
-                foreach ($entity->getModelsOrdered() as $modelOrdered) {
+                $entitywmodelordered = $em->getRepository('AppBundle:RarOrder')->find($id);
+                foreach ($entitywmodelordered->getModelsOrdered() as $modelOrdered) {
                     $idEntity = $modelOrdered->getId();
                     $oldOrder = $em->getRepository('AppBundle:RarModelOrdered')->find($idEntity);
                     $oldStatus = $oldOrder->getStatus();
@@ -168,6 +169,7 @@ class EditOrderController extends Controller
                         case 9: $stateWord ='finished'; break;
                     }
                     dump($modelOrdered);
+
                     $model = $modelOrdered->getModel();
                     $modelName = $model->getName();
                     $newOrderLog = new RarOrderLog();
