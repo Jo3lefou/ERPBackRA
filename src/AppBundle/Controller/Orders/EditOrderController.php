@@ -126,9 +126,11 @@ class EditOrderController extends Controller
                 $entitywmodelordered = $em->getRepository('AppBundle:RarOrder')->find($id);
                 foreach ($entitywmodelordered->getModelsOrdered() as $modelOrdered) {
                     $idEntity = $modelOrdered->getId();
+                    
                     $oldOrder = $em->getRepository('AppBundle:RarModelOrdered')->find($idEntity);
                     $oldStatus = $oldOrder->getStatus();
                     $newValue = $modelOrdered->getStatus();
+                    
                     if($newValue >= 2 && $oldStatus < 2){
                         // Ici on vient creée une ligne de stock négative pour chaque matière commandée.
                         // On prend le modèle
