@@ -304,10 +304,11 @@ class EditOrderController extends Controller
                         // Do nothing about Shipping Date
 
                     }else if( $status == 1 ){
+                        $baseDate = $entity->getDateMinShip();
                     // if Published :
-                        $maxDateShip = date_create(date("Y/m/d H:i:s", strtotime("+".$maxWeek." week")));
-                        $minDateShip = date_create(date("Y/m/d H:i:s", strtotime("+".$minWeek." week")));
+                        $minDateShip = $baseDate->modify('-2 weeks');
                         $model->setMinProdShip($minDateShip);
+                        $maxDateShip = $baseDate->modify('-1 week');
                         $model->setMaxProdShip($maxDateShip);
                         if($shopStatus == 1){
                         // ** Si directCustomer
