@@ -348,7 +348,8 @@ class EditOrderController extends Controller
                 $this->addFlash( "success", $this->get('translator')->trans($message) );
                 return $this->redirectToRoute('orders');
             }
-
+            $this->addFlash( "success", $this->get('translator')->trans($message) );
+            return $this->redirectToRoute('orders');
             /*return $this->render('orders/order/editorder.html.twig', array(
                     'name' => $name,
                     'locale' => $locale,
