@@ -95,7 +95,7 @@
         <!-- CONTENU -->
         <div class="form-horizontal form-label-left">
             {{ form_widget(form.modelsOrdered) }}
-            {% if value.state < 2 %}
+            {% if value.state < 2 or value.state == 3 %}
               <a class="btn btn-success" data-toggle="modal" data-target="#modelModal" href="#"><i class="fa fa-plus"></i> {% trans %}Add new product to this order{% endtrans %}</a>
             {% endif %}
         </div>
