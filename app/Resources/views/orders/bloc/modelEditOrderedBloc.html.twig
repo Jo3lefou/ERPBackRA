@@ -95,60 +95,72 @@
         <!-- CONTENU -->
         <div class="form-horizontal form-label-left">
             
-
-
+{{ dump() }}
 
 
 <fieldset class="well">
-        <label>{% trans %}Models{% endtrans %}</label>
 
-        <table {{ block('widget_attributes') }}>
+        <table id="OrderType_modelsOrdered" class="table table-hover">
             <thead>
                 <th>{% trans %}Model{% endtrans %}</th>
                 <th>{% trans %}Size{% endtrans %}</th>
                 <th>{% trans %}Length{% endtrans %}</th>
                 <th>{% trans %}Comment{% endtrans %}</th>
-                {% if form.status is defined %}
                 <th>{% trans %}Status{% endtrans %}</th>
+                {% if value.state < 2 or value.state == 3 %}
+                  <th>{% trans %}Action{% endtrans %}</th>
                 {% endif %}
             </thead>
             <tbody>
 
-{% for modelordered in order.modelsOrdered %}
+{% for modelordered in value.modelsOrdered %}
 <tr style="border-bottom:1px #DDD solid" rel="{{ modelordered.id }}">
         <td style="vertical-align: middle;">
-          {% if form.vars.value.model.name is defined %}
             {{ modelordered.model.name }} ({{ modelordered.model.sku }})
-          {% endif %}
         </td style="vertical-align: middle;">
         <td style="vertical-align: middle;">
-          {% if form.vars.value.size is defined %}
             {{ modelordered.size }}
-          {% endif %}
         </td style="vertical-align: middle;">
         <td style="vertical-align: middle;">
-          {% if form.vars.value.heels is defined %}
             {{ modelordered.heels }} cm
-          {% endif %}
         </td>
         <td style="vertical-align: middle;">
-          {% if form.vars.value.comment is defined %}
             {{ modelordered.comment }}
-          {% endif %}
         </td style="vertical-align: middle;">
         <td style="vertical-align: middle;">
-          {% if form.isCommentInvoice is defined %}
-            <div class="form-group">
-              {{ modelordered.isCommentInvoice }}
-            </div>
-          {% endif %}
+          <div class="form-group">
+            {{ modelordered.isCommentInvoice }}
+          </div>
         </td>
-        {% if form.status is defined %}
         <td style="vertical-align: middle;">
             <div class="form-group">
-              {{ modelordered.status }}
+              {% if modelOrdered.status == 0 %}
+                <span class="label label-default state st-td">{% trans %}To be done{% endtrans %}</span>
+              {% elseif modelOrdered.status == 1 %}
+                <span class="label label-default state st-es">{% trans %}In Stock{% endtrans %}</span>
+              {% elseif modelOrdered.status == 2 %}
+                <span class="label label-default state st-ew">{% trans %}Sent to workroom{% endtrans %}</span>
+              {% elseif modelOrdered.status == 3 %}
+                <span class="label label-default state st-cut">{% trans %}Cut{% endtrans %}</span>
+              {% elseif modelOrdered.status == 4 %}
+                <span class="label label-default state st-ecp">{% trans %}In production{% endtrans %}</span>
+              {% elseif modelOrdered.status == 5 %}
+                <span class="label label-default state st-epf">{% trans %}Sent by fullfilment house{% endtrans %}</span>
+              {% elseif modelOrdered.status == 6 %}
+                <span class="label label-default state st-rs">{% trans %}Received by Rime Arodaky{% endtrans %}</span>
+              {% elseif modelOrdered.status == 7 %}
+                <span class="label label-default state st-rse">{% trans %}Received with error{% endtrans %}</span>
+              {% elseif modelOrdered.status == 8 %}
+                <span class="label label-default state st-cs">{% trans %}Controled{% endtrans %}</span>
+              {% elseif modelOrdered.status == 9 %}
+                <span class="label label-default state st-lc">{% trans %}Delivered{% endtrans %}</span>
+              {% elseif modelOrdered.status == 10 %}
+                <span class="label label-default state st-lc">{% trans %}Finished{% endtrans %}</span>
+              {% endif %}
             </div>
         </td>
+        {% if value.state < 2 or value.state == 3 or modelOrdered.status > 2 %}
+          <th>{% trans %}Edit / Delete{% endtrans %}</th>
         {% endif %}
     </tr>
 
@@ -157,7 +169,6 @@
             </tbody>
         </table>
     </fieldset>
-
 
 
 
