@@ -347,9 +347,9 @@ class EditOrderController extends Controller
                 //-------------------------------
                 $this->addFlash( "success", $this->get('translator')->trans($message) );
                 return $this->redirectToRoute('orders');
-          }
+            }
 
-            return $this->render('orders/order/editorder.html.twig', array(
+            /*return $this->render('orders/order/editorder.html.twig', array(
                     'name' => $name,
                     'locale' => $locale,
                     'h1' => $this->get('translator')->trans('Edit the order'),
@@ -372,7 +372,7 @@ class EditOrderController extends Controller
                     'modelslist' => $modellist,
                     //'debug' => $request,
                 )
-            );
+            );*/
 
         }else{
             return $this->redirect('login');
