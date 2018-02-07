@@ -249,8 +249,8 @@ class CreateOrderController extends Controller
                         // Do nothing about Shipping Date
                     }else if( $status == 1 ){
                     // ** if Published :
-                        $maxDateShip = date_create($baseDate, strtotime("-1 week")));
-                        $minDateShip = date_create($baseDate, strtotime("-2 weeks")));
+                        $maxDateShip = date_create( date($baseDate, strtotime("-1 week")));
+                        $minDateShip = date_create( date($baseDate, strtotime("-2 week")));
                         $model->setMinProdShip($minDateShip);
                         $model->setMaxProdShip($maxDateShip);
                     }
