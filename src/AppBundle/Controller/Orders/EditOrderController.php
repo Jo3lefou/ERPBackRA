@@ -170,19 +170,19 @@ class EditOrderController extends Controller
                         case 8: $stateWord ='delivered'; break;
                         case 9: $stateWord ='finished'; break;
                     }
-                    dump($modelOrdered);
-
-                    $model = $modelOrdered->getModel();
-                    $modelName = $model->getName();
-                    $newOrderLog = new RarOrderLog();
-                    $newOrderLog->setDate($time);
-                    $newOrderLog->setMessage('The order has been modified. Statuf of "'.$modelName.'" was set to "'.$stateWord.'" by '.$name.'.');
-                    $newOrderLog->setOrder($entity);
-                    $newOrderLog->setModelOrdered($modelOrdered);
-                    $newOrderLog->setUser($user);
-                    $em->persist($newOrderLog);
-                    $em->flush();
-
+                    //dump($modelOrdered);
+                    if($modelOrdered->getModel()){
+                        $model = $modelOrdered->getModel();
+                        $modelName = $model->getName();
+                        $newOrderLog = new RarOrderLog();
+                        $newOrderLog->setDate($time);
+                        $newOrderLog->setMessage('The order has been modified. Statuf of "'.$modelName.'" was set to "'.$stateWord.'" by '.$name.'.');
+                        $newOrderLog->setOrder($entity);
+                        $newOrderLog->setModelOrdered($modelOrdered);
+                        $newOrderLog->setUser($user);
+                        $em->persist($newOrderLog);
+                        $em->flush();
+                    }
                 }
                 
 
