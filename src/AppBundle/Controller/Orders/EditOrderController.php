@@ -103,7 +103,7 @@ class EditOrderController extends Controller
                 $modellist = $em->getRepository('AppBundle:RarModel')->findBy( array('isActive' => '1', 'isShop' => '1'), array('name' => 'ASC') );
             }
 
-            $message = "bad";
+            $message = "";
             // On choppe la requête et si Ok, on envoie l'enregistrement
             $form->handleRequest($request);
             if ( $form->isSubmitted() ) {
@@ -168,10 +168,10 @@ class EditOrderController extends Controller
                         case 9: $stateWord ='finished'; break;
                     }
                     $model = $modelOrdered->getModel();
-                    $modelName = $model->getName();
+                    $modelName = $modelOrdered->getName();
                     $newOrderLog = new RarOrderLog();
                     $newOrderLog->setDate($time);
-                    $newOrderLog->setMessage('The order has been modified. Statuf of "'.$modelName.'" was set to "'.$stateWord.'"');
+                    $newOrderLog->setMessage('The order has been modified. Statuf of "'.$modelName.'" was set to "'.$stateWord.'" by '.$name.'.');
                     $newOrderLog->setOrder($entity);
                     $newOrderLog->setModelOrdered($modelOrdered);
                     $newOrderLog->setUser($user);
@@ -248,7 +248,7 @@ class EditOrderController extends Controller
                 //----------------------------------
                 $newOrderLog = new RarOrderLog();
                 $newOrderLog->setDate($time);
-                $newOrderLog->setMessage('The order has been modified. Status of the order was set to "'.$status.'"');
+                $newOrderLog->setMessage('The order has been modified. Status of the order was set to "'.$status.'" by '.$name.'.');
                 $newOrderLog->setOrder($entity);
                 $newOrderLog->setUser($user);
                 $em->persist($newOrderLog);
