@@ -333,11 +333,13 @@
           var isCommentInvoice = $('#modelModal #isCommentInvoice').val();
           if(isCommentInvoice == 'on'){
             var isCommentInvoiceTxt = 'oui';
+            var isCommentInvoiceNum = '1';
           }else{
             var isCommentInvoiceTxt = 'non';
+            var isCommentInvoiceNum = '0';
           }
           var href = $(this).attr('href');
-
+          var lengthitem = $('#OrderType_modelsOrdered tbody tr').length;
           $('#loading-bar').fadeIn();
           $.ajax( {
               type:"GET",
@@ -346,12 +348,12 @@
               data: { value:'addmodel', model: model, size: size, length:length, comment:comment, status:status, isCommentInvoice:isCommentInvoice },
               success: function( data ) {
                 var html = '<tr class="item">'
-                + '<td style="vertical-align: middle;">'+modelName+'</td>'
-                + '<td style="vertical-align: middle;">'+size+'</td>'
-                + '<td style="vertical-align: middle;">'+length+' cm</td>'
-                + '<td style="vertical-align: middle;">'+comment+'</td>'
-                + '<td style="vertical-align: middle;">'+isCommentInvoiceTxt+'</td>'
-                + '<td style="vertical-align: middle;">'+statusName+'</td>'
+                + '<td style="vertical-align: middle;">'+modelName+'<input type="hidden" value="'+model+'" name="OrderType[modelsOrdered]['+lengthitem+'][model]"/></td>'
+                + '<td style="vertical-align: middle;">'+size+'<input type="hidden" value="'+size+'" name="OrderType[modelsOrdered]['+lengthitem+'][size]"/></td>'
+                + '<td style="vertical-align: middle;">'+length+' cm<input type="hidden" value="'+length+'" name="OrderType[modelsOrdered]['+lengthitem+'][heels]"/></td>'
+                + '<td style="vertical-align: middle;">'+comment+'<input type="hidden" value="'+comment+'" name="OrderType[modelsOrdered]['+lengthitem+'][comment]"/></td>'
+                + '<td style="vertical-align: middle;">'+isCommentInvoiceTxt+'<input type="hidden" value="'+isCommentInvoiceNum+'" name="OrderType[modelsOrdered]['+lengthitem+'][isCommentInvoice]"/></td>'
+                + '<td style="vertical-align: middle;">'+statusName+'<input type="hidden" value="'+status+'" name="OrderType[modelsOrdered]['+lengthitem+'][status]"/></td>'
                 + '</tr>'
                 $('#OrderType_modelsOrdered tbody').append(html);
                 $('#modelModal').modal('hide');
