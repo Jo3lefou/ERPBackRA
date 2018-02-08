@@ -85,6 +85,7 @@ class EditOrderController extends Controller
                     ])
                     ->add('note', TextareaType::class, array('mapped' => false, 'required' => false))
                 ;
+                $h1 = 'Edit the order';
             }else{
                 $form = $this->createForm(RarEditOrderType::class, $entity, 
                     ['attr' => [
@@ -95,6 +96,11 @@ class EditOrderController extends Controller
                     ])
                     ->add('note', TextareaType::class, array('mapped' => false, 'required' => false))
                 ;
+                if( $entity->getType() == 1 ){
+                    $h1 = 'Edit the prototype order';
+                }else{
+                    $h1 = 'Edit the stock order';
+                }
             }
             $customer =  $entity->getCustomer();
             $customerAllow = $entity->getUser()->getCustomerAllow();
@@ -375,7 +381,7 @@ class EditOrderController extends Controller
             return $this->render('orders/order/editorder.html.twig', array(
                     'name' => $name,
                     'locale' => $locale,
-                    'h1' => $this->get('translator')->trans('Edit the order'),
+                    'h1' => $this->get('translator')->trans($h1),
                     'p1h2' => $this->get('translator')->trans('Orders'),
                     'p1h3' => $this->get('translator')->trans('Create here your new order'),
                     'p2h2' => $this->get('translator')->trans(''),
