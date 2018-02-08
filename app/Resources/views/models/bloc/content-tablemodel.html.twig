@@ -107,7 +107,7 @@
                   {% endif %}
                 {% endfor %}
             </td>
-            <td><a href="edit/{{ model.id }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>&nbsp;<a href="edit/{{ model.id }}" class="btn btn-danger btn-xs"><i class="fa  fa-trash"></i></a>&nbsp;<a href="edit/{{ model.id }}" class="btn btn-warning btn-xs"><i class="fa fa-lock"></i></a></td>
+            <td><a href="/admin/{{locale}}/models/edit/{{ model.id }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>&nbsp;<a href="/admin/{{locale}}/models/edit/{{ model.id }}" class="btn btn-danger btn-xs"><i class="fa  fa-trash"></i></a>&nbsp;<a href="/admin/{{locale}}/models/edit/{{ model.id }}" class="btn btn-warning btn-xs"><i class="fa fa-lock"></i></a></td>
           </tr>
           {% endfor %}
         </tbody>

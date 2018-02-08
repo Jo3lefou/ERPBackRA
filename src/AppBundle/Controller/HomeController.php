@@ -32,7 +32,7 @@ class HomeController extends Controller
         $currentUser = $this->getUser();
 
         if($user){
-            return $this->render('home.html.twig', array(
+            $response = $this->render('home.html.twig', array(
                 'name' => $name,
                 'locale' => $locale,
                 'title' => 'Homepage',
@@ -41,6 +41,13 @@ class HomeController extends Controller
                 'user' => $user, 
 
             ));
+            // cache for 3600 seconds
+            $response->setSharedMaxAge(5400);
+            // (optional) set a custom Cache-Control directive
+            $response->headers->addCacheControlDirective('must-revalidate', true);
+
+            return $response;
+
         }else{
             return $this->redirect('login');
         }
