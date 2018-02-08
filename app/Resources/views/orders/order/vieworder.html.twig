@@ -117,13 +117,13 @@
                         <!-- /.col -->
                         <div class="col-sm-4 invoice-col">
                           <b>Invoice {% if order.idCompta|length < 2 %}
-                      #INV-{{ order.shop.extention }}000{{ order.idCompta }}-{{ order.year }}
+                      #INV{{ order.year }}-{{ order.shop.extention }}000{{ order.idCompta }}
                     {% elseif order.idCompta|length < 3 %}
-                      #INV-{{ order.shop.extention }}00{{ order.idCompta }}-{{ order.year }}
+                      #INV{{ order.year }}-{{ order.shop.extention }}00{{ order.idCompta }}
                     {% elseif order.idCompta|length < 4 %}
-                      #INV-{{ order.shop.extention }}0{{ order.idCompta }}-{{ order.year }}
+                      #INV{{ order.year }}-{{ order.shop.extention }}0{{ order.idCompta }}
                     {% elseif order.idCompta|length < 5 %}
-                      #INV-{{ order.shop.extention }}{{ order.idCompta }}-{{ order.year }}
+                      #INV{{ order.year }}-{{ order.shop.extention }}{{ order.idCompta }}
                     {% endif %}{% if order.type == "1" %}-S{% elseif order.type == 2 %}-P{% endif %}</b>
                           {% if order.shop.isDirectCustomer == false %}
                           <br> <b>Customer Name:</b> {{ order.customerName }}

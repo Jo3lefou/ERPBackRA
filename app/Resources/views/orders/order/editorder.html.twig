@@ -22,7 +22,7 @@
         <!-- page content -->
         <div class="right_col" role="main">
           <div class="title_left">
-            <h3>{{ h1 }}</h3>
+            <h3>{{ h1 }} {% if order.idCompta|length < 1 %}DRAFT{% elseif order.idCompta|length < 2 %}{{ order.shop.extention }}000{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 3 %}{{ order.shop.extention }}00{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 4 %}{{ order.shop.extention }}0{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 5 %}{{ order.shop.extention }}{{ order.idCompta }}-{{ order.year }}{% endif %}{% if order.type == "1" %}-S{% elseif order.type == 2 %}-P{% endif %}</h3>
           </div>
           {% for message in app.flashes('success') %}
               <div class="alert alert-success">
