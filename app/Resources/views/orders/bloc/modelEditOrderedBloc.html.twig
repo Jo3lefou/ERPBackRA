@@ -36,7 +36,7 @@
   <div class="x_content">
     <!-- CONTENU -->
     <div class="form-horizontal form-label-left">
-
+      {% if value.type == 0 %}
       <div class="form-group">
         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="shop_name">{{ form.dateCivil.vars.label|trans }}
         </label>
@@ -52,7 +52,7 @@
           {{ form_widget(form.dateChurch, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
         </div>
       </div>
-
+      {% endif %}
       <div class="form-group">
         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="shop_name">{{ form.dateMinShip.vars.label|trans }}
         </label>
@@ -95,7 +95,6 @@
         <!-- CONTENU -->
         <div class="form-horizontal form-label-left">
             
-{{ dump() }}
 
 
 <fieldset class="well">
@@ -130,9 +129,9 @@
         <td style="vertical-align: middle;">
           <div class="form-group">
             {% if modelordered.isCommentInvoice == 0 or modelordered.isCommentInvoice is empty %}
-              no
+              <i class="fa fa-times red"></i>
             {% else %}
-              oui
+              <i class="fa fa-check green"></i>
             {% endif %}
           </div>
         </td>

@@ -75,13 +75,27 @@ class EditOrderController extends Controller
 
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('AppBundle:RarOrder')->find($id);
-            $form = $this->createForm(RarEditOrderType::class, $entity, 
-                ['attr' => [
-                    'adminRights' => $adminRights, 
-                    'type' => 'edit'] 
-                ])
-                ->add('note', TextareaType::class, array('mapped' => false, 'required' => false))
-            ;
+            if( $entity->getType() == 0 ){
+                $form = $this->createForm(RarEditOrderType::class, $entity, 
+                    ['attr' => [
+                        'adminRights' => $adminRights, 
+                        'type' => 'edit',
+                        'classic' => true,
+                        ] 
+                    ])
+                    ->add('note', TextareaType::class, array('mapped' => false, 'required' => false))
+                ;
+            }else{
+                $form = $this->createForm(RarEditOrderType::class, $entity, 
+                    ['attr' => [
+                        'adminRights' => $adminRights, 
+                        'type' => 'edit',
+                        'classic' => false,
+                        ] 
+                    ])
+                    ->add('note', TextareaType::class, array('mapped' => false, 'required' => false))
+                ;
+            }
             $customer =  $entity->getCustomer();
             $customerAllow = $entity->getUser()->getCustomerAllow();
             $shop = $entity->getShop();

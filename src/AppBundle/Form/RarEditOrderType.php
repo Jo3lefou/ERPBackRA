@@ -42,20 +42,23 @@ class RarEditOrderType extends AbstractType
             $choices['In Stock'] = 7;
         }
 
+        if($options['attr']['classic'] == true){
+            $builder
+                ->add('dateCivil', DateType::class, [
+                    'label' => 'Civil Wedding Date',
+                    'required' => false,
+                    'widget' => 'choice',
+                    'years' => range(date('Y'), date('Y')+100),
+                ])
+                ->add('dateChurch', DateType::class,[
+                    'label' => 'Church Wedding Date',
+                    'required' => false,
+                    'widget' => 'choice',
+                    'years' => range(date('Y'), date('Y')+100),
+                ]);
+        }
         
         $builder
-            ->add('dateCivil', DateType::class, [
-                'label' => 'Civil Wedding Date',
-                'required' => false,
-                'widget' => 'choice',
-                'years' => range(date('Y'), date('Y')+100),
-            ])
-            ->add('dateChurch', DateType::class,[
-                'label' => 'Church Wedding Date',
-                'required' => false,
-                'widget' => 'choice',
-                'years' => range(date('Y'), date('Y')+100),
-            ])
             ->add('dateMinShip', DateType::class,[
                 'label' => 'Minimum date shipping',
                 'required' => false,
@@ -84,7 +87,7 @@ class RarEditOrderType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\RarOrder',
-            'attr' => [ 'adminRights' => false, 'type' => 'create' ],
+            'attr' => [ 'adminRights' => false, 'type' => 'create', 'classic' => true ],
             'translation_domain' => 'messages'
         ));
     }
