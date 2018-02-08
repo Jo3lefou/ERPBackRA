@@ -452,24 +452,6 @@ class RarModelOrdered
         return $this->workroom;
     }
 
-    
-    /**
-     * Set ProdBasket
-     *
-     * @param \AppBundle\Entity\RarProdBasket $prodBasket
-     *
-     * @return ProdBasket
-     */
-    public function setProdBasket(RarProdBasket $prodBasket = null)
-    {
-        $this->prodBasket = $prodBasket;
-    }
-
-    public function getProdBasket()
-    {
-        return $this->prodBasket;
-    }
-
     //orderLogs
 
     public function getOrderLogs()
