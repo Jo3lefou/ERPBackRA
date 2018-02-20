@@ -13,7 +13,17 @@ class RarLocationType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')->add('secondName')->add('address')->add('zipCode')->add('city')->add('country')->add('accessCode')->add('information')->add('urlPlace')->add('url2');
+        $builder
+            ->add('name')
+            ->add('secondName')
+            ->add('address')
+            ->add('zipCode')
+            ->add('city')
+            ->add('country')
+            ->add('accessCode')
+            ->add('information')
+            ->add('urlPlace')
+            ->add('url2');
     }
     
     /**

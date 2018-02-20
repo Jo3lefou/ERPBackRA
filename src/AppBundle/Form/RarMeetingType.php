@@ -13,7 +13,14 @@ class RarMeetingType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('startDate')->add('endDate')->add('duration')->add('type')->add('creationDate')->add('comment')->add('notifStatus');
+        $builder
+            ->add('startDate')
+            ->add('endDate')
+            ->add('duration')
+            ->add('type')
+            ->add('creationDate')
+            ->add('comment')
+            ->add('notifStatus');
     }
     
     /**
