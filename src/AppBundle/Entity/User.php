@@ -153,7 +153,7 @@ class User implements UserInterface, \Serializable
     protected $workrooms;
     
     /**
-     * @ORM\ManyToOne(targetEntity="RarConfiguration", inversedBy="users", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="RarConfiguration", inversedBy="users")
      * @ORM\JoinColumn(name="configuration_id", referencedColumnName="id")
      */
     protected $configuration;
@@ -164,22 +164,22 @@ class User implements UserInterface, \Serializable
     private $stockLogs;
 
     /**
-     * @ORM\OneToMany(targetEntity="RarOrderNotes", mappedBy="user",cascade={"persist"}, fetch="EAGER")
+     * @ORM\OneToMany(targetEntity="RarOrderNotes", mappedBy="user",cascade={"persist"})
      */
     private $orderNotes;
 
     /**
-     * @ORM\OneToMany(targetEntity="RarOrderLog", mappedBy="user",cascade={"persist"}, fetch="EAGER")
+     * @ORM\OneToMany(targetEntity="RarOrderLog", mappedBy="user",cascade={"persist"})
      */
     private $orderLogs;
 
     /**
-     * @ORM\OneToMany(targetEntity="RarPayment", mappedBy="user",cascade={"persist"}, fetch="EAGER")
+     * @ORM\OneToMany(targetEntity="RarPayment", mappedBy="user",cascade={"persist"})
      */
     private $payments;
 
     /**
-     * @ORM\OneToMany(targetEntity="RarNotes", mappedBy="user",cascade={"persist"}, fetch="EAGER")
+     * @ORM\OneToMany(targetEntity="RarNotes", mappedBy="user",cascade={"persist"})
      */
     private $notes;
 
