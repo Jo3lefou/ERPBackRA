@@ -21,15 +21,13 @@ use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
-use Psr\Log\LoggerInterface;
-
 class EditOrderAjaxController extends Controller
 {
 
 	/**
      * @Route("/{_locale}/orders/update/{type}/{id}", name="updateorder")
      */
-	public function indexAction($type, $id, Request $request, \Swift_Mailer $mailer, LoggerInterface $logger)
+	public function indexAction($type, $id, Request $request, \Swift_Mailer $mailer)
 	{
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $firstName = $this->getUser()->getLastName();
