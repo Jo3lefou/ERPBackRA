@@ -34,11 +34,9 @@ class CalendarController extends Controller
 
         $repository = $this->getDoctrine()->getRepository(RarMeeting::class);
         $query = $repository->createQueryBuilder('c')
-            ->leftJoin('c.shop', 'd')
-            ->where($condition)
-            ->orderBy('c.dateOrder', 'DESC')
+            ->leftJoin('c.customer', 'd')
             ->getQuery();
-        $orders = $query->getResult();
+        $meetings = $query->getResult();
 
         if($user){
             return $this->render('calendar/calendar.html.twig', array(
@@ -55,6 +53,7 @@ class CalendarController extends Controller
                     'h1title' => $this->get('translator')->trans('Calendar'),
                     'bodyClass' => 'nav-md',
                     'user' => $user,
+                    'meetings' => $meetings
                 )
             );
         }else{
