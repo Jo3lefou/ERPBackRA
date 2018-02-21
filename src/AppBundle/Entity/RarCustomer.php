@@ -131,6 +131,11 @@ class RarCustomer
     private $notes;
 
     /**
+     * @ORM\OneToMany(targetEntity="RarMeeting", mappedBy="customer", cascade="persist")
+     */
+    protected $meetings;
+
+    /**
      * Set id
      *
      * @param integer $id

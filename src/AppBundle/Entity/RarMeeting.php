@@ -22,6 +22,13 @@ class RarMeeting
     private $id;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string")
+     */
+    private $name;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="startDate", type="datetimetz")
@@ -70,6 +77,30 @@ class RarMeeting
      */
     private $notifStatus;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="meetings", cascade="persist")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="sales", cascade="persist")
+     * @ORM\JoinColumn(name="sale_id", referencedColumnName="id")
+     */
+    protected $sale;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="RarLocation", inversedBy="meetings", cascade="persist")
+     * @ORM\JoinColumn(name="location_id", referencedColumnName="id")
+     */
+    protected $location;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="RarCustomer", inversedBy="meetings", cascade="persist")
+     * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
+     */
+    protected $customer;
+
 
     /**
      * Get id
@@ -79,6 +110,30 @@ class RarMeeting
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param \DateTime $name
+     *
+     * @return RarMeeting
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
@@ -248,5 +303,106 @@ class RarMeeting
     {
         return $this->notifStatus;
     }
+
+    /**
+     * Get location
+     *
+     * @return \AppBundle\Entity\RarLocation
+     */
+    public function getLocation()
+    {
+        return $this->location;
+    }
+
+    /**
+     * Set location
+     *
+     * @param \AppBundle\Entity\RarLocation $location
+     *
+     * @return RarOrder
+     */
+    public function setLocation(\AppBundle\Entity\RarLocation $location = null)
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\User $user
+     *
+     * @return RarMeeting
+     */
+    public function setUser(\AppBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get sale
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getSale()
+    {
+        return $this->sale;
+    }
+
+    /**
+     * Set sale
+     *
+     * @param \AppBundle\Entity\User $sale
+     *
+     * @return RarMeeting
+     */
+    public function setSale(\AppBundle\Entity\User $sale = null)
+    {
+        $this->sale = $sale;
+
+        return $this;
+    }
+
+    /**
+     * Get customer
+     *
+     * @return \AppBundle\Entity\RarCustomer
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
+
+    /**
+     * Set customer
+     *
+     * @param \AppBundle\Entity\RarCustomer $customer
+     *
+     * @return RarCustomer
+     */
+    public function setCustomer(\AppBundle\Entity\RarCustomer $customer = null)
+    {
+        $this->customer = $customer;
+
+        return $this;
+    }
+
+
+
+
+
 }
 

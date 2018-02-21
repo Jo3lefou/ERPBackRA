@@ -91,6 +91,10 @@ class RarLocation
      */
     private $url2;
 
+    /**
+     * @ORM\OneToMany(targetEntity="RarMeeting", mappedBy="location", cascade="persist")
+     */
+    protected $meetings;
 
     /**
      * Get id

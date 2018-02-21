@@ -164,6 +164,16 @@ class User implements UserInterface, \Serializable
     private $stockLogs;
 
     /**
+     * @ORM\OneToMany(targetEntity="RarMeeting", mappedBy="user", cascade="persist")
+     */
+    protected $meetings;
+
+    /**
+     * @ORM\OneToMany(targetEntity="RarMeeting", mappedBy="sale", cascade="persist")
+     */
+    protected $sales;
+
+    /**
      * @ORM\OneToMany(targetEntity="RarOrderNotes", mappedBy="user",cascade={"persist"})
      */
     private $orderNotes;

@@ -58,6 +58,141 @@
 {% endblock %}
 
 {% block footer %}
+
+    <!-- calendar modal -->
+    <div id="CalenderModalNew" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title" id="myModalLabel">New Calendar Entry</h4>
+          </div>
+          <div class="modal-body">
+            <div id="testmodal" style="padding: 5px 20px;">
+              <form id="antoform" class="form-horizontal calender" role="form">
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Title</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="title" name="title">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Description</label>
+                  <div class="col-sm-9">
+                    <textarea class="form-control" style="height:55px;" id="descr" name="descr"></textarea>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default antoclose" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary antosubmit">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="CalenderModalEdit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title" id="myModalLabel2">Edit meeting for our guest <span id="nameCustomer"></span></h4>
+          </div>
+          <div class="modal-body">
+
+            <div id="testmodal2" style="padding: 5px 20px;">
+              <form id="antoform2" class="form-horizontal calender" role="form" relaction="/{{ locale }}/meeting/" method="post">
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Title</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="title2" name="title2">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Description</label>
+                  <div class="col-sm-9">
+                    <textarea class="form-control" style="height:55px;" id="desc2" name="desc"></textarea>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Date début</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="start2" name="start" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Date Fin</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="end2" name="end" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Lieu</label>
+                  <div class="col-sm-9">
+                    <select class="form-control" id="type2" name="type">
+                      <option value="0">Showroom Rime Arodaky (Aboukir)</option>
+                      <option value="1">Showroom Rime Arodaky (Barcelone)</option>
+                      <option value="2">Showroom Rime Arodaky (NYC)</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-3 control-label"></div>
+                  <div class="checkbox col-sm-9">
+                    <label>
+                      <input type="checkbox" id="notif2" name="notif" /> Notifier le client
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Type</label>
+                  <div class="col-sm-9">
+                    <select class="form-control" id="type2" name="type">
+                      <option value="0">Découverte</option>
+                      <option value="1">1er rdv</option>
+                      <option value="2">2eme rdv</option>
+                      <option value="3">3eme rdv</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Sale</label>
+                  <div class="col-sm-9">
+                    <select class="form-control" id="type2" name="type">
+                      <option value="0">Justine</option>
+                      <option value="1">Manon</option>
+                      <option value="2">Laura</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <p class="col-sm-3 control-label"><strong>Created on</strong></p>
+                  <div class="col-sm-9">
+                    <p id="createdon2" style="padding-top: 7px;"></p>
+                  </div>
+                </div>
+
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal">Voir client</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler le rendez-vous</button>
+            <button type="button" class="btn btn-default antoclose2" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary antosubmit2">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="fc_create" data-toggle="modal" data-target="#CalenderModalNew"></div>
+    <div id="fc_edit" data-toggle="modal" data-target="#CalenderModalEdit"></div>
+    <!-- end calendar modal -->
+
+
   <!-- jQuery -->
     <script src="{{ url('homepage') }}vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
@@ -92,11 +227,171 @@
     <script src="{{ url('homepage') }}vendors/jqvmap/dist/jquery.vmap.js"></script>
     <script src="{{ url('homepage') }}vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
     <script src="{{ url('homepage') }}vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
-    <!-- bootstrap-daterangepicker -->
+    <!-- Time -->
     <script src="{{ url('homepage') }}vendors/moment/min/moment.min.js"></script>
+    <!-- bootstrap-daterangepicker -->
     <script src="{{ url('homepage') }}vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- Calendar -->
+    <script src="{{ url('homepage') }}vendors/fullcalendar/dist/fullcalendar.min.js"></script>
 
     <!-- Custom Theme Scripts -->
     <script src="{{ url('homepage') }}build/js/custom.min.js"></script>
-    
+
+    <script>
+
+
+
+      function init_calendar() {
+        if ("undefined" != typeof $.fn.fullCalendar) {
+            console.log("init_calendar-Joffrey");
+            var e, f, a = new Date,
+                b = a.getDate(),
+                c = a.getMonth(),
+                d = a.getFullYear(),
+                g = $("#calendar").fullCalendar({
+                    header: {
+                        left: "prev,next today",
+                        center: "title",
+                        right: "month,agendaWeek,agendaDay,listMonth"
+                    },
+                    selectable: !0,
+                    selectHelper: !0,
+                    select: function(a, b, c) {
+                        console.log('yeah');
+                        console.log(a);
+                        console.log(b);
+                        console.log(c);
+                        $("#fc_create").click(), e = a, ended = b, $(".antosubmit").on("click", function() {
+                            var a = $("#title").val();
+                            return b && (ended = b), f = $("#event_type").val(), a && g.fullCalendar("renderEvent", {
+                                title: a,
+                                start: e,
+                                end: b,
+                                allDay: c
+                            }, !0), $("#title").val(""), g.fullCalendar("unselect"), $(".antoclose").click(), !1
+                        })
+                    },
+                    eventClick: function(a, b, c) {
+                        var action = $("#antoform2").attr('relaction')+'edit/'+a.id;
+                        var deleteaction = $("#antoform2").attr('relaction')+'cancel/'+a.id;
+                        if(a.notifStatus == 1){var state = true;}else{var state = false;};
+                        $("#fc_edit").click(),
+                        $("#title2").val(a.title),
+                        $("#desc2").val(a.comment),
+                        $("#lieu2").val(a.location),
+                        $("#start2").val(a.start),
+                        $("#end2").val(a.end),
+                        $('#notif2').prop('checked', state),
+                        $("#type2").val(a.type),
+                        $("#sale2").val(a.sale),
+                        $('#nameCustomer').html(a.customer),
+                        $("#createdon2").html(a.createdOn),
+                        f = $("#event_type").val(),
+                        $(".antosubmit2").on("click", function() {
+                            $('#loading-bar').fadeIn();
+                            var title = $("#title2").val();
+                            var start = $("#start2").val();
+                            var end = $("#end2").val();
+                            var comment = $("#desc2").val();
+                            var location = $("#lieu2").val();
+                            var type = $("#type2").val();
+                            var sale = $("#sale2").val();
+                            $.ajax( {
+                              type:"POST",
+                              url: action,
+                              dataType: "json",
+                              data: {title:title,start:start,end:end,comment:comment,location:location,type:type,sale:sale},
+                              success: function( data ) {
+
+                              },
+                              complete: function(){
+                                $('#loading-bar').fadeOut();
+                              }
+                            });
+                            a.title = title,
+                            a.start = start
+                            a.end = end,
+                            a.comment = comment,
+                            a.location = location,
+                            a.type = type,
+                            a.sale = sale,
+                            g.fullCalendar("updateEvent", a),
+                            $(".antoclose2").click();
+                        }), g.fullCalendar("unselect")
+                    },
+                    editable: !0,
+                    events: [{
+                        id:"1",
+                        title: "Long Event",
+                        start: new Date(d, c, b - 5),
+                        end: new Date(d, c, b - 2),
+                        comment: "balbalbal",
+                        user: "admin",
+                        sale: '1',
+                        type: '1',
+                        notifStatus: 1,
+                        location: '1',
+                        createdOn: '12 Dec. 2018',
+                        allDay: !1,
+                        customer: 'John Casavete'
+                    }, {
+                        id:"2",
+                        title: "Meeting",
+                        start: new Date(d, c, b, 10, 30),
+                        end: new Date(d, c, b - 2),
+                        comment: "balbalbal",
+                        user: "admin",
+                        sale: '0',
+                        type: '1',
+                        notifStatus: 1,
+                        location: '2',
+                        createdOn: '12 Dec. 2018',
+                        allDay: !1,
+                        customer: 'John Casavete'
+                    }, {
+                        id:"3",
+                        title: "Lunch",
+                        start: new Date(d, c, b + 14, 12, 0),
+                        end: new Date(d, c, b, 14, 0),
+                        comment: "balbalbal",
+                        user: "admin",
+                        sale: '2',
+                        type: '1',
+                        notifStatus: 0,
+                        location: '0',
+                        createdOn: '12 Dec. 2018',
+                        allDay: !1,
+                        customer: 'John Casavete'
+                    }, {
+                        id:"4",
+                        title: "Birthday Party",
+                        start: new Date(d, c, b + 1, 19, 0),
+                        end: new Date(d, c, b + 1, 22, 30),
+                        comment: "balbalbal",
+                        user: "admin",
+                        sale: '0',
+                        type: '1',
+                        notifStatus: 0,
+                        location: '2',
+                        createdOn: '12 Dec. 2018',
+                        allDay: !1,
+                        customer: 'John Casavete'
+                    }, {
+                        id:"5",
+                        title: "Click for Google",
+                        start: new Date(d, c, 28),
+                        end: new Date(d, c, 29),
+                        comment: "balbalbal",
+                        user: "admin",
+                        sale: '0',
+                        type: '1',
+                        notifStatus: 0,
+                        location: '1',
+                        createdOn: '12 Dec. 2018',
+                    }]
+                })
+        }
+      }
+      init_calendar();
+    </script>
 {% endblock %}

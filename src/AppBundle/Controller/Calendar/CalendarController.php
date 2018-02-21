@@ -33,6 +33,12 @@ class CalendarController extends Controller
         $name = $firstName.' '.$lastName;
 
         $repository = $this->getDoctrine()->getRepository(RarMeeting::class);
+        $query = $repository->createQueryBuilder('c')
+            ->leftJoin('c.shop', 'd')
+            ->where($condition)
+            ->orderBy('c.dateOrder', 'DESC')
+            ->getQuery();
+        $orders = $query->getResult();
 
         if($user){
             return $this->render('calendar/calendar.html.twig', array(
