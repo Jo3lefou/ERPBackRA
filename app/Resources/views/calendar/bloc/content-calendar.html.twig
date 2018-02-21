@@ -1,0 +1,39 @@
+
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+  <div class="page-title">
+    <div class="title_left">
+      <h3>{{ p1h2 }}</h3>
+    </div>
+
+    <div class="title_right">
+      <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+        <div class="input-group pull-right" style="margin:0px">
+          <form class="form-inline" method='get' action='/{{locale}}/meeting/search/'>
+            <div class="form-group" style="margin:0px">
+              <label class="sr-only" for="term">Search</label>
+              <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                <input type="text" class="form-control" placeholder="{% trans %}Search meeting of one customer{% endtrans %}" name="term" id="term" style="border: 1px solid #ccc;">
+                <div class="input-group-addon" style="padding: 0px;"><input type="submit" class="btn btn-default" type="button" value="Go!" style="margin: 0px;background: transparent;border: none;"/></div>
+              </div>
+            </div>
+            
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="x_panel">
+    <div class="x_title">
+      <h2>{% trans %}Your Calendar{% endtrans %}</h2>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+      
+    </div>
+  </div>
+</div>

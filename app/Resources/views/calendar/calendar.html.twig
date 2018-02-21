@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rime Arodaky {{ title }}{% endblock %}
+
+{% block body %}
+  <div class="container body">
+      <div class="main_container">
+
+        <div class="col-md-3 left_col menu_fixed">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="/" class="site_title"><span><img src="{{ url('homepage') }}build/images/logo.png" height="39px" style="margin-left: 36px"></span></a>
+            </div>
+
+            <div class="clearfix"></div>
+
+            {{ include('bloc/bloc-leftnav-profil.html.twig') }}
+
+            <br />
+
+            {{ include('bloc/bloc-leftnav-menu.html.twig') }}
+            {{ include('bloc/bloc-leftnav-shortcut.html.twig') }}
+            
+          </div>
+        </div>
+
+        {{ include('bloc/bloc-topnav.html.twig') }}
+        
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+          {% for message in app.flashes('success') %}
+              <div class="alert alert-success">
+                  {{ message }}
+              </div>
+          {% endfor %}
+          
+          {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SALE_MANAGER') or is_granted('ROLE_PROVIDER') or is_granted('ROLE_SALE') or is_granted('ROLE_PRODUCTION_MANAGER') %}
+          <!-- top tiles -->
+          {{ render(controller('AppBundle:Base:getStatData', {} )) }}
+          <!-- /top tiles -->
+          {% endif %}
+
+          <div class="row">
+            
+            {{ include('calendar/bloc/content-calendar.html.twig') }}
+
+          </div>
+
+        </div>
+        <!-- /page content -->
+
+        {{ include('bloc/bloc-footer.html.twig') }}
+        
+      </div>
+    </div>
+
+{% endblock %}
+
+{% block footer %}
+  <!-- jQuery -->
+    <script src="{{ url('homepage') }}vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="{{ url('homepage') }}vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="{{ url('homepage') }}vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="{{ url('homepage') }}vendors/nprogress/nprogress.js"></script>
+    <!-- Chart.js -->
+    <script src="{{ url('homepage') }}vendors/Chart.js/dist/Chart.min.js"></script>
+    <!-- gauge.js -->
+    <script src="{{ url('homepage') }}vendors/gauge.js/dist/gauge.min.js"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="{{ url('homepage') }}vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <!-- iCheck -->
+    <script src="{{ url('homepage') }}vendors/iCheck/icheck.min.js"></script>
+    <!-- Skycons -->
+    <script src="{{ url('homepage') }}vendors/skycons/skycons.js"></script>
+    <!-- Flot -->
+    <script src="{{ url('homepage') }}vendors/Flot/jquery.flot.js"></script>
+    <script src="{{ url('homepage') }}vendors/Flot/jquery.flot.pie.js"></script>
+    <script src="{{ url('homepage') }}vendors/Flot/jquery.flot.time.js"></script>
+    <script src="{{ url('homepage') }}vendors/Flot/jquery.flot.stack.js"></script>
+    <script src="{{ url('homepage') }}vendors/Flot/jquery.flot.resize.js"></script>
+    <!-- Flot plugins -->
+    <script src="{{ url('homepage') }}vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+    <script src="{{ url('homepage') }}vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+    <script src="{{ url('homepage') }}vendors/flot.curvedlines/curvedLines.js"></script>
+    <!-- DateJS -->
+    <script src="{{ url('homepage') }}vendors/DateJS/build/date.js"></script>
+    <!-- JQVMap -->
+    <script src="{{ url('homepage') }}vendors/jqvmap/dist/jquery.vmap.js"></script>
+    <script src="{{ url('homepage') }}vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="{{ url('homepage') }}vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="{{ url('homepage') }}vendors/moment/min/moment.min.js"></script>
+    <script src="{{ url('homepage') }}vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="{{ url('homepage') }}build/js/custom.min.js"></script>
+    
+{% endblock %}
