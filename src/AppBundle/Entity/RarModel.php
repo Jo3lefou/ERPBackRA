@@ -371,30 +371,6 @@ class RarModel
     }
 
     /**
-     * Set urlThumb
-     *
-     * @param string $urlThumb
-     *
-     * @return RarModel
-     */
-    public function setUrlThumb($urlThumb)
-    {
-        $this->urlThumb = $urlThumb;
-
-        return $this;
-    }
-
-    /**
-     * Get urlThumb
-     *
-     * @return string
-     */
-    public function getUrlThumb()
-    {
-        return $this->urlThumb;
-    }
-
-    /**
      * Set type
      *
      * @param integer $type

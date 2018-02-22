@@ -132,7 +132,7 @@
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Lieu</label>
                   <div class="col-sm-9">
-                    <select class="form-control" id="type2" name="type">
+                    <select class="form-control" id="location2" name="type">
                       <option value="0">Showroom Rime Arodaky (Aboukir)</option>
                       <option value="1">Showroom Rime Arodaky (Barcelone)</option>
                       <option value="2">Showroom Rime Arodaky (NYC)</option>
@@ -151,20 +151,22 @@
                   <label class="col-sm-3 control-label">Type</label>
                   <div class="col-sm-9">
                     <select class="form-control" id="type2" name="type">
-                      <option value="0">Découverte</option>
-                      <option value="1">1er rdv</option>
-                      <option value="2">2eme rdv</option>
-                      <option value="3">3eme rdv</option>
+                      <option value="0">Autre</option>
+                      <option value="1">1er Rendez-vous (Découverte)</option>
+                      <option value="2">2eme rendez-vous (Réessayage) (multiple)</option>
+                      <option value="3">1ere essayage (Après commande)</option>
+                      <option value="4">2eme essayage (multiple)</option>
+                      <option value="5">Pick up on store (Eshop)</option>
                     </select>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Sale</label>
                   <div class="col-sm-9">
-                    <select class="form-control" id="type2" name="type">
-                      <option value="0">Justine</option>
-                      <option value="1">Manon</option>
-                      <option value="2">Laura</option>
+                    <select class="form-control" id="sale2" name="type">
+                      {% for sales in salesmen %}
+                      <option value="{{ sales.id }}">{{ sales.firstName }} {{ sales.lastName }}</option>
+                      {% endfor %}
                     </select>
                   </div>
                 </div>
@@ -207,6 +209,7 @@
     <script src="{{ url('homepage') }}vendors/gauge.js/dist/gauge.min.js"></script>
     <!-- bootstrap-progressbar -->
     <script src="{{ url('homepage') }}vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    
     <!-- iCheck -->
     <script src="{{ url('homepage') }}vendors/iCheck/icheck.min.js"></script>
     <!-- Skycons -->
@@ -229,19 +232,34 @@
     <script src="{{ url('homepage') }}vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
     <!-- Time -->
     <script src="{{ url('homepage') }}vendors/moment/min/moment.min.js"></script>
+    <!-- bootstrap-datetimepicker -->    
+    <script src="{{ url('homepage') }}vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
     <!-- bootstrap-daterangepicker -->
     <script src="{{ url('homepage') }}vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
     <!-- Calendar -->
+    <script src='lib/jquery-ui.custom-datepicker.js'></script>
     <script src="{{ url('homepage') }}vendors/fullcalendar/dist/fullcalendar.min.js"></script>
+    <script src="{{ url('homepage') }}build/js/fr.js"></script>
+
 
     <!-- Custom Theme Scripts -->
     <script src="{{ url('homepage') }}build/js/custom.min.js"></script>
+    <!-- Custom Theme Scripts -->
 
     <script>
+      var str = JSON.stringify( {{ meetings|json_encode(constant('JSON_PRETTY_PRINT'))|raw }});
+      stringified = str.replace(/starta/g, 'start');
+      stringified2 = stringified.replace(/enda/g, 'end');
+      var jsonObject = JSON.parse(stringified2);
+      //var res = str.replace("starta", "start");
+      //var res2 = res.replace("enda", "end");
+      console.log(jsonObject);
 
-
+      $('#start2').datetimepicker({format: 'yyyy-mm-dd hh:ii', minuteStep:15});
+      $('#end2').datetimepicker({format: 'yyyy-mm-dd hh:ii', minuteStep:15});
 
       function init_calendar() {
+        //var initialLocaleCode = '{{ locale }}';
         if ("undefined" != typeof $.fn.fullCalendar) {
             console.log("init_calendar-Joffrey");
             var e, f, a = new Date,
@@ -249,6 +267,8 @@
                 c = a.getMonth(),
                 d = a.getFullYear(),
                 g = $("#calendar").fullCalendar({
+                    timeFormat: 'H:mm',
+                    locale:'{{ locale }}',
                     header: {
                         left: "prev,next today",
                         center: "title",
@@ -256,11 +276,20 @@
                     },
                     selectable: !0,
                     selectHelper: !0,
+                    slotDuration: '00:15:00',
+                    allDaySlot: false,
+                    defaultView: 'agendaWeek',
+                    minTime: '07:00:00',
+                    maxTime: '21:00:00',
+                    height: 800,
+                    aspectRatio: 2,
+                    firstDay: '1',
+                    timezone : 'Europe/Paris',
                     select: function(a, b, c) {
-                        console.log('yeah');
-                        console.log(a);
-                        console.log(b);
-                        console.log(c);
+                        //console.log('yeah');
+                        //console.log(a);
+                        //console.log(b);
+                        //console.log(c);
                         $("#fc_create").click(), e = a, ended = b, $(".antosubmit").on("click", function() {
                             var a = $("#title").val();
                             return b && (ended = b), f = $("#event_type").val(), a && g.fullCalendar("renderEvent", {
@@ -272,17 +301,18 @@
                         })
                     },
                     eventClick: function(a, b, c) {
-                        var action = $("#antoform2").attr('relaction')+'edit/'+a.id;
+                        console.log(a.id)
+                        var action = $("#antoform2").attr('relaction')+'edit/'+a.ref;
                         var deleteaction = $("#antoform2").attr('relaction')+'cancel/'+a.id;
                         if(a.notifStatus == 1){var state = true;}else{var state = false;};
                         $("#fc_edit").click(),
-                        $("#title2").val(a.title),
+                        $("#title2").val(a.title2),
                         $("#desc2").val(a.comment),
                         $("#lieu2").val(a.location),
-                        $("#start2").val(a.start),
-                        $("#end2").val(a.end),
+                        $("#start2").val(a.start.format('YYYY-MM-DD HH:mm') ),
+                        $("#end2").val(a.end.format('YYYY-MM-DD HH:mm') ),
                         $('#notif2').prop('checked', state),
-                        $("#type2").val(a.type),
+                        $('#type2').val(a.type),
                         $("#sale2").val(a.sale),
                         $('#nameCustomer').html(a.customer),
                         $("#createdon2").html(a.createdOn),
@@ -296,31 +326,44 @@
                             var location = $("#lieu2").val();
                             var type = $("#type2").val();
                             var sale = $("#sale2").val();
+                            var state = $("#notif2").val();
+                            var salesmen = $("#sale2 option:selected").text();
                             $.ajax( {
                               type:"POST",
                               url: action,
                               dataType: "json",
-                              data: {title:title,start:start,end:end,comment:comment,location:location,type:type,sale:sale},
+                              data: {id:a.ref,title:title,start:start,end:end,comment:comment,location:location,type:type,sale:sale},
                               success: function( data ) {
 
                               },
                               complete: function(){
                                 $('#loading-bar').fadeOut();
+                                a.title = salesmen+' - '+title,
+                                a.start = start,
+                                a.end = end,
+                                a.comment = comment,
+                                a.location = location,
+                                a.type = type,
+                                a.sale = sale,
+                                a.state = state,
+                                g.fullCalendar("updateEvent", a),
+                                $(".antoclose2").click();
                               }
                             });
-                            a.title = title,
-                            a.start = start
-                            a.end = end,
-                            a.comment = comment,
-                            a.location = location,
-                            a.type = type,
-                            a.sale = sale,
-                            g.fullCalendar("updateEvent", a),
-                            $(".antoclose2").click();
-                        }), g.fullCalendar("unselect")
+                            $('.antosubmit2').off('click').click(function(){
+                              g.fullCalendar("unselect");
+                            });
+                        }), g.fullCalendar("unselect");
                     },
                     editable: !0,
-                    events: [{
+                    events: jsonObject
+                })
+        }
+      }
+      init_calendar();
+    </script>
+    <!--
+    [{
                         id:"1",
                         title: "Long Event",
                         start: new Date(d, c, b - 5),
@@ -388,10 +431,5 @@
                         notifStatus: 0,
                         location: '1',
                         createdOn: '12 Dec. 2018',
-                    }]
-                })
-        }
-      }
-      init_calendar();
-    </script>
+                    }] -->
 {% endblock %}

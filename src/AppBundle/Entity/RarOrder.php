@@ -780,16 +780,6 @@ class RarOrder
     {
         return $this->modelsOrdered;
     }
-
-    /**
-     * Get model
-     *
-     * @return \AppBundle\Entity\RarModel
-     */
-    public function getModel()
-    {
-        return $this->model;
-    }
     
     /**
      * Add notes
@@ -806,9 +796,9 @@ class RarOrder
     }
 
     /**
-     * Remove modelOrdered
+     * Remove note
      *
-     * @param \AppBundle\Entity\RarModelOrdered $modelOrdered
+     * @param \AppBundle\Entity\RarOrderNotes $notes
      */
     public function removeNotes(\AppBundle\Entity\RarOrderNotes $note)
     {
@@ -816,7 +806,7 @@ class RarOrder
     }
 
     /**
-     * Get modelOrdereds
+     * Get notes
      *
      * @return \Doctrine\Common\Collections\Collection
      */

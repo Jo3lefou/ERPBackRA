@@ -31,14 +31,14 @@ class RarMeeting
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="startDate", type="datetimetz")
+     * @ORM\Column(name="startDate", type="datetime")
      */
     private $startDate;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="endDate", type="datetimetz")
+     * @ORM\Column(name="endDate", type="datetime")
      */
     private $endDate;
 
@@ -55,6 +55,23 @@ class RarMeeting
      * @ORM\Column(name="type", type="integer")
      */
     private $type;
+    /* 
+    *
+    * TYPE CHOICE
+    * 0 - Autre
+    * Sans envoi de mail
+    * 1 - 1er Rendez-vous (Découverte)
+    * Email Envoi confirmation - 1semaine avant rendez-vous avec questionnaire (je valide et confirme ma réponse) - 3j rappelle confirmation rendez-vous (flag si non réponse sur calendrier)
+    * 2 - 2eme rendez-vous (Réessayage) (x)
+    * Email Envoi confirmation
+    * 3 - 1ere essayage (après commande)
+    * Email Envoi confirmation
+    * 4 - 2eme essayage (x)
+    * Email Envoi confirmation
+    * 5 - Pick up on store
+    * Email Envoi confirmation
+    *
+    */
 
     /**
      * @var \DateTime
@@ -66,7 +83,7 @@ class RarMeeting
     /**
      * @var string
      *
-     * @ORM\Column(name="comment", type="blob", nullable=true)
+     * @ORM\Column(name="comment", type="text", nullable=true)
      */
     private $comment;
 

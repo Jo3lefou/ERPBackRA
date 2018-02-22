@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Calendar;
 
 use AppBundle\Entity\RarMeeting;
+use AppBundle\Entity\User;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -13,6 +14,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use InvalidArgumentException;
+
+use Symfony\Component\HttpFoundation\JsonResponse;
+
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class CalendarController extends Controller
 {
@@ -31,12 +38,31 @@ class CalendarController extends Controller
         $role = $this->getUser()->getRole();
         $locale = $this->getUser()->getLocale();
         $name = $firstName.' '.$lastName;
+        $meetings = '';
 
-        $repository = $this->getDoctrine()->getRepository(RarMeeting::class);
-        $query = $repository->createQueryBuilder('c')
-            ->leftJoin('c.customer', 'd')
-            ->getQuery();
-        $meetings = $query->getResult();
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        $sales = $repository->findBy( array('role'=> array('ROLE_SALE_MANAGER', 'ROLE_SALE')) );
+
+
+        $em = $this->get('doctrine.orm.entity_manager');
+        $dql = "SELECT 
+            a.id AS id,
+            a.id AS ref,
+            CONCAT(b.firstName, ' ', b.lastName, ' - ', a.name) as title, 
+            a.name as title2,
+            a.comment, 
+            a.type as toup,
+            a.notifStatus, 
+            CONCAT(date(a.startDate), ' ', time(a.startDate)) AS starta,
+            CONCAT(date(a.endDate), ' ', time(a.endDate)) AS enda,
+            b.id AS sale, 
+            CONCAT(b.firstName, ' ', b.lastName) AS namesale,
+            b.userColor as color
+            FROM AppBundle:RarMeeting a
+            INNER JOIN a.sale b
+            ";
+        $query = $em->createQuery($dql);
+        $meetings = $query->getArrayResult();
 
         if($user){
             return $this->render('calendar/calendar.html.twig', array(
@@ -53,7 +79,8 @@ class CalendarController extends Controller
                     'h1title' => $this->get('translator')->trans('Calendar'),
                     'bodyClass' => 'nav-md',
                     'user' => $user,
-                    'meetings' => $meetings
+                    'meetings' => $meetings,
+                    'salesmen' => $sales,
                 )
             );
         }else{
