@@ -70,19 +70,201 @@
           </div>
           <div class="modal-body">
             <div id="testmodal" style="padding: 5px 20px;">
-              <form id="antoform" class="form-horizontal calender" role="form">
+              <form id="antoform" class="form-horizontal calender" role="form" relaction="/{{ locale }}/meeting/add/" method="post">
+                <h3>{% trans %}The customer{% endtrans %}</h3>
+                <!-- CONTENU -->
+                <div class="form-horizontal form-label-left">
+                  <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="role"></label>
+                    <div class="col-md-8 col-sm-8 col-xs-12">
+                      <div class="checkbox">
+                        <label>
+                          <input id="customer_exist" class="js-switch" type="checkbox"> {% trans %}This customer has already an account{% endtrans %}
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <hr/>
+                  <div id="newCustomer">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="customer_salutation">{% trans %}Salutation{% endtrans %} <span class="required">*</span>
+                      </label>
+                      <div class="col-md-9 col-sm-9 col-xs-12">
+                        <select id="customer_salutation" class="form-control">
+                          <option value="3" selected>{% trans %}Miss{% endtrans %}</option>
+                          <option value="2">{% trans %}Mrs{% endtrans %}</option>
+                          <option value="1">{% trans %}Mr{% endtrans %}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="customer_firstName">{% trans %}First name{% endtrans %} <span class="required">*</span>
+                      </label>
+                      <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" placholder="{% trans %}First name{% endtrans %}" id="customer_firstName" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="customer_lastName">{% trans %}Last name{% endtrans %} <span class="required">*</span>
+                      </label>
+                      <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" placholder="{% trans %}Last name{% endtrans %}" id="customer_lastName" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="customer_email">{% trans %}Email{% endtrans %} <span class="required">*</span>
+                      </label>
+                      <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" placholder="{% trans %}Email{% endtrans %}" id="customer_email" class="form-control" />
+                      </div>
+                    </div>
+                    <hr/>
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="customer_address">{% trans %}Address{% endtrans %}
+                      </label>
+                      <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" placholder="{% trans %}Address{% endtrans %}" id="customer_address" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="customer_postcode">{% trans %}Post code and city{% endtrans %}
+                      </label>
+                      <div class="col-md-3 col-sm-3 col-xs-12">
+                        <input type="text" id="customer_postcode" placeholder="{% trans %}Post code{% endtrans %}" class="form-control"/>
+                      </div>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" id="customer_city"  placeholder="{% trans %}City{% endtrans %}" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="customer_state">{% trans %}State{% endtrans %}
+                      </label>
+                      <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" placholder="{% trans %}State{% endtrans %}" id="customer_state" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="customer_country">{% trans %}Country{% endtrans %}
+                      </label>
+                      <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="" placholder="{% trans %}Country{% endtrans %}" id="customer_country" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="customer_phone">{% trans %}Phone{% endtrans %}
+                      </label>
+                      <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" placholder="{% trans %}Phone{% endtrans %}" id="customer_phone" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">{% trans %}Language{% endtrans %} <span class="required">*</span></label> 
+                      <div class="col-md-9 col-sm-9 col-xs-12">
+                        <div id="locale" class="btn-group" data-toggle="buttons">
+                          <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                            <input type="radio" name="locale" value="en"> &nbsp; {% trans %}English{% endtrans %} &nbsp;
+                          </label>
+                          <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                            <input type="radio" name="locale" value="fr"> {% trans %}French{% endtrans %}
+                          </label>
+                          <input type="hidden" id="OrderType_customer_locale" value=""/>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="role"></label>
+                      <div class="col-md-8 col-sm-8 col-xs-12">
+                          <div class="checkbox">
+                            <label><input type="checkbox" placholder="{% trans %}Phone{% endtrans %}" id="customer_optin" class="js-switch" /> {% trans %}Opt-In{% endtrans %}</label>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="oldCustomer" style="display:none;">
+                    <div class="form-horizontal form-label-left">
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="shop_name">{% trans %}Customer Name{% endtrans %}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input id="customer-input" class="form-control col-md-7 col-xs-12" type="text" placeholder="Customer Name">
+                          <input id="OrderType_customer_idCustomer" name="idCustomer" value="" type="hidden">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <!-- // CONTENU -->
+                <hr/>
+                <h3>{% trans %}The meeting{% endtrans %}</h3>
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Title</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control" id="title" name="title">
+                    <input type="text" class="form-control" id="title" name="title2">
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Description</label>
                   <div class="col-sm-9">
-                    <textarea class="form-control" style="height:55px;" id="descr" name="descr"></textarea>
+                    <textarea class="form-control" style="height:55px;" id="desc" name="desc"></textarea>
                   </div>
                 </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Date début</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="start" name="start" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Date Fin</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="end" name="end" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Lieu</label>
+                  <div class="col-sm-9">
+                    <select class="form-control" id="location" name="type">
+                      {% for location in locations %}
+                      <option value="{{ location.id }}">{{ location.name }} ({{location.secondName}})</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-3 control-label"></div>
+                  <div class="checkbox col-sm-9">
+                    <label>
+                      <input type="checkbox" id="notif" name="notif" class="js-switch"/> Notifier le client
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Type</label>
+                  <div class="col-sm-9">
+                    <select class="form-control" id="type" name="type">
+                      <option value="0">Autre</option>
+                      <option value="1">1er Rendez-vous (Découverte)</option>
+                      <option value="2">2eme rendez-vous (Réessayage) (multiple)</option>
+                      <option value="3">1ere essayage (Après commande)</option>
+                      <option value="4">2eme essayage (multiple)</option>
+                      <option value="5">Pick up on store (Eshop)</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Sale</label>
+                  <div class="col-sm-9">
+                    <select class="form-control" id="sale" name="type">
+                      {% for sales in salesmen %}
+                      <option value="{{ sales.id }}">{{ sales.firstName }} {{ sales.lastName }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+
+
+
+
               </form>
             </div>
           </div>
@@ -133,9 +315,9 @@
                   <label class="col-sm-3 control-label">Lieu</label>
                   <div class="col-sm-9">
                     <select class="form-control" id="location2" name="type">
-                      <option value="0">Showroom Rime Arodaky (Aboukir)</option>
-                      <option value="1">Showroom Rime Arodaky (Barcelone)</option>
-                      <option value="2">Showroom Rime Arodaky (NYC)</option>
+                      {% for location in locations %}
+                      <option value="{{ location.id }}">{{ location.name }} ({{location.secondName}})</option>
+                      {% endfor %}
                     </select>
                   </div>
                 </div>
@@ -197,6 +379,8 @@
 
   <!-- jQuery -->
     <script src="{{ url('homepage') }}vendors/jquery/dist/jquery.min.js"></script>
+    <!-- jQueryUI -->
+    <script src="{{ url('homepage') }}vendors/jquery-ui/jquery-ui.min.js"></script>
     <!-- Bootstrap -->
     <script src="{{ url('homepage') }}vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- FastClick -->
@@ -230,6 +414,8 @@
     <script src="{{ url('homepage') }}vendors/jqvmap/dist/jquery.vmap.js"></script>
     <script src="{{ url('homepage') }}vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
     <script src="{{ url('homepage') }}vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+    <!-- Switchery -->
+    <script src="{{ url('homepage') }}vendors/switchery/dist/switchery.js"></script>
     <!-- Time -->
     <script src="{{ url('homepage') }}vendors/moment/min/moment.min.js"></script>
     <!-- bootstrap-datetimepicker -->    
@@ -240,6 +426,7 @@
     <script src='lib/jquery-ui.custom-datepicker.js'></script>
     <script src="{{ url('homepage') }}vendors/fullcalendar/dist/fullcalendar.min.js"></script>
     <script src="{{ url('homepage') }}build/js/fr.js"></script>
+
 
 
     <!-- Custom Theme Scripts -->
@@ -257,6 +444,47 @@
 
       $('#start2').datetimepicker({format: 'yyyy-mm-dd hh:ii', minuteStep:15});
       $('#end2').datetimepicker({format: 'yyyy-mm-dd hh:ii', minuteStep:15});
+
+      var changeCheckbox = document.querySelector('#customer_exist');
+      changeCheckbox.onchange = function() {
+          //alert(changeCheckbox.checked);
+          var oldCustomer = document.querySelector('#oldCustomer');
+          var newCustomer = document.querySelector('#newCustomer');
+          if(changeCheckbox.checked == true){
+              $('#newCustomer').hide();
+              $('#oldCustomer').show();
+          }else{
+              $('#oldCustomer').hide();
+              $('#newCustomer').show();
+              $( "#OrderType_customer_id" ).val('');
+              $( "#customer-input" ).val('')
+          }
+      };
+
+      $( function() {
+            function log( message ) {
+                $( "<div>" ).text( message ).prependTo( "#log" );
+                $( "#log" ).scrollTop( 0 );
+            }
+            $( "#customer-input" ).autocomplete({
+              source: function( request, response ) {
+                $.ajax( {
+                  type:"GET",
+                  url: "{{ (path('app_customer_route')) }}",
+                  dataType: "json",
+                  data: { value: request.term },
+                  success: function( data ) {
+                    response( data );
+                  }
+                } );
+              },
+              minLength: 3,
+              select: function( event, ui ) {
+                $( "#OrderType_customer_idCustomer" ).val( ui.item.id );
+              }
+            })
+          } 
+      );
 
       function init_calendar() {
         //var initialLocaleCode = '{{ locale }}';
@@ -286,17 +514,17 @@
                     firstDay: '1',
                     timezone : 'Europe/Paris',
                     select: function(a, b, c) {
-                        //console.log('yeah');
-                        //console.log(a);
-                        //console.log(b);
-                        //console.log(c);
+
+
+
+
+
                         $("#fc_create").click(), e = a, ended = b, $(".antosubmit").on("click", function() {
                             var a = $("#title").val();
                             return b && (ended = b), f = $("#event_type").val(), a && g.fullCalendar("renderEvent", {
                                 title: a,
                                 start: e,
-                                end: b,
-                                allDay: c
+                                end: b
                             }, !0), $("#title").val(""), g.fullCalendar("unselect"), $(".antoclose").click(), !1
                         })
                     },
@@ -304,7 +532,12 @@
                         console.log(a.id)
                         var action = $("#antoform2").attr('relaction')+'edit/'+a.ref;
                         var deleteaction = $("#antoform2").attr('relaction')+'cancel/'+a.id;
-                        if(a.notifStatus == 1){var state = true;}else{var state = false;};
+                        var mySwitch = new Switchery($('#notif2'))
+                        if(a.notifStatus == 1){
+                          var state = true;
+                        }else{
+                          var state = false;
+                        };
                         $("#fc_edit").click(),
                         $("#title2").val(a.title2),
                         $("#desc2").val(a.comment),
@@ -362,6 +595,12 @@
       }
       init_calendar();
     </script>
+    <style>
+      ul.ui-autocomplete {
+          z-index: 1100 !important;
+      }
+
+    </style>
     <!--
     [{
                         id:"1",

@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Calendar;
 
 use AppBundle\Entity\RarMeeting;
+use AppBundle\Entity\RarLocation;
 use AppBundle\Entity\User;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -43,6 +44,9 @@ class CalendarController extends Controller
         $repository = $this->getDoctrine()->getRepository(User::class);
         $sales = $repository->findBy( array('role'=> array('ROLE_SALE_MANAGER', 'ROLE_SALE')) );
 
+        $repository = $this->getDoctrine()->getRepository(RarLocation::class);
+        $location = $repository->findAll();
+
 
         $em = $this->get('doctrine.orm.entity_manager');
         $dql = "SELECT 
@@ -51,7 +55,7 @@ class CalendarController extends Controller
             CONCAT(b.firstName, ' ', b.lastName, ' - ', a.name) as title, 
             a.name as title2,
             a.comment, 
-            a.type as toup,
+            a.type as type,
             a.notifStatus, 
             CONCAT(date(a.startDate), ' ', time(a.startDate)) AS starta,
             CONCAT(date(a.endDate), ' ', time(a.endDate)) AS enda,
@@ -62,7 +66,7 @@ class CalendarController extends Controller
             INNER JOIN a.sale b
             ";
         $query = $em->createQuery($dql);
-        $meetings = $query->getArrayResult();
+        $meetings = $query->getResult();
 
         if($user){
             return $this->render('calendar/calendar.html.twig', array(
@@ -81,6 +85,7 @@ class CalendarController extends Controller
                     'user' => $user,
                     'meetings' => $meetings,
                     'salesmen' => $sales,
+                    'locations' => $location
                 )
             );
         }else{
