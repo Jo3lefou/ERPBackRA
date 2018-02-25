@@ -52,6 +52,7 @@ class CalendarController extends Controller
         $dql = "SELECT 
             a.id AS id,
             a.id AS ref,
+            c.id AS cusId,
             CONCAT(b.firstName, ' ', b.lastName, ' - ', a.name) as title, 
             a.name as title2,
             a.comment, 
@@ -64,6 +65,8 @@ class CalendarController extends Controller
             b.userColor as color
             FROM AppBundle:RarMeeting a
             INNER JOIN a.sale b
+            INNER JOIN a.customer c
+            WHERE a.state < 2
             ";
         $query = $em->createQuery($dql);
         $meetings = $query->getResult();

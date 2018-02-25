@@ -70,7 +70,7 @@
           </div>
           <div class="modal-body">
             <div id="testmodal" style="padding: 5px 20px;">
-              <form id="antoform" class="form-horizontal calender" role="form" relaction="/{{ locale }}/meeting/add/" method="post">
+              <form id="antoform" class="form-horizontal calender" role="form" relaction="/{{ locale }}/meeting/add/0" method="post">
                 <h3>{% trans %}The customer{% endtrans %}</h3>
                 <!-- CONTENU -->
                 <div class="form-horizontal form-label-left">
@@ -363,8 +363,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-success" data-dismiss="modal">Voir client</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler le rendez-vous</button>
+            <button type="button" rel="{{ url('homepage') }}{{ locale }}/customers/single/view/" class="btn btn-success antoviewcustomer2">Voir client</button>
+            <button type="button" class="btn btn-danger antocancel2">Annuler le rendez-vous</button>
             <button type="button" class="btn btn-default antoclose2" data-dismiss="modal">Close</button>
             <button type="button" class="btn btn-primary antosubmit2">Save changes</button>
           </div>
@@ -422,15 +422,16 @@
     <script src="{{ url('homepage') }}vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
     <!-- bootstrap-daterangepicker -->
     <script src="{{ url('homepage') }}vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- ColorPicker -->
+    <script src="{{ url('homepage') }}vendors/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
     <!-- Calendar -->
     <script src='lib/jquery-ui.custom-datepicker.js'></script>
     <script src="{{ url('homepage') }}vendors/fullcalendar/dist/fullcalendar.min.js"></script>
     <script src="{{ url('homepage') }}build/js/fr.js"></script>
 
-
-
     <!-- Custom Theme Scripts -->
     <script src="{{ url('homepage') }}build/js/custom.min.js"></script>
+    <script src="{{ url('homepage') }}build/js/rarcustom.js"></script>
     <!-- Custom Theme Scripts -->
 
     <script>
@@ -487,7 +488,6 @@
       );
 
       function init_calendar() {
-        //var initialLocaleCode = '{{ locale }}';
         if ("undefined" != typeof $.fn.fullCalendar) {
             console.log("init_calendar-Joffrey");
             var e, f, a = new Date,
@@ -514,25 +514,111 @@
                     firstDay: '1',
                     timezone : 'Europe/Paris',
                     select: function(a, b, c) {
+                          $("#start").val(a.format('YYYY-MM-DD HH:mm'));
+                          $("#end").val(b.format('YYYY-MM-DD HH:mm'));
+                          $("#lieu").val();
+                          $("#title").val();
+                          $("#desc").val();
 
+                          $("#fc_create").click(), e = a, ended = b, $(".antosubmit").on("click", function() {
+                            var action = $("#antoform").attr('relaction');
+                            var title = $("#title").val();
+                            var comment = $("#desc").val();
+                            var lieu = $("#lieu").val();
+                            var notif = $('#notif').prop('checked');
+                            var start = $('#start').val();
+                            var end = $('#end').val();
 
+                            if( notif == false ){
+                              var notif = 0;
+                            }else{
+                              var notif = 1;
+                            }
+                            var type = $('#type').val();
+                            var sale = $("#sale").val();
+                            var salesmen = $("#sale option:selected").text();
+                            // ---- User Exist ---- //
+                            var cusId = $('#OrderType_customer_idCustomer').val();
+                            var customerexist = $('#customer_exist').prop('checked');
+                            if( customerexist == false ){
+                              // ----  User ---- //
+                              var salutation = $('#customer_salutation').val();
+                              var firstname = $('#customer_firstName').val();
+                              var lastname = $('#customer_lastName').val();
+                              var address = $('#customer_address').val();
+                              var email = $('#customer_email').val();
+                              var postcode = $('#customer_postcode').val();
+                              var city = $('#customer_city').val();
+                              var state = $('#customer_state').val();
+                              var country = $('#customer_country').val();
+                              var phone = $('#customer_phone').val();
+                              var notif = $('#notif').prop('checked');
+                              var optin = $('#customer_optin').prop('checked');
+                            };
 
+                            $('#loading-bar').fadeIn();
+                            $.ajax( {
+                                type:"POST",
+                                url: action,
+                                dataType: "json",
+                                data: {title: title,start: start,end: end,comment: comment,location: lieu,type: type,sale: sale,lieu: lieu,state: state,notif: notif,cusId:cusId,customerexist: customerexist,cusId: cusId,salutation: salutation,firstname: firstname,lastname: lastname,address: address,email: email,postcode: postcode,city: city,state: state,country: country,phone: phone,optin: optin},
+                                success: function( data ) {
+                                  $('#loading-bar').fadeOut();
+                                  var color = data.color;
+                                  var ref = data.idMeeting;
+                                  var id = data.idMeeting;
+                                  // TEST
+                                  return b && (ended = b), f = $("#event_type").val(), a && g.fullCalendar("renderEvent", {
+                                      id:id,
+                                      ref:ref,
+                                      cusId:cusId,
+                                      title: salesmen+' - '+title,
+                                      title2: title,
+                                      start: e,
+                                      end: b,
+                                      comment: comment,
+                                      location: location,
+                                      type: type,
+                                      sale: sale,
+                                      lieu: lieu,
+                                      state: state,
+                                      notif: notif,
+                                      cusId: cusId,
+                                      color: color,
+                                      customerexist: customerexist,
+                                      cusId: cusId,
+                                      salutation: salutation,
+                                      firstname: firstname,
+                                      lastname: lastname,
+                                      address: address,
+                                      email: email,
+                                      postcode: postcode,
+                                      city: city,
+                                      state: state,
+                                      country: country,
+                                      phone: phone,
+                                      optin: optin
+                                  }, !0), 
+                                  $("#title").val(""),
+                                  g.fullCalendar("unselect"),
+                                  $(".antoclose").click(), !1
+                                },
+                                complete: function(){
 
-
-                        $("#fc_create").click(), e = a, ended = b, $(".antosubmit").on("click", function() {
-                            var a = $("#title").val();
-                            return b && (ended = b), f = $("#event_type").val(), a && g.fullCalendar("renderEvent", {
-                                title: a,
-                                start: e,
-                                end: b
-                            }, !0), $("#title").val(""), g.fullCalendar("unselect"), $(".antoclose").click(), !1
-                        })
+                                }
+                            });
+                            $('.antosubmit').off('click').click(function(){
+                              g.fullCalendar("unselect");
+                            });
+                          })
                     },
                     eventClick: function(a, b, c) {
-                        console.log(a.id)
+                      /****** CLICK ON EVENT **********/
                         var action = $("#antoform2").attr('relaction')+'edit/'+a.ref;
-                        var deleteaction = $("#antoform2").attr('relaction')+'cancel/'+a.id;
-                        var mySwitch = new Switchery($('#notif2'))
+                        var deleteaction = $("#antoform2").attr('relaction')+'cancel/'+a.ref;
+                        //var href = $('.antoviewcustomer2').attr('href');
+                        //$('.antoviewcustomer2').attr('href', href + a.ref);
+
                         if(a.notifStatus == 1){
                           var state = true;
                         }else{
@@ -550,11 +636,47 @@
                         $('#nameCustomer').html(a.customer),
                         $("#createdon2").html(a.createdOn),
                         f = $("#event_type").val(),
+                        /****** CLICK ON CANCEL EVENT **********/
+                        $(".antocancel2").on("click", function() {
+                          console.log('here');
+                          var comment = $("#desc2").val();
+                          $('#loading-bar').fadeIn();
+                          $.ajax( {
+                              type:"POST",
+                              url: deleteaction,
+                              dataType: "json",
+                              data: { id:a.ref, comment:comment }, // Check AJAX Notif
+                              success: function( data ) {
+                                $('#loading-bar').fadeOut();
+                                g.fullCalendar('removeEvents',a.ref);
+                                $(".antoclose2").click();
+                              },
+                              complete: function(){
+                                
+                              }
+                          });
+
+                          $('.antocancel2').off('click').click(function(){
+                            //$('.antoviewcustomer2').attr('href', href);
+                            g.fullCalendar("unselect");
+                          });
+                        }), g.fullCalendar("unselect");
+                        /****** CLICK ON VIEW CUSTOMER *******/
+                        $(".antoviewcustomer2").on("click", function() {
+
+                          var href = $('.antoviewcustomer2').attr('rel');
+                          console.log('hey');
+                          window.location.href = href + a.cusId;
+                        });
+                        
+                        /****** CLICK ON EDIT EVENT **********/
                         $(".antosubmit2").on("click", function() {
+
                             $('#loading-bar').fadeIn();
                             var title = $("#title2").val();
                             var start = $("#start2").val();
                             var end = $("#end2").val();
+                            var notif = $("#notif2").prop('checked');
                             var comment = $("#desc2").val();
                             var location = $("#lieu2").val();
                             var type = $("#type2").val();
@@ -565,12 +687,8 @@
                               type:"POST",
                               url: action,
                               dataType: "json",
-                              data: {id:a.ref,title:title,start:start,end:end,comment:comment,location:location,type:type,sale:sale},
+                              data: {id:a.ref,title:title,start:start,end:end,comment:comment,location:location,type:type,sale:sale,notif:notif},
                               success: function( data ) {
-
-                              },
-                              complete: function(){
-                                $('#loading-bar').fadeOut();
                                 a.title = salesmen+' - '+title,
                                 a.start = start,
                                 a.end = end,
@@ -581,10 +699,15 @@
                                 a.state = state,
                                 g.fullCalendar("updateEvent", a),
                                 $(".antoclose2").click();
+                                $('#loading-bar').fadeOut();
+                              },
+                              complete: function(){
+                                
                               }
                             });
                             $('.antosubmit2').off('click').click(function(){
                               g.fullCalendar("unselect");
+                              //$('.antoviewcustomer2').attr('href', href);
                             });
                         }), g.fullCalendar("unselect");
                     },
@@ -601,74 +724,4 @@
       }
 
     </style>
-    <!--
-    [{
-                        id:"1",
-                        title: "Long Event",
-                        start: new Date(d, c, b - 5),
-                        end: new Date(d, c, b - 2),
-                        comment: "balbalbal",
-                        user: "admin",
-                        sale: '1',
-                        type: '1',
-                        notifStatus: 1,
-                        location: '1',
-                        createdOn: '12 Dec. 2018',
-                        allDay: !1,
-                        customer: 'John Casavete'
-                    }, {
-                        id:"2",
-                        title: "Meeting",
-                        start: new Date(d, c, b, 10, 30),
-                        end: new Date(d, c, b - 2),
-                        comment: "balbalbal",
-                        user: "admin",
-                        sale: '0',
-                        type: '1',
-                        notifStatus: 1,
-                        location: '2',
-                        createdOn: '12 Dec. 2018',
-                        allDay: !1,
-                        customer: 'John Casavete'
-                    }, {
-                        id:"3",
-                        title: "Lunch",
-                        start: new Date(d, c, b + 14, 12, 0),
-                        end: new Date(d, c, b, 14, 0),
-                        comment: "balbalbal",
-                        user: "admin",
-                        sale: '2',
-                        type: '1',
-                        notifStatus: 0,
-                        location: '0',
-                        createdOn: '12 Dec. 2018',
-                        allDay: !1,
-                        customer: 'John Casavete'
-                    }, {
-                        id:"4",
-                        title: "Birthday Party",
-                        start: new Date(d, c, b + 1, 19, 0),
-                        end: new Date(d, c, b + 1, 22, 30),
-                        comment: "balbalbal",
-                        user: "admin",
-                        sale: '0',
-                        type: '1',
-                        notifStatus: 0,
-                        location: '2',
-                        createdOn: '12 Dec. 2018',
-                        allDay: !1,
-                        customer: 'John Casavete'
-                    }, {
-                        id:"5",
-                        title: "Click for Google",
-                        start: new Date(d, c, 28),
-                        end: new Date(d, c, 29),
-                        comment: "balbalbal",
-                        user: "admin",
-                        sale: '0',
-                        type: '1',
-                        notifStatus: 0,
-                        location: '1',
-                        createdOn: '12 Dec. 2018',
-                    }] -->
 {% endblock %}

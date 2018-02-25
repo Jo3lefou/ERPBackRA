@@ -45,7 +45,7 @@ class RarMeeting
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="duration", type="time")
+     * @ORM\Column(name="duration", type="time", nullable=true)
      */
     private $duration;
 
@@ -93,6 +93,19 @@ class RarMeeting
      * @ORM\Column(name="notifStatus", type="integer")
      */
     private $notifStatus;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="state", type="integer")
+     */
+    private $state;
+    /*
+    * 0 - booked
+    * 1 - passed
+    * 2 - canceled
+    */
+
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="meetings", cascade="persist")
@@ -319,6 +332,30 @@ class RarMeeting
     public function getNotifStatus()
     {
         return $this->notifStatus;
+    }
+
+    /**
+     * Set state
+     *
+     * @param integer $state
+     *
+     * @return RarMeeting
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    /**
+     * Get state
+     *
+     * @return int
+     */
+    public function getState()
+    {
+        return $this->state;
     }
 
     /**
