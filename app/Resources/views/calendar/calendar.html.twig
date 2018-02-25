@@ -513,6 +513,7 @@
                     aspectRatio: 2,
                     firstDay: '1',
                     timezone : 'Europe/Paris',
+                    /****** CLICK ON CALENDAR = CREATION **********/
                     select: function(a, b, c) {
                           $("#start").val(a.format('YYYY-MM-DD HH:mm'));
                           $("#end").val(b.format('YYYY-MM-DD HH:mm'));
@@ -524,7 +525,7 @@
                             var action = $("#antoform").attr('relaction');
                             var title = $("#title").val();
                             var comment = $("#desc").val();
-                            var lieu = $("#lieu").val();
+                            var lieu = $("#location").val();
                             var notif = $('#notif').prop('checked');
                             var start = $('#start').val();
                             var end = $('#end').val();
