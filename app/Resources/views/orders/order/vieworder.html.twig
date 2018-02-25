@@ -293,8 +293,8 @@
                           <button class="btn btn-success pull-right" data-toggle="modal" data-target="#paymentModal"><i class="fa fa-credit-card"></i> Submit Payment</button>
                           {% endif %}
                           {% if order.customer is empty %}
-                            <a class="btn btn-primary pull-right" style="margin-right: 5px;" href="/{{ locale }}/rendering/invoice/{{ order.id }}" target="_blank"><i class="fa fa-download"></i> Generate Invoice</a>
-                            <a class="btn btn-warning pull-right" style="margin-right: 5px;" href="/{{ locale }}/rendering/purchase-order/{{ order.id }}" target="_blank"><i class="fa fa-download"></i> Generate Purchase Order</a>
+                            <a class="btn btn-primary pull-right" style="margin-right: 5px;" href="/{{ locale }}/rendering/invoice/{{ order.id }}" target="_blank"><i class="fa fa-download" target="_blank"></i> Generate Invoice</a>
+                            <a class="btn btn-warning pull-right" style="margin-right: 5px;" href="/{{ locale }}/rendering/purchase-order/{{ order.id }}" target="_blank"><i class="fa fa-download" target="_blank"></i> Generate Purchase Order</a>
                           {% else %}
                             <a class="btn btn-primary pull-right" style="margin-right: 5px;" href="/{{ order.customer.locale }}/rendering/invoice/{{ order.id }}"><i class="fa fa-download" target="_blank"></i> Generate Invoice</a>
                             <a class="btn btn-warning pull-right" style="margin-right: 5px;" href="/{{ order.customer.locale }}/rendering/purchase-order/{{ order.id }}" target="_blank"><i class="fa fa-download"></i> Generate Purchase Order</a>
@@ -371,7 +371,7 @@
             </h3>
           </div>
           <div class="row">
-            {% for modelO in order.modelsOrdered %}
+            {% for modelO in modelsOrdered %}
             <!-- Tiles -->
             <div class="col-md-4 col-sm-4 col-xs-12">
               <div class="x_panel">

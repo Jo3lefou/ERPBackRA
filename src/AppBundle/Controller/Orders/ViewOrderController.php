@@ -44,6 +44,7 @@ class ViewOrderController extends Controller
         if($user){
         	$em = $this->getDoctrine()->getManager();
             $order = $em->getRepository('AppBundle:RarOrder')->find($id);
+            $modelsOrdered = $order->getModelsOrdered();
 
             $customer =  $order->getCustomer();
             $customerAllow = $order->getUser()->getCustomerAllow();
@@ -103,6 +104,7 @@ class ViewOrderController extends Controller
                     'order' => $order,
                     'detailsOrder' => $detailsOrder,
                     'payment' => $paiment,
+                    'modelsOrdered' => $modelsOrdered,
                 )
             );
 		}else{
