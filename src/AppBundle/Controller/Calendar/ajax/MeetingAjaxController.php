@@ -116,6 +116,7 @@ class MeetingAjaxController extends Controller
 	        	$meeting->setCustomer($customer);
 	        	$meeting->setCreationDate($time);
 	        	$meeting->setLocation($lieu);
+	        	$meeting->setState('0');
 	        	$saleColor = $sale->getUserColor();
 
 	        	// On sauve le meeting
