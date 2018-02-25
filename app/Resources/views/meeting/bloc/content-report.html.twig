@@ -1,0 +1,85 @@
+
+
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+  <div class="x_panel">
+    <div class="x_title">
+      <h2>{{ p1h2 }} <small>{{ p1h3 }}</small></h2>
+     <div class="clearfix"></div>
+  </div>
+  <div class="x_content">
+	{% for reportempty in report1 %}
+		{% if reportempty.totalMeeting is empty %}
+		<div class='alert alert-warning'><strong>Oupss' </strong>{% trans %}No meeting for{% endtrans %} {{ reportempty.info.0.Name }}</div>
+
+		{% endif %}
+		
+	{% endfor %}
+
+	<table class="table table-striped table-bordered dataTable no-footer cooldatatable">
+		<thead>
+			<tr>
+				<th>{%trans%}Name{%endtrans%}</th>
+				<th>{%trans%}Total Meeting{%endtrans%}</th>
+				<th>{%trans%}Total 1st Meeting{%endtrans%}</th>
+				<th>{%trans%}Total 2nd Meeting{%endtrans%}</th>
+				<th>{%trans%}Total 1st Try{%endtrans%}</th>
+				<th>{%trans%}Total 2st Try{%endtrans%}</th>
+				<th>{%trans%}Total PickUp{%endtrans%}</th>
+				<th>{%trans%}Total Other{%endtrans%}</th>
+				<th>{%trans%}Nb Working days{%endtrans%}</th>
+				<th>{%trans%}Nb Working Hours{%endtrans%}</th>
+				<th>{%trans%}Utilisation Rate{%endtrans%}</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for report in report1 %}
+				{% if report.totalMeeting is empty %}{% else %}
+				<tr>
+					<td>{{ report.info.0.Name }}</td>
+					<td>{{report.totalMeeting.0.countTotal}}</td>
+					<td>{% if report.perRdv is empty %}0{% else %}{{report.perRdv.0.countTotal}}{% endif %}</td>
+					<td>{% if report.demeRdv is empty %}0{% else %}{{report.demeRdv.0.countTotal}}{% endif %}</td>
+					<td>{% if report.perEssayage is empty %}0{% else %}{{report.perEssayage.0.countTotal}}{% endif %}</td>
+					<td>{% if report.demEssayage is empty %}0{% else %}{{report.demEssayage.0.countTotal}}{% endif %}</td>
+					<td>{% if report.pickUp is empty %}0{% else %}{{report.pickUp.0.countTotal}}{% endif %}</td>
+					<td>{% if report.autre is empty %}0{% else %}{{report.autre.0.countTotal}}{% endif %}</td>
+					<td>{% if report.nbJour is empty %}0{% else %}{{report.nbJour|length}}{% endif %}</td>
+					<td>{% if report.nbJour is empty %}0{% else %}{{report.time.0.BusinessHours}}{% endif %}</td>
+					<td>{% if report.time is empty or report.nbJour is empty %}NA{% else %}{{ report.time.0.BusinessHours*100/((report.nbJour|length)*8) }}%{% endif %}</td>
+				</tr>
+				{% endif %}
+
+			{% endfor %}
+		</tbody>
+	</table>
+  </div>
+</div>
+<div class='row'>
+{% for report in report1 %}
+	<div class="col-md-4 col-sm-4 col-xs-12">
+	  <div class="x_panel tile fixed_height_320">
+	    <div class="x_title">
+	      <h2>{%trans%}Reports for{%endtrans%}{{ report.info.0.Name }}</h2>
+	      <div class="clearfix"></div>
+	    </div>
+	    <div class="x_content">
+	      <div class="dashboard-widget-content">
+	        <div class="sidebar-widget" style="border:0px; width:100%;">
+	            <h4>{%trans%}Utilisation Rate{%endtrans%}</h4>
+	            <canvas width="300" height="160" id="chart_gauge_{{ report.info.0.id }}" class="gauge-chart" style="width: 450px; height: 180px;"></canvas>
+	            <div class="goal-wrapper" style="font-size: 30px;margin-top: -26px;">
+	              <span id="gauge-text" class="gauge-value pull-left">{% if report.time is empty or report.nbJour is empty %}NA{% else %}{{ report.time.0.BusinessHours*100/((report.nbJour|length)*8) }}{% endif %}</span>
+	              <span class="gauge-value pull-left">%</span>
+	              <span id="goal-text" class="goal-value pull-right">100%</span>
+	            </div>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+{% endfor %}  
+
+</div>
+	
+	

@@ -26,11 +26,11 @@ class CalendarController extends Controller
 {
     /**
      *
-     * @Route("/{_locale}/calendar/", name="calendar")
+     * @Route("/{_locale}/calendar/{saleuser}", name="calendar")
      *
      * Security("has_role('ROLE_ADMIN') or has_role('ROLE_PRODUCTION_MANAGER') or has_role('ROLE_SALE_MANAGER') or has_role('ROLE_SALE') or has_role('ROLE_ACCOUNTING_MANAGER')")
      */
-    public function indexAction(UserInterface $user)
+    public function indexAction(UserInterface $user, $saleuser = 'all')
     {
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $idUser = $this->getUser()->getId();
@@ -49,25 +49,49 @@ class CalendarController extends Controller
 
 
         $em = $this->get('doctrine.orm.entity_manager');
-        $dql = "SELECT 
-            a.id AS id,
-            a.id AS ref,
-            c.id AS cusId,
-            CONCAT(b.firstName, ' ', b.lastName, ' - ', a.name) as title, 
-            a.name as title2,
-            a.comment, 
-            a.type as type,
-            a.notifStatus, 
-            CONCAT(date(a.startDate), ' ', time(a.startDate)) AS starta,
-            CONCAT(date(a.endDate), ' ', time(a.endDate)) AS enda,
-            b.id AS sale, 
-            CONCAT(b.firstName, ' ', b.lastName) AS namesale,
-            b.userColor as color
-            FROM AppBundle:RarMeeting a
-            INNER JOIN a.sale b
-            INNER JOIN a.customer c
-            WHERE a.state < 2
+
+        if($saleuser == 'all'){
+            $dql = "SELECT 
+                a.id AS id,
+                a.id AS ref,
+                c.id AS cusId,
+                CONCAT(b.firstName, ' ', b.lastName, ' - ', a.name) as title, 
+                a.name as title2,
+                a.comment, 
+                a.type as type,
+                a.notifStatus, 
+                CONCAT(date(a.startDate), ' ', time(a.startDate)) AS starta,
+                CONCAT(date(a.endDate), ' ', time(a.endDate)) AS enda,
+                b.id AS sale, 
+                CONCAT(b.firstName, ' ', b.lastName) AS namesale,
+                b.userColor as color
+                FROM AppBundle:RarMeeting a
+                INNER JOIN a.sale b
+                INNER JOIN a.customer c
+                WHERE a.state < 2
             ";
+        }else{
+            $dql = "SELECT 
+                a.id AS id,
+                a.id AS ref,
+                c.id AS cusId,
+                CONCAT(b.firstName, ' ', b.lastName, ' - ', a.name) as title, 
+                a.name as title2,
+                a.comment, 
+                a.type as type,
+                a.notifStatus, 
+                CONCAT(date(a.startDate), ' ', time(a.startDate)) AS starta,
+                CONCAT(date(a.endDate), ' ', time(a.endDate)) AS enda,
+                b.id AS sale, 
+                CONCAT(b.firstName, ' ', b.lastName) AS namesale,
+                b.userColor as color
+                FROM AppBundle:RarMeeting a
+                INNER JOIN a.sale b
+                INNER JOIN a.customer c
+                WHERE a.state < 2 AND b.id = ".$saleuser."
+            ";
+        }
+        
         $query = $em->createQuery($dql);
         $meetings = $query->getResult();
 
@@ -88,7 +112,8 @@ class CalendarController extends Controller
                     'user' => $user,
                     'meetings' => $meetings,
                     'salesmen' => $sales,
-                    'locations' => $location
+                    'locations' => $location,
+                    'saleuser' => $saleuser
                 )
             );
         }else{

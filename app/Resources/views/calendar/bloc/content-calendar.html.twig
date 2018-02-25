@@ -33,7 +33,38 @@
       <div class="clearfix"></div>
     </div>
     <div class="x_content">
-      <div id='calendar'></div>
+
+
+      <div>
+        
+        <ul id="myTab" class="nav nav-tabs bar_tabs">
+          <li {% if saleuser == 'all' %}class="active"{% endif %}><a href='all'>{% trans %}All{% endtrans %}</a></li>
+          {% for sale in salesmen %}
+          <li {% if saleuser == sale.id %}class="active"{% endif %}><a href='{{ sale.id }}'>{{ sale.firstName }}</a></li>
+          {% endfor %}
+        </ul>
+
+        <div id="myTabContent" class="tab-content">
+          <div id="tab_content1" class="tab-pane fade active in">
+            <div id='calendar'></div>
+          </div>
+        </div>
+
+      </div>
+
+
+
+
+
+
+      
+
+
+
+
+
+
+
     </div>
   </div>
 </div>
