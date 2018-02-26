@@ -555,6 +555,7 @@
                               var phone = $('#customer_phone').val();
                               var notif = $('#notif').prop('checked');
                               var optin = $('#customer_optin').prop('checked');
+                              var lang = $('#OrderType_customer_locale').val();
                             };
 
                             $('#loading-bar').fadeIn();
@@ -562,7 +563,7 @@
                                 type:"POST",
                                 url: action,
                                 dataType: "json",
-                                data: {title: title,start: start,end: end,comment: comment,lieu: lieu,type: type,sale: sale,lieu: lieu,state: state,notif: notif,cusId:cusId,customerexist: customerexist,cusId: cusId,salutation: salutation,firstname: firstname,lastname: lastname,address: address,email: email,postcode: postcode,city: city,state: state,country: country,phone: phone,optin: optin},
+                                data: {title: title,start: start,end: end,comment: comment,lieu: lieu,type: type,sale: sale,lieu: lieu,state: state,notif: notif,cusId:cusId,customerexist: customerexist,cusId: cusId,salutation: salutation,firstname: firstname,lastname: lastname,address: address,email: email,postcode: postcode,city: city,state: state,country: country,phone: phone,optin: optin, lang:lang},
                                 success: function( data ) {
                                   $('#loading-bar').fadeOut();
                                   var color = data.color;

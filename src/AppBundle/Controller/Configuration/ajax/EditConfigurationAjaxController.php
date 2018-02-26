@@ -42,7 +42,28 @@ class EditConfigurationAjaxController extends Controller
                 $configuration->setSaleCondition($dataToSave);
             }elseif ($request->get('action') == 'saleConditionEn') {
                 $configuration->setSaleConditionEn($dataToSave);
+            }elseif ($request->get('action') == 'emailRdvOne') {
+                $configuration->setEmailRdvOne($dataToSave);
+            }elseif ($request->get('action') == 'emailRdvOneEn') {
+                $configuration->setEmailRdvOneEn($dataToSave);
+            }elseif ($request->get('action') == 'emailRdvTwo') {
+                $configuration->setEmailRdvTwo($dataToSave);
+            }elseif ($request->get('action') == 'emailRdvTwoEn') {
+                $configuration->setEmailRdvTwoEn($dataToSave);
+            }elseif ($request->get('action') == 'emailRdvConf') {
+                $configuration->setEmailRdvConf($dataToSave);
+            }elseif ($request->get('action') == 'emailRdvConfEn') {
+                $configuration->setEmailRdvConfEn($dataToSave);
+            }elseif ($request->get('action') == 'emailRdvCancelation') {
+                $configuration->setEmailRdvCancelation($dataToSave);
+            }elseif ($request->get('action') == 'emailRdvCancelationEn') {
+                $configuration->setEmailRdvCancelationEn($dataToSave);
+            }elseif ($request->get('action') == 'emailRdvEdition') {
+                $configuration->setEmailRdvEdition($dataToSave);
+            }elseif ($request->get('action') == 'emailRdvEditionEn') {
+                $configuration->setEmailRdvEditionEn($dataToSave);
             }
+
 
             $em->persist($configuration);
             $em->flush();

@@ -153,9 +153,25 @@
                       </div>
                     </div>
 
+                  </div>
+                </div>
+              </div>
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>
+                    {{ p2h2 }}
+                    <small>{{ p2h2 }}</small>
+                  </h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                  <!-- CONTENU -->
+                  <div class="form-horizontal form-label-left">
+
+
                     <!-- WYSIWYG -->
                     <div class="row">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                      <label class="col-md-3 col-sm-3 col-xs-12" style="margin-top: 20px;">
                       {% trans %}Order Condition in French{% endtrans %}
                       </label>
                     </div>
@@ -227,7 +243,7 @@
 
                     <!-- WYSIWYG -->
                     <div class="row">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                      <label class="col-md-3 col-sm-3 col-xs-12" style="margin-top: 20px;">
                       {% trans %}Sales Condition in French{% endtrans %}
                       </label>
                     </div>
@@ -301,11 +317,11 @@
 
                     <!-- WYSIWYG -->
                     <div class="row">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                      <label class="col-md-3 col-sm-3 col-xs-12" style="margin-top: 20px;">
                       {% trans %}Order Condition in English{% endtrans %}
                       </label>
                     </div>
-                    <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-one">
+                    <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-one-en">
 
                       <div class="btn-group">
                         <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a>
@@ -365,7 +381,7 @@
                       <button id="save-editor-one-en" class="btn btn-success save-editor" rel="editor-one-en" style="margin-bottom: 0px;" action="/{{ locale }}/admin/configuration/text">Save</button>
                     </div>
 
-                    <div id="editor-one" class="editor-wrapper">{{ orderConditionEn | raw }}</div>
+                    <div id="editor-one-en" class="editor-wrapper">{{ orderConditionEn | raw }}</div>
                     
 
                     <!--  // WYSIWYG -->
@@ -373,11 +389,11 @@
 
                     <!-- WYSIWYG -->
                     <div class="row">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                      <label class="col-md-3 col-sm-3 col-xs-12" style="margin-top: 20px;">
                       {% trans %}Sales Condition in English{% endtrans %}
                       </label>
                     </div>
-                    <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-two">
+                    <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-two-en">
 
                       <div class="btn-group">
                         <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a>
@@ -437,7 +453,7 @@
                       <button id="save-editor-two-en" class="btn btn-success save-editor" rel="editor-two-en" style="margin-bottom: 0px;" action="/{{ locale }}/admin/configuration/text">Save</button>
                     </div>
 
-                    <div id="editor-two" class="editor-wrapper">
+                    <div id="editor-two-en" class="editor-wrapper">
                       {{ saleConditionEn | raw }}
                     </div>
                     
@@ -446,6 +462,784 @@
                 </div>
                 <!-- // CONTENU -->
               </div>
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>
+                    {{ p3h2 }}
+                    <small>{{ p3h2 }}</small>
+                  </h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                  <!-- CONTENU -->
+                  <div class="form-horizontal form-label-left">
+
+
+                    <div class="row">
+                      <label class="col-md-3 col-sm-3 col-xs-12" style="margin-top: 20px;">{% trans %}Email 1st rdv (sent when rdv taken sent){% endtrans %}</label>
+                    </div>
+                    <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                        <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                          <li role="presentation" class="active"><a href="#tab_content11" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">{%trans%}French{%endtrans%}</a>
+                          </li>
+                          <li role="presentation" class=""><a href="#tab_content12" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">{%trans%}English{%endtrans%}</a>
+                          </li>
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                          <div role="tabpanel" class="tab-pane fade active in" id="tab_content11" aria-labelledby="home-tab">
+
+                            <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-eone">
+                              <div class="btn-group">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                  <li>
+                                    <a data-edit="fontSize 5">
+                                      <p style="font-size:17px">Huge</p>
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a data-edit="fontSize 3">
+                                      <p style="font-size:14px">Normal</p>
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a data-edit="fontSize 1">
+                                      <p style="font-size:11px">Small</p>
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
+                                <a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="fa fa-italic"></i></a>
+                                <a class="btn" data-edit="strikethrough" title="Strikethrough"><i class="fa fa-strikethrough"></i></a>
+                                <a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="fa fa-underline"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i class="fa fa-list-ul"></i></a>
+                                <a class="btn" data-edit="insertorderedlist" title="Number list"><i class="fa fa-list-ol"></i></a>
+                                <a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="fa fa-dedent"></i></a>
+                                <a class="btn" data-edit="indent" title="Indent (Tab)"><i class="fa fa-indent"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="fa fa-align-left"></i></a>
+                                <a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="fa fa-align-center"></i></a>
+                                <a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="fa fa-align-right"></i></a>
+                                <a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="fa fa-align-justify"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i class="fa fa-link"></i></a>
+                                <div class="dropdown-menu input-append">
+                                  <input class="span2" placeholder="URL" type="text" data-edit="createLink" />
+                                  <button class="btn" type="button">Add</button>
+                                </div>
+                                <a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="fa fa-cut"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>
+                                <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a>
+                              </div>
+                              <button id="save-editor-eone" class="btn btn-success save-editor" rel="editor-eone" style="margin-bottom: 0px;" action="/{{ locale }}/admin/configuration/text">Save</button>
+                            </div>
+
+                            <div id="editor-eone" class="editor-wrapper">
+                              {{ emailRdvOne | raw }}
+                            </div> 
+
+                          </div>
+                          <div role="tabpanel" class="tab-pane fade" id="tab_content12" aria-labelledby="profile-tab">
+
+                            <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-eoneen">
+                              <div class="btn-group">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                  <li>
+                                    <a data-edit="fontSize 5">
+                                      <p style="font-size:17px">Huge</p>
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a data-edit="fontSize 3">
+                                      <p style="font-size:14px">Normal</p>
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a data-edit="fontSize 1">
+                                      <p style="font-size:11px">Small</p>
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
+                                <a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="fa fa-italic"></i></a>
+                                <a class="btn" data-edit="strikethrough" title="Strikethrough"><i class="fa fa-strikethrough"></i></a>
+                                <a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="fa fa-underline"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i class="fa fa-list-ul"></i></a>
+                                <a class="btn" data-edit="insertorderedlist" title="Number list"><i class="fa fa-list-ol"></i></a>
+                                <a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="fa fa-dedent"></i></a>
+                                <a class="btn" data-edit="indent" title="Indent (Tab)"><i class="fa fa-indent"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="fa fa-align-left"></i></a>
+                                <a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="fa fa-align-center"></i></a>
+                                <a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="fa fa-align-right"></i></a>
+                                <a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="fa fa-align-justify"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i class="fa fa-link"></i></a>
+                                <div class="dropdown-menu input-append">
+                                  <input class="span2" placeholder="URL" type="text" data-edit="createLink" />
+                                  <button class="btn" type="button">Add</button>
+                                </div>
+                                <a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="fa fa-cut"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>
+                                <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a>
+                              </div>
+                              <button id="save-editor-eoneen" class="btn btn-success save-editor" rel="editor-eoneen" style="margin-bottom: 0px;" action="/{{ locale }}/admin/configuration/text">Save</button>
+                            </div>
+
+                            <div id="editor-eoneen" class="editor-wrapper">
+                              {{ emailRdvOneEn | raw }}
+                            </div>
+
+                          </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="row">
+                      <label class="col-md-3 col-sm-3 col-xs-12" style="margin-top: 20px;">{% trans %}Email follow-up 1st rdv (sent 3days before if no action on form){% endtrans %}</label>
+                    </div>
+                    <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                        <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                          <li role="presentation" class="active"><a href="#tab_content21" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">{%trans%}French{%endtrans%}</a>
+                          </li>
+                          <li role="presentation" class=""><a href="#tab_content22" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">{%trans%}English{%endtrans%}</a>
+                          </li>
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                          <div role="tabpanel" class="tab-pane fade active in" id="tab_content21" aria-labelledby="home-tab">
+                            <!-- WYSIWYG -->
+                            <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-etwo">
+
+                              <div class="btn-group">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                  <li>
+                                    <a data-edit="fontSize 5">
+                                      <p style="font-size:17px">Huge</p>
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a data-edit="fontSize 3">
+                                      <p style="font-size:14px">Normal</p>
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a data-edit="fontSize 1">
+                                      <p style="font-size:11px">Small</p>
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
+                                <a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="fa fa-italic"></i></a>
+                                <a class="btn" data-edit="strikethrough" title="Strikethrough"><i class="fa fa-strikethrough"></i></a>
+                                <a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="fa fa-underline"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i class="fa fa-list-ul"></i></a>
+                                <a class="btn" data-edit="insertorderedlist" title="Number list"><i class="fa fa-list-ol"></i></a>
+                                <a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="fa fa-dedent"></i></a>
+                                <a class="btn" data-edit="indent" title="Indent (Tab)"><i class="fa fa-indent"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="fa fa-align-left"></i></a>
+                                <a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="fa fa-align-center"></i></a>
+                                <a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="fa fa-align-right"></i></a>
+                                <a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="fa fa-align-justify"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i class="fa fa-link"></i></a>
+                                <div class="dropdown-menu input-append">
+                                  <input class="span2" placeholder="URL" type="text" data-edit="createLink" />
+                                  <button class="btn" type="button">Add</button>
+                                </div>
+                                <a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="fa fa-cut"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>
+                                <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a>
+                              </div>
+                              <button id="save-editor-etwo" class="btn btn-success save-editor" rel="editor-etwo" style="margin-bottom: 0px;" action="/{{ locale }}/admin/configuration/text">Save</button>
+                            </div>
+
+                            <div id="editor-etwo" class="editor-wrapper">
+                              {{ emailRdvTwo | raw }}
+                            </div> 
+                            
+                            <!--  // WYSIWYG -->
+
+                          </div>
+                          <div role="tabpanel" class="tab-pane fade" id="tab_content22" aria-labelledby="profile-tab">
+                            <!-- WYSIWYG -->
+                            <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-etwoen">
+
+                              <div class="btn-group">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                  <li>
+                                    <a data-edit="fontSize 5">
+                                      <p style="font-size:17px">Huge</p>
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a data-edit="fontSize 3">
+                                      <p style="font-size:14px">Normal</p>
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a data-edit="fontSize 1">
+                                      <p style="font-size:11px">Small</p>
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
+                                <a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="fa fa-italic"></i></a>
+                                <a class="btn" data-edit="strikethrough" title="Strikethrough"><i class="fa fa-strikethrough"></i></a>
+                                <a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="fa fa-underline"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i class="fa fa-list-ul"></i></a>
+                                <a class="btn" data-edit="insertorderedlist" title="Number list"><i class="fa fa-list-ol"></i></a>
+                                <a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="fa fa-dedent"></i></a>
+                                <a class="btn" data-edit="indent" title="Indent (Tab)"><i class="fa fa-indent"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="fa fa-align-left"></i></a>
+                                <a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="fa fa-align-center"></i></a>
+                                <a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="fa fa-align-right"></i></a>
+                                <a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="fa fa-align-justify"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i class="fa fa-link"></i></a>
+                                <div class="dropdown-menu input-append">
+                                  <input class="span2" placeholder="URL" type="text" data-edit="createLink" />
+                                  <button class="btn" type="button">Add</button>
+                                </div>
+                                <a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="fa fa-cut"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>
+                                <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a>
+                              </div>
+                              <button id="save-editor-etwoen" class="btn btn-success save-editor" rel="editor-etwoen" style="margin-bottom: 0px;" action="/{{ locale }}/admin/configuration/text">Save</button>
+                            </div>
+
+                            <div id="editor-etwoen" class="editor-wrapper">
+                              {{ emailRdvTwoEn | raw }}
+                            </div>  
+                            
+                            <!--  // WYSIWYG -->
+
+                          </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="row">
+                      <label class="col-md-3 col-sm-3 col-xs-12" style="margin-top: 20px;">{% trans %}Email confirmation rdv (sent when rdv taken sent){% endtrans %}</label>
+                    </div>
+                    <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                        <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                          <li role="presentation" class="active"><a href="#tab_content31" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">{%trans%}French{%endtrans%}</a>
+                          </li>
+                          <li role="presentation" class=""><a href="#tab_content32" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">{%trans%}English{%endtrans%}</a>
+                          </li>
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                          <div role="tabpanel" class="tab-pane fade active in" id="tab_content31" aria-labelledby="home-tab">
+                            <!-- WYSIWYG -->
+                    
+                            <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-ethree">
+
+                              <div class="btn-group">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                  <li>
+                                    <a data-edit="fontSize 5">
+                                      <p style="font-size:17px">Huge</p>
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a data-edit="fontSize 3">
+                                      <p style="font-size:14px">Normal</p>
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a data-edit="fontSize 1">
+                                      <p style="font-size:11px">Small</p>
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
+                                <a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="fa fa-italic"></i></a>
+                                <a class="btn" data-edit="strikethrough" title="Strikethrough"><i class="fa fa-strikethrough"></i></a>
+                                <a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="fa fa-underline"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i class="fa fa-list-ul"></i></a>
+                                <a class="btn" data-edit="insertorderedlist" title="Number list"><i class="fa fa-list-ol"></i></a>
+                                <a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="fa fa-dedent"></i></a>
+                                <a class="btn" data-edit="indent" title="Indent (Tab)"><i class="fa fa-indent"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="fa fa-align-left"></i></a>
+                                <a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="fa fa-align-center"></i></a>
+                                <a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="fa fa-align-right"></i></a>
+                                <a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="fa fa-align-justify"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i class="fa fa-link"></i></a>
+                                <div class="dropdown-menu input-append">
+                                  <input class="span2" placeholder="URL" type="text" data-edit="createLink" />
+                                  <button class="btn" type="button">Add</button>
+                                </div>
+                                <a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="fa fa-cut"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>
+                                <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a>
+                              </div>
+                              <button id="save-editor-ethree" class="btn btn-success save-editor" rel="editor-ethree" style="margin-bottom: 0px;" action="/{{ locale }}/admin/configuration/text">Save</button>
+                            </div>
+
+                            <div id="editor-ethree" class="editor-wrapper">
+                              {{ emailRdvConf | raw }}
+                            </div> 
+                            
+                            <!--  // WYSIWYG -->
+
+                          </div>
+                          <div role="tabpanel" class="tab-pane fade" id="tab_content32" aria-labelledby="profile-tab">
+                            <!-- WYSIWYG -->
+                            <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-ethreeen">
+
+                              <div class="btn-group">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                  <li>
+                                    <a data-edit="fontSize 5">
+                                      <p style="font-size:17px">Huge</p>
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a data-edit="fontSize 3">
+                                      <p style="font-size:14px">Normal</p>
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a data-edit="fontSize 1">
+                                      <p style="font-size:11px">Small</p>
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
+                                <a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="fa fa-italic"></i></a>
+                                <a class="btn" data-edit="strikethrough" title="Strikethrough"><i class="fa fa-strikethrough"></i></a>
+                                <a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="fa fa-underline"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i class="fa fa-list-ul"></i></a>
+                                <a class="btn" data-edit="insertorderedlist" title="Number list"><i class="fa fa-list-ol"></i></a>
+                                <a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="fa fa-dedent"></i></a>
+                                <a class="btn" data-edit="indent" title="Indent (Tab)"><i class="fa fa-indent"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="fa fa-align-left"></i></a>
+                                <a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="fa fa-align-center"></i></a>
+                                <a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="fa fa-align-right"></i></a>
+                                <a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="fa fa-align-justify"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i class="fa fa-link"></i></a>
+                                <div class="dropdown-menu input-append">
+                                  <input class="span2" placeholder="URL" type="text" data-edit="createLink" />
+                                  <button class="btn" type="button">Add</button>
+                                </div>
+                                <a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="fa fa-cut"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>
+                                <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a>
+                              </div>
+                              <button id="save-editor-ethreeen" class="btn btn-success save-editor" rel="editor-ethreeen" style="margin-bottom: 0px;" action="/{{ locale }}/admin/configuration/text">Save</button>
+                            </div>
+
+                            <div id="editor-ethreeen" class="editor-wrapper">
+                              {{ emailRdvConfEn | raw }}
+                            </div> 
+                            
+                            <!--  // WYSIWYG -->
+
+                          </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+                      <label class="col-md-3 col-sm-3 col-xs-12" style="margin-top: 20px;">{% trans %}Email cancelation rdv (sent when rdv taken sent){% endtrans %}</label>
+                    </div>
+                    <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                        <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                          <li role="presentation" class="active"><a href="#tab_content41" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">{%trans%}French{%endtrans%}</a>
+                          </li>
+                          <li role="presentation" class=""><a href="#tab_content42" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">{%trans%}English{%endtrans%}</a>
+                          </li>
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                          <div role="tabpanel" class="tab-pane fade active in" id="tab_content41" aria-labelledby="home-tab">
+                            
+                            <!-- WYSIWYG -->
+                    
+                            <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-efour">
+
+                              <div class="btn-group">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                  <li>
+                                    <a data-edit="fontSize 5">
+                                      <p style="font-size:17px">Huge</p>
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a data-edit="fontSize 3">
+                                      <p style="font-size:14px">Normal</p>
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a data-edit="fontSize 1">
+                                      <p style="font-size:11px">Small</p>
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
+                                <a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="fa fa-italic"></i></a>
+                                <a class="btn" data-edit="strikethrough" title="Strikethrough"><i class="fa fa-strikethrough"></i></a>
+                                <a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="fa fa-underline"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i class="fa fa-list-ul"></i></a>
+                                <a class="btn" data-edit="insertorderedlist" title="Number list"><i class="fa fa-list-ol"></i></a>
+                                <a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="fa fa-dedent"></i></a>
+                                <a class="btn" data-edit="indent" title="Indent (Tab)"><i class="fa fa-indent"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="fa fa-align-left"></i></a>
+                                <a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="fa fa-align-center"></i></a>
+                                <a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="fa fa-align-right"></i></a>
+                                <a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="fa fa-align-justify"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i class="fa fa-link"></i></a>
+                                <div class="dropdown-menu input-append">
+                                  <input class="span2" placeholder="URL" type="text" data-edit="createLink" />
+                                  <button class="btn" type="button">Add</button>
+                                </div>
+                                <a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="fa fa-cut"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>
+                                <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a>
+                              </div>
+                              <button id="save-editor-efour" class="btn btn-success save-editor" rel="editor-efour" style="margin-bottom: 0px;" action="/{{ locale }}/admin/configuration/text">Save</button>
+                            </div>
+
+                            <div id="editor-efour" class="editor-wrapper">
+                              {{ emailRdvCancelation | raw }}
+                            </div> 
+                            
+                            <!--  // WYSIWYG -->
+                          </div>
+                          <div role="tabpanel" class="tab-pane fade" id="tab_content42" aria-labelledby="profile-tab">
+                            
+                            <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-efouren">
+                              <div class="btn-group">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                  <li>
+                                    <a data-edit="fontSize 5">
+                                      <p style="font-size:17px">Huge</p>
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a data-edit="fontSize 3">
+                                      <p style="font-size:14px">Normal</p>
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a data-edit="fontSize 1">
+                                      <p style="font-size:11px">Small</p>
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
+                                <a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="fa fa-italic"></i></a>
+                                <a class="btn" data-edit="strikethrough" title="Strikethrough"><i class="fa fa-strikethrough"></i></a>
+                                <a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="fa fa-underline"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i class="fa fa-list-ul"></i></a>
+                                <a class="btn" data-edit="insertorderedlist" title="Number list"><i class="fa fa-list-ol"></i></a>
+                                <a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="fa fa-dedent"></i></a>
+                                <a class="btn" data-edit="indent" title="Indent (Tab)"><i class="fa fa-indent"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="fa fa-align-left"></i></a>
+                                <a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="fa fa-align-center"></i></a>
+                                <a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="fa fa-align-right"></i></a>
+                                <a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="fa fa-align-justify"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i class="fa fa-link"></i></a>
+                                <div class="dropdown-menu input-append">
+                                  <input class="span2" placeholder="URL" type="text" data-edit="createLink" />
+                                  <button class="btn" type="button">Add</button>
+                                </div>
+                                <a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="fa fa-cut"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>
+                                <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a>
+                              </div>
+                              <button id="save-editor-efouren" class="btn btn-success save-editor" rel="editor-efouren" style="margin-bottom: 0px;" action="/{{ locale }}/admin/configuration/text">Save</button>
+                            </div>
+
+                            <div id="editor-efouren" class="editor-wrapper">
+                              {{ emailRdvCancelationEn | raw }}
+                            </div>  
+                          </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="row">
+                      <label class="col-md-3 col-sm-3 col-xs-12" style="margin-top: 20px;">{% trans %}Email modification rdv (sent when rdv taken sent){% endtrans %}</label>
+                    </div>
+                    <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                        <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                          <li role="presentation" class="active"><a href="#tab_content51" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">{%trans%}French{%endtrans%}</a>
+                          </li>
+                          <li role="presentation" class=""><a href="#tab_content52" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">{%trans%}English{%endtrans%}</a>
+                          </li>
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                          <div role="tabpanel" class="tab-pane fade active in" id="tab_content51" aria-labelledby="home-tab">
+
+                              <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-efive">
+                                <div class="btn-group">
+                                  <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a>
+                                  <ul class="dropdown-menu">
+                                    <li>
+                                      <a data-edit="fontSize 5">
+                                        <p style="font-size:17px">Huge</p>
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a data-edit="fontSize 3">
+                                        <p style="font-size:14px">Normal</p>
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a data-edit="fontSize 1">
+                                        <p style="font-size:11px">Small</p>
+                                      </a>
+                                    </li>
+                                  </ul>
+                                </div>
+
+                                <div class="btn-group">
+                                  <a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
+                                  <a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="fa fa-italic"></i></a>
+                                  <a class="btn" data-edit="strikethrough" title="Strikethrough"><i class="fa fa-strikethrough"></i></a>
+                                  <a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="fa fa-underline"></i></a>
+                                </div>
+
+                                <div class="btn-group">
+                                  <a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i class="fa fa-list-ul"></i></a>
+                                  <a class="btn" data-edit="insertorderedlist" title="Number list"><i class="fa fa-list-ol"></i></a>
+                                  <a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="fa fa-dedent"></i></a>
+                                  <a class="btn" data-edit="indent" title="Indent (Tab)"><i class="fa fa-indent"></i></a>
+                                </div>
+
+                                <div class="btn-group">
+                                  <a class="btn" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="fa fa-align-left"></i></a>
+                                  <a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="fa fa-align-center"></i></a>
+                                  <a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="fa fa-align-right"></i></a>
+                                  <a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="fa fa-align-justify"></i></a>
+                                </div>
+
+                                <div class="btn-group">
+                                  <a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i class="fa fa-link"></i></a>
+                                  <div class="dropdown-menu input-append">
+                                    <input class="span2" placeholder="URL" type="text" data-edit="createLink" />
+                                    <button class="btn" type="button">Add</button>
+                                  </div>
+                                  <a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="fa fa-cut"></i></a>
+                                </div>
+
+                                <div class="btn-group">
+                                  <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>
+                                  <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a>
+                                </div>
+                                <button id="save-editor-efive" class="btn btn-success save-editor" rel="editor-efive" style="margin-bottom: 0px;" action="/{{ locale }}/admin/configuration/text">Save</button>
+                              </div>
+
+                              <div id="editor-efive" class="editor-wrapper">
+                                {{ emailRdvEdition | raw }}
+                              </div>
+
+                          </div>
+                          <div role="tabpanel" class="tab-pane fade" id="tab_content52" aria-labelledby="profile-tab">
+
+                            <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-efiveen">
+                              <div class="btn-group">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                  <li>
+                                    <a data-edit="fontSize 5">
+                                      <p style="font-size:17px">Huge</p>
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a data-edit="fontSize 3">
+                                      <p style="font-size:14px">Normal</p>
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a data-edit="fontSize 1">
+                                      <p style="font-size:11px">Small</p>
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
+                                <a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="fa fa-italic"></i></a>
+                                <a class="btn" data-edit="strikethrough" title="Strikethrough"><i class="fa fa-strikethrough"></i></a>
+                                <a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="fa fa-underline"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i class="fa fa-list-ul"></i></a>
+                                <a class="btn" data-edit="insertorderedlist" title="Number list"><i class="fa fa-list-ol"></i></a>
+                                <a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="fa fa-dedent"></i></a>
+                                <a class="btn" data-edit="indent" title="Indent (Tab)"><i class="fa fa-indent"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="fa fa-align-left"></i></a>
+                                <a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="fa fa-align-center"></i></a>
+                                <a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="fa fa-align-right"></i></a>
+                                <a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="fa fa-align-justify"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i class="fa fa-link"></i></a>
+                                <div class="dropdown-menu input-append">
+                                  <input class="span2" placeholder="URL" type="text" data-edit="createLink" />
+                                  <button class="btn" type="button">Add</button>
+                                </div>
+                                <a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="fa fa-cut"></i></a>
+                              </div>
+
+                              <div class="btn-group">
+                                <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>
+                                <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a>
+                              </div>
+                              <button id="save-editor-efiveen" class="btn btn-success save-editor" rel="editor-efiveen" style="margin-bottom: 0px;" action="/{{ locale }}/admin/configuration/text">Save</button>
+                            </div>
+
+                            <div id="editor-efiveen" class="editor-wrapper">
+                              {{ emailRdvEditionEn | raw }}
+                            </div>
+
+                          </div>
+                        </div>
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+
+
+
               <div class="x_panel">
                 <div class="x_content">
                   <div class="form-group">
@@ -526,10 +1320,53 @@
             e.preventDefault();
             var reldata = $(this).attr('rel');
             var href = $(this).attr('action');
-            if(reldata == 'editor-one'){
-              var action = 'orderCondition';
-            }else{
-              var action = 'saleCondition';
+            switch(reldata) {
+                // text configuration
+                case 'editor-one':
+                    var action = 'orderCondition';
+                    break;
+                case 'editor-two':
+                    var action = 'saleCondition';
+                    break;
+                case 'editor-one-en':
+                    var action = 'orderConditionEn';
+                    break;
+                case 'editor-two-en':
+                    var action = 'saleConditionEn';
+                    break;
+                // emails setup
+                case 'editor-eone':
+                    var action = 'emailRdvOne';
+                    break;
+                case 'editor-eoneen':
+                    var action = 'emailRdvOneEn';
+                    break;
+                case 'editor-etwo':
+                    var action = 'emailRdvTwo';
+                    break;
+                case 'editor-etwoen':
+                    var action = 'emailRdvTwoEn';
+                    break;
+                case 'editor-ethree':
+                    var action = 'emailRdvConf';
+                    break;
+                case 'editor-ethreeen':
+                    var action = 'emailRdvConfEn';
+                    break;
+                case 'editor-efour':
+                    var action = 'emailRdvCancelation';
+                    break;
+                case 'editor-efouren':
+                    var action = 'emailRdvCancelationEn';
+                    break;
+                case 'editor-efive':
+                    var action = 'emailRdvEdition';
+                    break;
+                case 'editor-efiveen':
+                    var action = 'emailRdvEditionEn';
+                    break;
+                default:
+                    var action = '';
             }
             var data = $('#'+reldata).html();
             //.replace(/&/g, '&amp').replace(/</g, '&lt;').replace(/>/g, '&gt;')

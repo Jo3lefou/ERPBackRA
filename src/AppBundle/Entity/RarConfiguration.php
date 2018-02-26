@@ -134,6 +134,76 @@ class RarConfiguration
     private $saleConditionEn;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="emailRdvOne", type="blob", nullable=true)
+     */
+    private $emailRdvOne;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="emailRdvTwo", type="blob", nullable=true)
+     */
+    private $emailRdvTwo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="emailRdvConf", type="blob", nullable=true)
+     */
+    private $emailRdvConf;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="emailRdvCancelation", type="blob", nullable=true)
+     */
+    private $emailRdvCancelation;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="emailRdvEdition", type="blob", nullable=true)
+     */
+    private $emailRdvEdition;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="emailRdvOneEn", type="blob", nullable=true)
+     */
+    private $emailRdvOneEn;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="emailRdvTwoEn", type="blob", nullable=true)
+     */
+    private $emailRdvTwoEn;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="emailRdvConfEn", type="blob", nullable=true)
+     */
+    private $emailRdvConfEn;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="emailRdvCancelationEn", type="blob", nullable=true)
+     */
+    private $emailRdvCancelationEn;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="emailRdvEditionEn", type="blob", nullable=true)
+     */
+    private $emailRdvEditionEn;
+
+    /**
      * @ORM\OneToMany(targetEntity="User", mappedBy="configuration")
      */
     private $users;
@@ -545,5 +615,282 @@ class RarConfiguration
         }
         return $this->saleConditionEn;
     }
+
+    /**
+     * Set emailRdvOne
+     *
+     * @param string $emailRdvOne
+     *
+     * @return RarConfiguration
+     */
+    public function setEmailRdvOne($emailRdvOne)
+    {
+        $this->emailRdvOne = $emailRdvOne;
+
+        return $this;
+    }
+
+    /**
+     * Get emailRdvOne
+     *
+     * @return string
+     */
+    public function getEmailRdvOne()
+    {
+        if($this->emailRdvOne != ''){
+            return stream_get_contents($this->emailRdvOne);
+        }
+        return $this->emailRdvOne;
+    }
+
+    /**
+     * Set emailRdvTwo
+     *
+     * @param string $emailRdvTwo
+     *
+     * @return RarConfiguration
+     */
+    public function setEmailRdvTwo($emailRdvTwo)
+    {
+        $this->emailRdvTwo = $emailRdvTwo;
+
+        return $this;
+    }
+
+    /**
+     * Get emailRdvTwo
+     *
+     * @return string
+     */
+    public function getEmailRdvTwo()
+    {
+        if($this->emailRdvTwo != ''){
+            return stream_get_contents($this->emailRdvTwo);
+        }
+        return $this->emailRdvTwo;
+    }
+
+    /**
+     * Set emailRdvConf
+     *
+     * @param string $emailRdvConf
+     *
+     * @return RarConfiguration
+     */
+    public function setEmailRdvConf($emailRdvConf)
+    {
+        $this->emailRdvConf = $emailRdvConf;
+
+        return $this;
+    }
+
+    /**
+     * Get emailRdvConf
+     *
+     * @return string
+     */
+    public function getEmailRdvConf()
+    {
+        if($this->emailRdvConf != ''){
+            return stream_get_contents($this->emailRdvConf);
+        }
+        return $this->emailRdvConf;
+    }
+
+    /**
+     * Set emailRdvCancelation
+     *
+     * @param string $emailRdvCancelation
+     *
+     * @return RarConfiguration
+     */
+    public function setEmailRdvCancelation($emailRdvCancelation)
+    {
+        $this->emailRdvCancelation = $emailRdvCancelation;
+
+        return $this;
+    }
+
+    /**
+     * Get emailRdvCancelation
+     *
+     * @return string
+     */
+    public function getEmailRdvCancelation()
+    {
+        if($this->emailRdvCancelation != ''){
+            return stream_get_contents($this->emailRdvCancelation);
+        }
+        return $this->emailRdvCancelation;
+    }
+
+    /**
+     * Set emailRdvEdition
+     *
+     * @param string $emailRdvEdition
+     *
+     * @return RarConfiguration
+     */
+    public function setEmailRdvEdition($emailRdvEdition)
+    {
+        $this->emailRdvEdition = $emailRdvEdition;
+
+        return $this;
+    }
+
+    /**
+     * Get emailRdvEdition
+     *
+     * @return string
+     */
+    public function getEmailRdvEdition()
+    {
+        if($this->emailRdvEdition != ''){
+            return stream_get_contents($this->emailRdvEdition);
+        }
+        return $this->emailRdvEdition;
+    }
+
+    /**
+     * Set emailRdvOneEn
+     *
+     * @param string $emailRdvOneEn
+     *
+     * @return RarConfiguration
+     */
+    public function setEmailRdvOneEn($emailRdvOneEn)
+    {
+        $this->emailRdvOneEn = $emailRdvOneEn;
+
+        return $this;
+    }
+
+    /**
+     * Get emailRdvOneEn
+     *
+     * @return string
+     */
+    public function getEmailRdvOneEn()
+    {
+        if($this->emailRdvOneEn != ''){
+            return stream_get_contents($this->emailRdvOneEn);
+        }
+        return $this->emailRdvOneEn;
+    }
+
+    /**
+     * Set emailRdvTwoEn
+     *
+     * @param string $emailRdvTwoEn
+     *
+     * @return RarConfiguration
+     */
+    public function setEmailRdvTwoEn($emailRdvTwoEn)
+    {
+        $this->emailRdvTwoEn = $emailRdvTwoEn;
+
+        return $this;
+    }
+
+    /**
+     * Get emailRdvTwoEn
+     *
+     * @return string
+     */
+    public function getEmailRdvTwoEn()
+    {
+        if($this->emailRdvTwoEn != ''){
+            return stream_get_contents($this->emailRdvTwoEn);
+        }
+        return $this->emailRdvTwoEn;
+    }
+
+    /**
+     * Set emailRdvConfEn
+     *
+     * @param string $emailRdvConfEn
+     *
+     * @return RarConfiguration
+     */
+    public function setEmailRdvConfEn($emailRdvConfEn)
+    {
+        $this->emailRdvConfEn = $emailRdvConfEn;
+
+        return $this;
+    }
+
+    /**
+     * Get emailRdvConfEn
+     *
+     * @return string
+     */
+    public function getEmailRdvConfEn()
+    {
+        if($this->emailRdvConfEn != ''){
+            return stream_get_contents($this->emailRdvConfEn);
+        }
+        return $this->emailRdvConfEn;
+    }
+
+    /**
+     * Set emailRdvCancelationEn
+     *
+     * @param string $emailRdvCancelationEn
+     *
+     * @return RarConfiguration
+     */
+    public function setEmailRdvCancelationEn($emailRdvCancelationEn)
+    {
+        $this->emailRdvCancelationEn = $emailRdvCancelationEn;
+
+        return $this;
+    }
+
+    /**
+     * Get emailRdvCancelationEn
+     *
+     * @return string
+     */
+    public function getEmailRdvCancelationEn()
+    {
+        if($this->emailRdvCancelationEn != ''){
+            return stream_get_contents($this->emailRdvCancelationEn);
+        }
+        return $this->emailRdvCancelationEn;
+    }
+
+    /**
+     * Set emailRdvEditionEn
+     *
+     * @param string $emailRdvEditionEn
+     *
+     * @return RarConfiguration
+     */
+    public function setEmailRdvEditionEn($emailRdvEditionEn)
+    {
+        $this->emailRdvEditionEn = $emailRdvEditionEn;
+
+        return $this;
+    }
+
+    /**
+     * Get emailRdvEditionEn
+     *
+     * @return string
+     */
+    public function getEmailRdvEditionEn()
+    {
+        if($this->emailRdvEditionEn != ''){
+            return stream_get_contents($this->emailRdvEditionEn);
+        }
+        return $this->emailRdvEditionEn;
+    }
+
+
+
+
+
+
+
 }
 

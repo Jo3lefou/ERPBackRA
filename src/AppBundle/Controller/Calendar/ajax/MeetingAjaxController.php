@@ -59,6 +59,7 @@ class MeetingAjaxController extends Controller
 					$dataCountry = $request->get('country');
 					$dataPhone = $request->get('phone');
 					$dataOptin = $request->get('optin');
+					$dataLang = $request->get('lang');
 
 
 					$customer->setSalutation($dataSalutation);
@@ -72,17 +73,22 @@ class MeetingAjaxController extends Controller
 					$customer->setPhone($dataPhone);
 					$customer->setEmail($dataEmail);
 					$customer->setOptin($dataOptin);
+					$customer->setLocale($dataLang);
 
 					$em->persist($customer);
             		$em->flush();
 
             		$dataCusId = $customer->getId();
+            		$dataCusLang = $customer->getLocale();
+            		$dataCusEmail = $customer->getEmail();
 
 				}else{
 					///User  EXIST
 					// search for customer
 					$dataCusId = $request->get('cusId');
 					$customer = $em->getRepository('AppBundle:RarCustomer')->findOneBy(['id' => $dataCusId]);
+					$dataCusLang = $customer->getLocale();
+					$dataCusEmail = $customer->getEmail();
 					
 				}
 				
@@ -125,6 +131,38 @@ class MeetingAjaxController extends Controller
 		        $em->persist($meeting);
 	            $em->flush();
 	            $idMeeting = $meeting->getId();
+	            $location = $meeting->getLocation();
+
+	            $configuration = $user->getConfiguration();
+	            if($dataCusLang == 'fr'){
+	            	if($dataType == '1'){
+	            		$content = $configuration->getEmailRdvOne();
+	            		$view = 'email/confirmation1stMeeting.html.twig';
+	            	}else{
+	            		$content = $configuration->getEmailRdvConf();
+	            		$view = 'email/confirmationMeeting.html.twig';
+	            	}
+	            }else if($dataCusLang == 'en'){
+	            	if($dataType == '1'){
+	            		$content = $configuration->getEmailRdvOneEn();
+	            		$view = 'email/confirmation1stMeeting.html.twig';
+	            	}else{
+	            		$content = $configuration->getEmailRdvConfEn();
+	            		$view = 'email/confirmationMeeting.html.twig';
+	            	}
+	            }
+	            // ****** NOTIFICATION EMAIL ******* //
+                $message = (new \Swift_Message('Rime Arodaky - Notification'))
+                    ->setFrom('notification@rime-arodaky.com')
+                    ->setTo($dataCusEmail)
+                    ->setContentType("text/html")
+                    ->setBody(
+                        $this->renderView( $view,
+                        array('locale' => $dataCusLang, 'meeting' => $meeting, 'customer' => $customer, 'content' => $content, 'location' => $location) )
+                    );
+                $mailer->send($message);
+                // ****** NOTIFICATION EMAIL ******* //
+
 
 				$response = array('response' => 'ok', 'color' => $saleColor, 'cusId' => $dataCusId, 'idMeeting' => $idMeeting);
 	        }elseif($action == 'edit'){

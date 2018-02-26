@@ -40,6 +40,16 @@ class EditConfigurationController extends Controller
             $saleCondition = $configuration->getSaleCondition();
             $orderConditionEn = $configuration->getOrderConditionEn();
             $saleConditionEn = $configuration->getSaleConditionEn();
+            $emailRdvOne = $configuration->getEmailRdvOne();
+            $emailRdvTwo = $configuration->getEmailRdvTwo();
+            $emailRdvConf = $configuration->getEmailRdvConf();
+            $emailRdvCancelation = $configuration->getEmailRdvCancelation();
+            $emailRdvEdition = $configuration->getEmailRdvEdition();
+            $emailRdvOneEn = $configuration->getEmailRdvOneEn();
+            $emailRdvTwoEn = $configuration->getEmailRdvTwoEn();
+            $emailRdvConfEn = $configuration->getEmailRdvConfEn();
+            $emailRdvCancelationEn = $configuration->getEmailRdvCancelationEn();
+            $emailRdvEditionEn = $configuration->getEmailRdvEditionEn();
 
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
@@ -63,10 +73,10 @@ class EditConfigurationController extends Controller
                     'h1' => $this->get('translator')->trans('Edit configuration'),
                     'p1h2' => $this->get('translator')->trans('The company\'s data'),
                     'p1h3' => $this->get('translator')->trans('Here, edit the user'),
-                    'p2h2' => $this->get('translator')->trans('Rights and Access'),
-                    'p2h3' => $this->get('translator')->trans('Choose the access right of your user'),
-                    'p3h2' => $this->get('translator')->trans('Shop associated'),
-                    'p3h3' => $this->get('translator')->trans('Manage the shop associated to the user'),
+                    'p2h2' => $this->get('translator')->trans('Legal mentions'),
+                    'p2h3' => $this->get('translator')->trans('Edit legal mentions on billing'),
+                    'p3h2' => $this->get('translator')->trans('Emails'),
+                    'p3h3' => $this->get('translator')->trans('Edit triggered emails for customer'),
                     'p4h2' => $this->get('translator')->trans('Workrooms associated'),
                     'p4h3' => $this->get('translator')->trans('Manage the workroom associated to the user'),
                     'title' => ' | '.$this->get('translator')->trans('Configuration'),
@@ -77,7 +87,17 @@ class EditConfigurationController extends Controller
                     'orderCondition' => $orderCondition,
                     'saleCondition' => $saleCondition,
                     'orderConditionEn' => $orderConditionEn,
-                    'saleConditionEn' => $saleConditionEn
+                    'saleConditionEn' => $saleConditionEn,
+                    'emailRdvOne' => $emailRdvOne,
+                    'emailRdvTwo' => $emailRdvTwo,
+                    'emailRdvConf' => $emailRdvConf,
+                    'emailRdvCancelation' => $emailRdvCancelation,
+                    'emailRdvEdition' => $emailRdvEdition,
+                    'emailRdvOneEn' => $emailRdvOneEn,
+                    'emailRdvTwoEn' => $emailRdvTwoEn,
+                    'emailRdvConfEn' => $emailRdvConfEn,
+                    'emailRdvCancelationEn' => $emailRdvCancelationEn,
+                    'emailRdvEditionEn' => $emailRdvEditionEn,
                 )
             );
 
