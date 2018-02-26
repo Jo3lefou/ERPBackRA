@@ -144,6 +144,7 @@ class MeetingAjaxController extends Controller
 	            		$content = $configuration->getEmailRdvConf();
 	            		$view = 'email/confirmationMeeting.html.twig';
 	            	}
+	            	$subject = 'Rime Arodaky - Confirmation de votre rendez-vous';
 	            }else if($dataCusLang == 'en'){
 	            	if($dataType == '1'){
 	            		$content = $configuration->getEmailRdvOneEn();
@@ -152,9 +153,10 @@ class MeetingAjaxController extends Controller
 	            		$content = $configuration->getEmailRdvConfEn();
 	            		$view = 'email/confirmationMeeting.html.twig';
 	            	}
+	            	$subject = 'Rime Arodaky - Meeting Confirmation';
 	            }
 	            // ****** NOTIFICATION EMAIL ******* //
-                $message = (new \Swift_Message('Rime Arodaky - Notification'))
+                $message = (new \Swift_Message($subject))
                     ->setFrom('notification@rime-arodaky.com')
                     ->setTo($dataCusEmail)
                     ->setContentType("text/html")
@@ -210,12 +212,38 @@ class MeetingAjaxController extends Controller
 	        	$dataComment = 'RAS';
 	        	$dataComment = $request->get('comment');
 	        	$meeting = $em->getRepository('AppBundle:RarMeeting')->findOneBy(['id' => $id]);
+	        	$startTime = $meeting->getStartDate();
+	        	$startEmailDate = $startTime->format('d/m/Y');
+	        	$startEmailTime = $startTime->format('H:i');
+
+	        	$customer = $meeting->getCustomer();
+	        	$dataCusLang = $customer->getLocale();
+	        	$configuration = $user->getConfiguration();
+	            if($dataCusLang == 'fr'){
+	            	$content = $configuration->getEmailRdvCancelation();
+	            	$subject = 'Rime Arodaky - Annulation de votre rendez-vous';
+	            }else if($dataCusLang == 'fr'){
+	            	$content = $configuration->getEmailRdvCancelationEn();
+	            	$subject = 'Rime Arodaky - Cancelation of your meeting';
+	            }
 	        	//Change STATE TO 2
 
 				$meeting->setComment($dataComment);
 				$meeting->setState('2');
 	        	$em->persist($meeting);
 	        	$em->flush();
+
+	        	// ****** NOTIFICATION EMAIL ******* //
+                $message = (new \Swift_Message($subject))
+                    ->setFrom('notification@rime-arodaky.com')
+                    ->setTo($dataCusEmail)
+                    ->setContentType("text/html")
+                    ->setBody(
+                        $this->renderView( 'email/cancelationMeeting.html.twig',
+                        array('locale' => $dataCusLang, 'meeting' => $meeting, 'customer' => $customer, 'content' => $content, 'date' => $startEmailDate, 'time' => $startEmailTime) )
+                    );
+                $mailer->send($message);
+                // ****** NOTIFICATION EMAIL ******* //
 
 	        	$response = array('response' => 'ok');
 	        }
