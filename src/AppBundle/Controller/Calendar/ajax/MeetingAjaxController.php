@@ -31,7 +31,7 @@ class MeetingAjaxController extends Controller
      * @Route("/{_locale}/meeting/{action}/{id}", name="ajaxeditmeeting")
      * @Method({"POST"})
      */
-	public function indexAction($action = 'null', $id = 'null' , Request $request)
+	public function indexAction($action = 'null', $id = 'null' , Request $request, \Swift_Mailer $mailer)
 	{
         // User
         $user = $this->get('security.token_storage')->getToken()->getUser();
