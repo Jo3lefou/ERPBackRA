@@ -235,9 +235,9 @@
             <tr>
                 <td bgcolor="#ffffff" style="padding: 40px 40px 20px; text-align: center;">
                 	{% if locale == 'fr' %}
-                    	<h1 style="margin: 0; font-family: sans-serif; font-size: 20px; line-height: 125%; color: #333333; font-weight: normal;">Rendez-vous {{ location.name }} {{ location.secondName }} a été confirmé pour {{ date }} à {{ time }}</h1>
+                    	<h1 style="margin: 0; font-family: sans-serif; font-size: 20px; line-height: 125%; color: #333333; font-weight: normal;">Rendez-vous au {{ location.name }} {{ location.secondName }} a été confirmé pour {{ date }} à {{ time }}</h1>
                     {% else %}
-                    	<h1 style="margin: 0; font-family: sans-serif; font-size: 20px; line-height: 125%; color: #333333; font-weight: normal;">Meeting {{ location.name }} {{ location.secondName }} has been confirmed for {{ date }} at {{ time }}</h1>
+                    	<h1 style="margin: 0; font-family: sans-serif; font-size: 20px; line-height: 125%; color: #333333; font-weight: normal;">Meeting at {{ location.name }} {{ location.secondName }} has been confirmed for {{ date }} at {{ time }}</h1>
                     {% endif %}
                 </td>
             </tr>
@@ -260,7 +260,7 @@
 		    		<table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
                         <tr>
                             <td bgcolor="#ffffff" style="padding: 0 40px 40px; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555; text-align: center;">
-                                {% if locale == 'fr' %}Afin de vous procurrer une meilleure expérience et de vous préparer un showroom pour vous...{% else %}To give you a better experience, and to prepare the showroom exclusively for you...{% endif %}
+                                {% if locale == 'fr' %}Afin de vous procurrer une meilleure expérience et de vous préparer un showroom exclusivement pour vous...{% else %}To give you a better experience, and to prepare the showroom exclusively for you...{% endif %}
                             </td>
                         </tr>
                         <tr>
@@ -281,13 +281,42 @@
                                     &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ffffff;">{% if locale == 'fr' %}Si vous voulez annuler{% else %}If you want to cancel...{% endif %}</span>&nbsp;&nbsp;&nbsp;&nbsp;
                                 </a>
                             </td>
-                        <tr>
-                        	<td>
-                        		<center><br/>{% if locale == 'fr' %}La (d)Rime Team{% else %}The (d)Rime Team{% endif %}</center>
-                        	</td>
                         </tr>
                     </table>
                     <!-- Button : END -->
+                </td>
+            </tr>
+
+            <tr>
+                <td bgcolor="#ffffff" style="padding: 5px 40px 40px; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555; text-align: center; border:1px solid #34495e">
+                    {% if locale == 'fr' %}
+                        <p style="margin: 0;">
+                            <strong>Nous vous attendons à cette adresse :</strong><br/>
+                            {{ location.address }}<br/>
+                            {{ location.zipCode }} {{ location.city }}<br/>
+                            {{ location.country }}<br/>
+                            <strong>Code d'accès :</strong>{{ location.accessCode }}
+                            <strong>Informations utiles :</strong><br/>{{ location.information }}<br/><br/>
+                            <a href="{{ location.urlPlace }}" style="background: #34495e; border: 5px solid #e74c3c; font-family: sans-serif; font-size: 11px; line-height: 110%; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold; width:180px; color:#ffffff;">Le lieu</a>
+                            <a href="{{ location.url2 }}" style="background: #34495e; border: 5px solid #e74c3c; font-family: sans-serif; font-size: 11px; line-height: 110%; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold; width:180px; color:#ffffff;">Comment venir</a>
+                        </p>
+                    {% else %}
+                        <p style="margin: 0;">
+                            <strong>We are waiting for you here :</strong><br/>
+                            {{ location.address }}<br/>
+                            {{ location.zipCode }} {{ location.city }}<br/>
+                            {{ location.country }}<br/><br/>
+                            <strong>Code d'accès :</strong>{{ location.accessCode }}
+                            <strong>Informations utiles :</strong><br/>{{ location.information }}<br/><br/><br/>
+                            <a href="{{ location.urlPlace }}" style="background: #34495e; border: 5px solid #e74c3c; font-family: sans-serif; font-size: 11px; line-height: 110%; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold; width:180px; color:#ffffff;">The place</a>
+                            <a href="{{ location.url2 }}" style="background: #34495e; border: 5px solid #e74c3c; font-family: sans-serif; font-size: 11px; line-height: 110%; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold; width:180px; color:#ffffff;">How to come</a>
+                        </p>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <center><br/>{% if locale == 'fr' %}La (d)Rime Team{% else %}The (d)Rime Team{% endif %}</center>
                 </td>
             </tr>
             <!-- 1 Column Text + Button : END -->
