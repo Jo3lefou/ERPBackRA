@@ -160,19 +160,19 @@ class MeetingAjaxController extends Controller
 	            	}
 	            	$subject = 'Rime Arodaky - Meeting Confirmation';
 	            }
-	            if($dataNotif == 1){
-		            // ****** NOTIFICATION EMAIL ******* //
-	                $message = (new \Swift_Message($subject))
-	                    ->setFrom('notification@rime-arodaky.com')
-	                    ->setTo($dataCusEmail)
-	                    ->setContentType("text/html")
-	                    ->setBody(
-	                        $this->renderView( $view,
-	                        array('locale' => $dataCusLang, 'meeting' => $meeting, 'customer' => $customer, 'content' => $content, 'location' => $location, 'date' => $startEmailDate, 'time' => $startEmailTime) )
-	                    );
-	                $mailer->send($message);
-	                // ****** NOTIFICATION EMAIL ******* //
-            	}
+	            //if($dataNotif == 1){
+	            // ****** NOTIFICATION EMAIL ******* //
+                $message = (new \Swift_Message($subject))
+                    ->setFrom('notification@rime-arodaky.com')
+                    ->setTo($dataCusEmail)
+                    ->setContentType("text/html")
+                    ->setBody(
+                        $this->renderView( $view,
+                        array('locale' => $dataCusLang, 'meeting' => $meeting, 'customer' => $customer, 'content' => $content, 'location' => $location, 'date' => $startEmailDate, 'time' => $startEmailTime) )
+                    );
+                $mailer->send($message);
+                // ****** NOTIFICATION EMAIL ******* //
+            	//}
 
 				$response = array('response' => 'ok', 'color' => $saleColor, 'cusId' => $dataCusId, 'idMeeting' => $idMeeting);
 	        }elseif($action == 'edit'){
@@ -232,7 +232,7 @@ class MeetingAjaxController extends Controller
 	            $em->flush();
 	            $location = $meeting->getLocation();
 
-	            if($dataNotif == 1){
+	            //if($dataNotif == 1){
 	            	// ****** NOTIFICATION EMAIL ******* //
 	                $message = (new \Swift_Message($subject))
 	                    ->setFrom('notification@rime-arodaky.com')
@@ -244,7 +244,7 @@ class MeetingAjaxController extends Controller
 	                    );
 	                $mailer->send($message);
 	                // ****** NOTIFICATION EMAIL ******* //
-	            }
+	            //}
 
 	            
 
