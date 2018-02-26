@@ -217,6 +217,7 @@ class MeetingAjaxController extends Controller
 	        	$startEmailTime = $startTime->format('H:i');
 
 	        	$customer = $meeting->getCustomer();
+	        	$dataCusEmail = $customer->getEmail();
 	        	$dataCusLang = $customer->getLocale();
 	        	$configuration = $user->getConfiguration();
 	            if($dataCusLang == 'fr'){
