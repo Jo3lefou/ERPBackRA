@@ -433,16 +433,7 @@
                                 </td>
                                 <td>
                                   <a href="/{{locale}}/rendering/uniqueqrcode/{{ production.id }}" class="btn btn-xs btn-primary" target="_blank"><i class="fa  fa-sticky-note-o"></i></a>
-                                  <span class="notifCheck">{% if production.prodBasket == null %}
-                                    <i class="fa fa-close red"></i>
-                                  {% else %}
-                                    {% if production.prodBasket.status == 1 %}
-                                      <i class="fa fa-info green"></i>
-                                    {% elseif production.prodBasket.status == 2 %}
-                                      <i class="fa fa-check green"></i>
-                                    {% endif %}
-                                  {% endif %}
-                                  </span>
+                                  <span class="notifCheck"></span>
                                 </td>
                               </tr>
                             {% endfor %}
