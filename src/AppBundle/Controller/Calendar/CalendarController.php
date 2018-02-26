@@ -60,6 +60,7 @@ class CalendarController extends Controller
                 a.comment, 
                 a.type as type,
                 a.notifStatus, 
+                d.id as lieu,
                 CONCAT(date(a.startDate), ' ', time(a.startDate)) AS starta,
                 CONCAT(date(a.endDate), ' ', time(a.endDate)) AS enda,
                 b.id AS sale, 
@@ -68,6 +69,7 @@ class CalendarController extends Controller
                 FROM AppBundle:RarMeeting a
                 INNER JOIN a.sale b
                 INNER JOIN a.customer c
+                INNER JOIN a.location d
                 WHERE a.state < 2
             ";
         }else{
@@ -80,6 +82,7 @@ class CalendarController extends Controller
                 a.comment, 
                 a.type as type,
                 a.notifStatus, 
+                d.id as lieu,
                 CONCAT(date(a.startDate), ' ', time(a.startDate)) AS starta,
                 CONCAT(date(a.endDate), ' ', time(a.endDate)) AS enda,
                 b.id AS sale, 
@@ -88,6 +91,7 @@ class CalendarController extends Controller
                 FROM AppBundle:RarMeeting a
                 INNER JOIN a.sale b
                 INNER JOIN a.customer c
+                INNER JOIN a.location d
                 WHERE a.state < 2 AND b.id = ".$saleuser."
             ";
         }

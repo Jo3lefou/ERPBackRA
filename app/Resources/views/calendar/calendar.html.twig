@@ -634,6 +634,7 @@
                         $("#end2").val(a.end.format('YYYY-MM-DD HH:mm') ),
                         $('#notif2').prop('checked', state),
                         $('#type2').val(a.type),
+                        $('#location2').val(a.lieu),
                         $("#sale2").val(a.sale),
                         $('#nameCustomer').html(a.customer),
                         $("#createdon2").html(a.createdOn),
@@ -685,6 +686,7 @@
                             var sale = $("#sale2").val();
                             var state = $("#notif2").val();
                             var salesmen = $("#sale2 option:selected").text();
+                            var lieu = $('#location2').val(),
                             $.ajax( {
                               type:"POST",
                               url: action,
@@ -699,6 +701,7 @@
                                 a.type = type,
                                 a.sale = sale,
                                 a.state = state,
+                                a.lieu = lieu,
                                 g.fullCalendar("updateEvent", a),
                                 $(".antoclose2").click();
                                 $('#loading-bar').fadeOut();

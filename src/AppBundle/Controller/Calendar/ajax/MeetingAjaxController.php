@@ -187,7 +187,7 @@ class MeetingAjaxController extends Controller
 	        	$endTime = new \DateTime($dataEnd);
 	        	// // DATE
 	        	$dataComment = $request->get('comment');
-	        	$dataLocation = $request->get('location');
+	        	$dataLocation = $request->get('lieu');
 	        	$lieu = $em->getRepository('AppBundle:RarLocation')->findOneBy(['id' => $dataLocation]);
 	        	$dataType = $request->get('type');
 	        	$dataSale = $request->get('sale');
