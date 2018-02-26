@@ -221,7 +221,7 @@ class MeetingAjaxController extends Controller
 	            $em->flush();
 	            $location = $meeting->getLocation();
 
-	            return $this->renderView( 'email/editionMeeting.html.twig', array('locale' => $dataCusLang, 'meeting' => $meeting, 'customer' => $customer, 'content' => $content, 'location' => $location, 'date' => $startEmailDate, 'time' => $startEmailTime) );
+	            return $this->renderView( 'email/debug.html.twig', array('locale' => $dataCusLang, 'meeting' => $meeting, 'customer' => $customer, 'content' => $content, 'location' => $location, 'date' => $startEmailDate, 'time' => $startEmailTime) );
 	            // ****** NOTIFICATION EMAIL ******* //
                 /*$message = (new \Swift_Message($subject))
                     ->setFrom('notification@rime-arodaky.com')
