@@ -59,13 +59,13 @@ class CalendarController extends Controller
                 a.name as title2,
                 a.comment, 
                 a.type as type,
-                a.notifStatus, 
-                d.id as lieu,
+                a.notifStatus,
                 CONCAT(date(a.startDate), ' ', time(a.startDate)) AS starta,
                 CONCAT(date(a.endDate), ' ', time(a.endDate)) AS enda,
                 b.id AS sale, 
                 CONCAT(b.firstName, ' ', b.lastName) AS namesale,
-                b.userColor as color
+                b.userColor as color,
+                CASE WHEN d.id IS NULL or d.id = '' THEN '0' ELSE d.id AS lieu
                 FROM AppBundle:RarMeeting a
                 INNER JOIN a.sale b
                 INNER JOIN a.customer c
@@ -81,13 +81,13 @@ class CalendarController extends Controller
                 a.name as title2,
                 a.comment, 
                 a.type as type,
-                a.notifStatus, 
-                d.id as lieu,
+                a.notifStatus,
                 CONCAT(date(a.startDate), ' ', time(a.startDate)) AS starta,
                 CONCAT(date(a.endDate), ' ', time(a.endDate)) AS enda,
                 b.id AS sale, 
                 CONCAT(b.firstName, ' ', b.lastName) AS namesale,
-                b.userColor as color
+                b.userColor as color,
+                CASE WHEN d.id IS NULL or d.id = '' THEN '0' ELSE d.id AS lieu
                 FROM AppBundle:RarMeeting a
                 INNER JOIN a.sale b
                 INNER JOIN a.customer c

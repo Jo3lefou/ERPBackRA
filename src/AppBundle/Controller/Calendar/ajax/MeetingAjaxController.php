@@ -103,6 +103,11 @@ class MeetingAjaxController extends Controller
 				$dataType = $request->get('type');
 				$dataSale = $request->get('sale');
 				$sale = $em->getRepository('AppBundle:User')->findOneBy(['id' => $dataSale]);
+				if($dataNotif == 'true'){
+					$dataNotif = 1;
+				}else{
+					$dataNotif = 0;
+				}
 
 				// DATE
 	        	// Start
@@ -155,18 +160,19 @@ class MeetingAjaxController extends Controller
 	            	}
 	            	$subject = 'Rime Arodaky - Meeting Confirmation';
 	            }
-	            // ****** NOTIFICATION EMAIL ******* //
-                $message = (new \Swift_Message($subject))
-                    ->setFrom('notification@rime-arodaky.com')
-                    ->setTo($dataCusEmail)
-                    ->setContentType("text/html")
-                    ->setBody(
-                        $this->renderView( $view,
-                        array('locale' => $dataCusLang, 'meeting' => $meeting, 'customer' => $customer, 'content' => $content, 'location' => $location, 'date' => $startEmailDate, 'time' => $startEmailTime) )
-                    );
-                $mailer->send($message);
-                // ****** NOTIFICATION EMAIL ******* //
-
+	            if($dataNotif == 1){
+		            // ****** NOTIFICATION EMAIL ******* //
+	                $message = (new \Swift_Message($subject))
+	                    ->setFrom('notification@rime-arodaky.com')
+	                    ->setTo($dataCusEmail)
+	                    ->setContentType("text/html")
+	                    ->setBody(
+	                        $this->renderView( $view,
+	                        array('locale' => $dataCusLang, 'meeting' => $meeting, 'customer' => $customer, 'content' => $content, 'location' => $location, 'date' => $startEmailDate, 'time' => $startEmailTime) )
+	                    );
+	                $mailer->send($message);
+	                // ****** NOTIFICATION EMAIL ******* //
+            	}
 
 				$response = array('response' => 'ok', 'color' => $saleColor, 'cusId' => $dataCusId, 'idMeeting' => $idMeeting);
 	        }elseif($action == 'edit'){
@@ -193,6 +199,11 @@ class MeetingAjaxController extends Controller
 	        	$dataSale = $request->get('sale');
 				$sale = $em->getRepository('AppBundle:User')->findOneBy(['id' => $dataSale]);
 				$dataNotif = $request->get('notif');
+				if($dataNotif == 'true'){
+					$dataNotif = 1;
+				}else{
+					$dataNotif = 0;
+				}
 
 	        	$meeting->setName($dataTitle);
 	        	$meeting->setStartDate($startTime);
@@ -221,18 +232,21 @@ class MeetingAjaxController extends Controller
 	            $em->flush();
 	            $location = $meeting->getLocation();
 
-	            return $this->renderView( 'email/debug.html.twig', array('locale' => $dataCusLang, 'meeting' => $meeting, 'customer' => $customer, 'content' => $content, 'location' => $location, 'date' => $startEmailDate, 'time' => $startEmailTime) );
-	            // ****** NOTIFICATION EMAIL ******* //
-                /*$message = (new \Swift_Message($subject))
-                    ->setFrom('notification@rime-arodaky.com')
-                    ->setTo($dataCusEmail)
-                    ->setContentType("text/html")
-                    ->setBody(
-                        $this->renderView( 'email/editionMeeting.html.twig',
-                        array('locale' => $dataCusLang, 'meeting' => $meeting, 'customer' => $customer, 'content' => $content, 'location' => $location, 'date' => $startEmailDate, 'time' => $startEmailTime) )
-                    );
-                $mailer->send($message);*/
-                // ****** NOTIFICATION EMAIL ******* //
+	            if($dataNotif == 1){
+	            	// ****** NOTIFICATION EMAIL ******* //
+	                $message = (new \Swift_Message($subject))
+	                    ->setFrom('notification@rime-arodaky.com')
+	                    ->setTo($dataCusEmail)
+	                    ->setContentType("text/html")
+	                    ->setBody(
+	                        $this->renderView( 'email/editionMeeting.html.twig',
+	                        array('locale' => $dataCusLang, 'meeting' => $meeting, 'customer' => $customer, 'content' => $content, 'location' => $location, 'date' => $startEmailDate, 'time' => $startEmailTime) )
+	                    );
+	                $mailer->send($message);
+	                // ****** NOTIFICATION EMAIL ******* //
+	            }
+
+	            
 
 	        	$response = array('response' => 'ok');
 	        }elseif($action == 'cancel'){

@@ -686,25 +686,28 @@
                             var sale = $("#sale2").val();
                             var state = $("#notif2").val();
                             var salesmen = $("#sale2 option:selected").text();
-                            var lieu = $('#location2').val(),
+                            var lieu = $('#location2').val();
                             $.ajax( {
                               type:"POST",
                               url: action,
                               dataType: "json",
-                              data: {id:a.ref,title:title,start:start,end:end,comment:comment,location:location,type:type,sale:sale,notif:notif},
+                              data: {id:a.ref,title:title,start:start,end:end,comment:comment,lieu:lieu,type:type,sale:sale,notif:notif},
                               success: function( data ) {
                                 a.title = salesmen+' - '+title,
                                 a.start = start,
                                 a.end = end,
                                 a.comment = comment,
                                 a.location = location,
+                                a.notifStatus = notif
                                 a.type = type,
                                 a.sale = sale,
                                 a.state = state,
                                 a.lieu = lieu,
                                 g.fullCalendar("updateEvent", a),
+                                g.fullCalendar("unselect"),
                                 $(".antoclose2").click();
                                 $('#loading-bar').fadeOut();
+
                               },
                               complete: function(){
                                 
