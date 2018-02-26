@@ -160,7 +160,7 @@ class MeetingAjaxController extends Controller
                     ->setContentType("text/html")
                     ->setBody(
                         $this->renderView( $view,
-                        array('locale' => $dataCusLang, 'meeting' => $meeting, 'customer' => $customer, 'content' => $content, 'location' => $location, 'date' => $startEmailDate, 'heure' => $startEmailTime) )
+                        array('locale' => $dataCusLang, 'meeting' => $meeting, 'customer' => $customer, 'content' => $content, 'location' => $location, 'date' => $startEmailDate, 'time' => $startEmailTime) )
                     );
                 $mailer->send($message);
                 // ****** NOTIFICATION EMAIL ******* //
