@@ -180,6 +180,8 @@ class MeetingAjaxController extends Controller
 	        	// Start
 	        	$dataStart = $request->get('start');
 	        	$startTime = new \DateTime($dataStart);
+	        	$startEmailDate = $startTime->format('d/m/Y');
+	        	$startEmailTime = $startTime->format('H:i');
 	        	// End
 	        	$dataEnd = $request->get('end');
 	        	$endTime = new \DateTime($dataEnd);
@@ -202,10 +204,35 @@ class MeetingAjaxController extends Controller
 	        	$meeting->setNotifStatus($dataNotif);
 
 
+	        	$customer = $meeting->getCustomer();
+	        	$dataCusEmail = $customer->getEmail();
+	        	$dataCusLang = $customer->getLocale();
+	        	$configuration = $user->getConfiguration();
+	            if($dataCusLang == 'fr'){
+	            	$content = $configuration->getEmailRdvEdition();
+	            	$subject = 'Rime Arodaky - Modification de votre rendez-vous';
+	            }else if($dataCusLang == 'fr'){
+	            	$content = $configuration->getEmailRdvEditionEn();
+	            	$subject = 'Rime Arodaky - Meeting modification';
+	            }
 
 	        	// On sauve le meeting
 		        $em->persist($meeting);
 	            $em->flush();
+	            $location = $meeting->getLocation();
+
+	            // ****** NOTIFICATION EMAIL ******* //
+                $message = (new \Swift_Message($subject))
+                    ->setFrom('notification@rime-arodaky.com')
+                    ->setTo($dataCusEmail)
+                    ->setContentType("text/html")
+                    ->setBody(
+                        $this->renderView( 'email/editionMeeting.html.twig',
+                        array('locale' => $dataCusLang, 'meeting' => $meeting, 'customer' => $customer, 'content' => $content, 'location' => $location, 'date' => $startEmailDate, 'time' => $startEmailTime) )
+                    );
+                $mailer->send($message);
+                // ****** NOTIFICATION EMAIL ******* //
+
 	        	$response = array('response' => 'ok');
 	        }elseif($action == 'cancel'){
 
@@ -225,7 +252,7 @@ class MeetingAjaxController extends Controller
 	            	$subject = 'Rime Arodaky - Annulation de votre rendez-vous';
 	            }else if($dataCusLang == 'fr'){
 	            	$content = $configuration->getEmailRdvCancelationEn();
-	            	$subject = 'Rime Arodaky - Cancelation of your meeting';
+	            	$subject = 'Rime Arodaky - Meeting cancelation';
 	            }
 	        	//Change STATE TO 2
 

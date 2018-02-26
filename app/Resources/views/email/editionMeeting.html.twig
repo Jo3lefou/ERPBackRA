@@ -112,12 +112,12 @@
             }
         }
 
-	    @media screen and (max-width: 480px) {
-	        /* What it does: Forces Gmail app to display email full width */
-	        div > u ~ div .gmail {
-		        min-width: 100vw;
-	        }
-		}
+        @media screen and (max-width: 480px) {
+            /* What it does: Forces Gmail app to display email full width */
+            div > u ~ div .gmail {
+                min-width: 100vw;
+            }
+        }
 
     </style>
     <!-- CSS Reset : END -->
@@ -203,10 +203,10 @@
         <!-- Visually Hidden Preheader Text : BEGIN -->
         <div style="display: none; font-size: 1px; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all; font-family: sans-serif;">
             {% if locale == 'fr' %}
-            	La commande {% if order.idCompta|length < 1 %}DRAFT created on {{ order.dateOrder}}{% elseif order.idCompta|length < 2 %}{{ shop.extention }}000{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 3 %}{{ shop.extention }}00{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 4 %}{{ shop.extention }}0{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 5 %}{{ shop.extention }}{{ order.idCompta }}-{{ order.year }}{% endif %}{% if order.type == "1" %}-S{% elseif order.type == 2 %}-P{% endif %}{% if locale == 'en' %}{{ statusEn }}{% else %}{{ statusFr }}{% endif %}.
-			{% else %}
-				The order {% if order.idCompta|length < 1 %}DRAFT created on {{ order.dateOrder}}{% elseif order.idCompta|length < 2 %}{{ shop.extention }}000{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 3 %}{{ shop.extention }}00{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 4 %}{{ shop.extention }}0{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 5 %}{{ shop.extention }}{{ order.idCompta }}-{{ order.year }}{% endif %}{% if order.type == "1" %}-S{% elseif order.type == 2 %}-P{% endif %}{% if locale == 'en' %}{{ statusEn }}{% else %}{{ statusFr }}{% endif %}.
-			{% endif %}
+                Rendez-vous {{ location.name }} {{ location.secondName }} a été modifié.
+            {% else %}
+                Meeting {{ location.name }} {{ location.secondName }} has been modified.
+            {% endif %}
         </div>
         <!-- Visually Hidden Preheader Text : END -->
 
@@ -234,47 +234,60 @@
             <!-- 1 Column Text + Button : BEGIN -->
             <tr>
                 <td bgcolor="#ffffff" style="padding: 40px 40px 20px; text-align: center;">
-                	{% if locale == 'fr' %}
-                    	<h1 style="margin: 0; font-family: sans-serif; font-size: 24px; line-height: 125%; color: #333333; font-weight: normal;">Commande {% if order.idCompta|length < 1 %}DRAFT created on {{ order.dateOrder}}{% elseif order.idCompta|length < 2 %}{{ shop.extention }}000{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 3 %}{{ shop.extention }}00{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 4 %}{{ shop.extention }}0{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 5 %}{{ shop.extention }}{{ order.idCompta }}-{{ order.year }}{% endif %}{% if order.type == "1" %}-S{% elseif order.type == 2 %}-P{% endif %}</h1>
+                    {% if locale == 'fr' %}
+                        <h1 style="margin: 0; font-family: sans-serif; font-size: 20px; line-height: 125%; color: #333333; font-weight: normal;">Rendez-vous au {{ location.name }} {{ location.secondName }} a été modifié.</h1>
                     {% else %}
-                    	<h1 style="margin: 0; font-family: sans-serif; font-size: 24px; line-height: 125%; color: #333333; font-weight: normal;">Order {% if order.idCompta|length < 1 %}DRAFT created on {{ order.dateOrder}}{% elseif order.idCompta|length < 2 %}{{ shop.extention }}000{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 3 %}{{ shop.extention }}00{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 4 %}{{ shop.extention }}0{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 5 %}{{ shop.extention }}{{ order.idCompta }}-{{ order.year }}{% endif %}{% if order.type == "1" %}-S{% elseif order.type == 2 %}-P{% endif %}</h1>
+                        <h1 style="margin: 0; font-family: sans-serif; font-size: 20px; line-height: 125%; color: #333333; font-weight: normal;">Meeting at {{ location.name }} {{ location.secondName }} has been confirmed.</h1>
                     {% endif %}
                 </td>
             </tr>
             <tr>
                 <td bgcolor="#ffffff" style="padding: 0 40px 40px; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555; text-align: center;">
-                	{% if locale == 'fr' %}
-		            	<p style="margin: 0;">
-		            		La commande {% if order.idCompta|length < 1 %}DRAFT created on {{ order.dateOrder}}{% elseif order.idCompta|length < 2 %}{{ shop.extention }}000{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 3 %}{{ shop.extention }}00{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 4 %}{{ shop.extention }}0{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 5 %}{{ shop.extention }}{{ order.idCompta }}-{{ order.year }}{% endif %}{% if order.type == "1" %}-S{% elseif order.type == 2 %}-P{% endif %} {% if locale == 'en' %}{{ statusEn }}{% else %}{{ statusFr }}{% endif %}.
-		            		<br><br>
-            				Pour suivre l'avancé de votre commande, merci de vous connecter sur la plateforme de commande.
-            			</p>
-					{% else %}
-						<p style="margin: 0;">
-							The order {% if order.idCompta|length < 1 %}DRAFT created on {{ order.dateOrder}}{% elseif order.idCompta|length < 2 %}{{ shop.extention }}000{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 3 %}{{ shop.extention }}00{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 4 %}{{ shop.extention }}0{{ order.idCompta }}-{{ order.year }}{% elseif order.idCompta|length < 5 %}{{ shop.extention }}{{ order.idCompta }}-{{ order.year }}{% endif %}{% if order.type == "1" %}-S{% elseif order.type == 2 %}-P{% endif %} {% if locale == 'en' %}{{ statusEn }}{% else %}{{ statusFr }}{% endif %}.
-							<br><br>
-							To follow the status of your order, please connect on the order platform.</p>
-					{% endif %}
+                    {% if locale == 'fr' %}
+                        <p style="margin: 0;">Votre rendez-vous aura lieu le {{ date }} à {{ time }}</p>
+                        <p style="margin: 0;">
+                            {{ content }}
+                        </p>
+                    {% else %}
+                        <p style="margin: 0;">Your meeting will happen on the {{ date }} at {{ time }}</p>
+                        <p style="margin: 0;">
+                            {{ content }}
+                        </p>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td bgcolor="#ffffff" style="padding: 5px 40px 40px; font-family: sans-serif; font-size: 11px; line-height: 140%; color: #555555; text-align: center;">
+                    {% if locale == 'fr' %}
+                        <p style="margin:10px;border:1px solid #eee; border-radius:5px; padding:15px">
+                            <strong>Nous vous attendons à cette adresse :</strong><br/>
+                            {{ location.address }}<br/>
+                            {{ location.zipCode }} {{ location.city }}<br/>
+                            {{ location.country }}<br/>
+                            <strong>Code d'accès :</strong> {{ location.accessCode }}<br/>
+                            <strong>Informations utiles :</strong><br/>{{ location.information }}<br/><br/>
+                            <a href="{{ location.urlPlace }}" style="background: #34495e; border: 5px solid #34495e; font-family: sans-serif; font-size: 11px; line-height: 110%; text-align: center; text-decoration: none; display: inline-block; border-radius: 3px; font-weight: bold; width:180px; color:#ffffff;">Le lieu</a><br/><br/>
+                            <a href="{{ location.url2 }}" style="background: #34495e; border: 5px solid #34495e; font-family: sans-serif; font-size: 11px; line-height: 110%; text-align: center; text-decoration: none; display: inline-block; border-radius: 3px; font-weight: bold; width:180px; color:#ffffff;">Comment venir</a>
+                        </p>
+                    {% else %}
+                        <p style="margin:10px;border:1px solid #eee; border-radius:5px; padding:10px">
+                            <strong>We are waiting for you here :</strong><br/>
+                            {{ location.address }}<br/>
+                            {{ location.zipCode }} {{ location.city }}<br/>
+                            {{ location.country }}<br/><br/>
+                            <strong>Access code:</strong> {{ location.accessCode }}
+                            <strong>Usefull information:</strong><br/>{{ location.information }}<br/><br/>
+                            <a href="{{ location.urlPlace }}" style="background: #34495e; border: 5px solid #34495e; font-family: sans-serif; font-size: 11px; line-height: 110%; text-align: center; text-decoration: none; display: inline-block; border-radius: 3px; font-weight: bold; width:180px; color:#ffffff;">The place</a><br/><br/>
+                            <a href="{{ location.url2 }}" style="background: #34495e; border: 5px solid #34495e; font-family: sans-serif; font-size: 11px; line-height: 110%; text-align: center; text-decoration: none; display: inline-block; border-radius: 3px; font-weight: bold; width:180px; color:#ffffff;">How to come</a>
+                        </p>
+
+                    {% endif %}
                 </td>
             </tr>
             <tr>
-                <td bgcolor="#ffffff" style="padding: 0 40px 40px; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555;">
-                    <!-- Button : BEGIN -->
-		    		<table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
-                        <tr>
-                            <td style="border-radius: 3px; background: #070707; text-align: center;" class="button-td">
-                                <a href="http://ns367524.ip-37-59-36.eu/{{locale}}/orders/single/{{order.id}}" style="background: #070707; border: 15px solid #070707; font-family: sans-serif; font-size: 13px; line-height: 110%; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold;" class="button-a">
-                                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ffffff;">{% if locale == 'fr' %}Accéder à votre commande{% else %}Access to the order{% endif %}</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                        	<td>
-                        		<center><br/>{% if locale == 'fr' %}La (d)Rime Team{% else %}The (d)Rime Team{% endif %}</center>
-                        	</td>
-                        </tr>
-                    </table>
-                    <!-- Button : END -->
+                <td bgcolor="#ffffff" style="padding: 5px 40px 40px; font-family: sans-serif; font-size: 11px; line-height: 140%; color: #555555; text-align: center;">
+                    <center><br/>{% if locale == 'fr' %}La (d)Rime Team{% else %}The (d)Rime Team{% endif %}</center>
                 </td>
             </tr>
             <!-- 1 Column Text + Button : END -->
@@ -293,11 +306,11 @@
                         <tr>
                             <td valign="middle" style="text-align: center; padding: 40px; font-family: sans-serif; font-size: 12px; line-height: 140%; color: #ffffff;">
                                 <p style="margin: 0;">
-                                	{% if locale == 'fr' %}
-                                		<i>Chacune a sa place, sa personnalité, sa fraicheur, ses habitudes, & sa joie de vivre.</i>
-                                	{% else %}
-                                		<i>Each one has its place, its personality, its freshness, its habits, and its joie de vivre.</i>
-                                	{% endif %}
+                                    {% if locale == 'fr' %}
+                                        <i>Chacune a sa place, sa personnalité, sa fraicheur, ses habitudes, & sa joie de vivre.</i>
+                                    {% else %}
+                                        <i>Each one has its place, its personality, its freshness, its habits, and its joie de vivre.</i>
+                                    {% endif %}
                                 </p>
                             </td>
                         </tr>
