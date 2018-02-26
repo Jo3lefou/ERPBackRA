@@ -108,6 +108,8 @@ class MeetingAjaxController extends Controller
 	        	// Start
 	        	$dataStart = $request->get('start');
 	        	$startTime = new \DateTime($dataStart);
+	        	$startEmailDate = $startTime->format('d/m/Y');
+	        	$startEmailTime = $startTime->format('H:i');
 	        	// End
 	        	$dataEnd = $request->get('end');
 	        	$endTime = new \DateTime($dataEnd);
@@ -158,7 +160,7 @@ class MeetingAjaxController extends Controller
                     ->setContentType("text/html")
                     ->setBody(
                         $this->renderView( $view,
-                        array('locale' => $dataCusLang, 'meeting' => $meeting, 'customer' => $customer, 'content' => $content, 'location' => $location) )
+                        array('locale' => $dataCusLang, 'meeting' => $meeting, 'customer' => $customer, 'content' => $content, 'location' => $location, 'date' => $startEmailDate, 'heure' => $startEmailTime) )
                     );
                 $mailer->send($message);
                 // ****** NOTIFICATION EMAIL ******* //

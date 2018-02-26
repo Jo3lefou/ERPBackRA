@@ -203,9 +203,9 @@
         <!-- Visually Hidden Preheader Text : BEGIN -->
         <div style="display: none; font-size: 1px; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all; font-family: sans-serif;">
             {% if locale == 'fr' %}
-                Rendez-vous {{ location.name }} {{ location.secondName }} a été confirmé.
+                Rendez-vous {{ location.name }} {{ location.secondName }} a été confirmé pour {{ date }} à {{ time }}.
             {% else %}
-                Meeting {{ location.name }} {{ location.secondName }} has been confirmed.
+                Meeting {{ location.name }} {{ location.secondName }} has been confirmed for {{ date }} at {{ time }}.
 			{% endif %}
         </div>
         <!-- Visually Hidden Preheader Text : END -->
@@ -235,9 +235,9 @@
             <tr>
                 <td bgcolor="#ffffff" style="padding: 40px 40px 20px; text-align: center;">
                 	{% if locale == 'fr' %}
-                    	<h1 style="margin: 0; font-family: sans-serif; font-size: 24px; line-height: 125%; color: #333333; font-weight: normal;">Rendez-vous {{ location.name }} {{ location.secondName }} a été confirmé.</h1>
+                    	<h1 style="margin: 0; font-family: sans-serif; font-size: 20px; line-height: 125%; color: #333333; font-weight: normal;">Rendez-vous {{ location.name }} {{ location.secondName }} a été confirmé pour {{ date }} à {{ time }}</h1>
                     {% else %}
-                    	<h1 style="margin: 0; font-family: sans-serif; font-size: 24px; line-height: 125%; color: #333333; font-weight: normal;">Meeting {{ location.name }} {{ location.secondName }} has been confirmed.</h1>
+                    	<h1 style="margin: 0; font-family: sans-serif; font-size: 20px; line-height: 125%; color: #333333; font-weight: normal;">Meeting {{ location.name }} {{ location.secondName }} has been confirmed for {{ date }} at {{ time }}</h1>
                     {% endif %}
                 </td>
             </tr>
