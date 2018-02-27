@@ -172,12 +172,11 @@ class ManagementController extends Controller
 			        ->leftJoin('a.customer', 'b')
 			        ->innerJoin('a.shop', 'c')
 			        ->innerJoin('a.user', 'd')
-			        ->where('a.dateOrder BETWEEN :from AND :to')
-			        ->andwhere('a.state IN(:state)')
+			        
+			        ->where('a.state IN(:state)')
 			        ->andwhere('c.id IN(:shops)')
 			        ->andwhere('a.type IN(:type)')
-			        ->setParameter('from', $from)
-			        ->setParameter('to', $to)
+			        
 			        ->setParameter('state', implode(",",$status))
 			        ->setParameter('shops', implode(",",$shops))
 			        ->setParameter('type', implode(",",$type))
@@ -186,7 +185,13 @@ class ManagementController extends Controller
 			    $result = $query->getResult();
 
 
-				/*$dql = "SELECT
+				/*
+				->where('a.dateOrder BETWEEN :from AND :to')
+				->setParameter('from', $from)
+			        ->setParameter('to', $to)
+
+
+				$dql = "SELECT
 					a.id AS DBid,
 					CONCAT('#',c.extention,a.year,'-',a.idCompta) AS id,
 					CASE WHEN b.firstName != '' THEN CONCAT(b.firstName,' ',b.lastName) ELSE a.customerName END AS customerName,
