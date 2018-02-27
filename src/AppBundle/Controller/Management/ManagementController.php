@@ -190,7 +190,8 @@ class ManagementController extends Controller
 				->setParameter('from', $from)
 			        ->setParameter('to', $to)
 			        AND a.dateOrder BETWEEN ".$from->format("Y-m-d H:i")." AND ".$to->format("Y-m-d H:i").")
-
+					AND (DATE_FORMAT(a.dateOrder, '%Y-%m-%d') BETWEEN ".$from->format("Y-m-d")." AND ".$to->format("Y-m-d").")
+					
 	*/
 				$dql = "SELECT
 					a.id AS DBid,
@@ -216,14 +217,9 @@ class ManagementController extends Controller
 					WHERE a.state IN(".implode(",",$status).")
 					AND c.id IN(".implode(",",$shops).")
 					AND a.type IN(".implode(",",$type).")
-					AND (DATE_FORMAT(a.dateOrder, '%Y-%m-%d') BETWEEN ".$from->format("Y-m-d")." AND ".$to->format("Y-m-d").")
+					AND (DATE_FORMAT(a.dateOrder, '%Y-%m-%d %H:%i') BETWEEN '".$from->format("Y-m-d H:i")."' AND '".$to->format("Y-m-d H:i")."')
 					GROUP BY DBid";
 					
-					
-					
-					
-					
-
 				$em = $this->get('doctrine.orm.entity_manager');
 				$query = $em->createQuery($dql);
 		        $result = $query->getResult();
