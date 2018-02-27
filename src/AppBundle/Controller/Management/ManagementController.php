@@ -150,7 +150,7 @@ class ManagementController extends Controller
 
 				$type = $request->get('type');
 
-				$em = $this->getDoctrine()->getManager();
+				/*$em = $this->getDoctrine()->getManager();
 				$query = $em->createQueryBuilder()
 			        ->select("a.id AS DBid,
 						CONCAT('#',c.extention,a.year,'-',a.idCompta) AS id,
@@ -182,15 +182,16 @@ class ManagementController extends Controller
 			        ->setParameter('type', implode(",",$type))
 			        ->getQuery()
 			    ;
-			    $result = $query->getResult();
+			    $result = $query->getResult();*/
 
 
 				/*
 				->where('a.dateOrder BETWEEN :from AND :to')
 				->setParameter('from', $from)
 			        ->setParameter('to', $to)
+			        AND a.dateOrder BETWEEN ".$from->format("Y-m-d H:i")." AND ".$to->format("Y-m-d H:i").")
 
-
+	*/
 				$dql = "SELECT
 					a.id AS DBid,
 					CONCAT('#',c.extention,a.year,'-',a.idCompta) AS id,
@@ -215,9 +216,9 @@ class ManagementController extends Controller
 					WHERE a.state IN(".implode(",",$status).")
 					AND c.id IN(".implode(",",$shops).")
 					AND a.type IN(".implode(",",$type).")
-					AND a.dateOrder BETWEEN ".$from->format("Y-m-d H:i")." AND ".$to->format("Y-m-d H:i").")
+					
 					GROUP BY DBid";
-					/*
+					
 					
 					
 					
@@ -225,7 +226,7 @@ class ManagementController extends Controller
 
 				$em = $this->get('doctrine.orm.entity_manager');
 				$query = $em->createQuery($dql);
-		        $result = $query->getResult();*/
+		        $result = $query->getResult();
 
 
 	        	$serializer = new Serializer([new ObjectNormalizer()], [new CsvEncoder()]);
