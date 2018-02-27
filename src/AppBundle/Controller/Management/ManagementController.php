@@ -150,49 +150,6 @@ class ManagementController extends Controller
 
 				$type = $request->get('type');
 
-				/*$em = $this->getDoctrine()->getManager();
-				$query = $em->createQueryBuilder()
-			        ->select("a.id AS DBid,
-						CONCAT('#',c.extention,a.year,'-',a.idCompta) AS id,
-						CASE WHEN b.firstName != '' THEN CONCAT(b.firstName,' ',b.lastName) ELSE a.customerName END AS customerName,
-						a.type AS orderType,
-						c.name AS shopName,
-						c.country AS countryShop,
-						SUM(x.prixSoldHT) AS priceHT,
-						DATE_FORMAT(a.dateCivil, '%Y %m %d') AS weddingDate,
-						DATE_FORMAT(a.dateOrder, '%Y %m %d') AS orderDate,
-						DATE_FORMAT(a.dateValidation, '%Y %m %d') AS validationDate,
-						DATE_FORMAT(a.dateMinShip, '%Y %m %d') AS minShippingDate,
-						DATE_FORMAT(a.dateMaxShip, '%Y %m %d') AS maxShippingDate,
-						DATE_FORMAT(a.dateShipped, '%Y %m %d') AS shippingDate,
-						a.state AS status,
-						CONCAT(d.firstName,' ',d.lastName) AS creatorName")
-			        ->from('AppBundle:RarModelOrdered', 'x')
-			        ->innerJoin('x.order', 'a')
-			        ->leftJoin('a.customer', 'b')
-			        ->innerJoin('a.shop', 'c')
-			        ->innerJoin('a.user', 'd')
-			        
-			        ->where('a.state IN(:state)')
-			        ->andwhere('c.id IN(:shops)')
-			        ->andwhere('a.type IN(:type)')
-			        
-			        ->setParameter('state', implode(",",$status))
-			        ->setParameter('shops', implode(",",$shops))
-			        ->setParameter('type', implode(",",$type))
-			        ->getQuery()
-			    ;
-			    $result = $query->getResult();*/
-
-
-				/*
-				->where('a.dateOrder BETWEEN :from AND :to')
-				->setParameter('from', $from)
-			        ->setParameter('to', $to)
-			        AND a.dateOrder BETWEEN ".$from->format("Y-m-d H:i")." AND ".$to->format("Y-m-d H:i").")
-					AND (DATE_FORMAT(a.dateOrder, '%Y-%m-%d') BETWEEN ".$from->format("Y-m-d")." AND ".$to->format("Y-m-d").")
-					
-	*/
 				$dql = "SELECT
 					a.id AS DBid,
 					CONCAT('#',c.extention,a.year,'-',a.idCompta) AS id,
