@@ -200,12 +200,12 @@ class ManagementController extends Controller
 					c.name AS shopName,
 					c.country AS countryShop,
 					SUM(x.prixSoldHT) AS priceHT,
-					DATE_FORMAT(a.dateCivil, '%Y %m %d') AS weddingDate,
-					DATE_FORMAT(a.dateOrder, '%Y %m %d') AS orderDate,
-					DATE_FORMAT(a.dateValidation, '%Y %m %d') AS validationDate,
-					DATE_FORMAT(a.dateMinShip, '%Y %m %d') AS minShippingDate,
-					DATE_FORMAT(a.dateMaxShip, '%Y %m %d') AS maxShippingDate,
-					DATE_FORMAT(a.dateShipped, '%Y %m %d') AS shippingDate,
+					DATE_FORMAT(a.dateCivil, '%Y/%m/%d') AS weddingDate,
+					DATE_FORMAT(a.dateOrder, '%Y/%m/%d') AS orderDate,
+					DATE_FORMAT(a.dateValidation, '%Y/%m/%d') AS validationDate,
+					DATE_FORMAT(a.dateMinShip, '%Y/%m/%d') AS minShippingDate,
+					DATE_FORMAT(a.dateMaxShip, '%Y/%m/%d') AS maxShippingDate,
+					DATE_FORMAT(a.dateShipped, '%Y/%m/%d') AS shippingDate,
 					a.state AS status,
 					CONCAT(d.firstName,' ',d.lastName) AS creatorName
 					FROM AppBundle:RarModelOrdered x
@@ -216,7 +216,7 @@ class ManagementController extends Controller
 					WHERE a.state IN(".implode(",",$status).")
 					AND c.id IN(".implode(",",$shops).")
 					AND a.type IN(".implode(",",$type).")
-					
+					AND DATE_FORMAT(a.dateOrder, '%Y-%m-%d %H:%i') BETWEEN ".$from->format("Y-m-d H:i")." AND ".$to->format("Y-m-d H:i").")
 					GROUP BY DBid";
 					
 					
