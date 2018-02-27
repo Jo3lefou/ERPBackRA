@@ -44,7 +44,7 @@ class MeetingAjaxController extends Controller
 	        if($action == 'add'){
 	        	
 	        	$dataCustomerexist = $request->get('customerexist');
-				if($dataCustomerexist == false){
+				if($dataCustomerexist == 'false'){
 					///User Does not EXIST
 					$customer = new RarCustomer;
 
