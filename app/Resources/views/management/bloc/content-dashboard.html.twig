@@ -137,4 +137,69 @@
                 	</div>
                   </div>
                 </div>
+
+
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>{{ p2h2 }}</h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <form method="post" action="/{{locale}}/management/dashboard/extractorders.csv">
+					    <div class="col-md-4 col-sm-4 col-xs-4">
+					    	<div class="profile_title col-md-12">
+						        <div class="col-md-6">
+						          <h2>{%trans%}Choose status{%endtrans%}</h2>
+						        </div>
+					       	</div>
+	                    	<ul style="list-style-type:none;padding: 0px;margin: 71px 10px;">
+								<li class="col-md-6"><label><input type="checkbox" value="0" name="status[]" class="js-switch"/> {% trans %}Draft{% endtrans %}</label></li>
+								<li class="col-md-6"><label><input type="checkbox" value="1" name="status[]" class="js-switch"/> {% trans %}Pending{% endtrans %}</label></li>
+								<li class="col-md-6"><label><input type="checkbox" value="2" name="status[]" class="js-switch"/> {% trans %}Validated{% endtrans %}</label></li>
+								<li class="col-md-6"><label><input type="checkbox" value="3" name="status[]" class="js-switch"/> {% trans %}Error{% endtrans %}</label></li>
+								<li class="col-md-6"><label><input type="checkbox" value="4" name="status[]" class="js-switch"/> {% trans %}Canceled{% endtrans %}</label></li>
+								<li class="col-md-6"><label><input type="checkbox" value="5" name="status[]" class="js-switch"/> {% trans %}Delivered{% endtrans %}</label></li>
+								<li class="col-md-6"><label><input type="checkbox" value="6" name="status[]" class="js-switch"/> {% trans %}Stored in stock{% endtrans %}</label></li>
+		                    </ul>
+		                </div>
+		                <div class="col-md-4 col-sm-4 col-xs-4">
+		                	<div class="profile_title col-md-12">
+						        <div class="col-md-6">
+						          <h2>{%trans%}Choose shops{%endtrans%}</h2>
+						        </div>
+					       	</div>
+		                    <ul style="list-style-type:none;padding: 0px;margin: 71px 10px;">
+		                    	{% for shop in shops %}
+		                    	<li class="col-md-6"><label><input type="checkbox" value="{{ shop.id }}" name="shops[]" class="js-switch"/> {{ shop.name }}</label></li>
+		                    	{% endfor %}
+		                   	</ul>
+		                </div>
+		                <div class="col-md-4 col-sm-4 col-xs-4">
+		                	<div class="profile_title col-md-12">
+						        <div class="col-md-6">
+						          <h2>{%trans%}Choose type and time{%endtrans%}</h2>
+						        </div>
+					       	</div>
+					       	<div class="row" style="margin-top:71px">
+						       	<ul style="list-style-type:none;padding: 0px;margin: 0px 10px;">
+									<li class="col-md-6"><label><input type="checkbox" value="0" name="type[]" class="js-switch"/> {% trans %}Classic orders{% endtrans %}</label></li>
+									<li class="col-md-6"><label><input type="checkbox" value="1" name="type[]" class="js-switch"/> {% trans %}Prototype orders{% endtrans %}</label></li>
+									<li class="col-md-6"><label><input type="checkbox" value="2" name="type[]" class="js-switch"/> {% trans %}Stock orders{% endtrans %}</label></li>
+								</ul>
+							</div>
+					       	<div class="row" style="margin:10px">
+			                	<div class="pull-left" style="margin-top: 5px; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #E6E9ED">
+						            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+						            <input type="text" class="daterange" class="form-control" style="width: 310px;border: 0px;font-size: 16px;padding: 10px;"/><b class="caret"></b>
+						            <input type="hidden" value="" name="datestart" id="datestart"/>
+						            <input type="hidden" value="" name="dateend" id="dateend"/>
+						        </div>
+							    <input type="submit" class="btn btn-default" style="padding: 14px;margin-top: 8px;margin-left: 23px;" value="{% trans %}Extract{% endtrans %}"/>
+							</div>
+		                </div>
+                    </form>
+                  </div>
+                </div>
+
+
               </div>

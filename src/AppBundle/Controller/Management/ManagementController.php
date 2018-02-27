@@ -9,11 +9,13 @@ use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query\Parameter;
@@ -28,7 +30,7 @@ class ManagementController extends Controller
      * Security("has_role('ROLE_ADMIN') or has_role('ROLE_ACCOUNTING_MANAGER')")
      *
      */
-    public function indexAction($action = 'view', UserInterface $user)
+    public function indexAction($action = 'view', UserInterface $user, Request $request)
     {
     	$user = $this->get('security.token_storage')->getToken()->getUser();
         $firstName = $this->getUser()->getLastName();
@@ -125,12 +127,111 @@ class ManagementController extends Controller
 	                'title' => ' | Revenue Management',
 	                'h1title' => 'Bienvenue User',
 	                'p1h2' => $this->get('translator')->trans('Manage the revenue'),
+	                'p2h2' => $this->get('translator')->trans('Extract orders'),
 	                'bodyClass' => 'nav-md',
 	                'user' => $user,
-	                'dashboard' => $result
+	                'dashboard' => $result,
+	                'shops' => $shops,
 	            ));
 	        }elseif($action == 'extractManagementDashboard.csv'){
 	        	// Extract in file dashboard.csv
+
+	        }elseif($action == 'extractorders.csv'){
+				// Extract orders
+				$status = $request->get('status');
+				$shops = $request->get('shops');
+				$dateend = $request->get('dateend');
+				$dateend = new \DateTime($dateend);
+				$datestart = $request->get('datestart');
+				$datestart = new \DateTime($datestart);
+
+				$from = new \DateTime($datestart->format("Y-m-d")." 00:00:00");
+    			$to   = new \DateTime($dateend->format("Y-m-d")." 23:59:59");
+
+				$type = $request->get('type');
+
+				$em = $this->getDoctrine()->getManager();
+				$query = $em->createQueryBuilder()
+			        ->select("a.id AS DBid,
+						CONCAT('#',c.extention,a.year,'-',a.idCompta) AS id,
+						CASE WHEN b.firstName != '' THEN CONCAT(b.firstName,' ',b.lastName) ELSE a.customerName END AS customerName,
+						a.type AS orderType,
+						c.name AS shopName,
+						c.country AS countryShop,
+						SUM(x.prixSoldHT) AS priceHT,
+						DATE_FORMAT(a.dateCivil, '%Y %m %d') AS weddingDate,
+						DATE_FORMAT(a.dateOrder, '%Y %m %d') AS orderDate,
+						DATE_FORMAT(a.dateValidation, '%Y %m %d') AS validationDate,
+						DATE_FORMAT(a.dateMinShip, '%Y %m %d') AS minShippingDate,
+						DATE_FORMAT(a.dateMaxShip, '%Y %m %d') AS maxShippingDate,
+						DATE_FORMAT(a.dateShipped, '%Y %m %d') AS shippingDate,
+						a.state AS status,
+						CONCAT(d.firstName,' ',d.lastName) AS creatorName")
+			        ->from('AppBundle:RarModelOrdered', 'x')
+			        ->innerJoin('x.order', 'a')
+			        ->leftJoin('a.customer', 'b')
+			        ->innerJoin('a.shop', 'c')
+			        ->innerJoin('a.user', 'd')
+			        ->where('a.dateOrder BETWEEN :from AND :to')
+			        ->andwhere('a.state IN(:state)')
+			        ->andwhere('c.id IN(:shops)')
+			        ->andwhere('a.type IN(:type)')
+			        ->setParameter('from', $from)
+			        ->setParameter('to', $to)
+			        ->setParameter('state', implode(",",$status))
+			        ->setParameter('shops', implode(",",$shops))
+			        ->setParameter('type', implode(",",$type))
+			        ->getQuery()
+			    ;
+			    $result = $query->getResult();
+
+
+				/*$dql = "SELECT
+					a.id AS DBid,
+					CONCAT('#',c.extention,a.year,'-',a.idCompta) AS id,
+					CASE WHEN b.firstName != '' THEN CONCAT(b.firstName,' ',b.lastName) ELSE a.customerName END AS customerName,
+					a.type AS orderType,
+					c.name AS shopName,
+					c.country AS countryShop,
+					SUM(x.prixSoldHT) AS priceHT,
+					DATE_FORMAT(a.dateCivil, '%Y %m %d') AS weddingDate,
+					DATE_FORMAT(a.dateOrder, '%Y %m %d') AS orderDate,
+					DATE_FORMAT(a.dateValidation, '%Y %m %d') AS validationDate,
+					DATE_FORMAT(a.dateMinShip, '%Y %m %d') AS minShippingDate,
+					DATE_FORMAT(a.dateMaxShip, '%Y %m %d') AS maxShippingDate,
+					DATE_FORMAT(a.dateShipped, '%Y %m %d') AS shippingDate,
+					a.state AS status,
+					CONCAT(d.firstName,' ',d.lastName) AS creatorName
+					FROM AppBundle:RarModelOrdered x
+					INNER JOIN x.order a
+					LEFT JOIN a.customer b
+					INNER JOIN a.shop c
+					INNER JOIN a.user d
+					WHERE a.state IN(".implode(",",$status).")
+					AND c.id IN(".implode(",",$shops).")
+					AND a.type IN(".implode(",",$type).")
+					AND a.dateOrder BETWEEN ".$from->format("Y-m-d H:i")." AND ".$to->format("Y-m-d H:i").")
+					GROUP BY DBid";
+					/*
+					
+					
+					
+					
+
+				$em = $this->get('doctrine.orm.entity_manager');
+				$query = $em->createQuery($dql);
+		        $result = $query->getResult();*/
+
+
+	        	$serializer = new Serializer([new ObjectNormalizer()], [new CsvEncoder()]);
+	        	$file = $serializer->encode($result, 'csv');
+	        	$response = new Response($file);
+	        	$response->headers->set('Content-Type', 'text/csv');
+	        	/*return new Response(
+		            '<html><body>'.$dql.'</body></html>'
+		        );*/
+		        return $response;
+	       		
 	        }else{
 	        	return $this->redirect('login');
 	        }

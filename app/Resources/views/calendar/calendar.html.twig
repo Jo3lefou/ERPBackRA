@@ -65,7 +65,7 @@
         <div class="modal-content">
 
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <button type="button" class="close antoclose3" aria-hidden="true">×</button>
             <h4 class="modal-title" id="myModalLabel">New Calendar Entry</h4>
           </div>
           <div class="modal-body">
@@ -269,7 +269,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default antoclose" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-default antoclose3">Close</button>
+            <button type="button" class="btn btn-default antoclose2" style="display:none" data-dismiss="modal">Close</button>
             <button type="button" class="btn btn-primary antosubmit">Save changes</button>
           </div>
         </div>
@@ -280,7 +281,7 @@
         <div class="modal-content">
 
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <button type="button" class="close antoclose3" aria-hidden="true">×</button>
             <h4 class="modal-title" id="myModalLabel2">Edit meeting for our guest <span id="nameCustomer"></span></h4>
           </div>
           <div class="modal-body">
@@ -365,15 +366,16 @@
           <div class="modal-footer">
             <button type="button" rel="{{ url('homepage') }}{{ locale }}/customers/single/view/" class="btn btn-success antoviewcustomer2">Voir client</button>
             <button type="button" class="btn btn-danger antocancel2">Annuler le rendez-vous</button>
-            <button type="button" class="btn btn-default antoclose2" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-default antoclose3">Close</button>
+            <button type="button" class="btn btn-default antoclose2" style="display:none" data-dismiss="modal">Close</button>
             <button type="button" class="btn btn-primary antosubmit2">Save changes</button>
           </div>
         </div>
       </div>
     </div>
 
-    <div id="fc_create" data-toggle="modal" data-target="#CalenderModalNew"></div>
-    <div id="fc_edit" data-toggle="modal" data-target="#CalenderModalEdit"></div>
+    <div id="fc_create" data-toggle="modal" data-target="#CalenderModalNew" data-backdrop="static" data-keyboard="false"></div>
+    <div id="fc_edit" data-toggle="modal" data-target="#CalenderModalEdit" data-backdrop="static" data-keyboard="false"></div>
     <!-- end calendar modal -->
 
 
@@ -612,7 +614,8 @@
                             $('.antosubmit').off('click').click(function(){
                               g.fullCalendar("unselect");
                             });
-                          })
+                          });
+                          
                     },
                     eventClick: function(a, b, c) {
                       /****** CLICK ON EVENT **********/
@@ -717,6 +720,14 @@
                               g.fullCalendar("unselect");
                               //$('.antoviewcustomer2').attr('href', href);
                             });
+                        }), g.fullCalendar("unselect");
+
+                        /******* CLICK SUR CLOSE *********/
+                        $(".antoclose3").on("click", function() {
+                          $(".antoclose2").click();
+                          $('.antosubmit2').off('click').click(function(){
+                            g.fullCalendar("unselect");
+                          });
                         }), g.fullCalendar("unselect");
                     },
                     editable: !0,

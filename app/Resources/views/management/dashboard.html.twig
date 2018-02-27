@@ -95,7 +95,8 @@
     <!-- bootstrap-daterangepicker -->
     <script src="{{ url('homepage') }}vendors/moment/min/moment.min.js"></script>
     <script src="{{ url('homepage') }}vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-
+    <!-- Switchery -->
+    <script src="{{ url('homepage') }}vendors/switchery/dist/switchery.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="{{ url('homepage') }}build/js/custom.min.js"></script>
 
@@ -173,6 +174,18 @@
     config.element = 'area-chart';
     Morris.Area(config);
 
+    $('input.daterange').daterangepicker({
+          locale: {
+            format: 'YYYY-MM-DD'
+          },
+          startDate: '2018-01-01',
+          endDate: '2018-12-31',
+          "drops": "up"
+      }, 
+      function(start, end, label) {
+        $('#dateend').val(end.format('YYYY-MM-DD'));
+        $('#datestart').val(start.format('YYYY-MM-DD'));
+      });
 
     </script>
 {% endblock %}
