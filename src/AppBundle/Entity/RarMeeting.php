@@ -126,7 +126,7 @@ class RarMeeting
     protected $location;
 
     /**
-     * @ORM\ManyToOne(targetEntity="RarCustomer", inversedBy="meetings", cascade="persist")
+     * @ORM\ManyToOne(targetEntity="RarCustomer", inversedBy="meetings", cascade="persist", fetch="LAZY")
      * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
      */
     protected $customer;

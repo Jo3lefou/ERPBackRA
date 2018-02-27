@@ -30,7 +30,7 @@ class MeetingsController extends Controller
      *
      * Security("has_role('ROLE_ADMIN') or has_role('ROLE_SALE_MANAGER') or has_role('ROLE_ACCOUNTING_MANAGER')")
      */
-    public function listAction(UserInterface $user, $type = 'cancelet')
+    public function listAction(UserInterface $user, $type = 'canceled')
     {
     	$user = $this->get('security.token_storage')->getToken()->getUser();
         $idUser = $this->getUser()->getId();
@@ -40,6 +40,32 @@ class MeetingsController extends Controller
         $locale = $this->getUser()->getLocale();
         $name = $firstName.' '.$lastName;
 
+        $em = $this->get('doctrine.orm.entity_manager');
+
+        $dql = "SELECT 
+                a.id AS id,
+                c.id AS cusId,
+                CONCAT(c.firstName, ' ', c.lastName) as customerName, 
+                a.name as title,
+                a.comment, 
+                a.type as type,
+                a.notifStatus,
+                CONCAT(date(a.startDate), ' ', time(a.startDate)) AS starta,
+                CONCAT(date(a.endDate), ' ', time(a.endDate)) AS enda,
+                b.id AS sale, 
+                CONCAT(b.firstName, ' ', b.lastName) AS namesale,
+                b.userColor as color,
+                CASE WHEN d.id IS NULL or d.id = '' THEN '0' ELSE d.id AS lieu,
+                d.name AS lieuName
+
+                FROM AppBundle:RarMeeting a
+                INNER JOIN a.sale b
+                INNER JOIN a.customer c
+                INNER JOIN a.location d
+                WHERE a.state = 2
+            ";
+        $query = $em->createQuery($dql);
+        $meetings = $query->getResult();
 
         // RETURN
         if($user){
@@ -57,6 +83,7 @@ class MeetingsController extends Controller
                     'h1title' => $this->get('translator')->trans('Calendar'),
                     'bodyClass' => 'nav-md',
                     'user' => $user,
+                    'meetings' => $meetings,
                 )
             );
         }else{
