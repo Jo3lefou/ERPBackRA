@@ -216,7 +216,7 @@ class ManagementController extends Controller
 					WHERE a.state IN(".implode(",",$status).")
 					AND c.id IN(".implode(",",$shops).")
 					AND a.type IN(".implode(",",$type).")
-					AND DATE_FORMAT(a.dateOrder, '%Y-%m-%d %H:%i') BETWEEN ".$from->format("Y-m-d H:i")." AND ".$to->format("Y-m-d H:i").")
+					AND DATE_FORMAT(a.dateOrder, '%Y-%m-%d') BETWEEN ".$from->format("Y-m-d")." AND ".$to->format("Y-m-d").")
 					GROUP BY DBid";
 					
 					
