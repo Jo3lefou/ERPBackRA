@@ -3,7 +3,8 @@
 namespace AppBundle\Controller\Management;
 
 use AppBundle\Entity\RarModelOrdered;
-use AppBundle\Entity\Rarshop;
+use AppBundle\Entity\RarShop;
+use AppBundle\Entity\RarPayment;
 
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
@@ -144,6 +145,7 @@ class ManagementController extends Controller
 				$dateend = new \DateTime($dateend);
 				$datestart = $request->get('datestart');
 				$datestart = new \DateTime($datestart);
+				$payment = $request->get('payment');
 
 				$from = new \DateTime($datestart->format("Y-m-d")." 00:00:00");
     			$to   = new \DateTime($dateend->format("Y-m-d")." 23:59:59");
@@ -181,13 +183,31 @@ class ManagementController extends Controller
 				$query = $em->createQuery($dql);
 		        $result = $query->getResult();
 
+		        if($payment == '1'){
+		        	$resultrime = array();
+					foreach($result as $key => $order){
+					    $query = $this->getDoctrine()->getRepository('AppBundle:RarPayment');
+					    $queryPayment = $query->createQueryBuilder('p')
+					    ->select("sum(p.amount)")
+					    ->Where('p.order = :order')
+						->setParameter('order', $order['DBid'])
+					    ->getQuery();
+					    $resultrime[$key] = $queryPayment->getResult();
+
+					    if(!isset($resultrime['payment'])){
+							$resultrime['payment'] = 0;
+						}
+					    $result[$key]['payment'] = $resultrime[$key][0][1];
+					}
+		        }
+		        
 
 	        	$serializer = new Serializer([new ObjectNormalizer()], [new CsvEncoder()]);
 	        	$file = $serializer->encode($result, 'csv');
 	        	$response = new Response($file);
 	        	$response->headers->set('Content-Type', 'text/csv');
 	        	/*return new Response(
-		            '<html><body>'.$dql.'</body></html>'
+		            '<html><body>THE RESULT'.print_r($result).'<br/><br/>THE RESULT RIME<br/>'.print_r($resultrime).'</body></html>'
 		        );*/
 		        return $response;
 	       		
