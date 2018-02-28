@@ -18,7 +18,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class ProfileController extends Controller
 {
     /**
-     * @Route("/{_locale}/profile/{id}", defaults={"id"="null"}, name="profile")
+     * @Route("/{_locale}/profile/{id}", defaults={"id"="me"}, name="profile")
      */
     public function indexAction($id)
     {
@@ -29,7 +29,7 @@ class ProfileController extends Controller
         $name = $firstName.' '.$lastName;
 
 
-        if($id == "null"){
+        if($id == "me"){
             $usertoDisplay = $user;
         }else{
             $em = $this->getDoctrine()->getManager();
