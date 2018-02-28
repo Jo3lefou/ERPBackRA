@@ -33,7 +33,11 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
+                {% if user.id == usertodisplay.id %}
                 <h3>{% trans %}Your profile{% endtrans %}</h3>
+                {%else%}
+                <h3>{% trans %}Profile of{% endtrans %} {{ usertodisplay.firstName }} {{ usertodisplay.lastName }}</h3>
+                {%endif%}
               </div>
               <div class="title_right">
                 <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
@@ -65,27 +69,28 @@
                       <div class="profile_img">
                         <div id="crop-avatar">
                           <!-- Current avatar -->
-                          {% if ( user.imagePath ) %}
-                          <img src="{{ asset('uploads/pic/profile/' ~ user.imagePath) | imagine_filter('big_thumb') }}" alt="">
+                          {% if ( usertodisplay.imagePath ) %}
+                          <img src="{{ asset('uploads/pic/profile/' ~ usertodisplay.imagePath) | imagine_filter('big_thumb') }}" alt="">
                           {% else %}
                           <img class="img-responsive avatar-view" src="{{ url('homepage') }}build/images/profilpic.png" alt="Avatar" title="Change the avatar">
                           {% endif %}
                          
                         </div>
                       </div>
-                      <h3><span class="puce color" style="background-color:{{ user.userColor }};"></span> {{ name }}</h3>
+                      <h3><span class="puce color" style="background-color:{{ usertodisplay.userColor }};"></span> {{ usertodisplay.firstName }} {{ usertodisplay.lastName }}</h3>
 
                       <ul class="list-unstyled user_data">
-                        <li><i class="fa fa-map-marker user-profile-icon"></i> {{ user.city }}, {{ user.state }}, {{ user.country }}
+                        <li><i class="fa fa-map-marker user-profile-icon"></i> {{ usertodisplay.city }}, {{ usertodisplay.state }}, {{ usertodisplay.country }}
                         </li>
 
                         <li>
                           <i class="fa fa-briefcase user-profile-icon"></i> (Job title)
                         </li>
                       </ul>
-
+                      {% if user.id == usertodisplay.id %}
                       <a href="/{{ locale }}/profile/edit/" class="btn btn-success"><i class="fa fa-edit m-right-xs"></i> Edit Profile</a>
                       <br />
+                      {% endif %}
 
                       <!-- start skills -->
                       <h4>Skills</h4>

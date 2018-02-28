@@ -10,21 +10,18 @@
       <div class="clearfix"></div>
     </div>
     <div class="x_content">
-      <table id="datatable-buttons" class="table table-striped table-bordered">
+      <table id="datatable" class="table table-striped table-bordered">
         <thead>
           <tr>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th>{% trans %}Customer name{% endtrans %}</th>
+            <th>{% trans %}Title meeting{% endtrans %}</th>
+            <th>{% trans %}Comment{% endtrans %}</th>
+            <th>{% trans %}Type{% endtrans %}</th>
+            <th>{% trans %}Notification{% endtrans %}</th>
+            <th>{% trans %}Start Date{% endtrans %}</th>
+            <th>{% trans %}End Date{% endtrans %}</th>
+            <th>{% trans %}Name Sales{% endtrans %}</th>
+            <th>{% trans %}Location{% endtrans %}</th>
           </tr>
         </thead>
         <tbody>
@@ -33,15 +30,25 @@
 					<td>{{ meeting.customerName }}</td>
 					<td>{{ meeting.title }}</td>
 					<td>{{ meeting.comment }}</td>
-					<td>{{ meeting.type }}</td>
-					<td>{{ meeting.notifStatus }}</td>
+					<td>{% if meeting.type == 1 %}
+              {%trans%}1st Meeting{%endtrans%}
+            {% elseif meeting.type == 2 %}
+              {%trans%}2nd Meeting{%endtrans%}
+            {% elseif meeting.type == 3 %}
+              {%trans%}1st try{%endtrans%}
+            {% elseif meeting.type == 4 %}
+              {%trans%}2nd try{%endtrans%}
+            {% elseif meeting.type == 0 %}
+              {%trans%}Other{%endtrans%}
+            {% elseif meeting.type == 5 %}
+              {%trans%}PickUp Store{%endtrans%}
+            {%endif%}
+          </td>
+					<td>{% if meeting.notifStatus == 1 %}<i class="fa fa-check green"></i>{%else%}<i class="fa fa-times red"></i>{%endif%}</td>
 					<td>{{ meeting.starta }}</td>
 					<td>{{ meeting.enda }}</td>
-					<td>{{ meeting.sale }}</td>
-					<td>{{ meeting.namesale }}</td>
-					<td>{{ meeting.color }}</td>
-					<td>{{ meeting.lieu }}</td>
-					<td>{{ meeting.lieuName }}</td>
+					<td><a href='/{{ locale }}/profile/{{ meeting.sale }}'><span class="puce color" style="background-color:{{ meeting.color }};margin-top: -2px;margin-bottom: -5px;"></span> {{ meeting.namesale }}</a></td>
+					<td><a href='{{ meeting.lieu }}'>{{ meeting.lieuName }}</a></td>
 				</tr>
 			{% endfor %}
         </tbody>
