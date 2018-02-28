@@ -40,6 +40,7 @@ class CustomerController extends Controller
             $query = $em->createQuery($dql);
             $paginator  = $this->get('knp_paginator');
             $pagination = $paginator->paginate( $query, $request->query->getInt('page', 1), $number );
+
         }elseif($display == 'search'){
             $request = new Request($_GET);
             $term = $request->query->get('term');
@@ -49,6 +50,7 @@ class CustomerController extends Controller
             $paginator  = $this->get('knp_paginator');
             $pagination = $paginator->paginate( $query, $request->query->getInt('page', 1), $number );
             $searchTerm = $term;
+            
         }else{
             return $this->redirect('/admin/'.$locale.'/customers/view/'.$number);
         }

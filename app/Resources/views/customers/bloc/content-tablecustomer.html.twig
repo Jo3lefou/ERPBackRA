@@ -51,7 +51,6 @@
             <th{% if pagination.isSorted('a.city') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'City', 'a.city') }}</th>
             <th{% if pagination.isSorted('a.phone') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Phone', 'a.phone') }}</th>
             <th{% if pagination.isSorted('a.email') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Email', 'a.email') }}</th>
-            <th>{% trans %}Nb Orders{% endtrans %}</th>
             <th{% if pagination.isSorted('a.dateCreation') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Cus. since', 'a.dateCreation') }}</th>
           </tr>
         </thead>
@@ -64,7 +63,6 @@
             <td>{{ customer.city }}</td>
             <td>{{ customer.phone }}</td>
             <td>{{ customer.email }}</td>
-            <td>{{ customer.orders|length }}</td>
             <td>{{ customer.dateCreation | date('Y-m-d') }}</td>
           </tr>
           {% endfor %}

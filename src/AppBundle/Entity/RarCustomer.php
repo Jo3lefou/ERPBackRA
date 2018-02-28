@@ -121,17 +121,17 @@ class RarCustomer
     private $dateModification;
 
     /**
-     * @ORM\OneToMany(targetEntity="RarOrder", mappedBy="customer",cascade={"persist"}, fetch="EAGER")
+     * @ORM\OneToMany(targetEntity="RarOrder", mappedBy="customer",cascade={"persist"})
      */
     private $orders;
 
     /**
-     * @ORM\OneToMany(targetEntity="RarNotes", mappedBy="customer",cascade={"persist"}, fetch="EAGER")
+     * @ORM\OneToMany(targetEntity="RarNotes", mappedBy="customer",cascade={"persist"})
      */
     private $notes;
 
     /**
-     * @ORM\OneToMany(targetEntity="RarMeeting", mappedBy="customer", cascade="persist")
+     * @ORM\OneToMany(targetEntity="RarMeeting", mappedBy="customer", cascade={"persist"})
      */
     protected $meetings;
 
