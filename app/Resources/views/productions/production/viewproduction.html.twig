@@ -22,7 +22,7 @@
         <!-- page content -->
         <div class="right_col" role="main">
           <div class="title_left">
-            <h3>{{ h1 }} {% if order.idCompta|length < 1 %}
+            <h3>{%trans%}Dress for{%endtrans%} {{ h1 }} {% if order.idCompta|length < 1 %}
                       DRAFT
                     {% elseif order.idCompta|length < 2 %}
                       #{{ order.shop.extention }}000{{ order.idCompta }}-{{ order.year }}
@@ -39,6 +39,7 @@
                   {{ message }}
               </div>
           {% endfor %}
+
 
           <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -150,8 +151,48 @@
                   </div>
                 </div>
 
-                <div class="row">
+            <div class="row">
             <!-- Tiles -->
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Change the status now ! <small>you have received that dress, or you want to change the status, let us know !</small></h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                  <div class="col-md-3 col-sm-1 col-xs-12"></div>
+                  <div class="input-group input-group-lg col-md-6 col-sm-10 col-xs-12">
+                    <span class="input-group-addon" id="sizing-addon1">New status :</span>
+                    <select class="form-group" class="form-control" style="width: 100%;padding: 26px;margin-bottom: 0px;border: 1px solid #DDD;border-radius: 0px 10px 10px 0px;font-size: 150%;">
+                      <option></option>
+                      {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SALE_MANAGER') or is_granted('ROLE_SALE') or is_granted('ROLE_PRODUCTION_MANAGER') %}
+                      <option value="0">Set to "to be done"</option>
+                      <option value="1">Set to in Stock</option>
+                      <option value="2">Set to sent to workroom</option>
+                      <option value="3">Set to cut</option>
+                      <option value="4">Set to in production</option>
+                      <option value="5">Set to sent by workroom</option>
+                      <option value="6">Set to received</option>
+                      <option value="7">Set to received with error</option>
+                      <option value="8">Set to controled</option>
+                      <option value="9">Set to delivered</option>
+                      <option value="10">Set to finished</option>
+                      {% elseif is_granted('ROLE_PROVIDER') %}
+                      <option value="3">Set to cut</option>
+                      <option value="4">Set to in production</option>
+                      <option value="5">Set to sent by workroom</option>
+                      {% elseif is_granted('ROLE_USER') %}
+                      <option value="6">Set to received</option>
+                      <option value="7">Set to received with error</option>
+                      <option value="8">Set to controled</option>
+                      <option value="9">Set to delivered</option>
+                      {% endif %}
+                    </select>
+                  </div>
+                  <div class="col-md-3 col-sm-1 col-xs-12"></div>
+                </div>
+              </div>
+            </div>
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="x_panel">
                 <div class="x_title">
@@ -169,18 +210,20 @@
                         {% elseif modelOrdered.status == 2 %}
                           <span class="label label-default state st-ew">Sent to the workroom</span>
                         {% elseif modelOrdered.status == 3 %}
-                          <span class="label label-default state st-ecp">Error</span>
+                          <span class="label label-default state st-cut">Cut</span>
                         {% elseif modelOrdered.status == 4 %}
-                          <span class="label label-default state st-epf">In production</span>
+                          <span class="label label-default state st-ecp">In production</span>
                         {% elseif modelOrdered.status == 5 %}
-                          <span class="label label-default state st-rs">Done at the workroom</span>
+                          <span class="label label-default state st-epf">Sent by the workroom</span>
                         {% elseif modelOrdered.status == 6 %}
-                          <span class="label label-default state st-rse">Error</span>
+                          <span class="label label-default state st-rs">Received</span>
                         {% elseif modelOrdered.status == 7 %}
-                          <span class="label label-default state st-cs">Controled</span>
+                          <span class="label label-default state st-rse">Error</span>
                         {% elseif modelOrdered.status == 8 %}
-                          <span class="label label-default state st-lc">Delivered</span>
+                          <span class="label label-default state st-cs">Controled</span>
                         {% elseif modelOrdered.status == 9 %}
+                          <span class="label label-default state st-lc">Delivered</span>
+                        {% elseif modelOrdered.status == 10 %}
                           <span class="label label-default state st-lc">Finished</span>
                         {% endif %}
                     </div>

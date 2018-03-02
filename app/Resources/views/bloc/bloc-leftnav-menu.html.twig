@@ -31,6 +31,12 @@
                       <li><a href="/{{ locale }}/production/view/all/all/all">{% trans %}All production{% endtrans %}</a></li>
                       <li><a href="/{{ locale }}/papproduction/view/all/all/all">{% trans %}RtW production{% endtrans %}</a></li>
                       <li><a href="/{{ locale }}/ceremonyproduction/view/all/all/all">{% trans %}Ceremony production{% endtrans %}</a></li>
+                      <li><a>{% trans %}ToolBox{% endtrans %}<span class="fa fa-chevron-down"></span></a>
+                          <ul class="nav child_menu" style="display: block;">
+                            <li class="sub_menu"><a href="/{{ locale }}/prodtoolbox/expedition">{% trans %}Expedition Tracker{% endtrans %}</a></li>
+                            <li><a href="/{{ locale }}/prodtoolbox/daysheet">{% trans %}Showroom day sheet{% endtrans %}</a></li>
+                          </ul>
+                        </li>
                     </ul>
                   </li>
                   {% endif %}

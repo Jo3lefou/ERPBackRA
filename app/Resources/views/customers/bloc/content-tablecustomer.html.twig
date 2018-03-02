@@ -47,7 +47,7 @@
         <thead>
           <tr>
             <th{% if pagination.isSorted('a.lastName') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Last name', 'a.lastName') }}</th>
-            <th{% if pagination.isSorted('a.firstName') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'First name', 'a.fistName') }}</th>
+            <th{% if pagination.isSorted('a.firstName') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'First name', 'a.firstName') }}</th>
             <th{% if pagination.isSorted('a.city') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'City', 'a.city') }}</th>
             <th{% if pagination.isSorted('a.phone') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Phone', 'a.phone') }}</th>
             <th{% if pagination.isSorted('a.email') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Email', 'a.email') }}</th>

@@ -50,8 +50,10 @@
 {% endblock %}
 
 {% block footer %}
-  <!-- jQuery -->
+    <!-- jQuery -->
     <script src="{{ url('homepage') }}vendors/jquery/dist/jquery.min.js"></script>
+    <!-- jquery-ui -->
+    <script src="{{ url('homepage') }}vendors/jquery-ui/jquery-ui-dp.min.js"></script>
     <!-- Bootstrap -->
     <script src="{{ url('homepage') }}vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- FastClick -->
@@ -104,6 +106,8 @@
     <script src="{{ url('homepage') }}vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
     <script src="{{ url('homepage') }}vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
     <script src="{{ url('homepage') }}vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+    <!-- ColorPicker -->
+    <script src="{{ url('homepage') }}vendors/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
 
     <!-- Custom Theme Scripts -->
     <script src="{{ url('homepage') }}build/js/custom.min.js"></script>
@@ -186,18 +190,21 @@
       });
 
       // On change Modify send an Ajax Request
-      $('.dateTableEditor').datetimepicker({
-        format: 'YYYY/MM/DD'
+      $('.dateTableEditor').datepicker({
+        "dateFormat":"yy/mm/dd"
       });
-      $(".dateTableEditor").on("dp.change", function(e) {
+
+      $(".dateTableEditor").on("change", function(e) {
+        console.log(e);
         var id = $(this).attr('rel');
         var action = $(this).attr('data-action');
-        var formatedValue = e.date.format(e.date._f);
+        var date = $(this).val();
+
         $.ajax( {
           type:"GET",
           url: "{{ (path('app_production_route')) }}",
           dataType: "json",
-          data: { value: formatedValue, action: action, elem: id },
+          data: { value: date, action: action, elem: id },
           success: function( data ) {
             if(isEmpty(data.error)){
               var message = data.valid;

@@ -134,6 +134,7 @@
                               <th>{% trans %}SKU{% endtrans %}</th>
                               <th>{% trans %}Name{% endtrans %}</th>
                               <th>{% trans %}Size{% endtrans %}</th>
+                              <th>{% trans %}Length{% endtrans %}</th>
                               <th>{% trans %}Status{% endtrans %}</th>
                               <th>{% trans %}Min. Ship Date{% endtrans %}</th>
                               <th>{% trans %}Max. Ship Date{% endtrans %}</th>
@@ -209,6 +210,7 @@
                                 <td>{{ production.model.sku }}</td>
                                 <td>{{ production.model.name }}</td>
                                 <td>{{ production.size }}</td>
+                                <td>{{ production.heels }}</td>
                                 <td>
                                   {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PRODUCTION_MANAGER') %}
                                   <div class="btn-group">
