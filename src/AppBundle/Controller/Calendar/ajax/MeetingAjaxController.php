@@ -295,9 +295,9 @@ class MeetingAjaxController extends Controller
 
 	        $encoders = array(new XmlEncoder(), new JsonEncoder());
 			$normalizers = array(new ObjectNormalizer());
-			$normalizer->setCircularReferenceLimit(1);
+			$normalizers->setCircularReferenceLimit(1);
 			// Add Circular reference handler
-			$normalizer->setCircularReferenceHandler(function ($object) {
+			$normalizers->setCircularReferenceHandler(function ($object) {
 			    return $object->getId();
 			});
 	    	$serializer = new Serializer($normalizers, $encoders);
