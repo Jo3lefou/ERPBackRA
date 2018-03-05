@@ -293,7 +293,7 @@ class MeetingAjaxController extends Controller
 	        //json_encode($response);
 	        
 
-	        $encoders = array(new XmlEncoder(), new JsonEncoder());
+	        /*$encoders = array(new XmlEncoder(), new JsonEncoder());
 			$normalizers = array(new ObjectNormalizer());
 			$normalizers->setCircularReferenceLimit(1);
 			// Add Circular reference handler
@@ -301,8 +301,8 @@ class MeetingAjaxController extends Controller
 			    return $object->getId();
 			});
 	    	$serializer = new Serializer($normalizers, $encoders);
-			return new Response($serializer->serialize($response, 'json'));
-			//return new Response(json_encode($response));
+			return new Response($serializer->serialize($response, 'json'));*/
+			return new Response(json_encode($response));
 	    }
 	    return new Response('This is not ajax!', 400);
 
