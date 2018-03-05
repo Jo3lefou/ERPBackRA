@@ -63,7 +63,7 @@ class EditModelController extends Controller
 
                 // UPLOAD IMAGE
                 $urlImg = $form->get('urlImg')->getData();
-                if($urlImg){
+                if($urlImg != ''){
                     // On supprime le fichier précédent
                     $path = $this->getParameter('files_directory');
                     $fileToRemove = $entity->getUrlImg();
