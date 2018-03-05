@@ -136,6 +136,11 @@ class RarCustomer
     protected $meetings;
 
     /**
+     * @ORM\OneToMany(targetEntity="RarPublicForm", mappedBy="customer", cascade={"persist"})
+     */
+    protected $publicForms;
+
+    /**
      * Set id
      *
      * @param integer $id
@@ -566,5 +571,76 @@ class RarCustomer
     {
         return $this->notes;
     }
+
+
+    /**
+     * Add meeting
+     *
+     * @param \AppBundle\Entity\RarMeeting $meeting
+     *
+     * @return RarMeeting
+     */
+    public function addMeetings(\AppBundle\Entity\RarMeeting $meeting)
+    {
+        $this->meetings[] = $meeting;
+
+        return $this;
+    }
+
+    /**
+     * Remove meeting
+     *
+     * @param \AppBundle\Entity\RarMeeting $meetings
+     */
+    public function removeMeetings(\AppBundle\Entity\RarMeeting $meetings)
+    {
+        $this->meetings->removeElement($meeting);
+    }
+
+    /**
+     * Get notes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMeetings()
+    {
+        return $this->meetings;
+    }
+
+
+    /**
+     * Add publicForm
+     *
+     * @param \AppBundle\Entity\RarPublicForm $publicForm
+     *
+     * @return RarPublicForm
+     */
+    public function addPublicForms(\AppBundle\Entity\RarPublicForm $publicForms)
+    {
+        $this->publicForms[] = $publicForm;
+
+        return $this;
+    }
+
+    /**
+     * Remove publicForm
+     *
+     * @param \AppBundle\Entity\RarPublicForm $publicForms
+     */
+    public function removePublicForms(\AppBundle\Entity\RarPublicForm $publicForms)
+    {
+        $this->publicForms->removeElement($publicForm);
+    }
+
+    /**
+     * Get notes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPublicForms()
+    {
+        return $this->publicForms;
+    }
+
 }
 

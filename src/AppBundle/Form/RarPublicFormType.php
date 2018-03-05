@@ -40,7 +40,8 @@ class RarPublicFormType extends AbstractType
                         'No' => 0
                     ),
                 'expanded' => true,
-                'multiple' => false
+                'multiple' => false,
+                'required'   => false,
                 ])
             ->add('q6', ChoiceType::class, [
                 'choices' => array(
@@ -50,7 +51,9 @@ class RarPublicFormType extends AbstractType
                 'expanded' => true,
                 'multiple' => false
                 ])
-            ->add('q7', TextType::class)
+            ->add('q7', TextType::class, [
+                'required'   => false,
+                ])
             ->add('q8', ChoiceType::class, [
                 'choices' => array(
                         'Yes' => 1,
@@ -59,7 +62,9 @@ class RarPublicFormType extends AbstractType
                 'expanded' => true,
                 'multiple' => false
                 ])
-            ->add('q9', TextType::class)
+            ->add('q9', TextType::class, [
+                'required'   => false,
+                ])
             ->add('q10', TextType::class)
             ->add('save', SubmitType::class)
             ->getForm();

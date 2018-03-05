@@ -131,6 +131,13 @@ class RarMeeting
      */
     protected $customer;
 
+    /**
+     * One publicForm has One Customer.
+     * @ORM\OneToOne(targetEntity="RarPublicForm", inversedBy="meeting")
+     * @ORM\JoinColumn(name="publicform_id", referencedColumnName="id")
+     */
+    protected $publicForm;
+
 
     /**
      * Get id
@@ -450,6 +457,30 @@ class RarMeeting
     public function setCustomer(\AppBundle\Entity\RarCustomer $customer = null)
     {
         $this->customer = $customer;
+
+        return $this;
+    }
+
+    /**
+     * Get publicForm
+     *
+     * @return \AppBundle\Entity\RarPublicForm
+     */
+    public function getPublicForm()
+    {
+        return $this->publicForm;
+    }
+
+    /**
+     * Set publicForm
+     *
+     * @param \AppBundle\Entity\RarPublicForm $customer
+     *
+     * @return RarPublicForm
+     */
+    public function setPublicForm(\AppBundle\Entity\RarPublicForm $publicForm = null)
+    {
+        $this->publicForm = $publicForm;
 
         return $this;
     }

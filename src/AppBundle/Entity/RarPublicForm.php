@@ -31,14 +31,14 @@ class RarPublicForm
     /**
      * @var string
      *
-     * @ORM\Column(name="q", type="string", length=255)
+     * @ORM\Column(name="q2", type="string", length=255)
      */
     private $q2;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="q3", type="string", length=255)
+     * @ORM\Column(name="q3", type="string", length=255, nullable=true)
      */
     private $q3;
 
@@ -52,7 +52,7 @@ class RarPublicForm
     /**
      * @var string
      *
-     * @ORM\Column(name="q5", type="string", length=255)
+     * @ORM\Column(name="q5", type="string", length=255, nullable=true)
      */
     private $q5;
 
@@ -66,7 +66,7 @@ class RarPublicForm
     /**
      * @var string
      *
-     * @ORM\Column(name="q7", type="string", length=255)
+     * @ORM\Column(name="q7", type="string", length=255, nullable=true)
      */
     private $q7;
 
@@ -80,14 +80,14 @@ class RarPublicForm
     /**
      * @var string
      *
-     * @ORM\Column(name="q9", type="string", length=255)
+     * @ORM\Column(name="q9", type="string", length=255, nullable=true)
      */
     private $q9;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="q10", type="string", length=255)
+     * @ORM\Column(name="q10", type="string", length=255, nullable=true)
      */
     private $q10;
 
@@ -98,6 +98,17 @@ class RarPublicForm
      */
     private $creationDate;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="RarCustomer", inversedBy="meetings", cascade="persist", fetch="LAZY")
+     * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
+     */
+    protected $customer;
+
+    /**
+     * One PublicForm has One Meeting.
+     * @ORM\OneToOne(targetEntity="RarMeeting", mappedBy="publicForm")
+     */
+    protected $meeting;
 
     /**
      * Get id
@@ -140,7 +151,7 @@ class RarPublicForm
      *
      * @return RarPublicForm
      */
-    public function setQ2($q)
+    public function setQ2($q2)
     {
         $this->q2 = $q2;
 
@@ -372,5 +383,57 @@ class RarPublicForm
     {
         return $this->creationDate;
     }
+
+
+    /**
+     * Get customer
+     *
+     * @return \AppBundle\Entity\RarCustomer
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
+
+    /**
+     * Set customer
+     *
+     * @param \AppBundle\Entity\RarCustomer $customer
+     *
+     * @return RarCustomer
+     */
+    public function setCustomer(\AppBundle\Entity\RarCustomer $customer = null)
+    {
+        $this->customer = $customer;
+
+        return $this;
+    }
+
+
+    /**
+     * Get meeting
+     *
+     * @return \AppBundle\Entity\RarMeeting
+     */
+    public function getMeeting()
+    {
+        return $this->meeting;
+    }
+
+    /**
+     * Set meeting
+     *
+     * @param \AppBundle\Entity\RarMeeting $meeting
+     *
+     * @return RarMeeting
+     */
+    public function setMeeting(\AppBundle\Entity\RarMeeting $meeting = null)
+    {
+        $this->meeting = $meeting;
+
+        return $this;
+    }
+
+
 }
 
