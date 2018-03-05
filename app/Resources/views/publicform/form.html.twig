@@ -1,0 +1,102 @@
+{% extends 'publicbase.html.twig' %}
+
+{% block title %}Rime Arodaky - Mieux vous connaitre...{% endblock %}
+
+{% block body %}
+    <form method="post" action="">
+
+    	<p>Dear {{ customer.firstName }}, <br/><br/>
+    	We are pleased to meet you soon in our {{ location.name }}. Before your arrival, would you please fill in our survey. It will help us to know more about you and your desire...<br/><br/>Thanks,<br/>The (D)Rime Team</p>
+    	<!-- STEP 1 -->
+    	<h4>{% trans %}About your wedding{% endtrans %}</h4>
+    	<!-- Q1 -->
+		<div class="form-group">
+			<label for="q1">{% trans %}What is you wedding date{% endtrans %}?</label>
+			{{ form_widget(form.q1, {'attr': {'class': 'form-control col-md-7 col-xs-12 datepicker'}}) }}
+			<br/><em style="font-size:10px;">({% trans %}Warning, if you are getting married abroad, thanks to precise the max delivery date to our assistant{% endtrans %})</em>
+		</div>
+		<!-- Q2 -->
+		<div class="form-group">
+			<label for="q2">{% trans %}The place of the wedding{% endtrans %}?</label>
+			{{ form_widget(form.q2, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+		</div>
+
+		<!-- STEP 2 -->
+		<h4>{% trans %}About our house{% endtrans %}</h4>
+		<!-- Q3 -->
+		<div class="form-group">
+			<label>{% trans %}What are your favorites gowns in our collections{% endtrans %}? (5max)</label>
+			<div class="order-grid">
+				<div style="width:100%">
+					{% for dress in dresses %}
+					<div style="float:left;" class="checkboxlist">
+					  	<label style="display: inline-block;height: 180px;position: relative;overflow: hidden;min-width: 180px;width: 180px;">
+					  		<img src="{{ asset('uploads/pic/profile/' ~ dress.urlImg) | imagine_filter('big_thumb') }}" alt="" width="180" height="180" style="margin-top: 0px;margin-left: 0px;width: 100%;height: 100%;">
+							<em><input type="checkbox" value="{{ dress.id }}" name="q4[]" class="singlecheckbox">{{ dress.name }}<span></span></em>
+						</label>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+
+		<!-- Q4 -->
+		<div class="form-group" rel="q5">
+			<label>{% trans %}Do you know our price range{% endtrans %}?</label>
+			{% form_theme form 'form/fields.html.twig' %}
+			{{ form_widget(form.q4) }}
+		</div>
+		<div class="form-group thin" rel="q5-non" style="display:none;">
+			<p>
+				Voici les tranches de prix de nos collections :<br/>
+				 - entre 2890 € et 5500 € pour la collection «  Mystical Love » ;<br/>
+				 - à partir de 6090€ pour les modèles de la collection «  Moon ».
+			</p>
+		</div>
+		<!-- Q5 -->
+		<div class="form-group" rel="q5-yes" style="display:none;">
+			<label>{% trans %}If so, does it suit to you{% endtrans %}?</label>
+			{% form_theme form 'form/fields.html.twig' %}
+			{{ form_widget(form.q5) }}
+		</div>
+
+		<!-- Q6 -->
+		<h4>{% trans %}About your experience{% endtrans %}</h4>
+		<div class="form-group" rel="q7">
+			<label>{% trans %}Have you ever had the opportunity to try our dresses{% endtrans %}</label>
+			{% form_theme form 'form/fields.html.twig' %}
+			{{ form_widget(form.q6) }}
+		</div>
+
+		<!-- Q7 -->
+		<div class="form-group" rel="q7-yes" style="display:none;">
+			<label>{% trans %}If so, where{% endtrans %}?</label>
+			{{ form_widget(form.q7, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+		</div>
+
+		<!-- Q8 -->
+		<div class="form-group" rel="q9">
+			<label>{% trans %}Have you ever tried bridal gowns{% endtrans %}</label>
+			{% form_theme form 'form/fields.html.twig' %}
+			{{ form_widget(form.q8) }}
+		</div>
+
+		<!-- Q9 -->
+		<div class="form-group" rel="q9-yes" style="display:none;">
+			<label for="q9">{% trans %}If so, where{% endtrans %}?</label>
+			{{ form_widget(form.q9, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+		</div>
+
+		<div class="button-submit">
+			{{ form_widget(form.save, {'attr': {'class': 'btn btn-default black'}}) }}
+		</div>
+
+	</form>
+{% endblock %}
+
+{% block footer %}	
+	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{{ url('homepage') }}publicform/js/jquery.min.js"></script>
+    <script src="{{ url('homepage') }}publicform/js/jquery-ui.min.js"></script>
+    <script src="{{ url('homepage') }}publicform/js/main.js"></script>					
+{% endblock %}		

@@ -120,7 +120,7 @@ class RarMeeting
     protected $sale;
 
     /**
-     * @ORM\ManyToOne(targetEntity="RarLocation", inversedBy="meetings", cascade="persist")
+     * @ORM\ManyToOne(targetEntity="RarLocation", inversedBy="meetings", cascade="persist", fetch="EAGER")
      * @ORM\JoinColumn(name="location_id", referencedColumnName="id")
      */
     protected $location;

@@ -1,0 +1,115 @@
+*{
+	font-family: "Poppins";
+}
+div.header{
+	padding:30px;
+}
+.line-bottom{
+	border-bottom: 1px solid #e8e8e8;
+	margin-bottom:10px;
+}
+.jumbotron.white{
+	background-color:#FFF;
+	color:#000;
+}
+.jumbotron.white p{
+	font-size:14px;
+	font-weight: 100;
+	font-family: "Poppins";
+	text-align: center;
+}
+h4{
+	border-bottom: 1px solid #eee;
+    font-family: "Cormorant Garamond";
+    font-size: 33px;
+    font-weight: 800;
+    margin-bottom: 35px;
+    padding-bottom: 30px;
+    text-transform: uppercase;
+	margin-top:60px;
+}
+label{
+	font-weight: 100;
+}
+input.form-control{
+	border:1px solid #EEE;
+	border-radius:0px;
+	box-shadow: none;
+}
+input.form-control:focus {
+    border-color: #000;
+    box-shadow: none;
+    outline: 0 none;
+}
+.btn.btn-default.black{
+	border-radius:0px;
+	background-color:#000;
+	font-weight: 600;
+	text-transform: uppercase;
+	color:#FFF;
+	text-align: center;
+	margin:auto;
+	display: block;
+	margin-top:40px;
+	margin-bottom:60px;
+	padding: 5px 74px;
+}
+.footer p{
+	font-family: "Poppins";
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    line-height: 10px;
+    text-align: center;
+}
+.order-grid {
+	overflow: hidden;
+	margin-bottom:10px;
+}
+.order-grid .checkboxlist{
+	float:left;
+	width:179px;
+	height:179px;
+	position: relative;
+	margin:3px;
+	overflow: hidden;
+	transition: 0.4s all ease-in;
+}
+.order-grid .checkboxlist label{
+	padding:0px;
+}
+.order-grid .checkboxlist .img{
+	width:100% !important;
+	height:auto !important;
+}
+.order-grid .checkboxlist em{
+	background-color: rgba(255, 255, 255, 0.6);
+    left: 0;
+    padding-bottom: 10px;
+    padding-left: 36px;
+    padding-top: 11px;
+    position: absolute;
+    top: -40px;
+    width: 100%;
+	transition: 0.4s all ease-in;
+}
+.order-grid .checkboxlist:hover em{
+    top: 0;
+}
+.order-grid .checkboxlist em span{
+	position: absolute;
+	bottom:0px;
+	left:0px;
+	height:0px;
+	width:100%;
+	border-bottom:0px solid #3997FA;
+	transition: 0.4s all ease-in;
+}
+.order-grid .checkboxlist em input[type=checkbox]:checked + span{
+    border-bottom: 3px solid #3997FA;
+    bottom: -3px;
+	
+}
+.thin{
+	font-weight: 100
+}

@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -78,6 +79,10 @@ class ModelType extends AbstractType
                 'label' => 'On sale for shops under contract',
                 'required' => false,
             ])
+            ->add('isForm', CheckboxType::class, [
+                'label' => 'On proposal for form meeting',
+                'required' => false,
+            ])
             ->add('minShipWeek', NumberType::class, [
                 'label' => 'Min number of week before shipping',
             ])
@@ -134,6 +139,10 @@ class ModelType extends AbstractType
                       }
                 )
               )
+            ->add('urlImg', FileType::class, [
+                'data_class' => null,
+                'required'   => false, //important!
+            ])
             ->add('save', SubmitType::class, [
                 'label' => 'Save',
             ])

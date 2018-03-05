@@ -80,6 +80,13 @@ class RarModel
     private $isContract;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="is_form", type="boolean")
+     */
+    private $isForm;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="url_img", type="string", length=255, nullable=true)
@@ -344,6 +351,31 @@ class RarModel
     public function getIsContract()
     {
         return $this->isContract;
+    }
+
+
+    /**
+     * Set isForm
+     *
+     * @param boolean $isForm
+     *
+     * @return RarModel
+     */
+    public function setIsForm($isForm)
+    {
+        $this->isForm = $isForm;
+
+        return $this;
+    }
+
+    /**
+     * Get isForm
+     *
+     * @return bool
+     */
+    public function getIsForm()
+    {
+        return $this->isForm;
     }
 
     /**

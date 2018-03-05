@@ -120,7 +120,7 @@
                 <div class="checkbox">
                   <label>
                       {{ form_widget(form.isActive, {'attr': {'class': 'js-switch'}}) }}
-                    {% trans %}Is this dress available?{% endtrans %}
+                    {% trans %}Is this dress available{% endtrans %}?
                   </label>
                 </div>
               </div>
@@ -133,7 +133,7 @@
                 <div class="checkbox">
                   <label>
                       {{ form_widget(form.isShop, {'attr': {'class': 'js-switch'}}) }}
-                    {% trans %}Is this dress available for Shop?{% endtrans %}
+                    {% trans %}Is this dress available for Shop{% endtrans %}?
                   </label>
                 </div>
               </div>
@@ -146,7 +146,20 @@
                 <div class="checkbox">
                   <label>
                       {{ form_widget(form.isContract, {'attr': {'class': 'js-switch'}}) }}
-                      {% trans %}Is this dress available for Shop under contract?{% endtrans %}
+                      {% trans %}Is this dress available for Shop under contract{% endtrans %}?
+                  </label>
+                </div>
+              </div>
+            </div>
+            <!--/ isContract-->
+            <!-- isContract-->
+            <div class="form-group">
+              <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="checkbox">
+                  <label>
+                      {{ form_widget(form.isForm, {'attr': {'class': 'js-switch'}}) }}
+                      {% trans %}Is this dress available for the form meeting{% endtrans %}?
                   </label>
                 </div>
               </div>
@@ -235,6 +248,29 @@
 </div>
 
 <!--- MATTERS -->
+
+<!--- PICTURE -->
+{% if form.urlImg is defined %}
+<div class="x_panel">
+    <div class="x_title">
+      <h2>
+        {% trans %}Picture{% endtrans %}
+        <small>{% trans %}Upload the picture of the model{% endtrans %}</small>
+      </h2>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <!-- CONTENU -->
+      <div class="form-horizontal form-label-left">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="color">{% trans %}The picture{% endtrans %}</label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          {{ form_widget(form.urlImg, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+        </div>
+      </div>
+        <!-- // CONTENU -->
+    </div>
+</div>
+{% endif %}
 
 {{ include('models/bloc/formEnd.html.twig') }}
 

@@ -8,6 +8,8 @@ use AppBundle\Entity\RarSize;
 use AppBundle\Form\ModelType;
 use AppBundle\Form\Bloc\SizeType;
 use AppBundle\Services\MessageGenerator;
+use AppBundle\Services\FileUpload;
+use AppBundle\Services\FileRemove;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -21,7 +23,7 @@ class EditModelController extends Controller
      * @Route("/admin/{_locale}/models/edit/{id}", name="editmodel")
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function newAction($id, Request $request, MessageGenerator $messageGenerator)
+    public function newAction($id, Request $request, MessageGenerator $messageGenerator, FileUpload $file_upload)
     {
         
         $user = $this->get('security.token_storage')->getToken()->getUser();
@@ -57,6 +59,24 @@ class EditModelController extends Controller
                     $matter->setModel($entity);
                     $matter->setDateCreation(date_create(date('Y/m/d H:i:s')));
                 }
+
+
+                // UPLOAD IMAGE
+                $urlImg = $form->get('urlImg')->getData();
+                if($urlImg){
+                    // On supprime le fichier précédent
+                    $path = $this->getParameter('files_directory');
+                    $fileToRemove = $entity->getUrlImg();
+                    if($fileToRemove){
+                        if(file_exists($path.'/'.$fileToRemove)){
+                            unlink( $path.'/'.$fileToRemove );
+                        }
+                    }
+                    // On Prend le nom du fichier et on l'encode en nom unique
+                    $image = $file_upload->upload($urlImg);
+                    $entity->setUrlImg($image);
+                }
+
                 // Enregistrement
                 $em->persist($entity);
                 $em->flush();
