@@ -59,6 +59,13 @@ class CalendarController extends Controller
                 a.name as title2,
                 a.comment, 
                 a.type as type,
+                CASE 
+                    WHEN a.type = 1 THEN 'a'
+                    WHEN a.type = 2 THEN 'b'
+                    WHEN a.type = 3 THEN 'c'
+                    WHEN a.type = 4 THEN 'd'
+                    WHEN a.type = 5 THEN 'e'
+                    ELSE 'f' AS type2,
                 a.notifStatus,
                 CONCAT(date(a.startDate), ' ', time(a.startDate)) AS starta,
                 CONCAT(date(a.endDate), ' ', time(a.endDate)) AS enda,

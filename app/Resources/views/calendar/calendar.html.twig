@@ -34,16 +34,9 @@
                   {{ message }}
               </div>
           {% endfor %}
-          
-          {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SALE_MANAGER') or is_granted('ROLE_PROVIDER') or is_granted('ROLE_SALE') or is_granted('ROLE_PRODUCTION_MANAGER') %}
-          <!-- top tiles -->
-          {{ render(controller('AppBundle:Base:getStatData', {} )) }}
-          <!-- /top tiles -->
-          {% endif %}
 
-          <div class="row">
             
-            {{ include('calendar/bloc/content-calendar.html.twig') }}
+          {{ include('calendar/bloc/content-calendar.html.twig') }}
 
           </div>
 
@@ -364,8 +357,9 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" rel="{{ url('homepage') }}{{ locale }}/customers/single/view/" class="btn btn-success antoviewcustomer2">Voir client</button>
-            <button type="button" class="btn btn-danger antocancel2">Annuler le rendez-vous</button>
+            <button type="button" rel="{{ url('homepage') }}{{ locale }}/customers/single/view/" class="btn btn-success antoviewcustomer2">Client</button>
+            <button type="button" rel="" class="btn btn-default antoviewform" id="formLink">Form.</button>
+            <button type="button" class="btn btn-danger antocancel2">Annuler RdV</button>
             <button type="button" class="btn btn-default antoclose3">Close</button>
             <button type="button" class="btn btn-default antoclose2" style="display:none" data-dismiss="modal">Close</button>
             <button type="button" class="btn btn-primary antosubmit2">Save changes</button>
@@ -515,17 +509,24 @@
                     aspectRatio: 2,
                     firstDay: '1',
                     timezone : 'Europe/Paris',
+                    events: jsonObject,
                     eventRender: function( event, element, view ) {
+
+                      return ['all', event.type2].indexOf( $('#school_selector').val() ) >= 0;
+
+
                       var title = element.find( '.fc-content' );
-                      if(event.formFilled != 'no'){
-                        title.append( '<p><i class="fa fa-star"></i></p>' );
+                      if(event.formFilled == 'no'){
+                        title.append( '<p><i class="fa fa-star-o"></i></p>' );
                       }else{
-                        if(event.formFilled != 'na'){
+                        if(event.formFilled == 'na'){
 
                         }else{
-                          title.append( '<p><i class="fa fa-star-o"></i></p>' );
+                          title.append( '<p><i class="fa fa-star"></i></p>' );
                         }
                       }
+                      
+                      
                     },
                     /****** CLICK ON CALENDAR = CREATION **********/
                     select: function(a, b, c) {
@@ -583,6 +584,14 @@
                                   var color = data.color;
                                   var ref = data.idMeeting;
                                   var id = data.idMeeting;
+                                  switch (type) { 
+                                    case 1: var type2 = 'a';break;
+                                    case 2: var type2 = 'b';break;
+                                    case 3: var type2 = 'c';break;
+                                    case 4: var type2 = 'd';break;
+                                    case 5: var type2 = 'e';break;
+                                    default: var type2 = 'f';
+                                  }
                                   // TEST
                                   return b && (ended = b), f = $("#event_type").val(), a && g.fullCalendar("renderEvent", {
                                       id:id,
@@ -595,6 +604,7 @@
                                       comment: comment,
                                       location: location,
                                       type: type,
+                                      type2: type2,
                                       sale: sale,
                                       lieu: lieu,
                                       state: state,
@@ -639,6 +649,15 @@
                           var state = true;
                         }else{
                           var state = false;
+                        };
+                        if(a.formFilled == 'na'){
+                          $('#formLink').hide();
+                        }else{
+                          if( a.formFilled == 'no'){
+                            $('#formLink').hide();
+                          }else{
+                            $('#formLink').show();
+                          }
                         };
                         $("#fc_edit").click(),
                         $("#title2").val(a.title2),
@@ -741,9 +760,17 @@
                           });
                         }), g.fullCalendar("unselect");
                     },
-                    editable: !0,
-                    events: jsonObject
-                })
+                    editable: !0
+                });
+
+          /*$g.fullCalendar("removeEvents", function(eventObject) {
+            return eventObject.is_google_cal_event == true;
+          });*/
+
+          $('#school_selector').on('change',function(){
+              g.fullCalendar('rerenderEvents');
+          })
+          
         }
       }
       init_calendar();
