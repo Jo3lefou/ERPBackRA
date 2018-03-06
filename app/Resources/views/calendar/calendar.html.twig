@@ -512,7 +512,7 @@
                     events: jsonObject,
                     eventRender: function( event, element, view ) {
 
-                      return ['all', event.type2].indexOf( $('#school_selector').val() ) >= 0;
+                      
 
 
                       var title = element.find( '.fc-content' );
@@ -525,7 +525,7 @@
                           title.append( '<p><i class="fa fa-star"></i></p>' );
                         }
                       }
-                      
+                      return ['all', event.type2].indexOf( $('#school_selector').val() ) >= 0;
                       
                     },
                     /****** CLICK ON CALENDAR = CREATION **********/
