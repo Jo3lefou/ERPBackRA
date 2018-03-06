@@ -631,7 +631,13 @@
                             });
 
                           });
-                          
+                          /******* CLICK SUR CLOSE *********/
+                          $(".antoclose3").on("click", function() {
+                            $(".antoclose2").click();
+                            $('.antosubmit2').off('click').click(function(){
+                              g.fullCalendar("unselect");
+                            });
+                          }), g.fullCalendar("unselect");
                     },
                     eventClick: function(a, b, c) {
                       /****** CLICK ON EVENT **********/
