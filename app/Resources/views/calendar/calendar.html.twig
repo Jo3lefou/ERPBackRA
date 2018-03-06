@@ -520,7 +520,11 @@
                       if(event.formFilled != 'no'){
                         title.append( '<p><i class="fa fa-star"></i></p>' );
                       }else{
-                        title.append( '<p><i class="fa fa-star-o"></i></p>' );
+                        if(event.formFilled != 'na'){
+
+                        }else{
+                          title.append( '<p><i class="fa fa-star-o"></i></p>' );
+                        }
                       }
                     },
                     /****** CLICK ON CALENDAR = CREATION **********/
