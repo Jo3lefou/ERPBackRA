@@ -99,6 +99,21 @@
     <script src="{{ url('homepage') }}build/js/custom.min.js"></script>
 
     <script>
+    $('input.daterange').daterangepicker({
+          locale: {
+            format: 'YYYY-MM-DD'
+          },
+          startDate: '2018-01-01',
+          endDate: '2018-12-31',
+          "drops": "down"
+      });
+    $('input.daterange').on('apply.daterangepicker', function(ev, picker) {
+      var rel = $(this).attr('rel');
+      $('#dateend'+rel).val(picker.endDate.format('YYYY-MM-DD'));
+      $('#datestart'+rel).val(picker.startDate.format('YYYY-MM-DD'));
+    });
+
+
     {% for key, shopRevenue in revenue %}
       new Morris.Line({
         // ID of the element in which to draw the chart.
@@ -117,5 +132,6 @@
         labels: ['Name']
       });
     {% endfor %}
+
     </script>
 {% endblock %}

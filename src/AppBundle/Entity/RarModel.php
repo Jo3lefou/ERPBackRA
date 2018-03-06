@@ -94,6 +94,13 @@ class RarModel
     private $urlImg;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="image_file", type="string", length=255, nullable=true)
+     */
+    private $imageFile;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="type", type="integer")
@@ -400,6 +407,32 @@ class RarModel
     public function getUrlImg()
     {
         return $this->urlImg;
+    }
+
+
+    
+    /**
+     * Set imageFile
+     *
+     * @param string $imageFile
+     *
+     * @return RarModel
+     */
+    public function setImageFile($imageFile)
+    {
+        $this->imageFile = $imageFile;
+
+        return $this;
+    }
+
+    /**
+     * Get imageFile
+     *
+     * @return string
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
     }
 
     /**

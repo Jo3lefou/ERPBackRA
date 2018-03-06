@@ -18,7 +18,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class EditModelController extends Controller
 {
-    
     /**
      * @Route("/admin/{_locale}/models/edit/{id}", name="editmodel")
      * @Security("has_role('ROLE_ADMIN')")
@@ -62,8 +61,8 @@ class EditModelController extends Controller
 
 
                 // UPLOAD IMAGE
-                $urlImg = $form->get('urlImg')->getData();
-                if($urlImg != ''){
+                $urlImg = $form->get('imageFile')->getData();
+                if($urlImg){
                     // On supprime le fichier précédent
                     $path = $this->getParameter('files_directory');
                     $fileToRemove = $entity->getUrlImg();

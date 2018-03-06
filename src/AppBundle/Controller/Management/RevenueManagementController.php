@@ -28,7 +28,7 @@ class RevenueManagementController extends Controller
      * Security("has_role('ROLE_ADMIN') or has_role('ROLE_ACCOUNTING_MANAGER')")
      *
      */
-    public function indexAction($action = 'view', $shop = 'all', UserInterface $user)
+    public function indexAction($action = 'view', $shop = 'all', UserInterface $user, Request $request)
     {
     	$user = $this->get('security.token_storage')->getToken()->getUser();
         $firstName = $this->getUser()->getLastName();
@@ -86,18 +86,33 @@ class RevenueManagementController extends Controller
 	        }elseif($action == 'extractRevenuPerMonth.csv'){
 
 	        	if($shop == 'all'){
-	        		$repositoryRevenue = $this->getDoctrine()->getRepository(RarModelOrdered::class);
-			        $querySumPerShop = $repositoryRevenue->createQueryBuilder('r')
-			            ->select("s.extention as Extension, s.name as Shop_Name, MONTH(o.dateMaxShip) AS Month, YEAR(o.dateMaxShip) AS Year, SUM(r.prixSoldHT) as Amount")
-			            ->leftJoin('r.order', 'o')
-			            ->leftJoin('o.shop', 's')
-			            ->where('o.state NOT IN (:status)')
-			            ->andWhere('o.dateMaxShip < :date')
-			            ->setParameters(['status' => array(0, 1, 4), 'date' => '30/08/2018'])
-			            ->groupBy('s.id')
-			            ->addGroupBy('Year')
-			            ->addGroupBy('Month');
-			        $sumRevenuePerShop = $querySumPerShop->getQuery()->getResult();
+
+	        		$dateend = $request->get('dateend');
+					$dateend = new \DateTime($dateend);
+					$datestart = $request->get('datestart');
+					$datestart = new \DateTime($datestart);
+
+					$from = new \DateTime($datestart->format("Y-m-d")." 00:00:00");
+    				$to   = new \DateTime($dateend->format("Y-m-d")." 23:59:59");
+
+			        $em = $this->get('doctrine.orm.entity_manager');
+			        $dql = "SELECT 
+			        	s.extention as Extension, 
+			        	s.name as Shop_Name, 
+			        	CONCAT(s.extention,o.year,'-',o.idCompta) AS NumOrder , 
+			        	DATE(o.dateMaxShip) AS MaxDateShip, 
+			        	WEEK(o.dateMaxShip) AS Week, 
+			        	YEAR(o.dateMaxShip) AS YEAR, 
+			        	SUM(r.prixSoldHT) as Amount
+			        	FROM AppBundle:RarModelOrdered r
+			        	LEFT JOIN r.order o
+			        	LEFT JOIN o.shop s
+			        	WHERE o.state NOT IN(0,1,4)
+			        	AND (DATE_FORMAT(o.dateMaxShip, '%Y-%m-%d %H:%i') BETWEEN '".$from->format("Y-m-d H:i")."' AND '".$to->format("Y-m-d H:i")."')
+			        	GROUP BY NumOrder
+			        	";
+			        $query = $em->createQuery($dql);
+		        	$sumRevenuePerShop = $query->getResult();
 
 		        	$serializer = new Serializer([new ObjectNormalizer()], [new CsvEncoder()]);
 
@@ -105,22 +120,38 @@ class RevenueManagementController extends Controller
 
 		        	$response = new Response($file);
 		        	$response->headers->set('Content-Type', 'text/csv');
+		        	$response->headers->set('Content-Disposition', 'attachment; filename="export-revenu-all.csv"');
 
 			        return $response;
 	        	}else{
-	        		$repositoryRevenue = $this->getDoctrine()->getRepository(RarModelOrdered::class);
-			        $querySumPerShop = $repositoryRevenue->createQueryBuilder('r')
-			            ->select("s.extention as Extension, s.name as Shop_Name, MONTH(o.dateMaxShip) AS Month, YEAR(o.dateMaxShip) AS Year, SUM(r.prixSoldHT) as Amount")
-			            ->leftJoin('r.order', 'o')
-			            ->leftJoin('o.shop', 's')
-			            ->where('o.state NOT IN (:status)')
-			            ->andWhere('o.dateMaxShip < :date')
-			            ->andWhere('s.id < :shopID')
-			            ->setParameters(['status' => array(0, 1, 4), 'date' => '30/08/2018', 'shopID' => $shop])
-			            ->groupBy('s.id')
-			            ->addGroupBy('Year')
-			            ->addGroupBy('Month');
-			        $sumRevenuePerShop = $querySumPerShop->getQuery()->getResult();
+
+			        $dateend = $request->get('dateend');
+					$dateend = new \DateTime($dateend);
+					$datestart = $request->get('datestart');
+					$datestart = new \DateTime($datestart);
+
+					$from = new \DateTime($datestart->format("Y-m-d")." 00:00:00");
+    				$to   = new \DateTime($dateend->format("Y-m-d")." 23:59:59");
+
+			        $em = $this->get('doctrine.orm.entity_manager');
+			        $dql = "SELECT 
+			        	s.extention as Extension, 
+			        	s.name as Shop_Name, 
+			        	CONCAT(s.extention,o.year,'-',o.idCompta) AS NumOrder , 
+			        	DATE(o.dateMaxShip) AS MaxDateShip, 
+			        	WEEK(o.dateMaxShip) AS Week, 
+			        	YEAR(o.dateMaxShip) AS YEAR, 
+			        	SUM(r.prixSoldHT) as Amount
+			        	FROM AppBundle:RarModelOrdered r
+			        	LEFT JOIN r.order o
+			        	LEFT JOIN o.shop s
+			        	WHERE o.state NOT IN(0,1,4)
+			        	AND (DATE_FORMAT(o.dateMaxShip, '%Y-%m-%d %H:%i') BETWEEN '".$from->format("Y-m-d H:i")."' AND '".$to->format("Y-m-d H:i")."')
+			        	AND s.id = '".$shop."'
+			        	GROUP BY NumOrder
+			        	";
+			        $query = $em->createQuery($dql);
+		        	$sumRevenuePerShop = $query->getResult();
 
 		        	$serializer = new Serializer([new ObjectNormalizer()], [new CsvEncoder()]);
 
@@ -128,6 +159,7 @@ class RevenueManagementController extends Controller
 
 		        	$response = new Response($file);
 		        	$response->headers->set('Content-Type', 'text/csv');
+		        	$response->headers->set('Content-Disposition', 'attachment; filename="export-revenu-'.$shop.'.csv"');
 
 			        return $response;
 	        	}
@@ -141,6 +173,11 @@ class RevenueManagementController extends Controller
 
 				// decoding CSV contents
 				//$sumRevenuePerShop = $serializer->decode(file_get_contents('data.csv'), 'csv');
+
+
+	        }else if($action == 'extract'){
+
+
 
 
 	        }else{

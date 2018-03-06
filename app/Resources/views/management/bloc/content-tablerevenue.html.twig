@@ -1,11 +1,51 @@
+<div class="col-md-12 col-sm-12 col-xs-12">
+	<div class="x_panel">
+		<div class="x_title">
+			<h2>Global revenue<small>all shops</small></h2>
+			<div class="pull-right" style="margin-bottom: 0px; margin-top: 4px;">
+				<form action="{{ url('revenuemanagement', {'action': 'extractRevenuPerMonth.csv','shop': 'all'}) }}" method="post">
+					<div class="pull-right" style="margin-top: 7px;margin-left: 14px;">
+						<!--<a class="btn btn-xs btn-default" href="/{{locale}}/management/revenue/extractRevenuPerMonth.csv/all"><i class="fa fa-download"></i> Download csv</a>-->
+						<button type="submit" class="btn btn-xs btn-default"><i class="fa fa-download"></i> Download csv</button>
+					</div>
+					<div class="pull-right" style="margin-top: 5px; background: #fff; cursor: pointer; padding: 3px 10px; border: 1px solid #E6E9ED">
+			            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+			            <input type="text" class="daterange" class="form-control" style="width: 310px;border: 0px;font-size: 10px;padding: 0px;" rel="idall" /><b class="caret"></b>
+			            <input type="hidden" value="2018-01-01" name="datestart" id="datestartidall"/>
+			            <input type="hidden" value="2018-12-31" name="dateend" id="dateendidall"/>
+			        </div>
+			    </form>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="x_content2">
+			Graph ?
+		</div>
+	</div>
+</div>
 {% for shopRevenue in revenue %}
 <div class="col-md-6 col-sm-6 col-xs-12">
 	<div class="x_panel">
 		<div class="x_title">
 			{% for shopRevenueDetails in shopRevenue %}
 			{% if loop.index == 1 %}
-				<h2>{{ shopRevenueDetails.Name }} <small>Extension</small></h2>
-				<p class="pull-right" style="margin-bottom: 0px; margin-top: 4px;"><a class="btn btn-xs btn-default" href="/{{locale}}/management/revenue/extract/{{ shopRevenueDetails.IDShop }}"><i class="fa fa-download"></i> Download csv</a></p>
+
+
+
+				<h2>{{ shopRevenueDetails.Name }}</h2>
+
+				<form action="{{ url('revenuemanagement', {'action': 'extractRevenuPerMonth.csv','shop': shopRevenueDetails.IDShop }) }}" method="post">	
+					<div class="pull-right" style="margin-top: 7px;margin-left: 14px;">
+						<button type="submit" class="btn btn-xs btn-default"><i class="fa fa-download"></i> Download csv</button>
+					</div>
+					<div class="pull-right" style="margin-top: 5px; background: #fff; cursor: pointer; padding: 3px 10px; border: 1px solid #E6E9ED">
+			            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+			            <input type="text" class="daterange" class="form-control" style="width: 310px;border: 0px;font-size: 10px;padding: 0px;" rel="id{{shopRevenueDetails.IDShop}}"/><b class="caret"></b>
+			            <input type="hidden" value="2018-01-01" name="datestart" id="datestartid{{shopRevenueDetails.IDShop}}"/>
+			            <input type="hidden" value="2018-12-31" name="dateend" id="dateendid{{shopRevenueDetails.IDShop}}"/>
+			        </div>
+				</form>
+
 			{% endif %}
 			{% endfor %}
 			<div class="clearfix"></div>

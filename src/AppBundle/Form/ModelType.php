@@ -139,7 +139,7 @@ class ModelType extends AbstractType
                       }
                 )
               )
-            ->add('urlImg', FileType::class, [
+            ->add('imageFile', FileType::class, [
                 'data_class' => null,
                 'required'   => false, //important!
             ])

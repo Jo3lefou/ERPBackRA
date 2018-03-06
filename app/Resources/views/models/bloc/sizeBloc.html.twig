@@ -250,7 +250,7 @@
 <!--- MATTERS -->
 
 <!--- PICTURE -->
-{% if form.urlImg is defined %}
+{% if form.imageFile is defined %}
 <div class="x_panel">
     <div class="x_title">
       <h2>
@@ -264,7 +264,7 @@
       <div class="form-horizontal form-label-left">
         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="color">{% trans %}The picture{% endtrans %}</label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-          {{ form_widget(form.urlImg, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+          {{ form_widget(form.imageFile, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
         </div>
       </div>
         <!-- // CONTENU -->
