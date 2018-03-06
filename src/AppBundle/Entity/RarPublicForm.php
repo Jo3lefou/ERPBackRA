@@ -99,7 +99,7 @@ class RarPublicForm
     private $creationDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity="RarCustomer", inversedBy="meetings", cascade="persist", fetch="LAZY")
+     * @ORM\ManyToOne(targetEntity="RarCustomer", inversedBy="publicForms", cascade="persist", fetch="LAZY")
      * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
      */
     protected $customer;
