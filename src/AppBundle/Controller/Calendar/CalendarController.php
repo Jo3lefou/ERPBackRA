@@ -65,11 +65,17 @@ class CalendarController extends Controller
                 b.id AS sale, 
                 CONCAT(b.firstName, ' ', b.lastName) AS namesale,
                 b.userColor as color,
-                CASE WHEN d.id IS NULL or d.id = '' THEN '0' ELSE d.id AS lieu
+                CASE WHEN d.id IS NULL or d.id = '' THEN '0' ELSE d.id AS lieu,
+                CASE 
+                    WHEN a.type = 1 AND (e.id IS NULL OR e.id = '') THEN 'no'
+                    WHEN a.type = 1 AND e.id != '' THEN e.id
+                    ELSE 'na' 
+                AS formFilled
                 FROM AppBundle:RarMeeting a
                 INNER JOIN a.sale b
                 INNER JOIN a.customer c
                 INNER JOIN a.location d
+                LEFT JOIN a.publicForm e
                 WHERE a.state < 2
             ";
         }else{
@@ -87,11 +93,13 @@ class CalendarController extends Controller
                 b.id AS sale, 
                 CONCAT(b.firstName, ' ', b.lastName) AS namesale,
                 b.userColor as color,
-                CASE WHEN d.id IS NULL or d.id = '' THEN '0' ELSE d.id AS lieu
+                CASE WHEN d.id IS NULL or d.id = '' THEN '0' ELSE d.id AS lieu,
+                CASE WHEN e.id IS NULL or e.id = '' THEN 'no' ELSE e.id AS formFilled
                 FROM AppBundle:RarMeeting a
                 INNER JOIN a.sale b
                 INNER JOIN a.customer c
                 INNER JOIN a.location d
+                LEFT JOIN a.publicForm e
                 WHERE a.state < 2 AND b.id = ".$saleuser."
             ";
         }

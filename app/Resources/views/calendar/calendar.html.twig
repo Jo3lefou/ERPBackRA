@@ -515,6 +515,14 @@
                     aspectRatio: 2,
                     firstDay: '1',
                     timezone : 'Europe/Paris',
+                    eventRender: function( event, element, view ) {
+                      var title = element.find( '.fc-content' );
+                      if(event.formFilled != 'no'){
+                        title.append( '<p><i class="fa fa-star"></i></p>' );
+                      }else{
+                        title.append( '<p><i class="fa fa-star-o"></i></p>' );
+                      }
+                    },
                     /****** CLICK ON CALENDAR = CREATION **********/
                     select: function(a, b, c) {
                           $("#start").val(a.format('YYYY-MM-DD HH:mm'));
