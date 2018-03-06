@@ -162,6 +162,57 @@
                           </div>
                           <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
                           <!-- TAB 2 -->
+                            <div class="row" style="border-bottom:2px solid #E6E9ED; margin-bottom:10px;">
+                              <div class="col-md-12 col-sm-12 col-xs-12"><h3>{% trans %}Meetings scheduled or passed{% endtrans %}</h3></div>
+                            </div>
+                          <!-- start note -->
+                            {% if meetings is empty %}
+                            <div class="alert alert-warning"><strong>Oh! Damn it...</strong> There isn't any notes created yet.</div>
+                            {% else %}
+                            <ul class="messages" id="notefeed">
+                              {% for smeeting in meetings %}
+                              <li style="min-height: 100px;overflow:hidden">
+                                <img src="{{ url('homepage') }}build/images/note.jpg" class="avatar" alt="Avatar">
+                                <div class="message_date">
+                                  <h3 class="date text-info">{{ smeeting.startDate|date("d") }}</h3>
+                                  <p class="month">{{ smeeting.startDate|date("F")|slice(0, 3) }}.</p>
+                                </div>
+                                <div class="message_wrapper">
+
+                                  <div class="col-md-2" style="text-align:center">
+                                    {% if ( smeeting.sale.imagePath ) %}
+                                      <img src="{{ asset('uploads/pic/profile/' ~ smeeting.sale.imagePath) | imagine_filter('my_thumb') }}" alt="{{ smeeting.sale.firstName }} {{ smeeting.sale.lastName }}" class="img-circle" height="50" width="50">
+                                    {% else %}
+                                      <img src="{{ url('homepage') }}build/images/profilpic.png" alt="{{ smeeting.sale.firstName }} {{ smeeting.sale.lastName }}" class="img-circle" height="50" width="50">
+                                    {% endif %}<br/>
+                                    <span>{{ smeeting.sale.firstName }} {{ smeeting.sale.lastName }}</span>
+                                  </div>
+
+                                  <div class="bubble col-md-10">
+                                    <b>Meeting title: </b>
+                                    {{ smeeting.name }}<br/>
+                                    <b>Meeting comment: </b>
+                                    {{ smeeting.comment }}<br/>
+                                    <b>Type of meeting: </b>
+                                    {% if smeeting.type == 1 %}1er Rendez-vous (Découverte)
+                                    {% elseif smeeting.type == 2 %}2eme rendez-vous (Réessayage)
+                                    {% elseif smeeting.type == 3 %}1ere essayage (après commande)
+                                    {% elseif smeeting.type == 4 %}2eme essayage
+                                    {% elseif smeeting.type == 5 %}Pick up on store
+                                    {% elseif smeeting.type == 0 %}Autre{% endif %}<br/>
+                                    <b>Meeting status: </b>
+                                    {% if smeeting.state == 0 %}Booked
+                                    {% elseif smeeting.state == 1 %}Passed
+                                    {% elseif smeeting.state == 2 %}Cannceled{% endif %}<br/>
+                                    </div>
+
+                                </div>
+                              </li>
+                              {% endfor %}
+                            </ul>
+                            
+                            {% endif %}
+
                           <!-- END TAB 2 -->
                           </div>
                           <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
