@@ -421,7 +421,6 @@
     <!-- ColorPicker -->
     <script src="{{ url('homepage') }}vendors/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
     <!-- Calendar -->
-    <script src='lib/jquery-ui.custom-datepicker.js'></script>
     <script src="{{ url('homepage') }}vendors/fullcalendar/dist/fullcalendar.min.js"></script>
     <script src="{{ url('homepage') }}build/js/fr.js"></script>
 
@@ -511,10 +510,6 @@
                     timezone : 'Europe/Paris',
                     events: jsonObject,
                     eventRender: function( event, element, view ) {
-
-                      
-
-
                       var title = element.find( '.fc-content' );
                       if(event.formFilled == 'no'){
                         title.append( '<p><i class="fa fa-star-o"></i></p>' );
@@ -526,7 +521,6 @@
                         }
                       }
                       return ['all', event.type2].indexOf( $('#school_selector').val() ) >= 0;
-                      
                     },
                     /****** CLICK ON CALENDAR = CREATION **********/
                     select: function(a, b, c) {
@@ -635,6 +629,7 @@
                             $('.antosubmit').off('click').click(function(){
                               g.fullCalendar("unselect");
                             });
+
                           });
                           
                     },
