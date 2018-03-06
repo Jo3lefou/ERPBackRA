@@ -81,6 +81,8 @@ class MeetingAjaxController extends Controller
             		$dataCusId = $customer->getId();
             		$dataCusLang = $customer->getLocale();
             		$dataCusEmail = $customer->getEmail();
+            		$cusFirstName = $customer->getFirstName();
+            		$cusLastName = $customer->getLastName();
 
 				}else{
 					///User  EXIST
@@ -89,8 +91,12 @@ class MeetingAjaxController extends Controller
 					$customer = $em->getRepository('AppBundle:RarCustomer')->findOneBy(['id' => $dataCusId]);
 					$dataCusLang = $customer->getLocale();
 					$dataCusEmail = $customer->getEmail();
+					$cusFirstName = $customer->getFirstName();
+            		$cusLastName = $customer->getLastName();
 					
 				}
+
+				$customerName = $cusFirstName.' '.$cusLastName;
 				
 				// STORE EVENT
 				$meeting = new RarMeeting();
@@ -174,7 +180,8 @@ class MeetingAjaxController extends Controller
                 // ****** NOTIFICATION EMAIL ******* //
             	//}
 
-				$response = array('response' => 'ok', 'color' => $saleColor, 'cusId' => $dataCusId, 'idMeeting' => $idMeeting);
+				$response = array('response' => 'ok', 'color' => $saleColor, 'cusId' => $dataCusId, 'idMeeting' => $idMeeting, 'nameCustomer' => $customerName);
+
 	        }elseif($action == 'edit'){
 
 	        	$meeting = $em->getRepository('AppBundle:RarMeeting')->findOneBy(['id' => $id]);
@@ -198,6 +205,7 @@ class MeetingAjaxController extends Controller
 	        	$dataType = $request->get('type');
 	        	$dataSale = $request->get('sale');
 				$sale = $em->getRepository('AppBundle:User')->findOneBy(['id' => $dataSale]);
+				$saleColor = $sale->getUserColor();
 				$dataNotif = $request->get('notif');
 				if($dataNotif == 'true'){
 					$dataNotif = 1;
@@ -248,7 +256,7 @@ class MeetingAjaxController extends Controller
 
 	            
 
-	        	$response = array('response' => 'ok');
+	        	$response = array('response' => 'ok', 'color' => $saleColor);
 	        }elseif($action == 'cancel'){
 
 	        	$dataComment = 'RAS';

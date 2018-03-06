@@ -578,6 +578,7 @@
                                   var color = data.color;
                                   var ref = data.idMeeting;
                                   var id = data.idMeeting;
+                                  var customerName = data.nameCustomer;
                                   switch (type) { 
                                     case 1: var type2 = 'a';break;
                                     case 2: var type2 = 'b';break;
@@ -591,7 +592,7 @@
                                       id:id,
                                       ref:ref,
                                       cusId:cusId,
-                                      title: salesmen+' - '+title,
+                                      title: customerName+' - '+title,
                                       title2: title,
                                       start: e,
                                       end: b,
@@ -727,8 +728,9 @@
                               dataType: "json",
                               data: {id:a.ref,title:title,start:start,end:end,comment:comment,lieu:lieu,type:type,sale:sale,notif:notif},
                               success: function( data ) {
-                                a.title = salesmen+' - '+title,
+                                a.title = a.customername+' - '+title,
                                 a.start = start,
+                                a.color = data.color,
                                 a.end = end,
                                 a.comment = comment,
                                 a.location = location,
