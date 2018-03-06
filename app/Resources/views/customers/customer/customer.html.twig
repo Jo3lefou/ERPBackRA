@@ -117,11 +117,11 @@
                               <div class="col-md-6 col-sm-6 col-xs-12 align-right"><a href="/{locale}/orders/create/{{ customer.id }}" class="btn btn-success"><i class="fa fa-plus"></i> {% trans %}Create a new order for{% endtrans %} {{ customer.firstName }} {{ customer.lastName }}</a></div>
                             </div>
                             <!-- start recent activity -->
-                            {% if customer.orders is empty %}
+                            {% if orders is empty %}
                             <div class="alert alert-warning"><strong>Oh! Damn it...</strong> There is no orders yet created for this customer.</div>
                             {% else %}
                             <ul class="messages">
-                              {% for sorder in customer.orders %}
+                              {% for sorder in orders %}
                               <li style="min-height: 100px;">
                                 <img src="{{ url('homepage') }}build/images/basket.jpg" class="avatar" alt="Avatar">
                                 <div class="message_date">
@@ -174,11 +174,11 @@
                             </div>
 
                             <!-- start note -->
-                            {% if customer.notes is empty %}
+                            {% if notes is empty %}
                             <div class="alert alert-warning"><strong>Oh! Damn it...</strong> There isn't any notes created yet.</div>
                             {% else %}
                             <ul class="messages" id="notefeed">
-                              {% for snote in customer.notes %}
+                              {% for snote in notes %}
                               <li style="min-height: 100px;overflow:hidden">
                                 <img src="{{ url('homepage') }}build/images/note.jpg" class="avatar" alt="Avatar">
                                 <div class="message_date">

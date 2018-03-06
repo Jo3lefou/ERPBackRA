@@ -32,6 +32,10 @@ class ViewCustomerController extends Controller
 
             $em = $this->getDoctrine()->getManager();
             $customer = $em->getRepository('AppBundle:RarCustomer')->findOneBy(['id' => $id]);
+            $orders = $customer->getOrders();
+            $notes = $customer->getNotes();
+            $meetings = $customer->getMeetings();
+            $publicForms = $customer->getPublicForms();
 
             return $this->render('customers/customer/customer.html.twig', array(
                 'name' => $name,
@@ -41,6 +45,10 @@ class ViewCustomerController extends Controller
                 'bodyClass' => 'nav-md',
                 'user' => $user,
                 'customer' => $customer,
+                'orders' => $orders,
+                'notes' => $notes,
+                'meetings' => $meetings,
+                'publicforms' => $publicForms,
             ));
 
         }else{
