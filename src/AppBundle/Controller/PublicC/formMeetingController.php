@@ -205,24 +205,7 @@ class formMeetingController extends Controller
             $em->persist($meeting);
             $em->flush();
 
-            // SEND A NOTIFICATION TO THE SALE
 
-            $saleEmail = $sale->getEmail();
-            $saleLocale = $sale->getLocale();
-            // ****** NOTIFICATION EMAIL ******* //
-            $message = (new \Swift_Message('RA - Notification : Meeting Canceled.'))
-                ->setFrom('notification@rime-arodaky.com')
-                ->setTo($saleEmail)
-                ->setContentType("text/html")
-                ->setBody(
-                    $this->renderView( 'email/cancelationMeetingSale.html.twig',
-                    array('locale' => $saleLocale, 'meeting' => $meeting, 'customer' => $customer ) )
-                );
-            $mailer->send($message);
-            // ****** NOTIFICATION EMAIL ******* //
-
-
-            // SEND A CONFIRMATION TO THE CUSTOMER
             $startTime = $meeting->getStartDate();
             $startEmailDate = $startTime->format('d/m/Y');
             $startEmailTime = $startTime->format('H:i');
@@ -238,6 +221,28 @@ class formMeetingController extends Controller
                 $content = $configuration->getEmailRdvCancelationEn();
                 $subject = 'Rime Arodaky - Meeting cancelation';
             }
+
+            
+
+            // SEND A NOTIFICATION TO THE SALE
+
+            $saleEmail = $sale->getEmail();
+            $saleLocale = $sale->getLocale();
+            // ****** NOTIFICATION EMAIL ******* //
+            $message = (new \Swift_Message('RA - Notification : Meeting Canceled.'))
+                ->setFrom('notification@rime-arodaky.com')
+                ->setTo($saleEmail)
+                ->setContentType("text/html")
+                ->setBody(
+                    $this->renderView( 'email/cancelationMeetingSale.html.twig',
+                    array('locale' => $saleLocale, 'meeting' => $meeting, 'customer' => $customer, 'content' => $content, 'date' => $startEmailDate, 'time' => $startEmailTime) )
+                );
+            $mailer->send($message);
+            // ****** NOTIFICATION EMAIL ******* //
+
+
+            // SEND A CONFIRMATION TO THE CUSTOMER
+            
 
             // ****** NOTIFICATION EMAIL ******* //
             $message = (new \Swift_Message($subject))
