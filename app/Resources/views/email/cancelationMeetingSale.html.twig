@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width"> <!-- Forcing initial-scale shouldn't be necessary -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- Use the latest (edge) version of IE rendering engine -->
     <meta name="x-apple-disable-message-reformatting">  <!-- Disable auto-scale in iOS 10 Mail entirely -->
-    <title>Rime Arodaky Notification</title> <!-- The title tag shows in email notifications, like Android 4.4. -->
+    <title>RA - Notification : Meeting Canceled.</title> <!-- The title tag shows in email notifications, like Android 4.4. -->
 
     <!-- Web Font / @font-face : BEGIN -->
     <!-- NOTE: If web fonts are not required, lines 10 - 27 can be safely removed. -->
@@ -203,7 +203,7 @@
         <!-- Visually Hidden Preheader Text : BEGIN -->
         <div style="display: none; font-size: 1px; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all; font-family: sans-serif;">
             {% if locale == 'fr' %}
-                Votre rendez-vous du {{ date }} à {{ time }} a été annulé.
+                Le rendez-vous du {{ date }} à {{ time }} a été annulé.
             {% else %}
                 Your meeting on {{ date }} at {{ time }} has been canceled.
             {% endif %}
@@ -235,9 +235,9 @@
             <tr>
                 <td bgcolor="#ffffff" style="padding: 40px 40px 20px; text-align: center;">
                     {% if locale == 'fr' %}
-                        <h1 style="margin: 0; font-family: sans-serif; font-size: 20px; line-height: 125%; color: #333333; font-weight: normal;">Rendez-vous du {{ date }} à {{ time }} a été annulé.</h1>
+                        <h1 style="margin: 0; font-family: sans-serif; font-size: 20px; line-height: 125%; color: #333333; font-weight: normal;">Rendez-vous du {{ meeting.startDate|date('d/m/Y') }} à {{ meeting.startDate|date('H:i') }} avec {{ customer.firstName }} {{ customer.lastName }} a été annulé.</h1>
                     {% else %}
-                        <h1 style="margin: 0; font-family: sans-serif; font-size: 20px; line-height: 125%; color: #333333; font-weight: normal;">Your meeting on {{ date }} at {{ time }} has been canceled.</h1>
+                        <h1 style="margin: 0; font-family: sans-serif; font-size: 20px; line-height: 125%; color: #333333; font-weight: normal;">Your meeting on {{ meeting.startDate|date('d/m/Y') }} at {{ meeting.startDate|date('H:i') }} has been canceled.</h1>
                     {% endif %}
                 </td>
             </tr>
@@ -245,24 +245,26 @@
                 <td bgcolor="#ffffff" style="padding: 0 40px 40px; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555; text-align: center;">
                     {% if locale == 'fr' %}
                         <p style="margin: 0;">
-                            {{ content }}
+                            Le rendez-vous que vous aviez nommé "{{ meeting.name }}" avec la description suivante : <br/> {{ meeting.comment }} <br/> a été annulé par le client.<br/><br/>
+                            Il était prévu le {{ meeting.startDate|date('d/m/Y') }} à {{ meeting.startDate|date('H:i') }} avec le client {{ customer.firstName }} {{ customer.lastName }}.
                         </p>
                     {% else %}
                         <p style="margin: 0;">
-                            {{ content }}
+                            The meeting you named "{{ meeting.name }}" with the following description : <br/> {{ meeting.comment }} <br/>has been canceled by the customer.<br/><br/>
+                            It was planned on {{ meeting.startDate|date('d/m/Y') }} at {{ meeting.startDate|date('H:i') }} with the customer {{ customer.firstName }} {{ customer.lastName }}.
                         </p>
                     {% endif %}
                 </td>
             </tr>
 
 
-
             
             <tr>
                 <td bgcolor="#ffffff" style="padding: 5px 40px 40px; font-family: sans-serif; font-size: 11px; line-height: 140%; color: #555555; text-align: center;">
-                    <center><br/>{% if locale == 'fr' %}La (d)Rime Team{% else %}The (d)Rime Team{% endif %}</center>
+                    <center><br/>{% if locale == 'fr' %}Notification du backOffice RA.{% else %}RA Back Office Notification.{% endif %}</center>
                 </td>
             </tr>
+            
             <!-- 1 Column Text + Button : END -->
 
             <!-- Background Image with Text : BEGIN -->

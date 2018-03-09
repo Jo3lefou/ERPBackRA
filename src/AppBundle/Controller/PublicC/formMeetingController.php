@@ -115,21 +115,35 @@ class formMeetingController extends Controller
 
     /**
      *
-     * @Route("/public/{_locale}/meeting/cancel/{meeting}/{customer}", name="meetingcancel")
+     * @Route("/public/{_locale}/meeting/cancel/{meetingid}/{customerid}", name="meetingcancel")
      *
     */
-    public function cancelAction($customer = '', $meeting = '')
+    public function cancelAction(Request $request, $customerid = '', $meetingid = '')
     {
-        return $this->render('meeting/report.html.twig', array(
-                'h1' => $this->get('translator')->trans('Report'),
-                'p1h2' => $this->get('translator')->trans('View your reports'),
-                'p1h3' => $this->get('translator')->trans('Real time data'),
-                'p2h2' => $this->get('translator')->trans('Utilisation'),
-                'p2h3' => $this->get('translator')->trans('Get number of meetings'),
-                'p3h2' => $this->get('translator')->trans('Conversion'),
-                'p3h3' => $this->get('translator')->trans('How can you convert visitors'),
-                'title' => ' | '.$this->get('translator')->trans('Repport on meeting'),
-                'h1title' => $this->get('translator')->trans('Calendar'),
+        $locale = $request->getLocale();
+        $em = $this->getDoctrine()->getManager();
+        $customer = $em->getRepository('AppBundle:RarCustomer')->find($customerid);
+        $meeting = $em->getRepository('AppBundle:RarMeeting')->find($meetingid);
+        $location = $meeting->getLocation();
+
+        $dql = 'SELECT c FROM AppBundle:RarCustomer c INNER JOIN c.meetings m WHERE m.id = '.$meetingid.' AND c.id = '.$customerid.' AND m.state = 0';
+        $query = $em->createQuery($dql);
+        $allow = $query->getResult();
+
+        $yes=0;$error='';$already='';
+        if($allow){
+            $yes = 1;
+        }else{
+            $error = 'You are not allowed to access to that page...';
+        }
+
+        return $this->render('publicform/cancelation.html.twig', array(
+                'locale' => $locale,
+                'title' => ' | '.$this->get('translator')->trans('Confirm your cancelation...'),
+                'customer' => $customer,
+                'meeting' => $meeting,
+                'location' => $location,
+                'error' => $error,
             )
         );
     }
@@ -139,8 +153,9 @@ class formMeetingController extends Controller
      * @Route("/public/{_locale}/meeting/formvalid/{meetingid}/{customerid}", name="formvalid")
      *
     */
-    public function formvalidAction($customerid = '', $meetingid = '')
+    public function formvalidAction(Request $request, $customerid = '', $meetingid = '')
     {
+        $locale = $request->getLocale();
         $em = $this->getDoctrine()->getManager();
         $customer = $em->getRepository('AppBundle:RarCustomer')->find($customerid);
         $meeting = $em->getRepository('AppBundle:RarMeeting')->find($meetingid);
@@ -159,7 +174,99 @@ class formMeetingController extends Controller
                 'customer' => $customer,
                 'meeting' => $meeting,
                 'location' => $location,
-                'error' => ''
+                'error' => '',
+                'state' => 'valid'
+            )
+        );
+    }
+
+    /**
+     *
+     * @Route("/public/{_locale}/meeting/formcancel/{meetingid}/{customerid}", name="formcancel")
+     *
+    */
+    public function formcancelAction(Request $request, $customerid = '', $meetingid = '')
+    {
+        $locale = $request->getLocale();
+        $em = $this->getDoctrine()->getManager();
+        $customer = $em->getRepository('AppBundle:RarCustomer')->find($customerid);
+        $meeting = $em->getRepository('AppBundle:RarMeeting')->find($meetingid);
+        $location = $meeting->getLocation();
+        $sale = $meeting->getSale();
+
+        $dql = 'SELECT c FROM AppBundle:RarCustomer c INNER JOIN c.meetings m WHERE m.id = '.$meetingid.' AND c.id = '.$customerid.' AND m.state = 0';
+        $query = $em->createQuery($dql);
+        $allow = $query->getResult();
+
+        $yes=0;$error='';$already='';
+        if($allow){
+            $yes = 1;
+            $meeting->setState('2');
+            $em->persist($meeting);
+            $em->flush();
+
+            // SEND A NOTIFICATION TO THE SALE
+
+            $saleEmail = $sale->getEmail();
+            $saleLocale = $sale->getLocale();
+            // ****** NOTIFICATION EMAIL ******* //
+            $message = (new \Swift_Message('RA - Notification : Meeting Canceled.'))
+                ->setFrom('notification@rime-arodaky.com')
+                ->setTo($saleEmail)
+                ->setContentType("text/html")
+                ->setBody(
+                    $this->renderView( 'email/cancelationMeetingSale.html.twig',
+                    array('locale' => $saleLocale, 'meeting' => $meeting, 'customer' => $customer ) )
+                );
+            $mailer->send($message);
+            // ****** NOTIFICATION EMAIL ******* //
+
+
+            // SEND A CONFIRMATION TO THE CUSTOMER
+            $startTime = $meeting->getStartDate();
+            $startEmailDate = $startTime->format('d/m/Y');
+            $startEmailTime = $startTime->format('H:i');
+
+            $customer = $meeting->getCustomer();
+            $dataCusEmail = $customer->getEmail();
+            $dataCusLang = $customer->getLocale();
+            $configuration = $sale->getConfiguration();
+            if($dataCusLang == 'fr'){
+                $content = $configuration->getEmailRdvCancelation();
+                $subject = 'Rime Arodaky - Annulation de votre rendez-vous';
+            }else if($dataCusLang == 'fr'){
+                $content = $configuration->getEmailRdvCancelationEn();
+                $subject = 'Rime Arodaky - Meeting cancelation';
+            }
+
+            // ****** NOTIFICATION EMAIL ******* //
+            $message = (new \Swift_Message($subject))
+                ->setFrom('notification@rime-arodaky.com')
+                ->setTo($dataCusEmail)
+                ->setContentType("text/html")
+                ->setBody(
+                    $this->renderView( 'email/cancelationMeeting.html.twig',
+                    array('locale' => $dataCusLang, 'meeting' => $meeting, 'customer' => $customer, 'content' => $content, 'date' => $startEmailDate, 'time' => $startEmailTime) )
+                );
+            $mailer->send($message);
+            // ****** NOTIFICATION EMAIL ******* //
+
+
+        }else{
+            $error = 'You are not allowed to access to that page...';
+        }
+
+        
+        // Change Status of the meeting
+        
+        return $this->render('publicform/valid.html.twig', array(
+                'locale' => $locale,
+                'title' => ' | '.$this->get('translator')->trans('Your meeting has been canceled'),
+                'customer' => $customer,
+                'meeting' => $meeting,
+                'location' => $location,
+                'error' => '',
+                'state' => 'cancel'
             )
         );
     }

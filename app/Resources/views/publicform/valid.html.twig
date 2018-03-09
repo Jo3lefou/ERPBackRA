@@ -3,15 +3,28 @@
 {% block title %}Rime Arodaky - Mieux vous connaitre...{% endblock %}
 
 {% block body %}
-			<div class="alert alert-success" role="alert">
-        <strong>Super !</strong> Ça a fonctionné.
+
+        {% if state == 'valid' %}
+		<div class="alert alert-success" role="alert">
+            <strong>Super !</strong> Ça a fonctionné.
         </div>
 			<p style="margin-top:30px;">Merci {{ customer.firstName }}&nbsp;! Nous avons bien pris en compte vos souhaits.<br/>
         Nous vous attendons donc le {{ meeting.startDate|date('d/m/Y \\à h:i')}} au {{ location.name }} ({{ location.address}}, {{location.zipCode}} {{location.city}}). À très très vite&nbsp;!
         <br/>
         <br/>
 				La (D)Rime Team.
-      </p>
+        </p>
+        {% elseif state == 'cancel' %}
+        <div class="alert alert-info" role="alert">
+            <strong>C'est noté !</strong>
+        </div>
+            <p style="margin-top:30px;">Merci {{ customer.firstName }}&nbsp;! Nous avons bien pris en compte vos souhaits.<br/>
+        Nous vous avons donc annulé le rendez-vous du {{ meeting.startDate|date('d/m/Y \\à h:i')}} au {{ location.name }}. Nous espérons tout de même vous voir très rapidement&nbsp;!
+        <br/>
+        <br/>
+                La (D)Rime Team.
+        </p>
+        {% endif %}
 			
 		<div class="text-center">
 			<a class="btn btn-default black" href="" style="display:inline-block">Site web</a>
