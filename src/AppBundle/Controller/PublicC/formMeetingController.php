@@ -185,7 +185,7 @@ class formMeetingController extends Controller
      * @Route("/public/{_locale}/meeting/formcancel/{meetingid}/{customerid}", name="formcancel")
      *
     */
-    public function formcancelAction(Request $request, $customerid = '', $meetingid = '')
+    public function formcancelAction(Request $request, $customerid = '', $meetingid = '', \Swift_Mailer $mailer)
     {
         $locale = $request->getLocale();
         $em = $this->getDoctrine()->getManager();

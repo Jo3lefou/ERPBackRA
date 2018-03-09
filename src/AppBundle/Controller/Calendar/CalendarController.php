@@ -126,7 +126,7 @@ class CalendarController extends Controller
                     'p2h3' => $this->get('translator')->trans(''),
                     'p3h2' => $this->get('translator')->trans(''),
                     'p3h3' => $this->get('translator')->trans(''),
-                    'title' => ' | '.$this->get('translator')->trans('Order'),
+                    'title' => ' | '.$this->get('translator')->trans('Calendar'),
                     'h1title' => $this->get('translator')->trans('Calendar'),
                     'bodyClass' => 'nav-md',
                     'user' => $user,
